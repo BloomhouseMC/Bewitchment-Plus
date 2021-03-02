@@ -2,7 +2,7 @@ package net.bewitchmentplus;
 
 import net.fabricmc.api.ModInitializer;
 
-public class BewitchmentPlusMod implements ModInitializer {
+public class BewitchmentPlus implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
