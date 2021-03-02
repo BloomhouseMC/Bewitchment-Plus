@@ -1,4 +1,4 @@
-package net.bewitchmentplus.example.mixin;
+package net.bewitchmentplus.mixin;
 
 import net.minecraft.client.gui.screen.TitleScreen;
 import org.spongepowered.asm.mixin.Mixin;
