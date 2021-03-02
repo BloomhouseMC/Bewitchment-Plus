@@ -43,6 +43,10 @@ repositories {
         name = "patchouli"
         url = "https://maven.blamejared.com"
     }
+	maven {
+		name = "mod menu"
+		url =  "https://maven.terraformersmc.com/releases"
+	}	
     maven {
         name = "somnus"
         url = "https://maven.theillusivec4.top"
@@ -70,6 +74,8 @@ dependencies {
 
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-api:${project.rei_version}"
     modRuntime "me.shedaniel:RoughlyEnoughItems:${project.rei_version}"
+	modImplementation "curse.maven:bewitchment-394915:${project.bewitchment_version}"
+	modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
 }
 
 processResources {
