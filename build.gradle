@@ -51,6 +51,9 @@ repositories {
         name = "somnus"
         url = "https://maven.theillusivec4.top"
     }
+    maven { 
+    url 'https://repo.repsy.io/mvn/gandiber/geckolib' 
+    }  
 }
 
 dependencies {
@@ -76,6 +79,7 @@ dependencies {
     modRuntime "me.shedaniel:RoughlyEnoughItems:${project.rei_version}"
     modImplementation "curse.maven:bewitchment-394915:${project.bewitchment_version}"
     modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
+    modImplementation 'software.bernie.geckolib:geckolib-fabric-1.16.5:3.0.23:dev'
 }
 
 processResources {
