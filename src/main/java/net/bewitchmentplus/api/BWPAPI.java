@@ -2,7 +2,7 @@ package net.bewitchmentplus.api;
 
 import net.minecraft.entity.EntityGroup;
 
-public class BWAPI {
+public class BWPAPI {
 
 	@SuppressWarnings("InstantiationOfUtilityClass")
 	public static final EntityGroup ANGEL = new EntityGroup();
