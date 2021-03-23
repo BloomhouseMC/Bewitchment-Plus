@@ -42,7 +42,7 @@ repositories {
     maven {
         name "player ability lib, impersonate"
         url "https://dl.bintray.com/ladysnake/libs"
-    }	
+    }
     maven {
         name = "patchouli"
         url = "https://maven.blamejared.com"
@@ -57,7 +57,7 @@ repositories {
         content {
             includeGroup "com.jamieswhiteshirt"
         }
-    }	
+    }
     maven {
         name = "mod menu"
         url = "https://maven.terraformersmc.com/releases"
@@ -66,9 +66,9 @@ repositories {
         name = "somnus"
         url = "https://maven.theillusivec4.top"
     }
-    maven { 
-    url 'https://repo.repsy.io/mvn/gandiber/geckolib' 
-    }  
+    maven {
+        url 'https://repo.repsy.io/mvn/gandiber/geckolib'
+    }
 }
 
 dependencies {
@@ -85,8 +85,8 @@ dependencies {
         exclude(group: "net.fabricmc.fabric-api")
     }
     modImplementation("com.github.virtuoel:pehkui:${project.pehkui_version}") {
-		exclude(group: "net.fabricmc.fabric-api")
-	}
+        exclude(group: "net.fabricmc.fabric-api")
+    }
     modImplementation "top.theillusivec4.somnus:somnus-fabric:${project.somnus_version}"
     modImplementation "io.github.ladysnake:Impersonate:${impersonate_version}"
     modImplementation "vazkii.patchouli:Patchouli:${project.patchouli_version}"
@@ -99,11 +99,11 @@ dependencies {
     modImplementation 'software.bernie.geckolib:geckolib-fabric-1.16.5:3.0.23:dev'
     modImplementation "io.github.emilyalexandra:nourish:${nourish_version}"
     modImplementation "io.github.ladysnake:requiem-api:${requiem_version}"
-    modRuntime "io.github.ladysnake:requiem:${requiem_version}"	
-	modImplementation "com.github.emilyploszaj:step-height-entity-attribute:${step_height_version}"
+    modRuntime "io.github.ladysnake:requiem:${requiem_version}"
+    modImplementation "com.github.emilyploszaj:step-height-entity-attribute:${step_height_version}"
     include "com.github.emilyploszaj:step-height-entity-attribute:${step_height_version}"
-	modImplementation "io.github.ladysnake:PlayerAbilityLib:${pal_version}"
-	
+    modImplementation "io.github.ladysnake:PlayerAbilityLib:${pal_version}"
+
 }
 
 processResources {
