@@ -69,6 +69,9 @@ dependencies {
     modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
+    modImplementation("com.github.virtuoel:pehkui:${project.pehkui_version}") {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
     modImplementation "top.theillusivec4.somnus:somnus-fabric:${project.somnus_version}"
     modImplementation "curse.maven:Pehkui-319596:${project.pehkui_version}"
     modImplementation "io.github.ladysnake:Impersonate:${impersonate_version}"
