@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "bwplus",
   "version": "${version}",
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Bewitchment Plus",
+  "description": "Boilerplate for various BW addons",
   "authors": [
-	"Me!"
+	"Sunconure11"
   ],
   "contact": {
 	"homepage": "https://fabricmc.net/",
