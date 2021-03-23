@@ -69,6 +69,41 @@ repositories {
     maven {
         url 'https://repo.repsy.io/mvn/gandiber/geckolib'
     }
+    maven {
+        name "terraform wood api, trinkets"
+        url "https://maven.terraformersmc.com"
+    }
+    maven {
+        name "reach entity attributes"
+        url "https://maven.jamieswhiteshirt.com/libs-release"
+        content {
+            includeGroup "com.jamieswhiteshirt"
+        }
+    }
+    maven {
+        name "player ability lib, impersonate"
+        url "https://dl.bintray.com/ladysnake/libs"
+    }
+    maven {
+        name "cloth config, roughly enough items"
+        url "https://maven.shedaniel.me"
+    }
+    maven {
+        name "somnus"
+        url "https://maven.theillusivec4.top"
+    }
+    maven {
+        name "patchouli"
+        url "https://maven.blamejared.com"
+    }
+    maven {
+        name "trinkets"
+        url "https://maven.abusedmaster.xyz"
+    }
+    maven {
+        name "jitpack"
+        url "https://jitpack.io"
+    }
 }
 
 dependencies {
