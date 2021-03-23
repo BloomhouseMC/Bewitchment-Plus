@@ -40,6 +40,10 @@ repositories {
         url = "https://maven.shedaniel.me/"
     }
     maven {
+        name "player ability lib, impersonate"
+        url "https://dl.bintray.com/ladysnake/libs"
+    }	
+    maven {
         name = "patchouli"
         url = "https://maven.blamejared.com"
     }
