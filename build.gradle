@@ -127,9 +127,10 @@ dependencies {
     modImplementation "vazkii.patchouli:Patchouli:${project.patchouli_version}"
     modImplementation "com.github.emilyalexandra:trinkets:${trinkets_version}"
 
+	include 'com.github.Um-Mitternacht:BWLOGIC:-SNAPSHOT'
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-api:${project.rei_version}"
     modRuntime "me.shedaniel:RoughlyEnoughItems:${project.rei_version}"
-    modImplementation "curse.maven:bewitchment-394915:${project.bewitchment_version}"
+	modImplementation 'com.github.MoriyaShiine:bewitchment:-SNAPSHOT'
     modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
     modImplementation 'software.bernie.geckolib:geckolib-fabric-1.16.5:3.0.23:dev'
     modImplementation "io.github.emilyalexandra:nourish:${nourish_version}"
