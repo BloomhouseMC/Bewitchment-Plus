@@ -15,6 +15,7 @@ import net.minecraft.world.World;
 public class DrudenEntity extends BWHostileEntity {
 	public DrudenEntity(EntityType<? extends HostileEntity> entityType, World world) {
 		super(entityType, world);
+		experiencePoints = 5;
 	}
 
 	public static DefaultAttributeContainer.Builder createAttributes() {
