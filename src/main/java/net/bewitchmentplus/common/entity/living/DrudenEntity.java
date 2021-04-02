@@ -27,7 +27,7 @@ public class DrudenEntity extends BWHostileEntity {
 		super(entityType, world);
 		this.setPathfindingPenalty(PathNodeType.DANGER_OTHER, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_OTHER, 0.0F);
-		this.setPathfindingPenalty(PathNodeType.DAMAGE_CACTUS, 0.0F);
+		this.setPathfindingPenalty(PathNodeType.DANGER_CACTUS, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_CACTUS, 0.0F);
 		experiencePoints = 5;
 	}
