@@ -36,6 +36,10 @@ public class DrudenEntity extends BWHostileEntity {
 		return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 25.00D).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 6.0D).add(EntityAttributes.GENERIC_ARMOR, 4.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.5D).add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 16.0D);
 	}
 
+	public boolean canHaveStatusEffect(StatusEffectInstance effect) {
+		return effect.getEffectType() == StatusEffects.SLOWNESS ? false : super.canHaveStatusEffect(effect);
+	}
+
 	public void tick() {
 		super.tick();
 		if (this.isOnFire())
