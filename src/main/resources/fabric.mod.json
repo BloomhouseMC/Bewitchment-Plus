@@ -17,6 +17,9 @@
   "entrypoints": {
 	"main": [
 	  "net.bewitchmentplus.BewitchmentPlus"
+	],
+	"client": [
+	  "net.bewitchmentplus.client.BewitchmentPlusClient"
 	]
   },
   "mixins": [
