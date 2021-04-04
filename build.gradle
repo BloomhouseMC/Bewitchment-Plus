@@ -104,7 +104,6 @@ dependencies {
     modRuntime "me.shedaniel:RoughlyEnoughItems:${project.rei_version}"
 	modImplementation 'com.github.MoriyaShiine:bewitchment:-SNAPSHOT'
     modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
-    modImplementation 'software.bernie.geckolib:geckolib-fabric-1.16.5:3.0.23:dev'
     modImplementation "io.github.emilyalexandra:nourish:${nourish_version}"
     modImplementation "com.github.emilyploszaj:step-height-entity-attribute:${step_height_version}"
     include "com.github.emilyploszaj:step-height-entity-attribute:${step_height_version}"
