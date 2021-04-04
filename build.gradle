@@ -11,99 +11,71 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
-    maven {
-        name = "jitpack"
-        url = "https://jitpack.io"
-    }
-    maven {
-        name = "pehkui"
-        url = "https://www.cursemaven.com"
-    }
-    maven {
-        name = "wood api"
-        url = "https://maven.terraformersmc.com/"
-    }
-    maven {
-        name = "reach"
-        url = "https://maven.jamieswhiteshirt.com/libs-release"
-    }
-    maven {
-        name = "somnus"
-        url = "https://maven.theillusivec4.top"
-    }
-    maven {
-        name = "cardinal"
-        url = "https://maven.abusedmaster.xyz/"
-    }
-    maven {
-        name = "cloth config"
-        url = "https://maven.shedaniel.me/"
-    }
-    maven {
-        name "player ability lib, impersonate"
-        url "https://dl.bintray.com/ladysnake/libs"
-    }
-    maven {
-        name = "patchouli"
-        url = "https://maven.blamejared.com"
-    }
+	maven {
+		name = "Bewitchment"
+		url = "https://www.cursemaven.com"
+	}
+	maven {
+		name = "wood api"
+		url = "https://maven.terraformersmc.com/"
+	}
+	maven {
+		name = "reach"
+		url = "https://maven.jamieswhiteshirt.com/libs-release"
+	}
+	maven {
+		name = "pal"
+		url = "https://dl.bintray.com/ladysnake/libs"
+	}
+	maven {
+		name = "somnus"
+		url = "https://maven.theillusivec4.top"
+	}
+	maven {
+		name = "cardinal"
+		url = "https://maven.abusedmaster.xyz/"
+	}
+	maven {
+		name = "cloth config"
+		url = "https://maven.shedaniel.me/"
+	}
+	maven {
+		name = "patchouli"
+		url = "https://maven.blamejared.com"
+	}
+	maven {
+		name = "Mod Menu"
+		url =  "https://maven.terraformersmc.com/releases"
+	}
+	maven {
+		name = "Conditional Crafting"
+		url = "https://ytg1234.github.io/maven"
+	}
+
+	maven {
+		name = "dblsaiko"
+		url = "https://maven.dblsaiko.net/"
+	}
+	maven {
+		name = "Cotton"
+		url = "http://server.bbkr.space:8081/artifactory/libs-release/"
+	}
+	maven {
+		name = "CurseForge"
+		url = "https://minecraft.curseforge.com/api/maven"
+	}
+
+	maven {
+		name = "jitpack"
+		url = "https://jitpack.io"
+	}
     maven {
         name "requiem"
         url "https://dl.bintray.com/ladysnake/mods"
     }
     maven {
-        name "reach entity attributes"
-        url "https://maven.jamieswhiteshirt.com/libs-release"
-        content {
-            includeGroup "com.jamieswhiteshirt"
-        }
-    }
-    maven {
-        name = "mod menu"
-        url = "https://maven.terraformersmc.com/releases"
-    }
-    maven {
-        name = "somnus"
-        url = "https://maven.theillusivec4.top"
-    }
-    maven {
         url 'https://repo.repsy.io/mvn/gandiber/geckolib'
-    }
-    maven {
-        name "terraform wood api, trinkets"
-        url "https://maven.terraformersmc.com"
-    }
-    maven {
-        name "reach entity attributes"
-        url "https://maven.jamieswhiteshirt.com/libs-release"
-        content {
-            includeGroup "com.jamieswhiteshirt"
-        }
-    }
-    maven {
-        name "player ability lib, impersonate"
-        url "https://dl.bintray.com/ladysnake/libs"
-    }
-    maven {
-        name "cloth config, roughly enough items"
-        url "https://maven.shedaniel.me"
-    }
-    maven {
-        name "somnus"
-        url "https://maven.theillusivec4.top"
-    }
-    maven {
-        name "patchouli"
-        url "https://maven.blamejared.com"
-    }
-    maven {
-        name "trinkets"
-        url "https://maven.abusedmaster.xyz"
-    }
-    maven {
-        name "jitpack"
-        url "https://jitpack.io"
-    }
+    }	
 }
 
 dependencies {
