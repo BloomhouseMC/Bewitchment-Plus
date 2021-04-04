@@ -3,7 +3,7 @@
   "id": "bwplus",
   "version": "${version}",
   "name": "Bewitchment Plus",
-  "description": "Boilerplate for various BW addons",
+  "description": "Lots of canned content in new life.",
   "authors": [
 	"Sunconure11"
   ],
@@ -16,11 +16,10 @@
   "environment": "*",
   "entrypoints": {
 	"main": [
-	  "net.fabricmc.example.ExampleMod"
+	  "net.bewitchmentplus.BewitchmentPlus"
 	]
   },
   "mixins": [
-	"modid.mixins.json"
   ],
   "depends": {
 	"fabricloader": ">=0.7.4",
