@@ -11,7 +11,7 @@ import java.util.List;
 @Config(name = BewitchmentPlus.MODID)
 public class BWPConfig implements ConfigData {
 	public final List<String> drudenBiomeCategories = Arrays.asList(Biome.Category.TAIGA.getName(), Biome.Category.FOREST.getName(), Biome.Category.SWAMP.getName());
-	public final int drudenWeight = 10;
+	public final int drudenWeight = 4;
 	public final int drudenMinGroupCount = 0;
-	public final int drudenMaxGroupCount = 4;
+	public final int drudenMaxGroupCount = 2;
 }
