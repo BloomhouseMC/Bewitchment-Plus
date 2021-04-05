@@ -79,7 +79,7 @@ public class DrudenEntity extends BWHostileEntity {
 		if (dataTracker.get(VARIANT) != 0) {
 			switch (world.getBiome(getBlockPos()).getCategory()) {
 				case FOREST:
-					dataTracker.set(VARIANT, random.nextInt(getVariants() - 1) + 1);
+					dataTracker.set(VARIANT, random.nextInt(getVariants() - 4) + 4);
 					break;
 				case TAIGA:
 					dataTracker.set(VARIANT, random.nextInt(getVariants() - 5) + 5);
@@ -91,7 +91,7 @@ public class DrudenEntity extends BWHostileEntity {
 					dataTracker.set(VARIANT, random.nextInt(getVariants() - 5) + 5);
 					break;
 				default:
-					dataTracker.set(VARIANT, random.nextInt(getVariants() - 1) + 1);
+					dataTracker.set(VARIANT, random.nextInt(getVariants() - 4) + 4);
 					break;
 			}
 		}
