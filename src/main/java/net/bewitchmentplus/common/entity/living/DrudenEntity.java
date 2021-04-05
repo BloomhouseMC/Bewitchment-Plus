@@ -82,13 +82,13 @@ public class DrudenEntity extends BWHostileEntity {
 					dataTracker.set(VARIANT, random.nextInt(getVariants() - 1) + 1);
 					break;
 				case TAIGA:
-					dataTracker.set(VARIANT, random.nextBoolean() ? 5 : 6);
+					dataTracker.set(VARIANT, random.nextInt(getVariants() - 5) + 5);
 					break;
 				case ICY:
-					dataTracker.set(VARIANT, random.nextBoolean() ? 7 : 8);
+					dataTracker.set(VARIANT, random.nextInt(getVariants() - 5) + 5);
 					break;
 				case SWAMP:
-					dataTracker.set(VARIANT, random.nextBoolean() ? 7 : 8);
+					dataTracker.set(VARIANT, random.nextInt(getVariants() - 5) + 5);
 					break;
 				default:
 					dataTracker.set(VARIANT, random.nextInt(getVariants() - 1) + 1);
