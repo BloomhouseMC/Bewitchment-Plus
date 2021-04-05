@@ -2,10 +2,7 @@ package net.bewitchmentplus.common.entity.living;
 
 import moriyashiine.bewitchment.api.BewitchmentAPI;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityGroup;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -17,7 +14,11 @@ import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("ALL")
 public class DrudenEntity extends BWHostileEntity {
@@ -34,6 +35,10 @@ public class DrudenEntity extends BWHostileEntity {
 
 	public static DefaultAttributeContainer.Builder createAttributes() {
 		return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 25.00D).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 6.0D).add(EntityAttributes.GENERIC_ARMOR, 4.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.5D).add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 16.0D);
+	}
+
+	public static int getVariantsStatic() {
+		return 9;
 	}
 
 	public boolean canHaveStatusEffect(StatusEffectInstance effect) {
@@ -69,6 +74,31 @@ public class DrudenEntity extends BWHostileEntity {
 	}
 
 	@Override
+	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable CompoundTag entityTag) {
+		EntityData data = super.initialize(world, difficulty, spawnReason, entityData, entityTag);
+		if (dataTracker.get(VARIANT) != 0) {
+			switch (world.getBiome(getBlockPos()).getCategory()) {
+				case FOREST:
+					dataTracker.set(VARIANT, random.nextInt(getVariants() - 1) + 1);
+					break;
+				case TAIGA:
+					dataTracker.set(VARIANT, random.nextBoolean() ? 5 : 6);
+					break;
+				case ICY:
+					dataTracker.set(VARIANT, random.nextBoolean() ? 7 : 8);
+					break;
+				case SWAMP:
+					dataTracker.set(VARIANT, random.nextBoolean() ? 7 : 8);
+					break;
+				default:
+					dataTracker.set(VARIANT, random.nextInt(getVariants() - 1) + 1);
+					break;
+			}
+		}
+		return data;
+	}
+
+	@Override
 	protected void initGoals() {
 		goalSelector.add(0, new SwimGoal(this));
 		goalSelector.add(1, new MeleeAttackGoal(this, 1, true));
@@ -90,6 +120,6 @@ public class DrudenEntity extends BWHostileEntity {
 
 	@Override
 	public int getVariants() {
-		return 9;
+		return getVariantsStatic();
 	}
 }
