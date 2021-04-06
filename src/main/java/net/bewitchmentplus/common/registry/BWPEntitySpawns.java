@@ -15,17 +15,17 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class BWPEntitySpawns {
-	private static final Map<ConfiguredFeature<?, ?>, Identifier> CONFIGURED_FEATURES = new LinkedHashMap<>();
+    private static final Map<ConfiguredFeature<?, ?>, Identifier> CONFIGURED_FEATURES = new LinkedHashMap<>();
 
-	private static final FeatureSize EMPTY_SIZE = new TwoLayersFeatureSize(0, 0, 0);
+    private static final FeatureSize EMPTY_SIZE = new TwoLayersFeatureSize(0, 0, 0);
 
-	private static <T extends FeatureConfig> ConfiguredFeature<T, ?> create(String name, ConfiguredFeature<T, ?> configuredFeature) {
-		CONFIGURED_FEATURES.put(configuredFeature, new Identifier(BewitchmentPlus.MODID, name));
-		return configuredFeature;
-	}
+    private static <T extends FeatureConfig> ConfiguredFeature<T, ?> create(String name, ConfiguredFeature<T, ?> configuredFeature) {
+        CONFIGURED_FEATURES.put(configuredFeature, new Identifier(BewitchmentPlus.MODID, name));
+        return configuredFeature;
+    }
 
-	public static void init() {
-		CONFIGURED_FEATURES.keySet().forEach(configuredFeature -> Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, CONFIGURED_FEATURES.get(configuredFeature), configuredFeature));
-		BiomeModifications.addSpawn(BiomeSelectors.foundInOverworld().and(context -> BewitchmentPlus.config.drudenBiomeCategories.contains(context.getBiome().getCategory().getName())), BWPEntityTypes.DRUDEN.getSpawnGroup(), BWPEntityTypes.DRUDEN, BewitchmentPlus.config.drudenWeight, BewitchmentPlus.config.drudenMinGroupCount, BewitchmentPlus.config.drudenMaxGroupCount);
-	}
+    public static void init() {
+        CONFIGURED_FEATURES.keySet().forEach(configuredFeature -> Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, CONFIGURED_FEATURES.get(configuredFeature), configuredFeature));
+        BiomeModifications.addSpawn(BiomeSelectors.foundInOverworld().and(context -> BewitchmentPlus.config.drudenBiomeCategories.contains(context.getBiome().getCategory().getName())), BWPEntityTypes.DRUDEN.getSpawnGroup(), BWPEntityTypes.DRUDEN, BewitchmentPlus.config.drudenWeight, BewitchmentPlus.config.drudenMinGroupCount, BewitchmentPlus.config.drudenMaxGroupCount);
+    }
 }
