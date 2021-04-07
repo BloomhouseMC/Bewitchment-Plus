@@ -13,10 +13,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 
 import static net.bewitchmentplus.api.BWPAPI.isHoldingSilver;
 
-
-@SuppressWarnings("ConstantConditions")
 @Mixin(BewitchmentAPI.class)
-public abstract class SilverMixin {
+public class SilverMixin {
 	@Inject(method = "isSourceFromSilver", at = @At("TAIL"))
 	private static boolean isSourceFromSilver(DamageSource source) {
 		Entity attacker = source.getSource();
