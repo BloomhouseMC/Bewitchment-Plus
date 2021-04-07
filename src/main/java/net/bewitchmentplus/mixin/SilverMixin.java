@@ -21,13 +21,4 @@ public class SilverMixin {
 	private static boolean isHoldingSilver(LivingEntity livingEntity, Hand hand) {
 		return BWPTags.SILVER_TOOLS.contains(livingEntity.getStackInHand(hand).getItem());
 	}
-
-	@Inject(method = "isSourceFromSilver", at = @At("TAIL"))
-	private static boolean isSourceFromSilver(DamageSource source) {
-		Entity attacker = source.getSource();
-		if (source instanceof EntityDamageSource && ((EntityDamageSource) source).isThorns()) {
-			return false;
-		}
-		return (attacker instanceof LivingEntity && isHoldingSilver((LivingEntity) attacker, Hand.MAIN_HAND)) || attacker instanceof SilverArrowEntity;
-	}
 }
