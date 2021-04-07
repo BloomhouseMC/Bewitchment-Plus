@@ -4,11 +4,12 @@
   "package": "net.bewitchmentplus.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-	"SilverMixin"
+    "SilverArmorMixin",
+    "SilverMixin"
   ],
   "client": [
   ],
   "injectors": {
-	"defaultRequire": 1
+    "defaultRequire": 1
   }
 }
