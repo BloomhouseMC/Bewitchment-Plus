@@ -20,17 +20,6 @@ public class BWPObjects {
 
 	public static final Item DRUDEN_SPAWN_EGG = create("druden_spawn_egg", new SpawnEggItem(BWPEntityTypes.DRUDEN, 0x006400, 0x989898, gen()));
 
-	public static final Item SILVER_SWORD = create("silver_sword", new SwordItem(BWMaterials.SILVER_TOOL, 3, -2.4f, gen()));
-	public static final Item SILVER_PICKAXE = create("silver_pickaxe", new BWPickaxeItem(BWMaterials.SILVER_TOOL, 1, -2.8f, gen()));
-	public static final Item SILVER_AXE = create("silver_axe", new BWAxeItem(BWMaterials.SILVER_TOOL, 6, -3, gen()));
-	public static final Item SILVER_SHOVEL = create("silver_shovel", new ShovelItem(BWMaterials.SILVER_TOOL, 1.5f, -2.8f, gen()));
-	public static final Item SILVER_HOE = create("silver_hoe", new BWHoeItem(BWMaterials.SILVER_TOOL, -2, -3, gen()));
-
-	public static final Item SILVER_HELMET = create("silver_helmet", new ArmorItem(BWPMaterials.SILVER_ARMOR, EquipmentSlot.HEAD, gen()));
-	public static final Item SILVER_CHESTPLATE = create("silver_chestplate", new ArmorItem(BWPMaterials.SILVER_ARMOR, EquipmentSlot.CHEST, gen()));
-	public static final Item SILVER_LEGGINGS = create("silver_leggings", new ArmorItem(BWPMaterials.SILVER_ARMOR, EquipmentSlot.LEGS, gen()));
-	public static final Item SILVER_BOOTS = create("silver_boots", new ArmorItem(BWPMaterials.SILVER_ARMOR, EquipmentSlot.FEET, gen()));
-
 	private static <T extends Block> T create(String name, T block, boolean createItem) {
 		BLOCKS.put(block, new Identifier(BewitchmentPlus.MODID, name));
 		if (createItem) {
