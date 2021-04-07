@@ -15,7 +15,7 @@ import static net.bewitchmentplus.api.BWPAPI.isHoldingSilver;
 
 @Mixin(BewitchmentAPI.class)
 public class SilverMixin {
-	@Inject(method = "isSourceFromSilver", at = @At("TAIL"))
+	@Inject(method = "isSourceFromSilver", at = @At("TAIL"), remap = false)
 	private static boolean isSourceFromSilver(DamageSource source) {
 		Entity attacker = source.getSource();
 		if (source instanceof EntityDamageSource && ((EntityDamageSource) source).isThorns()) {
