@@ -13,22 +13,22 @@ import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
 public class DrudenEntityRenderer extends MobEntityRenderer<DrudenEntity, DrudenEntityModel<DrudenEntity>> {
-    private static Identifier[] TEXTURES;
+	private static Identifier[] TEXTURES;
 
-    public DrudenEntityRenderer(EntityRenderDispatcher entityRenderDispatcher) {
-        super(entityRenderDispatcher, new DrudenEntityModel<>(), 0.5f);
-        addFeature(new HeldItemFeatureRenderer<>(this));
-    }
+	public DrudenEntityRenderer(EntityRenderDispatcher entityRenderDispatcher) {
+		super(entityRenderDispatcher, new DrudenEntityModel<>(), 0.5f);
+		addFeature(new HeldItemFeatureRenderer<>(this));
+	}
 
-    @Override
-    public Identifier getTexture(DrudenEntity entity) {
-        if (TEXTURES == null) {
-            int variants = entity.getVariants();
-            TEXTURES = new Identifier[variants];
-            for (int i = 0; i < variants; i++) {
-                TEXTURES[i] = new Identifier(BewitchmentPlus.MODID, "textures/entity/living/druden/" + i + ".png");
-            }
-        }
-        return TEXTURES[entity.getDataTracker().get(BWHostileEntity.VARIANT)];
-    }
+	@Override
+	public Identifier getTexture(DrudenEntity entity) {
+		if (TEXTURES == null) {
+			int variants = entity.getVariants();
+			TEXTURES = new Identifier[variants];
+			for (int i = 0; i < variants; i++) {
+				TEXTURES[i] = new Identifier(BewitchmentPlus.MODID, "textures/entity/living/druden/" + i + ".png");
+			}
+		}
+		return TEXTURES[entity.getDataTracker().get(BWHostileEntity.VARIANT)];
+	}
 }

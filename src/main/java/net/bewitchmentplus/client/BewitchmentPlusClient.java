@@ -6,8 +6,8 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 
 public class BewitchmentPlusClient implements ClientModInitializer {
-    @Override
-    public void onInitializeClient() {
-        EntityRendererRegistry.INSTANCE.register(BWPEntityTypes.DRUDEN, (entityRenderDispatcher, context) -> new DrudenEntityRenderer(entityRenderDispatcher));
-    }
+	@Override
+	public void onInitializeClient() {
+		EntityRendererRegistry.INSTANCE.register(BWPEntityTypes.DRUDEN, (entityRenderDispatcher, context) -> new DrudenEntityRenderer(entityRenderDispatcher));
+	}
 }

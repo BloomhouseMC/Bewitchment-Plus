@@ -22,104 +22,104 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("ALL")
 public class DrudenEntity extends BWHostileEntity {
-    public int attackTick = 0;
+	public int attackTick = 0;
 
-    public DrudenEntity(EntityType<? extends HostileEntity> entityType, World world) {
-        super(entityType, world);
-        this.setPathfindingPenalty(PathNodeType.DANGER_OTHER, 0.0F);
-        this.setPathfindingPenalty(PathNodeType.DAMAGE_OTHER, 0.0F);
-        this.setPathfindingPenalty(PathNodeType.DANGER_CACTUS, 0.0F);
-        this.setPathfindingPenalty(PathNodeType.DAMAGE_CACTUS, 0.0F);
-        experiencePoints = 5;
-    }
+	public DrudenEntity(EntityType<? extends HostileEntity> entityType, World world) {
+		super(entityType, world);
+		this.setPathfindingPenalty(PathNodeType.DANGER_OTHER, 0.0F);
+		this.setPathfindingPenalty(PathNodeType.DAMAGE_OTHER, 0.0F);
+		this.setPathfindingPenalty(PathNodeType.DANGER_CACTUS, 0.0F);
+		this.setPathfindingPenalty(PathNodeType.DAMAGE_CACTUS, 0.0F);
+		experiencePoints = 5;
+	}
 
-    public static DefaultAttributeContainer.Builder createAttributes() {
-        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 25.00D).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 6.0D).add(EntityAttributes.GENERIC_ARMOR, 4.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.5D).add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 16.0D);
-    }
+	public static DefaultAttributeContainer.Builder createAttributes() {
+		return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 25.00D).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 6.0D).add(EntityAttributes.GENERIC_ARMOR, 4.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.5D).add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 16.0D);
+	}
 
-    public static int getVariantsStatic() {
-        return 9;
-    }
+	public static int getVariantsStatic() {
+		return 9;
+	}
 
-    public boolean canHaveStatusEffect(StatusEffectInstance effect) {
-        return effect.getEffectType() == StatusEffects.SLOWNESS ? false : super.canHaveStatusEffect(effect);
-    }
+	public boolean canHaveStatusEffect(StatusEffectInstance effect) {
+		return effect.getEffectType() == StatusEffects.SLOWNESS ? false : super.canHaveStatusEffect(effect);
+	}
 
-    public void tick() {
-        super.tick();
-        if (this.isOnFire())
-            this.applyDamage(DamageSource.ON_FIRE, 6);
-    }
+	public void tick() {
+		super.tick();
+		if (this.isOnFire())
+			this.applyDamage(DamageSource.ON_FIRE, 6);
+	}
 
-    @Override
-    public boolean tryAttack(Entity target) {
-        boolean flag = super.tryAttack(target);
-        if (flag) {
-            toggleAttack(false);
-            if (target instanceof LivingEntity) {
-                ((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 100));
-            }
-        }
-        return flag;
-    }
+	@Override
+	public boolean tryAttack(Entity target) {
+		boolean flag = super.tryAttack(target);
+		if (flag) {
+			toggleAttack(false);
+			if (target instanceof LivingEntity) {
+				((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 100));
+			}
+		}
+		return flag;
+	}
 
-    public void toggleAttack(boolean attacking) {
-        if (attacking) {
-            attackTick = 11;
-            world.sendEntityStatus(this, (byte) 4);
-        } else {
-            attackTick = 2;
-            world.sendEntityStatus(this, (byte) 5);
-        }
-    }
+	public void toggleAttack(boolean attacking) {
+		if (attacking) {
+			attackTick = 11;
+			world.sendEntityStatus(this, (byte) 4);
+		} else {
+			attackTick = 2;
+			world.sendEntityStatus(this, (byte) 5);
+		}
+	}
 
-    @Override
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable CompoundTag entityTag) {
-        EntityData data = super.initialize(world, difficulty, spawnReason, entityData, entityTag);
-        if (dataTracker.get(VARIANT) != 0) {
-            switch (world.getBiome(getBlockPos()).getCategory()) {
-                case FOREST:
-                    dataTracker.set(VARIANT, random.nextInt(getVariants() - 4) + 4);
-                    break;
-                case TAIGA:
-                    dataTracker.set(VARIANT, random.nextInt(getVariants() - 5) + 5);
-                    break;
-                case ICY:
-                    dataTracker.set(VARIANT, random.nextInt(getVariants() - 5) + 5);
-                    break;
-                case SWAMP:
-                    dataTracker.set(VARIANT, random.nextInt(getVariants() - 5) + 5);
-                    break;
-                default:
-                    dataTracker.set(VARIANT, random.nextInt(getVariants() - 4) + 4);
-                    break;
-            }
-        }
-        return data;
-    }
+	@Override
+	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable CompoundTag entityTag) {
+		EntityData data = super.initialize(world, difficulty, spawnReason, entityData, entityTag);
+		if (dataTracker.get(VARIANT) != 0) {
+			switch (world.getBiome(getBlockPos()).getCategory()) {
+				case FOREST:
+					dataTracker.set(VARIANT, random.nextInt(getVariants() - 4) + 4);
+					break;
+				case TAIGA:
+					dataTracker.set(VARIANT, random.nextInt(getVariants() - 5) + 5);
+					break;
+				case ICY:
+					dataTracker.set(VARIANT, random.nextInt(getVariants() - 5) + 5);
+					break;
+				case SWAMP:
+					dataTracker.set(VARIANT, random.nextInt(getVariants() - 5) + 5);
+					break;
+				default:
+					dataTracker.set(VARIANT, random.nextInt(getVariants() - 4) + 4);
+					break;
+			}
+		}
+		return data;
+	}
 
-    @Override
-    protected void initGoals() {
-        goalSelector.add(0, new SwimGoal(this));
-        goalSelector.add(1, new MeleeAttackGoal(this, 1, true));
-        goalSelector.add(2, new WanderAroundFarGoal(this, 1));
-        goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8));
-        goalSelector.add(3, new LookAroundGoal(this));
-        targetSelector.add(0, new RevengeGoal(this));
-        targetSelector.add(1, new FollowTargetGoal<>(this, LivingEntity.class, 10, true, false, entity -> entity instanceof PlayerEntity || entity instanceof MerchantEntity || entity.getGroup() == EntityGroup.ILLAGER));
-    }
+	@Override
+	protected void initGoals() {
+		goalSelector.add(0, new SwimGoal(this));
+		goalSelector.add(1, new MeleeAttackGoal(this, 1, true));
+		goalSelector.add(2, new WanderAroundFarGoal(this, 1));
+		goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8));
+		goalSelector.add(3, new LookAroundGoal(this));
+		targetSelector.add(0, new RevengeGoal(this));
+		targetSelector.add(1, new FollowTargetGoal<>(this, LivingEntity.class, 10, true, false, entity -> entity instanceof PlayerEntity || entity instanceof MerchantEntity || entity.getGroup() == EntityGroup.ILLAGER));
+	}
 
-    @Override
-    protected boolean hasShiny() {
-        return true;
-    }
+	@Override
+	protected boolean hasShiny() {
+		return true;
+	}
 
-    public EntityGroup getGroup() {
-        return BewitchmentAPI.DEMON;
-    }
+	public EntityGroup getGroup() {
+		return BewitchmentAPI.DEMON;
+	}
 
-    @Override
-    public int getVariants() {
-        return getVariantsStatic();
-    }
+	@Override
+	public int getVariants() {
+		return getVariantsStatic();
+	}
 }

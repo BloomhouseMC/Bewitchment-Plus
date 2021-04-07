@@ -8,7 +8,7 @@ import net.minecraft.util.Identifier;
 
 public class BWPTags {
 
-    public static final Tag<Item> SILVER_ARMOR = TagRegistry.item(new Identifier(BewitchmentPlus.MODID, "silver_armor"));
-    public static final Tag<Item> SILVER_TOOLS = TagRegistry.item(new Identifier(BewitchmentPlus.MODID, "silver_tools"));
+	public static final Tag<Item> SILVER_ARMOR = TagRegistry.item(new Identifier(BewitchmentPlus.MODID, "silver_armor"));
+	public static final Tag<Item> SILVER_TOOLS = TagRegistry.item(new Identifier(BewitchmentPlus.MODID, "silver_tools"));
 
 }

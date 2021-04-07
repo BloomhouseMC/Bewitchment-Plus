@@ -13,22 +13,22 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class BWPEntityTypes {
-    private static final Map<EntityType<?>, Identifier> ENTITY_TYPES = new LinkedHashMap<>();
+	private static final Map<EntityType<?>, Identifier> ENTITY_TYPES = new LinkedHashMap<>();
 
-    public static final EntityType<DrudenEntity> DRUDEN = create("druden", DrudenEntity.createAttributes(), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, DrudenEntity::new).dimensions(EntityDimensions.changing(0.75f, 3f)).build());
+	public static final EntityType<DrudenEntity> DRUDEN = create("druden", DrudenEntity.createAttributes(), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, DrudenEntity::new).dimensions(EntityDimensions.changing(0.75f, 3f)).build());
 
-    private static <T extends LivingEntity> EntityType<T> create(String name, DefaultAttributeContainer.Builder attributes, EntityType<T> type) {
-        FabricDefaultAttributeRegistry.register(type, attributes);
-        ENTITY_TYPES.put(type, new Identifier(BewitchmentPlus.MODID, name));
-        return type;
-    }
+	private static <T extends LivingEntity> EntityType<T> create(String name, DefaultAttributeContainer.Builder attributes, EntityType<T> type) {
+		FabricDefaultAttributeRegistry.register(type, attributes);
+		ENTITY_TYPES.put(type, new Identifier(BewitchmentPlus.MODID, name));
+		return type;
+	}
 
-    private static <T extends Entity> EntityType<T> create(String name, EntityType<T> type) {
-        ENTITY_TYPES.put(type, new Identifier(BewitchmentPlus.MODID, name));
-        return type;
-    }
+	private static <T extends Entity> EntityType<T> create(String name, EntityType<T> type) {
+		ENTITY_TYPES.put(type, new Identifier(BewitchmentPlus.MODID, name));
+		return type;
+	}
 
-    public static void init() {
-        ENTITY_TYPES.keySet().forEach(entityType -> Registry.register(Registry.ENTITY_TYPE, ENTITY_TYPES.get(entityType), entityType));
-    }
+	public static void init() {
+		ENTITY_TYPES.keySet().forEach(entityType -> Registry.register(Registry.ENTITY_TYPE, ENTITY_TYPES.get(entityType), entityType));
+	}
 }
