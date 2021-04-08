@@ -1,16 +1,19 @@
 package net.bewitchmentplus.mixin;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import moriyashiine.bewitchment.common.entity.living.HerneEntity;
 import moriyashiine.bewitchment.common.registry.BWEntityTypes;
 import net.bewitchmentplus.common.registry.BWPEntityTypes;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Util;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 
+import java.util.List;
 import java.util.Set;
 
 @SuppressWarnings("ALL")
@@ -31,3 +34,4 @@ public class HerneSummonMixin {
 		return SUMMONS;
 	}
 }
+
