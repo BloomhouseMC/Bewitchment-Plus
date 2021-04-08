@@ -4,6 +4,7 @@
   "package": "net.bewitchmentplus.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+	"HerneSummonMixin"
   ],
   "client": [
   ],
