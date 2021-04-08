@@ -6,7 +6,6 @@ import moriyashiine.bewitchment.common.registry.BWEntityTypes;
 import net.bewitchmentplus.common.entity.living.DrudenEntity;
 import net.bewitchmentplus.common.registry.BWPEntityTypes;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -24,17 +23,14 @@ public abstract class HerneMultiSummon extends HerneEntity {
 	}
 
 	@Inject(method = "getMinionType", at = @At("HEAD"), remap = false, cancellable = true)
-	public EntityType<?> getMinionType(CallbackInfoReturnable<Boolean> callbackInfo) {
+	public void getMinionType(CallbackInfoReturnable<Boolean> callbackInfo) {
 		Random random = new Random();
-		callbackInfo.setReturnValue(true);
 		if (random.nextBoolean()) {
 			DrudenEntity entity = BWPEntityTypes.DRUDEN.create(world);
 			callbackInfo.setReturnValue(true);
-		}
-		else if (random.nextBoolean()) {
+		} else {
 			WerewolfEntity entity = BWEntityTypes.WEREWOLF.create(world);
 			callbackInfo.setReturnValue(true);
 		}
-		return null;
 	}
 }

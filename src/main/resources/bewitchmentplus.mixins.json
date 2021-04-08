@@ -4,11 +4,11 @@
   "package": "net.bewitchmentplus.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "HerneMultiSummon"
+	"HerneMultiSummon"
   ],
   "client": [
   ],
   "injectors": {
-    "defaultRequire": 1
+	"defaultRequire": 1
   }
 }
