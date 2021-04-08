@@ -10,6 +10,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Util;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 
@@ -20,6 +21,7 @@ import java.util.Set;
 @Mixin(HerneEntity.class)
 public class HerneSummonMixin {
 
+	@Unique
 	private static final Set<EntityType<net.minecraft.entity.Entity>> SUMMONS;
 
 	static {
