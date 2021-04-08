@@ -1,13 +1,10 @@
 package net.bewitchmentplus.common.registry;
 
-import moriyashiine.bewitchment.common.item.util.BWAxeItem;
-import moriyashiine.bewitchment.common.item.util.BWHoeItem;
-import moriyashiine.bewitchment.common.item.util.BWPickaxeItem;
-import moriyashiine.bewitchment.common.registry.BWMaterials;
 import net.bewitchmentplus.BewitchmentPlus;
 import net.minecraft.block.Block;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.*;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.SpawnEggItem;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
