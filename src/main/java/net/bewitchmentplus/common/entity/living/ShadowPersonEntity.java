@@ -8,4 +8,9 @@ public class ShadowPersonEntity {
 	public EntityGroup getGroup() {
 		return BewitchmentAPI.DEMON;
 	}
+
+	@Override
+	protected boolean hasShiny() {
+		return true;
+	}
 }
