@@ -9,7 +9,6 @@ public class ShadowPersonEntity {
 		return BewitchmentAPI.DEMON;
 	}
 
-	@Override
 	protected boolean hasShiny() {
 		return true;
 	}

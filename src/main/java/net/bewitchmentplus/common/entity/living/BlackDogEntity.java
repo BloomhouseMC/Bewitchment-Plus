@@ -8,7 +8,6 @@ public class BlackDogEntity {
 		return EntityGroup.UNDEAD;
 	}
 
-	@Override
 	protected boolean hasShiny() {
 		return true;
 	}

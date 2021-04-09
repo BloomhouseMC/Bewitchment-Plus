@@ -8,7 +8,7 @@ public class VengefulGhostEntity {
 		return EntityGroup.UNDEAD;
 	}
 
-	@Override
+
 	protected boolean hasShiny() {
 		return true;
 	}

@@ -9,7 +9,6 @@ public class IncubusEntity {
 		return BewitchmentAPI.DEMON;
 	}
 
-	@Override
 	protected boolean hasShiny() {
 		return true;
 	}
