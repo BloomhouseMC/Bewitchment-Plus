@@ -8,9 +8,12 @@ import net.bewitchmentplus.common.entity.living.DrudenEntity;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
+import net.minecraft.client.render.entity.model.ModelWithArms;
+import net.minecraft.client.render.entity.model.ModelWithHead;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Arm;
 
-public class DrudenEntityModel<T extends DrudenEntity> extends BipedEntityModel<T> {
+public class DrudenEntityModel<T extends DrudenEntity> extends BipedEntityModel<T> implements ModelWithArms, ModelWithHead {
 	private final ModelPart body;
 	private final ModelPart boobs;
 	private final ModelPart stomach;
@@ -504,6 +507,11 @@ public class DrudenEntityModel<T extends DrudenEntity> extends BipedEntityModel<
 		bone.pitch = x;
 		bone.yaw = y;
 		bone.roll = z;
+	}
+
+	@Override
+	public void setArmAngle(Arm arm, MatrixStack matrices) {
+		super.setArmAngle(arm, matrices);
 	}
 
 	private void copyRotation(ModelPart to, ModelPart from) {
