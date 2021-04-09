@@ -14,11 +14,15 @@ import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Random;
 
 @SuppressWarnings("ALL")
 public class DrudenEntity extends BWHostileEntity {
@@ -76,24 +80,30 @@ public class DrudenEntity extends BWHostileEntity {
 	@Override
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable CompoundTag entityTag) {
 		EntityData data = super.initialize(world, difficulty, spawnReason, entityData, entityTag);
-		if (dataTracker.get(VARIANT) != 0) {
-			switch (world.getBiome(getBlockPos()).getCategory()) {
-				case FOREST:
-					dataTracker.set(VARIANT, random.nextInt(getVariants() - 4) + 4);
-					break;
-				case TAIGA:
-					dataTracker.set(VARIANT, random.nextInt(getVariants() - 5) + 5);
-					break;
-				case ICY:
-					dataTracker.set(VARIANT, random.nextInt(getVariants() - 5) + 5);
-					break;
-				case SWAMP:
-					dataTracker.set(VARIANT, random.nextInt(getVariants() - 5) + 5);
-					break;
-				default:
-					dataTracker.set(VARIANT, random.nextInt(getVariants() - 4) + 4);
-					break;
+		Random rand = new Random();
+		int i = rand.nextInt(6);
+		if (i == 3) {
+			this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_AXE));
+			if (dataTracker.get(VARIANT) != 0) {
+				switch (world.getBiome(getBlockPos()).getCategory()) {
+					case FOREST:
+						dataTracker.set(VARIANT, random.nextInt(getVariants() - 4) + 4);
+						break;
+					case TAIGA:
+						dataTracker.set(VARIANT, random.nextInt(getVariants() - 5) + 5);
+						break;
+					case ICY:
+						dataTracker.set(VARIANT, random.nextInt(getVariants() - 5) + 5);
+						break;
+					case SWAMP:
+						dataTracker.set(VARIANT, random.nextInt(getVariants() - 5) + 5);
+						break;
+					default:
+						dataTracker.set(VARIANT, random.nextInt(getVariants() - 4) + 4);
+						break;
+				}
 			}
+			return data;
 		}
 		return data;
 	}
