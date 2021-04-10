@@ -514,6 +514,10 @@ public class DrudenEntityModel<T extends DrudenEntity> extends BipedEntityModel<
 		super.setArmAngle(arm, matrices);
 	}
 
+	protected ModelPart getArm(Arm arm) {
+		return arm == Arm.LEFT ? this.bipedLeftArm : this.bipedRightArm;
+	}
+
 	private void copyRotation(ModelPart to, ModelPart from) {
 		to.pitch = from.pitch;
 		to.yaw = from.yaw;
