@@ -41,7 +41,7 @@ import org.apache.logging.log4j.Logger;
 public class BewitchmentPlus implements ModInitializer {
 	public static final String MODID = "bwplus";
 	public static final Logger logger = LogManager.getLogger(MODID);
-	public static final ItemGroup BEWITCHMENT_PLUS_MOBS_GROUP = FabricItemGroupBuilder.build(new Identifier(MODID, MODID), () -> new ItemStack(Items.IRON_SWORD));
+	public static final ItemGroup BEWITCHMENT_PLUS_MOBS_GROUP = FabricItemGroupBuilder.build(new Identifier(MODID, MODID), () -> new ItemStack(BWPObjects.THYRSUS_ITEM));
 	public static BWPConfig config;
 
 	@Override
