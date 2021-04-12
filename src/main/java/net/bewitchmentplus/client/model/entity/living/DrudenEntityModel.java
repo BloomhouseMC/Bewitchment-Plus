@@ -512,7 +512,7 @@ public class DrudenEntityModel<T extends DrudenEntity> extends BipedEntityModel<
 	@Override
 	public void setArmAngle(Arm arm, MatrixStack matrices) {
 		super.setArmAngle(arm, matrices);
-		matrices.translate(0, 0.35, 0);
+		matrices.translate(0, 0.20, 0);
 	}
 
 	protected ModelPart getArm(Arm arm) {
