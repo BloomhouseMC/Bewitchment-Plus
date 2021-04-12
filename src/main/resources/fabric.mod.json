@@ -21,8 +21,18 @@
 	],
 	"client": [
 	  "net.bewitchmentplus.client.BewitchmentPlusClient"
+	],
+	"modmenu": [
+	  "net.bewitchmentplus.client.compat.BWPlusModMenu"
 	]
   },
+
+  "custom": {
+	"modmenu": {
+	  "parent": "bewitchment"
+	}
+  },
+
   "mixins": [
   ],
   "depends": {
