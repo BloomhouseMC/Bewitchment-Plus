@@ -7,6 +7,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterial;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 
@@ -23,13 +24,16 @@ public class ThyrsusItem extends SwordItem {
 			if (animalEntity.isAlive()) {
 				animalEntity.setLoveTicks(5000);
 				stack.setDamage(6);
+				user.playSound(SoundEvents.BLOCK_BAMBOO_HIT, 1, 1);
 			}
 			if (entity instanceof TameableEntity) {
 				TameableEntity tameableEntity = (TameableEntity) entity;
 				tameableEntity.setOwnerUuid(user.getUuid());
 				tameableEntity.setTamed(true);
 				stack.setDamage(12);
+				user.playSound(SoundEvents.BLOCK_BAMBOO_HIT, 1, 1);
 			}
-		} return ActionResult.SUCCESS;
+		}
+		return ActionResult.SUCCESS;
 	}
 }
