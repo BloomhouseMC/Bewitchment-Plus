@@ -1,6 +1,7 @@
 package net.bewitchmentplus.common.registry;
 
 import net.bewitchmentplus.BewitchmentPlus;
+import net.bewitchmentplus.common.entity.living.BlackDogEntity;
 import net.bewitchmentplus.common.entity.living.DrudenEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
@@ -16,6 +17,7 @@ public class BWPEntityTypes {
 	private static final Map<EntityType<?>, Identifier> ENTITY_TYPES = new LinkedHashMap<>();
 
 	public static final EntityType<DrudenEntity> DRUDEN = create("druden", DrudenEntity.createAttributes(), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, DrudenEntity::new).dimensions(EntityDimensions.changing(0.75f, 3f)).build());
+	public static final EntityType<BlackDogEntity> BLACK_DOG = create("black_dog", BlackDogEntity.createAttributes(), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, BlackDogEntity::new).dimensions(EntityDimensions.changing(0.75f, 3f)).build());
 
 	private static <T extends LivingEntity> EntityType<T> create(String name, DefaultAttributeContainer.Builder attributes, EntityType<T> type) {
 		FabricDefaultAttributeRegistry.register(type, attributes);
