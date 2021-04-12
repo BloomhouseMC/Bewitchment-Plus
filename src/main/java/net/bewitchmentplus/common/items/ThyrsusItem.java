@@ -40,7 +40,7 @@ public class ThyrsusItem extends SwordItem {
 				stack.setDamage(12);
 				return ActionResult.SUCCESS;
 			}
-		} else return null;
+		} else return ActionResult.FAIL;
 		return null;
 	}
 }
