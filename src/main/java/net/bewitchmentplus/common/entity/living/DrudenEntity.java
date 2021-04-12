@@ -17,6 +17,8 @@ import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -65,6 +67,16 @@ public class DrudenEntity extends BWHostileEntity {
 			}
 		}
 		return flag;
+	}
+
+	@Override
+	protected SoundEvent getDeathSound() {
+		return SoundEvents.BLOCK_BAMBOO_BREAK;
+	}
+
+	@Override
+	protected SoundEvent getHurtSound(DamageSource source) {
+		return SoundEvents.BLOCK_BAMBOO_HIT;
 	}
 
 	public void toggleAttack(boolean attacking) {
