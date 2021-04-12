@@ -2,6 +2,7 @@ package net.bewitchmentplus.common.entity.living;
 
 import moriyashiine.bewitchment.api.BewitchmentAPI;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
+import net.bewitchmentplus.common.registry.BWPObjects;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.PathNodeType;
@@ -15,7 +16,6 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -83,7 +83,7 @@ public class DrudenEntity extends BWHostileEntity {
 		Random rand = new Random();
 		int i = rand.nextInt(6);
 		if (i == 3) {
-			this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_AXE));
+			this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(BWPObjects.THYRSUS_ITEM));
 			if (dataTracker.get(VARIANT) != 0) {
 				switch (world.getBiome(getBlockPos()).getCategory()) {
 					case FOREST:

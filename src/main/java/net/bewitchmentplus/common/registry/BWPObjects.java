@@ -1,10 +1,12 @@
 package net.bewitchmentplus.common.registry;
 
 import net.bewitchmentplus.BewitchmentPlus;
+import net.bewitchmentplus.common.items.ThyrsusItem;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.SpawnEggItem;
+import net.minecraft.item.ToolMaterials;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -16,6 +18,8 @@ public class BWPObjects {
 	private static final Map<Item, Identifier> ITEMS = new LinkedHashMap<>();
 
 	public static final Item DRUDEN_SPAWN_EGG = create("druden_spawn_egg", new SpawnEggItem(BWPEntityTypes.DRUDEN, 0x006400, 0x989898, gen()));
+
+	public static final Item THYRSUS_ITEM = create("thyrsus", new ThyrsusItem(ToolMaterials.IRON, 1, -2, gen()));
 
 	private static <T extends Block> T create(String name, T block, boolean createItem) {
 		BLOCKS.put(block, new Identifier(BewitchmentPlus.MODID, name));
