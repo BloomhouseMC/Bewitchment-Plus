@@ -6,12 +6,17 @@ import net.bewitchmentplus.common.BWPConfig;
 import net.fabricmc.fabric.api.server.PlayerStream;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.passive.MerchantEntity;
+import net.minecraft.entity.passive.SheepEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -63,6 +68,17 @@ public class BlackDogEntity extends BWHostileEntity {
 
 	protected boolean hasShiny() {
 		return true;
+	}
+
+	@Override
+	protected void initGoals() {
+		goalSelector.add(0, new SwimGoal(this));
+		goalSelector.add(1, new MeleeAttackGoal(this, 1, true));
+		goalSelector.add(2, new WanderAroundFarGoal(this, 1));
+		goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8));
+		goalSelector.add(3, new LookAroundGoal(this));
+		targetSelector.add(0, new RevengeGoal(this));
+		targetSelector.add(1, new FollowTargetGoal<>(this, LivingEntity.class, 10, true, false, entity -> entity instanceof PlayerEntity || entity instanceof SheepEntity || entity instanceof MerchantEntity || entity.getGroup() == EntityGroup.ILLAGER));
 	}
 
 	@Override
