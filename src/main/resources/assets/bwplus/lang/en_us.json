@@ -2,5 +2,7 @@
   "itemGroup.bwplus.bwplus": "Bewitchment Plus",
   "item.bwplus.thyrsus": "Thyrsus",
   "item.bwplus.druden_spawn_egg": "Druden Spawn Egg",
-  "entity.bwplus.druden": "Druden"
+  "entity.bwplus.druden": "Druden",
+  "entity.bwplus.black_dog": "Black Dog",
+  "item.bwplus.druden_spawn_egg": "Black Dog Spawn Egg"
 }
