@@ -2,6 +2,7 @@ package net.bewitchmentplus.common.entity.living;
 
 import moriyashiine.bewitchment.api.BewitchmentAPI;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
+import net.bewitchmentplus.common.BWPConfig;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
@@ -14,7 +15,7 @@ import net.minecraft.world.gen.feature.StructureFeature;
 
 public class BafometyrEntity extends BWHostileEntity {
 
-	protected BafometyrEntity(EntityType<? extends HostileEntity> entityType, World world) {
+	public BafometyrEntity(EntityType<? extends HostileEntity> entityType, World world) {
 		super(entityType, world);
 	}
 
@@ -31,14 +32,13 @@ public class BafometyrEntity extends BWHostileEntity {
 		return 0;
 	}
 
-	//Todo: Config for stuff like this
 	@Override
 	public boolean canSpawn(WorldAccess world, SpawnReason spawnReason) {
 		boolean flag = super.canSpawn(world, spawnReason);
 		if (flag && (spawnReason == SpawnReason.SPAWNER || spawnReason == SpawnReason.STRUCTURE || spawnReason == SpawnReason.MOB_SUMMONED || spawnReason == SpawnReason.SPAWN_EGG || spawnReason == SpawnReason.COMMAND || spawnReason == SpawnReason.DISPENSER || spawnReason == SpawnReason.NATURAL)) {
 			return true;
 		}
-		if (world instanceof ServerWorld) {
+		if (world instanceof ServerWorld && BWPConfig.getConfig().bafometyrStructureSpawn) {
 			BlockPos nearestVillage = ((ServerWorld) world).locateStructure(StructureFeature.FORTRESS, getBlockPos(), 3, false);
 			return (nearestVillage != null && Math.sqrt(nearestVillage.getSquaredDistance(getBlockPos())) < 128);
 		}

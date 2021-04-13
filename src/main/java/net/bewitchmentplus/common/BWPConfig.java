@@ -1,8 +1,10 @@
 package net.bewitchmentplus.common;
 
+import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
+import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.bewitchmentplus.BewitchmentPlus;
 import net.minecraft.world.biome.Biome;
 
@@ -12,21 +14,35 @@ import java.util.List;
 @Config(name = BewitchmentPlus.MODID)
 public class BWPConfig implements ConfigData {
 	public final List<String> drudenBiomeCategories = Arrays.asList(Biome.Category.TAIGA.getName(), Biome.Category.FOREST.getName(), Biome.Category.SWAMP.getName());
-	public final int drudenWeight = 4;
+	public final int drudenWeight = 8;
 	public final int drudenMinGroupCount = 0;
 	public final int drudenMaxGroupCount = 2;
 
 	public final List<String> blackDogBiomeCategories = Arrays.asList(Biome.Category.PLAINS.getName());
-	public final int blackDogWeight = 4;
+	public final int blackDogWeight = 8;
 	public final int blackDogMinGroupCount = 0;
 	public final int blackDogMaxGroupCount = 2;
 
 	@ConfigEntry.Gui.RequiresRestart
-	public final boolean blackDogStructureSpawn = true;
+	public boolean blackDogStructureSpawn = true;
 
 	@ConfigEntry.Gui.RequiresRestart
-	public final boolean cambionStructureSpawn = true;
+	public boolean cambionStructureSpawn = true;
 
 	@ConfigEntry.Gui.RequiresRestart
-	public final boolean bafometyrStructureSpawn = true;
+	public boolean bafometyrStructureSpawn = true;
+
+
+	//Shamelessly ripped from Alaska Nativecraft.
+	@ConfigEntry.Gui.Excluded
+	private transient static boolean registered = false;
+
+	public static synchronized BWPConfig getConfig() {
+		if (!registered) {
+			AutoConfig.register(BWPConfig.class, GsonConfigSerializer::new);
+			registered = true;
+		}
+
+		return AutoConfig.getConfigHolder(BWPConfig.class).getConfig();
+	}
 }
