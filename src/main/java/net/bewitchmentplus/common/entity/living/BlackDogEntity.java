@@ -2,7 +2,7 @@ package net.bewitchmentplus.common.entity.living;
 
 import moriyashiine.bewitchment.client.network.packet.SpawnSmokeParticlesPacket;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
-import net.bewitchmentplus.common.BWPConfig;
+import net.bewitchmentplus.BewitchmentPlus;
 import net.fabricmc.fabric.api.server.PlayerStream;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
@@ -54,7 +54,7 @@ public class BlackDogEntity extends BWHostileEntity {
 		if (flag && (spawnReason == SpawnReason.SPAWNER || spawnReason == SpawnReason.STRUCTURE || spawnReason == SpawnReason.MOB_SUMMONED || spawnReason == SpawnReason.SPAWN_EGG || spawnReason == SpawnReason.COMMAND || spawnReason == SpawnReason.DISPENSER || spawnReason == SpawnReason.NATURAL)) {
 			return true;
 		}
-		if (world instanceof ServerWorld && BWPConfig.getConfig().blackDogStructureSpawn) {
+		if (world instanceof ServerWorld && BewitchmentPlus.config.blackDogStructureSpawn) {
 			BlockPos nearestVillage = ((ServerWorld) world).locateStructure(StructureFeature.VILLAGE, getBlockPos(), 3, false);
 			BlockPos nearestPillagerOutpost = ((ServerWorld) world).locateStructure(StructureFeature.PILLAGER_OUTPOST, getBlockPos(), 3, false);
 			return (nearestVillage != null && Math.sqrt(nearestVillage.getSquaredDistance(getBlockPos())) < 128) || (nearestPillagerOutpost != null && Math.sqrt(nearestPillagerOutpost.getSquaredDistance(getBlockPos())) < 128);

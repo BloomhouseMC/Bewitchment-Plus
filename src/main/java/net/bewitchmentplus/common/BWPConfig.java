@@ -1,10 +1,8 @@
 package net.bewitchmentplus.common;
 
-import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
-import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.bewitchmentplus.BewitchmentPlus;
 import net.minecraft.world.biome.Biome;
 
@@ -31,18 +29,4 @@ public class BWPConfig implements ConfigData {
 
 	@ConfigEntry.Gui.RequiresRestart
 	public boolean bafometyrStructureSpawn = true;
-
-
-	//Shamelessly ripped from Alaska Nativecraft.
-	@ConfigEntry.Gui.Excluded
-	private transient static boolean registered = false;
-
-	public static synchronized BWPConfig getConfig() {
-		if (!registered) {
-			AutoConfig.register(BWPConfig.class, GsonConfigSerializer::new);
-			registered = true;
-		}
-
-		return AutoConfig.getConfigHolder(BWPConfig.class).getConfig();
-	}
 }
