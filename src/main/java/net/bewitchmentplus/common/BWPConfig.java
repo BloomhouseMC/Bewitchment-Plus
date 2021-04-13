@@ -2,6 +2,7 @@ package net.bewitchmentplus.common;
 
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
+import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import net.bewitchmentplus.BewitchmentPlus;
 import net.minecraft.world.biome.Biome;
 
@@ -19,9 +20,13 @@ public class BWPConfig implements ConfigData {
 	public final int blackDogWeight = 4;
 	public final int blackDogMinGroupCount = 0;
 	public final int blackDogMaxGroupCount = 2;
+
+	@ConfigEntry.Gui.RequiresRestart
 	public final boolean blackDogStructureSpawn = true;
 
+	@ConfigEntry.Gui.RequiresRestart
 	public final boolean cambionStructureSpawn = true;
 
+	@ConfigEntry.Gui.RequiresRestart
 	public final boolean bafometyrStructureSpawn = true;
 }
