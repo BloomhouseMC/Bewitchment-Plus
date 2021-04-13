@@ -19,4 +19,9 @@ public class BWPConfig implements ConfigData {
 	public final int blackDogWeight = 4;
 	public final int blackDogMinGroupCount = 0;
 	public final int blackDogMaxGroupCount = 2;
+	public final boolean blackDogStructureSpawn = true;
+
+	public final boolean cambionStructureSpawn = true;
+
+	public final boolean bafometyrStructureSpawn = true;
 }
