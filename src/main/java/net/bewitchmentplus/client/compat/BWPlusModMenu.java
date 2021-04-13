@@ -3,7 +3,6 @@ package net.bewitchmentplus.client.compat;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import me.shedaniel.autoconfig.AutoConfig;
-import net.bewitchmentplus.BewitchmentPlus;
 import net.bewitchmentplus.common.BWPConfig;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

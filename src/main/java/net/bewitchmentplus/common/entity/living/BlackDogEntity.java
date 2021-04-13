@@ -1,6 +1,8 @@
 package net.bewitchmentplus.common.entity.living;
 
+import moriyashiine.bewitchment.client.network.packet.SpawnSmokeParticlesPacket;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
+import net.fabricmc.fabric.api.server.PlayerStream;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -22,9 +24,11 @@ public class BlackDogEntity extends BWHostileEntity {
 	@Override
 	public void tick() {
 		super.tick();
-		if (world.isDay())
-			isDead();
+		if (!world.isClient && !hasCustomName() && world.isDay() && !world.isRaining() && world.isSkyVisibleAllowingSea(getBlockPos())) {
+			PlayerStream.watching(this).forEach(playerEntity -> SpawnSmokeParticlesPacket.send(playerEntity, this));
+			remove();
 		}
+	}
 
 	public EntityGroup getGroup() {
 		return EntityGroup.UNDEAD;
@@ -36,6 +40,6 @@ public class BlackDogEntity extends BWHostileEntity {
 
 	@Override
 	public int getVariants() {
-		return 0;
+		return 5;
 	}
 }
