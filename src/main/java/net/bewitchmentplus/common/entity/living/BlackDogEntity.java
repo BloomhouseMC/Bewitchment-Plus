@@ -44,7 +44,7 @@ public class BlackDogEntity extends BWHostileEntity {
 	@Override
 	public void tick() {
 		super.tick();
-		if (world.isRaining())
+		if (world.isThundering())
 			this.applyStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 100));
 			this.applyStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 100));
 		if (!world.isClient && !hasCustomName() && world.isDay() && !world.isRaining() && world.isSkyVisibleAllowingSea(getBlockPos())) {
