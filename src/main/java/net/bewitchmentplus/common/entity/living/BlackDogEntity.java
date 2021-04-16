@@ -12,6 +12,8 @@ import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.MerchantEntity;
@@ -42,6 +44,9 @@ public class BlackDogEntity extends BWHostileEntity {
 	@Override
 	public void tick() {
 		super.tick();
+		if (world.isRaining())
+			this.applyStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 100));
+			this.applyStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 100));
 		if (!world.isClient && !hasCustomName() && world.isDay() && !world.isRaining() && world.isSkyVisibleAllowingSea(getBlockPos())) {
 			PlayerStream.watching(this).forEach(playerEntity -> SpawnSmokeParticlesPacket.send(playerEntity, this));
 			remove();
