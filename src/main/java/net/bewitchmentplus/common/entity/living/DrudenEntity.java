@@ -2,6 +2,8 @@ package net.bewitchmentplus.common.entity.living;
 
 import moriyashiine.bewitchment.api.BewitchmentAPI;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
+import moriyashiine.bewitchment.common.misc.BWUtil;
+import moriyashiine.bewitchment.common.registry.BWObjects;
 import net.bewitchmentplus.common.registry.BWPObjects;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -19,6 +21,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -55,6 +58,11 @@ public class DrudenEntity extends BWHostileEntity {
 		super.tick();
 		if (this.isOnFire())
 			this.applyDamage(DamageSource.ON_FIRE, 6);
+		if (this.isAttacking()) {
+			for (BlockPos air : BWUtil.getBlockPoses(this.getBlockPos(), 1, currentPos -> this.world.getBlockState(currentPos).isAir())) {
+				this.world.setBlockState(air, BWObjects.THICK_BRAMBLE.getDefaultState());
+			}
+		}
 	}
 
 	@Override
