@@ -68,7 +68,9 @@ public class DrudenEntity extends BWHostileEntity {
 	@Override
 	public boolean tryAttack(Entity target) {
 		boolean flag = super.tryAttack(target);
-		if (flag) {
+		Random rand = new Random();
+		int i = rand.nextInt(100);
+		if (i >= 10) {
 			toggleAttack(false);
 			if (target instanceof LivingEntity) {
 				((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 100));
