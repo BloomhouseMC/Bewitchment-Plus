@@ -25,7 +25,7 @@ public class ThornyBrambleBlock extends SugarCaneBlock {
 	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
 		if (!world.isClient && entity instanceof LivingEntity) {
 			LivingEntity livingEntity = (LivingEntity) entity;
-			entity.damage(DamageSource.CACTUS, 2);
+			livingEntity.damage(DamageSource.CACTUS, 2);
 		}
 	}
 }
