@@ -21,9 +21,11 @@ import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
 import net.minecraft.world.gen.feature.StructureFeature;
+
+import java.util.Random;
 
 @SuppressWarnings("ALL")
 public class BlackDogEntity extends BWHostileEntity {
@@ -53,18 +55,41 @@ public class BlackDogEntity extends BWHostileEntity {
 		}
 	}
 
-	@Override
-	public boolean canSpawn(WorldAccess world, SpawnReason spawnReason) {
-		boolean flag = super.canSpawn(world, spawnReason);
-		if (flag && (spawnReason == SpawnReason.SPAWNER || spawnReason == SpawnReason.STRUCTURE || spawnReason == SpawnReason.MOB_SUMMONED || spawnReason == SpawnReason.SPAWN_EGG || spawnReason == SpawnReason.COMMAND || spawnReason == SpawnReason.DISPENSER || spawnReason == SpawnReason.NATURAL)) {
+	public static boolean spawnRestriction(EntityType<BlackDogEntity> type, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos pos, Random random) {
+		ServerWorld world = serverWorldAccess.toServerWorld();
+
+		if (BewitchmentPlus.config.blackDogBiomeCategories.contains(world.getBiome(pos).getCategory().getName())) {
 			return true;
 		}
-		if (world instanceof ServerWorld && BewitchmentPlus.config.blackDogStructureSpawn) {
-			BlockPos nearestVillage = ((ServerWorld) world).locateStructure(StructureFeature.VILLAGE, getBlockPos(), 3, false);
-			BlockPos nearestPillagerOutpost = ((ServerWorld) world).locateStructure(StructureFeature.PILLAGER_OUTPOST, getBlockPos(), 3, false);
-			return (nearestVillage != null && Math.sqrt(nearestVillage.getSquaredDistance(getBlockPos())) < 128) || (nearestPillagerOutpost != null && Math.sqrt(nearestPillagerOutpost.getSquaredDistance(getBlockPos())) < 128);
+
+		if (BewitchmentPlus.config.blackDogStructureSpawn) {
+			int maxDistanceToStructure = 16;
+
+			BlockPos outpost = world.locateStructure(StructureFeature.PILLAGER_OUTPOST, pos, 1, false);
+			if (outpost != null && withinDistance(outpost, pos, maxDistanceToStructure)) {
+				return true;
+			}
+
+			BlockPos village = world.locateStructure(StructureFeature.VILLAGE, pos, 1, false);
+			if (village != null && withinDistance(village, pos, maxDistanceToStructure)) {
+				return true;
+			}
 		}
+
 		return false;
+	}
+
+	public static boolean withinDistance(BlockPos a, BlockPos b, int distance) {
+		double ax = a.getX();
+		double az = a.getZ();
+
+		double bx = b.getX();
+		double bz = b.getZ();
+
+		bx -= ax;
+		bz -= az;
+
+		return bx*bx + bz*bz <= distance * distance;
 	}
 
 	public EntityGroup getGroup() {
