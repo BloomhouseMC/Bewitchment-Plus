@@ -9,6 +9,7 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.Heightmap;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -17,7 +18,7 @@ public class BWPEntityTypes {
 	private static final Map<EntityType<?>, Identifier> ENTITY_TYPES = new LinkedHashMap<>();
 
 	public static final EntityType<DrudenEntity> DRUDEN = create("druden", DrudenEntity.createAttributes(), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, DrudenEntity::new).dimensions(EntityDimensions.changing(0.75f, 3f)).build());
-	public static final EntityType<BlackDogEntity> BLACK_DOG = create("black_dog", BlackDogEntity.createAttributes(), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, BlackDogEntity::new).dimensions(EntityDimensions.changing(0.75f, 3f)).build());
+	public static final EntityType<BlackDogEntity> BLACK_DOG = create("black_dog", BlackDogEntity.createAttributes(), FabricEntityTypeBuilder.createMob().spawnGroup(SpawnGroup.MONSTER).entityFactory(BlackDogEntity::new).spawnRestriction(SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BlackDogEntity::spawnRestriction).dimensions(EntityDimensions.changing(0.75f, 3f)).build());
 
 	private static <T extends LivingEntity> EntityType<T> create(String name, DefaultAttributeContainer.Builder attributes, EntityType<T> type) {
 		FabricDefaultAttributeRegistry.register(type, attributes);
