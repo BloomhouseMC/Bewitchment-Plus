@@ -55,6 +55,9 @@ public class DrudenEntity extends BWHostileEntity {
 		super.tick();
 		if (this.isOnFire())
 			this.applyDamage(DamageSource.ON_FIRE, 6);
+		if (!this.isAttacking()) {
+
+		}
 	}
 
 	@Override
@@ -113,7 +116,7 @@ public class DrudenEntity extends BWHostileEntity {
 						dataTracker.set(VARIANT, random.nextInt(getVariants() - 5) + 5);
 						break;
 					default:
-						dataTracker.set(VARIANT, random.nextInt(getVariants() - 4) + 4);
+						dataTracker.set(VARIANT, random.nextInt(getVariants() - 1) + 1);
 						break;
 				}
 			}
