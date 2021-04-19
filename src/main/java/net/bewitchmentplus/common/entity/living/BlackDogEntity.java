@@ -43,18 +43,6 @@ public class BlackDogEntity extends BWHostileEntity {
 		return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 10.00D).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3.0D).add(EntityAttributes.GENERIC_ARMOR, 2.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.35D).add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.35D).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32.0D);
 	}
 
-	@Override
-	public void tick() {
-		super.tick();
-		if (world.isThundering())
-			this.applyStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 100, 0, true, true));
-			this.applyStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 100, 0, true, true));
-		if (!world.isClient && !hasCustomName() && world.isDay() && !world.isRaining() && world.isSkyVisibleAllowingSea(getBlockPos())) {
-			PlayerStream.watching(this).forEach(playerEntity -> SpawnSmokeParticlesPacket.send(playerEntity, this));
-			remove();
-		}
-	}
-
 	public static boolean spawnRestriction(EntityType<BlackDogEntity> type, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos pos, Random random) {
 		ServerWorld world = serverWorldAccess.toServerWorld();
 
@@ -89,7 +77,19 @@ public class BlackDogEntity extends BWHostileEntity {
 		bx -= ax;
 		bz -= az;
 
-		return bx*bx + bz*bz <= distance * distance;
+		return bx * bx + bz * bz <= distance * distance;
+	}
+
+	@Override
+	public void tick() {
+		super.tick();
+		if (world.isThundering())
+			this.applyStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 100, 0, true, true));
+		this.applyStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 100, 0, true, true));
+		if (!world.isClient && !hasCustomName() && world.isDay() && !world.isRaining() && world.isSkyVisibleAllowingSea(getBlockPos())) {
+			PlayerStream.watching(this).forEach(playerEntity -> SpawnSmokeParticlesPacket.send(playerEntity, this));
+			remove();
+		}
 	}
 
 	public EntityGroup getGroup() {

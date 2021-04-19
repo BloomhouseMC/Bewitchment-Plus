@@ -3,6 +3,8 @@ package net.bewitchmentplus.common.entity.living;
 import moriyashiine.bewitchment.api.BewitchmentAPI;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
 import net.bewitchmentplus.common.registry.BWPObjects;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.PathNodeType;
@@ -19,6 +21,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -56,7 +61,27 @@ public class DrudenEntity extends BWHostileEntity {
 		if (this.isOnFire())
 			this.applyDamage(DamageSource.ON_FIRE, 6);
 		if (!this.isAttacking()) {
+			if (!this.world.isClient) {
+				int i = MathHelper.floor(this.getX());
+				int j = MathHelper.floor(this.getY());
+				int k = MathHelper.floor(this.getZ());
 
+				if (!this.world.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING)) {
+					return;
+				}
+
+				BlockState blockState = Blocks.POPPY.getDefaultState();
+
+				for (int l = 0; l < 4; ++l) {
+					i = MathHelper.floor(this.getX() + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
+					j = MathHelper.floor(this.getY());
+					k = MathHelper.floor(this.getZ() + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
+					BlockPos blockPos = new BlockPos(i, j, k);
+					if (this.world.getBlockState(blockPos).isAir() && this.world.getBiome(blockPos).getTemperature(blockPos) < 0.8F && blockState.canPlaceAt(this.world, blockPos)) {
+						this.world.setBlockState(blockPos, blockState);
+					}
+				}
+			}
 		}
 	}
 
