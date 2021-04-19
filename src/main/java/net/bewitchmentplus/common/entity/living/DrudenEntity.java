@@ -70,7 +70,7 @@ public class DrudenEntity extends BWHostileEntity {
 					return;
 				}
 
-				BlockState blockState = Blocks.POPPY.getDefaultState();
+				BlockState blockState = Blocks.LILY_OF_THE_VALLEY.getDefaultState();
 
 				for (int l = 0; l < 4; ++l) {
 					i = MathHelper.floor(this.getX() + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
