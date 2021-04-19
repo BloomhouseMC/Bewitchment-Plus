@@ -1,10 +1,8 @@
 package net.bewitchmentplus.common.registry;
 
 import net.bewitchmentplus.BewitchmentPlus;
-import net.bewitchmentplus.common.blocks.ThornyBrambleBlock;
 import net.bewitchmentplus.common.items.ThyrsusItem;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.SpawnEggItem;
@@ -15,8 +13,6 @@ import net.minecraft.util.registry.Registry;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings.copyOf;
-
 public class BWPObjects {
 	private static final Map<Block, Identifier> BLOCKS = new LinkedHashMap<>();
 	private static final Map<Item, Identifier> ITEMS = new LinkedHashMap<>();
@@ -24,7 +20,6 @@ public class BWPObjects {
 	public static final Item DRUDEN_SPAWN_EGG = create("druden_spawn_egg", new SpawnEggItem(BWPEntityTypes.DRUDEN, 0x006400, 0x989898, gen()));
 	public static final Item BLACK_DOG_SPAWN_EGG = create("black_dog_spawn_egg", new SpawnEggItem(BWPEntityTypes.BLACK_DOG, 0x000000, 0x000000, gen()));
 
-	public static final Block THORNY_BRAMBLE = create("thorny_bramble", new ThornyBrambleBlock(copyOf(Blocks.SUGAR_CANE)), true);
 	public static final Item THYRSUS_ITEM = create("thyrsus", new ThyrsusItem(ToolMaterials.IRON, 1, -2, gen()));
 
 	private static <T extends Block> T create(String name, T block, boolean createItem) {
