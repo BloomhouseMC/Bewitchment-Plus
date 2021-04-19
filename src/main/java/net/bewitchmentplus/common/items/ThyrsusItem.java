@@ -2,6 +2,8 @@ package net.bewitchmentplus.common.items;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.passive.HorseBaseEntity;
+import net.minecraft.entity.passive.HorseEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -30,6 +32,13 @@ public class ThyrsusItem extends SwordItem {
 				TameableEntity tameableEntity = (TameableEntity) entity;
 				tameableEntity.setOwnerUuid(user.getUuid());
 				tameableEntity.setTamed(true);
+				stack.setDamage(12);
+				user.playSound(SoundEvents.BLOCK_BAMBOO_HIT, 1, 1);
+			}
+			if (entity instanceof HorseBaseEntity) {
+				HorseBaseEntity horseBaseEntity = (HorseBaseEntity) entity;
+				horseBaseEntity.setOwnerUuid(user.getUuid());
+				horseBaseEntity.setTame(true);
 				stack.setDamage(12);
 				user.playSound(SoundEvents.BLOCK_BAMBOO_HIT, 1, 1);
 			}

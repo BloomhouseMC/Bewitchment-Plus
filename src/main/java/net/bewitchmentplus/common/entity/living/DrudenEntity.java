@@ -83,6 +83,29 @@ public class DrudenEntity extends BWHostileEntity {
 				}
 			}
 		}
+		if (this.isAttacking()) {
+			if (!this.world.isClient) {
+				int i = MathHelper.floor(this.getX());
+				int j = MathHelper.floor(this.getY());
+				int k = MathHelper.floor(this.getZ());
+
+				if (!this.world.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING)) {
+					return;
+				}
+
+				BlockState blockState = Blocks.SWEET_BERRY_BUSH.getDefaultState();
+
+				for (int l = 0; l < 4; ++l) {
+					i = MathHelper.floor(this.getX() + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
+					j = MathHelper.floor(this.getY());
+					k = MathHelper.floor(this.getZ() + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
+					BlockPos blockPos = new BlockPos(i, j, k);
+					if (this.world.getBlockState(blockPos).isAir() && this.world.getBiome(blockPos).getTemperature(blockPos) < 0.8F && blockState.canPlaceAt(this.world, blockPos)) {
+						this.world.setBlockState(blockPos, blockState);
+					}
+				}
+			}
+		}
 	}
 
 	@Override
