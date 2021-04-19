@@ -3,7 +3,6 @@ package net.bewitchmentplus.common.entity.living;
 import moriyashiine.bewitchment.api.BewitchmentAPI;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
 import moriyashiine.bewitchment.common.misc.BWUtil;
-import moriyashiine.bewitchment.common.registry.BWObjects;
 import net.bewitchmentplus.common.registry.BWPObjects;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
@@ -62,11 +61,10 @@ public class DrudenEntity extends BWHostileEntity {
 		if (this.isAttacking()) {
 			Random rand = new Random();
 			int i = rand.nextInt(100);
-			if (i <= 10) {
+			if (i <= 10);
 				for (BlockPos air : BWUtil.getBlockPoses(this.getBlockPos(), 1, currentPos -> this.world.getBlockState(currentPos).isAir())) {
 					this.world.setBlockState(air, Blocks.SWEET_BERRY_BUSH.getDefaultState());
 				}
-			}
 		}
 	}
 
