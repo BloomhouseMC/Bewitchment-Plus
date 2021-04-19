@@ -39,8 +39,8 @@ public class BafometyrEntity extends BWHostileEntity {
 			return true;
 		}
 		if (world instanceof ServerWorld && BewitchmentPlus.config.bafometyrStructureSpawn) {
-			BlockPos nearestVillage = ((ServerWorld) world).locateStructure(StructureFeature.FORTRESS, getBlockPos(), 3, false);
-			return (nearestVillage != null && Math.sqrt(nearestVillage.getSquaredDistance(getBlockPos())) < 128);
+			BlockPos nearestFortress = ((ServerWorld) world).locateStructure(StructureFeature.FORTRESS, getBlockPos(), 3, false);
+			return (nearestFortress != null && Math.sqrt(nearestFortress.getSquaredDistance(getBlockPos())) < 128);
 		}
 		return false;
 	}
