@@ -60,7 +60,7 @@ public class DrudenEntity extends BWHostileEntity {
 			this.applyDamage(DamageSource.ON_FIRE, 6);
 		if (this.isAttacking()) {
 			for (BlockPos air : BWUtil.getBlockPoses(this.getBlockPos(), 1, currentPos -> this.world.getBlockState(currentPos).isAir())) {
-				this.world.setBlockState(air, BWObjects.THICK_BRAMBLE.getDefaultState());
+				this.world.setBlockState(air, BWPObjects.THORNY_BRAMBLE.getDefaultState());
 			}
 		}
 	}
