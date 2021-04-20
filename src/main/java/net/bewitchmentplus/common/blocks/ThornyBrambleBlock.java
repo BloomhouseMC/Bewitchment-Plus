@@ -33,9 +33,4 @@ public class ThornyBrambleBlock extends SugarCaneBlock {
 			livingEntity.damage(DamageSource.CACTUS, 2);
 		}
 	}
-
-	@Environment(EnvType.CLIENT)
-	public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
-		return ItemStack.EMPTY;
-	}
 }

@@ -77,6 +77,11 @@ public class DrudenEntity extends BWHostileEntity {
 	}
 
 	@Override
+	public boolean canBeLeashedBy(PlayerEntity player) {
+		return false;
+	}
+
+	@Override
 	public void baseTick() {
 		super.baseTick();
 		BlockPos pos = new BlockPos.Mutable(this.getX(), this.getY(), this.getZ());

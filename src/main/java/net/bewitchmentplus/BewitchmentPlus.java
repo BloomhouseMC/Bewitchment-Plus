@@ -6,6 +6,7 @@ import net.bewitchmentplus.common.BWPConfig;
 import net.bewitchmentplus.common.registry.BWPEntitySpawns;
 import net.bewitchmentplus.common.registry.BWPEntityTypes;
 import net.bewitchmentplus.common.registry.BWPObjects;
+import net.bewitchmentplus.common.registry.BWPStatusEffects;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.item.ItemGroup;
@@ -62,5 +63,6 @@ public class BewitchmentPlus implements ModInitializer {
 		BWPEntityTypes.init();
 		BWPObjects.init();
 		BWPEntitySpawns.init();
+		BWPStatusEffects.init();
 	}
 }
