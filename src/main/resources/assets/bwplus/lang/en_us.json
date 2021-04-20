@@ -4,5 +4,6 @@
   "item.bwplus.druden_spawn_egg": "Druden Spawn Egg",
   "entity.bwplus.druden": "Druden",
   "entity.bwplus.black_dog": "Black Dog",
-  "item.bwplus.black_dog_spawn_egg": "Black Dog Spawn Egg"
+  "item.bwplus.black_dog_spawn_egg": "Black Dog Spawn Egg",
+  "effect.bwplus.growth": "Strangling Growth"
 }
