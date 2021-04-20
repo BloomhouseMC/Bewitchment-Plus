@@ -58,6 +58,11 @@ public class DrudenEntity extends BWHostileEntity {
 		return effect.getEffectType() == StatusEffects.SLOWNESS ? false : super.canHaveStatusEffect(effect);
 	}
 
+	@Override
+	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
+		return false;
+	}
+
 	public void tick() {
 		super.tick();
 		if (this.isOnFire())

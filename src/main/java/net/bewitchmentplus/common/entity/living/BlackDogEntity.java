@@ -81,6 +81,11 @@ public class BlackDogEntity extends BWHostileEntity {
 	}
 
 	@Override
+	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
+		return false;
+	}
+
+	@Override
 	public void tick() {
 		super.tick();
 		if (world.isThundering())
