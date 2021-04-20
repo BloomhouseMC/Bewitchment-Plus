@@ -4,7 +4,7 @@ import moriyashiine.bewitchment.api.BewitchmentAPI;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
 import net.bewitchmentplus.common.registry.BWPObjects;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.block.Fertilizable;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.PathNodeType;
@@ -19,11 +19,10 @@ import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.GameRules;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -60,48 +59,25 @@ public class DrudenEntity extends BWHostileEntity {
 		super.tick();
 		if (this.isOnFire())
 			this.applyDamage(DamageSource.ON_FIRE, 6);
+	}
+
+	@Override
+	public void baseTick() {
+		super.baseTick();
+		BlockPos pos = new BlockPos.Mutable(this.getX(), this.getY(), this.getZ());
+		BlockState blockState = world.getBlockState(pos);
+
+
 		if (!this.isAttacking()) {
-			if (!this.world.isClient) {
-				int i = MathHelper.floor(this.getX());
-				int j = MathHelper.floor(this.getY());
-				int k = MathHelper.floor(this.getZ());
-
-				if (!this.world.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING)) {
-					return;
-				}
-
-				BlockState blockState = Blocks.LILY_OF_THE_VALLEY.getDefaultState();
-
-				for (int l = 0; l < 4; ++l) {
-					i = MathHelper.floor(this.getX() + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
-					j = MathHelper.floor(this.getY());
-					k = MathHelper.floor(this.getZ() + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
-					BlockPos blockPos = new BlockPos(i, j, k);
-					if (this.world.getBlockState(blockPos).isAir() && blockState.canPlaceAt(this.world, blockPos)) {
-						this.world.setBlockState(blockPos, blockState);
-					}
-				}
-			}
-		}
-		if (this.isAttacking()) {
-			if (!this.world.isClient) {
-				int i = MathHelper.floor(this.getX());
-				int j = MathHelper.floor(this.getY());
-				int k = MathHelper.floor(this.getZ());
-
-				if (!this.world.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING)) {
-					return;
-				}
-
-				BlockState blockState = Blocks.SWEET_BERRY_BUSH.getDefaultState();
-
-				for (int l = 0; l < 4; ++l) {
-					i = MathHelper.floor(this.getX() + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
-					j = MathHelper.floor(this.getY());
-					k = MathHelper.floor(this.getZ() + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
-					BlockPos blockPos = new BlockPos(i, j, k);
-					if (this.world.getBlockState(blockPos).isAir() && blockState.canPlaceAt(this.world, blockPos)) {
-						this.world.setBlockState(blockPos, blockState);
+			if (blockState.getBlock() instanceof Fertilizable) {
+				if (world instanceof ServerWorld) {
+					Fertilizable fertilizable = (Fertilizable) blockState.getBlock();
+					if (fertilizable.isFertilizable(world, pos, blockState, world.isClient)) {
+						if (world instanceof ServerWorld) {
+							if (fertilizable.canGrow(world, world.random, pos, blockState)) {
+								fertilizable.grow((ServerWorld) world, world.random, pos, blockState);
+							}
+						}
 					}
 				}
 			}
