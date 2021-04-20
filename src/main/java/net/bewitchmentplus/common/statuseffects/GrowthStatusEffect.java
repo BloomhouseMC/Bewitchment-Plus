@@ -39,12 +39,12 @@ public class GrowthStatusEffect extends EmptyStatusEffect {
 				Fertilizable fertilizable = (Fertilizable) blockState.getBlock();
 				if (fertilizable.isFertilizable(world, entity.getBlockPos(), entity.world.getBlockState(pos), false)) {
 					if (fertilizable.canGrow(world, world.random, entity.getBlockPos(), entity.world.getBlockState(pos))) {
-							BoneMealItem.useOnFertilizable(new ItemStack(Items.BONE_MEAL), entity.world, pos);
-							BoneMealItem.useOnGround(new ItemStack(Items.BONE_MEAL), entity.world, pos, null);
-							fertilizable.grow((ServerWorld) entity.world, world.random, entity.getBlockPos(), entity.world.getBlockState(pos));
-						}
+						BoneMealItem.useOnFertilizable(new ItemStack(Items.BONE_MEAL), entity.world, pos);
+						BoneMealItem.useOnGround(new ItemStack(Items.BONE_MEAL), entity.world, pos, null);
+						fertilizable.grow((ServerWorld) entity.world, world.random, entity.getBlockPos(), entity.world.getBlockState(pos));
 					}
 				}
 			}
 		}
 	}
+}
