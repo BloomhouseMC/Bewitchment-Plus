@@ -6,6 +6,7 @@ import net.bewitchmentplus.common.registry.BWPObjects;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Fertilizable;
+import net.minecraft.block.TallFlowerBlock;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.PathNodeType;
@@ -96,35 +97,37 @@ public class DrudenEntity extends BWHostileEntity {
 					Fertilizable fertilizable = (Fertilizable) blockState.getBlock();
 					if (fertilizable.isFertilizable(world, pos, blockState, world.isClient)) {
 						if (world instanceof ServerWorld) {
-							if (fertilizable.canGrow(world, world.random, pos, blockState)) {
-								fertilizable.grow((ServerWorld) world, world.random, pos, blockState);
-								BoneMealItem.useOnFertilizable(new ItemStack(Items.BONE_MEAL), world, pos);
-								BoneMealItem.useOnGround(new ItemStack(Items.BONE_MEAL), world, pos, null);
+							if (!(fertilizable instanceof TallFlowerBlock)) {
+								if (fertilizable.canGrow(world, world.random, pos, blockState)) {
+									fertilizable.grow((ServerWorld) world, world.random, pos, blockState);
+									BoneMealItem.useOnFertilizable(new ItemStack(Items.BONE_MEAL), world, pos);
+									BoneMealItem.useOnGround(new ItemStack(Items.BONE_MEAL), world, pos, null);
+								}
 							}
 						}
 					}
 				}
 			}
-		}
-		if (this.isAttacking()) {
-			if (!this.world.isClient) {
-				int i = MathHelper.floor(this.getX());
-				int j = MathHelper.floor(this.getY());
-				int k = MathHelper.floor(this.getZ());
+			if (this.isAttacking()) {
+				if (!this.world.isClient) {
+					int i = MathHelper.floor(this.getX());
+					int j = MathHelper.floor(this.getY());
+					int k = MathHelper.floor(this.getZ());
 
-				if (!this.world.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING)) {
-					return;
-				}
+					if (!this.world.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING)) {
+						return;
+					}
 
-				blockState = Blocks.SWEET_BERRY_BUSH.getDefaultState();
+					blockState = Blocks.SWEET_BERRY_BUSH.getDefaultState();
 
-				for (int l = 0; l < 4; ++l) {
-					i = MathHelper.floor(this.getX() + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
-					j = MathHelper.floor(this.getY());
-					k = MathHelper.floor(this.getZ() + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
-					BlockPos blockPos = new BlockPos(i, j, k);
-					if (this.world.getBlockState(blockPos).isAir() && blockState.canPlaceAt(this.world, blockPos)) {
-						this.world.setBlockState(blockPos, blockState);
+					for (int l = 0; l < 4; ++l) {
+						i = MathHelper.floor(this.getX() + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
+						j = MathHelper.floor(this.getY());
+						k = MathHelper.floor(this.getZ() + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
+						BlockPos blockPos = new BlockPos(i, j, k);
+						if (this.world.getBlockState(blockPos).isAir() && blockState.canPlaceAt(this.world, blockPos)) {
+							this.world.setBlockState(blockPos, blockState);
+						}
 					}
 				}
 			}
