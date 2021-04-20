@@ -18,7 +18,9 @@ import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BoneMealItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
@@ -96,6 +98,8 @@ public class DrudenEntity extends BWHostileEntity {
 						if (world instanceof ServerWorld) {
 							if (fertilizable.canGrow(world, world.random, pos, blockState)) {
 								fertilizable.grow((ServerWorld) world, world.random, pos, blockState);
+								BoneMealItem.useOnFertilizable(new ItemStack(Items.BONE_MEAL), world, pos);
+								BoneMealItem.useOnGround(new ItemStack(Items.BONE_MEAL), world, pos, null);
 							}
 						}
 					}
