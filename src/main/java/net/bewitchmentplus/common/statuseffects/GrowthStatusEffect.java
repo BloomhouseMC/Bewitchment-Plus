@@ -31,7 +31,7 @@ public class GrowthStatusEffect extends EmptyStatusEffect {
 	@Override
 	public void applyUpdateEffect(LivingEntity entity, int amplifier) {
 		int radius = amplifier + 1;
-		BlockPos pos = new BlockPos.Mutable(radius, 1, radius);
+		BlockPos pos = new BlockPos.Mutable(radius, radius, radius);
 		BlockState blockState = entity.world.getBlockState(pos);
 		World world = entity.world;
 		{
