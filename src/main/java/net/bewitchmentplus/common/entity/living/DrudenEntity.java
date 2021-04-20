@@ -101,7 +101,6 @@ public class DrudenEntity extends BWHostileEntity {
 							if (!(fertilizable instanceof TallFlowerBlock)) {
 								if (fertilizable.canGrow(world, world.random, pos, blockState)) {
 									fertilizable.grow((ServerWorld) world, world.random, pos, blockState);
-									this.applyStatusEffect(new StatusEffectInstance(BWPStatusEffects.GROWTH, 1800, 0, false, false));
 								}
 							}
 						}
