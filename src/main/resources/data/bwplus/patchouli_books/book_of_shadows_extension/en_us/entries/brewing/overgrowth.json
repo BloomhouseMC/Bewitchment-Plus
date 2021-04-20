@@ -1,0 +1,18 @@
+{
+  "category": "bewitchment:brewing",
+  "name": "Overgrowth",
+  "icon": "bewitchment:earth_ichor",
+  "advancement": "bewitchment:hidden_unlocks/altars",
+  "pages": [
+	{
+	  "type": "text",
+	  "text": "Causes plants to grow around the target, so as long as they can grow via bonemeal. Grass will become tall grass, crops will mature, etc, so as long as it is applied to a target entity."
+	},
+	{
+	  "type": "spotlight",
+	  "title": "Overgrowth",
+	  "item": "bewitchment:earth_ichor",
+	  "text": "Step one: Cover yourself in earth ichor."
+	}
+  ]
+}
