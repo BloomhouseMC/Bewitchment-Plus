@@ -1,0 +1,8 @@
+{
+  "type": "bewitchment:cauldron_brewing_recipe",
+  "ingredient": {
+	"item": "bewitchment:earth_ichor"
+  },
+  "effect": "bwplus:growth",
+  "time": 1
+}
