@@ -20,7 +20,7 @@ public class GrowthStatusEffect extends EmptyStatusEffect {
 
 	@Override
 	public boolean isInstant() {
-		return true;
+		return false;
 	}
 
 	@Override

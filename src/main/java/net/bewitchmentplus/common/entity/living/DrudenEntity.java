@@ -3,6 +3,7 @@ package net.bewitchmentplus.common.entity.living;
 import moriyashiine.bewitchment.api.BewitchmentAPI;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
 import net.bewitchmentplus.common.registry.BWPObjects;
+import net.bewitchmentplus.common.registry.BWPStatusEffects;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Fertilizable;
@@ -100,8 +101,7 @@ public class DrudenEntity extends BWHostileEntity {
 							if (!(fertilizable instanceof TallFlowerBlock)) {
 								if (fertilizable.canGrow(world, world.random, pos, blockState)) {
 									fertilizable.grow((ServerWorld) world, world.random, pos, blockState);
-									BoneMealItem.useOnFertilizable(new ItemStack(Items.BONE_MEAL), world, pos);
-									BoneMealItem.useOnGround(new ItemStack(Items.BONE_MEAL), world, pos, null);
+									this.applyStatusEffect(new StatusEffectInstance(BWPStatusEffects.GROWTH, 1800, 0, false, false));
 								}
 							}
 						}

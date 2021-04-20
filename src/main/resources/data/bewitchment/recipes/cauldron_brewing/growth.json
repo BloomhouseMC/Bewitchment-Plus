@@ -4,5 +4,5 @@
 	"item": "bewitchment:earth_ichor"
   },
   "effect": "bwplus:growth",
-  "time": 1
+  "time": 1800
 }
