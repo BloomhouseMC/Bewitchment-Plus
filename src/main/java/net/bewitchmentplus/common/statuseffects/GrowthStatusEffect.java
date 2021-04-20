@@ -31,17 +31,19 @@ public class GrowthStatusEffect extends EmptyStatusEffect {
 	@Override
 	public void applyUpdateEffect(LivingEntity entity, int amplifier) {
 		int radius = amplifier + 1;
-		BlockPos pos = new BlockPos.Mutable(radius, radius, radius);
-		BlockState blockState = entity.world.getBlockState(pos);
 		World world = entity.world;
-		{
-			if (blockState.getBlock() instanceof Fertilizable) {
-				Fertilizable fertilizable = (Fertilizable) blockState.getBlock();
-				if (fertilizable.isFertilizable(world, entity.getBlockPos(), entity.world.getBlockState(pos), false)) {
-					if (fertilizable.canGrow(world, world.random, entity.getBlockPos(), entity.world.getBlockState(pos))) {
-						BoneMealItem.useOnFertilizable(new ItemStack(Items.BONE_MEAL), entity.world, pos);
-						BoneMealItem.useOnGround(new ItemStack(Items.BONE_MEAL), entity.world, pos, null);
-						fertilizable.grow((ServerWorld) entity.world, world.random, entity.getBlockPos(), entity.world.getBlockState(pos));
+		BlockPos initialPosition = entity.getBlockPos();
+		for (BlockPos position : BlockPos.iterate(initialPosition.add(-radius, -radius, -radius), initialPosition.add(radius, radius, radius))) {
+			BlockState blockState = entity.world.getBlockState(position);
+			{
+				if (blockState.getBlock() instanceof Fertilizable) {
+					Fertilizable fertilizable = (Fertilizable) blockState.getBlock();
+					if (fertilizable.isFertilizable(world, position, entity.world.getBlockState(position), false)) {
+						if (fertilizable.canGrow(world, world.random, position, entity.world.getBlockState(position))) {
+							BoneMealItem.useOnFertilizable(new ItemStack(Items.BONE_MEAL), entity.world, position);
+							BoneMealItem.useOnGround(new ItemStack(Items.BONE_MEAL), entity.world, position, null);
+							fertilizable.grow((ServerWorld) entity.world, world.random, position, entity.world.getBlockState(position));
+						}
 					}
 				}
 			}
