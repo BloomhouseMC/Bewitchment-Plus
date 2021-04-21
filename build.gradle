@@ -98,7 +98,7 @@ dependencies {
     modImplementation "io.github.ladysnake:Impersonate:${impersonate_version}"
     modImplementation "vazkii.patchouli:Patchouli:${project.patchouli_version}"
 
-    modInclude 'com.github.Um-Mitternacht:BWLOGIC:master-SNAPSHOT'
+    modImplementation 'com.github.Um-Mitternacht:BWLOGIC:master-SNAPSHOT'
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-api:${project.rei_version}"
     modRuntime "me.shedaniel:RoughlyEnoughItems:${project.rei_version}"
     modImplementation 'com.github.MoriyaShiine:bewitchment:-SNAPSHOT'
