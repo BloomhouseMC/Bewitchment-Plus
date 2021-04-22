@@ -99,6 +99,7 @@ dependencies {
     modImplementation "vazkii.patchouli:Patchouli:${project.patchouli_version}"
 
     modImplementation 'com.github.Um-Mitternacht:BWLOGIC:master-SNAPSHOT'
+	include 'com.github.Um-Mitternacht:BWLOGIC:master-SNAPSHOT'
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-api:${project.rei_version}"
     modRuntime "me.shedaniel:RoughlyEnoughItems:${project.rei_version}"
     modImplementation 'com.github.MoriyaShiine:bewitchment:-SNAPSHOT'
