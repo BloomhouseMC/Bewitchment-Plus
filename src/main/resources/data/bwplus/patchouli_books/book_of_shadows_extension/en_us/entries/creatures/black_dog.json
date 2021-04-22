@@ -1,0 +1,16 @@
+{
+  "category": "bewitchment:creatures",
+  "name": "Black Dog",
+  "icon": "bewitchment:ectoplasm",
+  "pages": [
+	{
+	  "type": "text",
+	  "text": "Black dogs are large, canid ghosts, who appear at crossroads and in storms. During storms, they get more powerful, but dissipate in broad daylight. They have also been known to haunt plains from time to time."
+	},
+	{
+	  "type": "entity",
+	  "entity": "bwplus:black_dog",
+	  "offset": 0.1
+	}
+  ]
+}

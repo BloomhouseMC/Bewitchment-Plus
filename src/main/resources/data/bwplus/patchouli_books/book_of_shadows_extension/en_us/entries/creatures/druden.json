@@ -1,0 +1,16 @@
+{
+  "category": "bewitchment:creatures",
+  "name": "Druden",
+  "icon": "minecraft:oak_sapling",
+  "pages": [
+	{
+	  "type": "text",
+	  "text": "Druden are fire-fearing forest demons affiliated with Herne, who partake in the wild hunt. They embody the depths of the woods, and are known to kill those who walk astray in their domain. As mentioned, they are weak to fire, so carry fire-based enchantments or even a trusty flint and steel to take them out."
+	},
+	{
+	  "type": "entity",
+	  "entity": "bwplus:druden",
+	  "offset": 0.1
+	}
+  ]
+}
