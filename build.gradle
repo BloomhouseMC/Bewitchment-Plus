@@ -98,7 +98,6 @@ dependencies {
     modImplementation "io.github.ladysnake:Impersonate:${impersonate_version}"
     modImplementation "vazkii.patchouli:Patchouli:${project.patchouli_version}"
 
-    modImplementation 'com.github.Um-Mitternacht:BWLOGIC:master-SNAPSHOT'
 	include 'com.github.Um-Mitternacht:BWLOGIC:master-SNAPSHOT'
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-api:${project.rei_version}"
     modRuntime "me.shedaniel:RoughlyEnoughItems:${project.rei_version}"
@@ -148,7 +147,11 @@ jar {
     }
 }
 
-// configure the maven publication
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = "sources"
+    from sourceSets.main.allSource
+}
+
 publishing {
     publications {
         mavenJava(MavenPublication) {
@@ -162,11 +165,9 @@ publishing {
         }
     }
 
-    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
     repositories {
-        // Add repositories to publish to here.
-        // Notice: This block does NOT have the same function as the block in the top level.
-        // The repositories here will be used for publishing your artifact, not for
-        // retrieving dependencies.
+        // select the repositories you want to publish to
+        // uncomment to publish to the local maven
+        // mavenLocal()
     }
 }
