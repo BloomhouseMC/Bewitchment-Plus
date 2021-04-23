@@ -29,17 +29,21 @@ public class ThyrsusItem extends SwordItem {
 			}
 			if (entity instanceof TameableEntity) {
 				TameableEntity tameableEntity = (TameableEntity) entity;
-				tameableEntity.setOwnerUuid(user.getUuid());
-				tameableEntity.setTamed(true);
-				stack.setDamage(12);
-				user.playSound(SoundEvents.BLOCK_BAMBOO_HIT, 1, 1);
+				if (!tameableEntity.isTamed()) {
+					tameableEntity.setOwnerUuid(user.getUuid());
+					tameableEntity.setTamed(true);
+					stack.setDamage(12);
+					user.playSound(SoundEvents.BLOCK_BAMBOO_HIT, 1, 1);
+				}
 			}
 			if (entity instanceof HorseBaseEntity) {
 				HorseBaseEntity horseBaseEntity = (HorseBaseEntity) entity;
-				horseBaseEntity.setOwnerUuid(user.getUuid());
-				horseBaseEntity.setTame(true);
-				stack.setDamage(12);
-				user.playSound(SoundEvents.BLOCK_BAMBOO_HIT, 1, 1);
+				if (!horseBaseEntity.isTame()) {
+					horseBaseEntity.setOwnerUuid(user.getUuid());
+					horseBaseEntity.setTame(true);
+					stack.setDamage(12);
+					user.playSound(SoundEvents.BLOCK_BAMBOO_HIT, 1, 1);
+				}
 			}
 		}
 		return ActionResult.SUCCESS;
