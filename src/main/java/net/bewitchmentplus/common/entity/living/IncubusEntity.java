@@ -3,7 +3,7 @@ package net.bewitchmentplus.common.entity.living;
 import moriyashiine.bewitchment.api.BewitchmentAPI;
 import net.minecraft.entity.EntityGroup;
 
-public class IncubusEntity {
+public class IncubusEntity extends BWHostileEntity {
 
 	public EntityGroup getGroup() {
 		return BewitchmentAPI.DEMON;
