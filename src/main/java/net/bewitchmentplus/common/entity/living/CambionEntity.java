@@ -64,6 +64,12 @@ public class CambionEntity extends BWHostileEntity {
 		return false;
 	}
 
+	@Override
+	public void tick() {
+		super.tick();
+		if (barterTimer > 0) barterTimer--;
+	}
+
 	private static List<ItemStack> getBarteredItem(CambionEntity cambionEntity) {
 		LootTable lootTable = cambionEntity.world.getServer().getLootManager().getTable(LootTables.PIGLIN_BARTERING_GAMEPLAY);
 		List<ItemStack> list = lootTable.generateLoot((new LootContext.Builder((ServerWorld) cambionEntity.world)).parameter(LootContextParameters.THIS_ENTITY, cambionEntity).random(cambionEntity.world.random).build(LootContextTypes.BARTER));
@@ -78,14 +84,15 @@ public class CambionEntity extends BWHostileEntity {
 		if (barterTimer == 0) {
 			if (itemStack.getItem() == BWPTags.CAMBION_TRADE) {
 				player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
-				ItemStack itemStack2 = ItemUsage.method_30012(itemStack, player, getBarteredItem());
-				player.setStackInHand(hand, itemStack2);
-				barterTimer = 14000;
+				//ItemStack itemStack2 = ItemUsage.method_30012(itemStack, player, getBarteredItem());
+				//player.setStackInHand(hand, itemStack2);
+				barterTimer = 24000;
 				return ActionResult.success(this.world.isClient);
 			} else {
 				return super.interactMob(player, hand);
 			}
 		}
+		return null;
 	}
 
 	@Override
