@@ -1,6 +1,7 @@
 package net.bewitchmentplus.common.entity.util;
 
 import net.bewitchmentplus.common.entity.living.CambionEntity;
+import net.bewitchmentplus.common.registry.BWPLootTables;
 import net.bewitchmentplus.common.registry.BWPTags;
 import net.minecraft.entity.ai.TargetFinder;
 import net.minecraft.entity.ai.brain.Brain;
@@ -9,6 +10,7 @@ import net.minecraft.entity.ai.brain.task.LookTargetUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameters;
@@ -106,7 +108,7 @@ public class CambionBrain {
 	}
 
 	private static List<ItemStack> getBarteredItem(CambionEntity cambion) {
-		LootTable lootTable = cambion.world.getServer().getLootManager().getTable(BWPLootTables.CAMBION_LOOT_TABLE);
+		LootTable lootTable = cambion.world.getServer().getLootManager().getTable(BWPLootTables.CAMBION_TRADE_LOOT_TABLE);
 		List<ItemStack> list = lootTable.generateLoot((new LootContext.Builder((ServerWorld) cambion.world)).parameter(LootContextParameters.THIS_ENTITY, cambion).random(cambion.world.random).build(LootContextTypes.BARTER));
 		return list;
 	}
@@ -117,5 +119,9 @@ public class CambionBrain {
 
 	protected static boolean isWillingToTrade(CambionEntity cambion, ItemStack nearbyItems) {
 		return acceptsForBarter(nearbyItems.getItem());
+	}
+
+	static {
+		BARTERING_ITEM = Items.IRON_NUGGET;
 	}
 }

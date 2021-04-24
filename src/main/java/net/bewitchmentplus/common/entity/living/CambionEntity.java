@@ -12,6 +12,7 @@ import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.PiglinBrain;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.GameRules;
@@ -45,6 +46,10 @@ public class CambionEntity extends BWHostileEntity {
 			return (nearestVillage != null && Math.sqrt(nearestVillage.getSquaredDistance(getBlockPos())) < 128);
 		}
 		return false;
+	}
+
+	protected void equipToMainHand(ItemStack stack) {
+		this.equipLootStack(EquipmentSlot.MAINHAND, stack);
 	}
 
 	protected void equipToOffHand(ItemStack stack) {
