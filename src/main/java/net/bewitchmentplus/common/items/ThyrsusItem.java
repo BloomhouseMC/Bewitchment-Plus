@@ -12,6 +12,8 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 
+import java.util.Random;
+
 public class ThyrsusItem extends SwordItem {
 
 	public ThyrsusItem(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, Settings settings) {
@@ -20,11 +22,12 @@ public class ThyrsusItem extends SwordItem {
 
 	@Override
 	public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
+		Random random = new Random();
 		if (entity instanceof AnimalEntity) {
 			AnimalEntity animalEntity = (AnimalEntity) entity;
 			if (animalEntity.isAlive()) {
 				animalEntity.setLoveTicks(5000);
-				stack.setDamage(6);
+				stack.damage(6, random, null);
 				user.playSound(SoundEvents.BLOCK_BAMBOO_HIT, 1, 1);
 			}
 			if (entity instanceof TameableEntity) {
@@ -32,7 +35,7 @@ public class ThyrsusItem extends SwordItem {
 				if (!tameableEntity.isTamed()) {
 					tameableEntity.setOwnerUuid(user.getUuid());
 					tameableEntity.setTamed(true);
-					stack.setDamage(12);
+					stack.damage(12, random, null);
 					user.playSound(SoundEvents.BLOCK_BAMBOO_HIT, 1, 1);
 				}
 			}
@@ -41,7 +44,7 @@ public class ThyrsusItem extends SwordItem {
 				if (!horseBaseEntity.isTame()) {
 					horseBaseEntity.setOwnerUuid(user.getUuid());
 					horseBaseEntity.setTame(true);
-					stack.setDamage(12);
+					stack.damage(12, random, null);
 					user.playSound(SoundEvents.BLOCK_BAMBOO_HIT, 1, 1);
 				}
 			}
