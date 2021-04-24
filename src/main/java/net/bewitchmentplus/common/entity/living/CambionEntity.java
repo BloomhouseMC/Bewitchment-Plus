@@ -27,6 +27,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.gen.feature.StructureFeature;
 
+import java.util.Random;
+
 public class CambionEntity extends BWHostileEntity {
 
 	protected CambionEntity(EntityType<? extends HostileEntity> entityType, World world) {
@@ -59,6 +61,7 @@ public class CambionEntity extends BWHostileEntity {
 	@Override
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
 		ItemStack itemStack = player.getStackInHand(hand);
+		Random random = new Random();
 		if (itemStack.getItem() == BWPTags.CAMBION_TRADE) {
 			player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
 			return ActionResult.success(this.world.isClient);
