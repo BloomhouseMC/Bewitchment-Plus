@@ -10,12 +10,17 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.mob.PiglinEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
+import net.minecraft.loot.LootTable;
 import net.minecraft.loot.LootTables;
+import net.minecraft.loot.context.LootContext;
+import net.minecraft.loot.context.LootContextParameters;
+import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -27,9 +32,12 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.gen.feature.StructureFeature;
 
+import java.util.List;
 import java.util.Random;
 
 public class CambionEntity extends BWHostileEntity {
+
+	int barterTimer = 0;
 
 	protected CambionEntity(EntityType<? extends HostileEntity> entityType, World world) {
 		super(entityType, world);
@@ -56,17 +64,27 @@ public class CambionEntity extends BWHostileEntity {
 		return false;
 	}
 
-	//Todo: Grab from a loot table
+	private static List<ItemStack> getBarteredItem(CambionEntity cambionEntity) {
+		LootTable lootTable = cambionEntity.world.getServer().getLootManager().getTable(LootTables.PIGLIN_BARTERING_GAMEPLAY);
+		List<ItemStack> list = lootTable.generateLoot((new LootContext.Builder((ServerWorld) cambionEntity.world)).parameter(LootContextParameters.THIS_ENTITY, cambionEntity).random(cambionEntity.world.random).build(LootContextTypes.BARTER));
+		return list;
+	}
+
+	//Todo: Grab from a loot table. Also set up the timer fully.
 	//Todo: Add items to the cambion trade tag
 	@Override
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
 		ItemStack itemStack = player.getStackInHand(hand);
-		Random random = new Random();
-		if (itemStack.getItem() == BWPTags.CAMBION_TRADE) {
-			player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
-			return ActionResult.success(this.world.isClient);
-		} else {
-			return super.interactMob(player, hand);
+		if (barterTimer == 0) {
+			if (itemStack.getItem() == BWPTags.CAMBION_TRADE) {
+				player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
+				ItemStack itemStack2 = ItemUsage.method_30012(itemStack, player, getBarteredItem());
+				player.setStackInHand(hand, itemStack2);
+				barterTimer = 14000;
+				return ActionResult.success(this.world.isClient);
+			} else {
+				return super.interactMob(player, hand);
+			}
 		}
 	}
 
