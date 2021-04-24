@@ -19,7 +19,6 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.gen.feature.StructureFeature;
 
 public class CambionEntity extends BWHostileEntity {
-	private final SimpleInventory inventory = new SimpleInventory(8);
 
 	protected CambionEntity(EntityType<? extends HostileEntity> entityType, World world) {
 		super(entityType, world);
@@ -44,32 +43,6 @@ public class CambionEntity extends BWHostileEntity {
 			return (nearestVillage != null && Math.sqrt(nearestVillage.getSquaredDistance(getBlockPos())) < 128);
 		}
 		return false;
-	}
-
-	public void equipToMainHand(ItemStack stack) {
-		this.equipLootStack(EquipmentSlot.MAINHAND, stack);
-	}
-
-	public void equipToOffHand(ItemStack stack) {
-		if (stack.getItem() == CambionBrain.BARTERING_ITEM) {
-			this.equipStack(EquipmentSlot.OFFHAND, stack);
-			this.updateDropChances(EquipmentSlot.OFFHAND);
-		} else {
-			this.equipLootStack(EquipmentSlot.OFFHAND, stack);
-		}
-
-	}
-
-	public boolean isAdult() {
-		return !this.isBaby();
-	}
-
-	public ItemStack addItem(ItemStack stack) {
-		return this.inventory.addStack(stack);
-	}
-
-	public boolean canGather(ItemStack stack) {
-		return this.world.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING) && this.canPickUpLoot() && CambionBrain.canGather(this, stack);
 	}
 
 	@Override
