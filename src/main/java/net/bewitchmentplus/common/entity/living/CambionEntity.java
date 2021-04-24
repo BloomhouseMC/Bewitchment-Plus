@@ -10,6 +10,7 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.PiglinBrain;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
@@ -19,6 +20,7 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.gen.feature.StructureFeature;
 
 public class CambionEntity extends BWHostileEntity {
+	private final SimpleInventory inventory = new SimpleInventory(8);
 
 	protected CambionEntity(EntityType<? extends HostileEntity> entityType, World world) {
 		super(entityType, world);
@@ -53,6 +55,14 @@ public class CambionEntity extends BWHostileEntity {
 			this.equipLootStack(EquipmentSlot.OFFHAND, stack);
 		}
 
+	}
+
+	public boolean isAdult() {
+		return !this.isBaby();
+	}
+
+	protected ItemStack addItem(ItemStack stack) {
+		return this.inventory.addStack(stack);
 	}
 
 	public boolean canGather(ItemStack stack) {
