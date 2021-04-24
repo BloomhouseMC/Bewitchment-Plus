@@ -46,11 +46,11 @@ public class CambionEntity extends BWHostileEntity {
 		return false;
 	}
 
-	protected void equipToMainHand(ItemStack stack) {
+	public void equipToMainHand(ItemStack stack) {
 		this.equipLootStack(EquipmentSlot.MAINHAND, stack);
 	}
 
-	protected void equipToOffHand(ItemStack stack) {
+	public void equipToOffHand(ItemStack stack) {
 		if (stack.getItem() == CambionBrain.BARTERING_ITEM) {
 			this.equipStack(EquipmentSlot.OFFHAND, stack);
 			this.updateDropChances(EquipmentSlot.OFFHAND);
@@ -64,7 +64,7 @@ public class CambionEntity extends BWHostileEntity {
 		return !this.isBaby();
 	}
 
-	protected ItemStack addItem(ItemStack stack) {
+	public ItemStack addItem(ItemStack stack) {
 		return this.inventory.addStack(stack);
 	}
 

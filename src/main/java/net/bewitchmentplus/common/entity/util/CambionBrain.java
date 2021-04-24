@@ -3,10 +3,12 @@ package net.bewitchmentplus.common.entity.util;
 import net.bewitchmentplus.common.entity.living.CambionEntity;
 import net.bewitchmentplus.common.registry.BWPLootTables;
 import net.bewitchmentplus.common.registry.BWPTags;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.ai.TargetFinder;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.task.LookTargetUtil;
+import net.minecraft.entity.mob.PiglinEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -16,6 +18,7 @@ import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.Vec3d;
 
@@ -114,6 +117,62 @@ public class CambionBrain {
 		LootTable lootTable = cambion.world.getServer().getLootManager().getTable(BWPLootTables.CAMBION_TRADE_LOOT_TABLE);
 		List<ItemStack> list = lootTable.generateLoot((new LootContext.Builder((ServerWorld) cambion.world)).parameter(LootContextParameters.THIS_ENTITY, cambion).random(cambion.world.random).build(LootContextTypes.BARTER));
 		return list;
+	}
+
+	public static ActionResult playerInteract(CambionEntity cambion, PlayerEntity player, Hand hand) {
+		ItemStack itemStack = player.getStackInHand(hand);
+		if (isWillingToTrade(cambion, itemStack)) {
+			ItemStack itemStack2 = itemStack.split(1);
+		} else {
+			return ActionResult.PASS;
+		}
+		return null;
+	}
+
+	protected static void loot(CambionEntity cambion, ItemEntity drop) {
+		ItemStack itemStack2;
+		if (drop.getStack().getItem() == Items.IRON_NUGGET) {
+			cambion.sendPickup(drop, drop.getStack().getCount());
+			itemStack2 = drop.getStack();
+			drop.remove();
+		} else {
+			cambion.sendPickup(drop, 1);
+			itemStack2 = getItemFromStack(drop);
+		}
+
+		Item item = itemStack2.getItem();
+		if (isValidCambionTag(item)) {
+			swapItemWithOffHand(cambion, itemStack2);
+		} else {
+			boolean bl = cambion.tryEquip(itemStack2);
+			if (!bl) {
+				barterItem(cambion, itemStack2);
+			}
+		}
+	}
+
+	private static ItemStack getItemFromStack(ItemEntity stack) {
+		ItemStack itemStack = stack.getStack();
+		ItemStack itemStack2 = itemStack.split(1);
+		if (itemStack.isEmpty()) {
+			stack.remove();
+		} else {
+			stack.setStack(itemStack);
+		}
+
+		return itemStack2;
+	}
+
+	private static void swapItemWithOffHand(CambionEntity cambion, ItemStack stack) {
+		if (hasItemInOffHand(cambion)) {
+			cambion.dropStack(cambion.getStackInHand(Hand.OFF_HAND));
+		}
+
+		cambion.equipToOffHand(stack);
+	}
+
+	private static boolean hasItemInOffHand(CambionEntity cambion) {
+		return !cambion.getOffHandStack().isEmpty();
 	}
 
 	protected static boolean isValidCambionTag(Item item) {
