@@ -55,6 +55,7 @@ public class CambionEntity extends BWHostileEntity {
 	}
 
 	//Todo: Grab from a loot table
+	//Todo: Add items to the cambion trade tag
 	@Override
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
 		ItemStack itemStack = player.getStackInHand(hand);
