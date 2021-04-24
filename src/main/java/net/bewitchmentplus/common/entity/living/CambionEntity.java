@@ -3,12 +3,17 @@ package net.bewitchmentplus.common.entity.living;
 import moriyashiine.bewitchment.api.BewitchmentAPI;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
 import net.bewitchmentplus.BewitchmentPlus;
+import net.bewitchmentplus.common.entity.util.CambionBrain;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.mob.PiglinBrain;
+import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.gen.feature.StructureFeature;
@@ -38,6 +43,20 @@ public class CambionEntity extends BWHostileEntity {
 			return (nearestVillage != null && Math.sqrt(nearestVillage.getSquaredDistance(getBlockPos())) < 128);
 		}
 		return false;
+	}
+
+	protected void equipToOffHand(ItemStack stack) {
+		if (stack.getItem() == CambionBrain.BARTERING_ITEM) {
+			this.equipStack(EquipmentSlot.OFFHAND, stack);
+			this.updateDropChances(EquipmentSlot.OFFHAND);
+		} else {
+			this.equipLootStack(EquipmentSlot.OFFHAND, stack);
+		}
+
+	}
+
+	public boolean canGather(ItemStack stack) {
+		return this.world.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING) && this.canPickUpLoot() && CambionBrain.canGather(this, stack);
 	}
 
 	@Override
