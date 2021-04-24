@@ -171,8 +171,8 @@ public class DrudenEntity extends BWHostileEntity {
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable CompoundTag entityTag) {
 		EntityData data = super.initialize(world, difficulty, spawnReason, entityData, entityTag);
 		Random rand = new Random();
-		int i = rand.nextInt(6);
-		if (i == 3) {
+		int i = rand.nextInt(100);
+		if (i <= 25) {
 			this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(BWPObjects.THYRSUS_ITEM));
 			if (dataTracker.get(VARIANT) != 0) {
 				switch (world.getBiome(getBlockPos()).getCategory()) {
