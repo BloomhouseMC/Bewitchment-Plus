@@ -11,6 +11,14 @@
 	  "type": "entity",
 	  "entity": "bwplus:druden",
 	  "offset": 0.1
-	}
+	},
+	{
+	  "type": "text",
+	  "text": "In addition, they may spawn with a thyrsus, a magic staff made from fennel, ivy, and pinecones. This staff has an iron barb hidden in the pinecone, allowing it to pierce foes. But this staff can also be used on animals via right-clicking to either tame or breed them, at the cost of durability."
+	},
+	{
+	  "type": "spotlight",
+	  "item": "bwplus:thyrsus"
+	}	
   ]
 }
