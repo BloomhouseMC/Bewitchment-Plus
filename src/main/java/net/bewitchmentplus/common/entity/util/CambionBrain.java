@@ -16,7 +16,6 @@ import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.tag.Tag;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.Vec3d;
 
@@ -27,6 +26,10 @@ import java.util.Optional;
 
 public class CambionBrain {
 	public static final Item BARTERING_ITEM;
+
+	static {
+		BARTERING_ITEM = Items.IRON_NUGGET;
+	}
 
 	protected static Brain<?> create(CambionEntity cambion, Brain<CambionEntity> brain) {
 		return brain;
@@ -119,9 +122,5 @@ public class CambionBrain {
 
 	protected static boolean isWillingToTrade(CambionEntity cambion, ItemStack nearbyItems) {
 		return acceptsForBarter(nearbyItems.getItem());
-	}
-
-	static {
-		BARTERING_ITEM = Items.IRON_NUGGET;
 	}
 }
