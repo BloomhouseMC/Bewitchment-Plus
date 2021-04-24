@@ -9,6 +9,6 @@ import net.minecraft.util.Identifier;
 //TODO: Something
 public class BWPTags {
 
-	public static final Tag<Item> CAMBION_LOVED = TagRegistry.item(new Identifier(BewitchmentPlus.MODID, "cambion_loved"));
+	public static final Tag<Item> CAMBION_TRADE = TagRegistry.item(new Identifier(BewitchmentPlus.MODID, "cambion_trade"));
 
 }
