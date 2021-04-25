@@ -10,6 +10,7 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsage;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.LootTables;
 import net.minecraft.loot.context.LootContext;
@@ -36,7 +37,7 @@ public class CambionEntity extends BWHostileEntity {
 	}
 
 	private static List<ItemStack> getBarteredItem(CambionEntity cambionEntity) {
-		LootTable lootTable = cambionEntity.world.getServer().getLootManager().getTable(LootTables.PIGLIN_BARTERING_GAMEPLAY);
+		LootTable lootTable = cambionEntity.world.getServer().getLootManager().getTable(LootTables.NETHER_BRIDGE_CHEST);
 		List<ItemStack> list = lootTable.generateLoot((new LootContext.Builder((ServerWorld) cambionEntity.world)).parameter(LootContextParameters.THIS_ENTITY, cambionEntity).random(cambionEntity.world.random).build(LootContextTypes.BARTER));
 		return list;
 	}
@@ -76,8 +77,8 @@ public class CambionEntity extends BWHostileEntity {
 		if (barterTimer == 0) {
 			if (itemStack.getItem() == BWPTags.CAMBION_TRADE) {
 				player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
-				//ItemStack itemStack2 = ItemUsage.method_30012(itemStack, player, getBarteredItem());
-				//player.setStackInHand(hand, itemStack2);
+				ItemStack itemStack2 = ItemUsage.method_30012(itemStack, player, getBarteredItem());
+				player.setStackInHand(hand, itemStack2);
 				barterTimer = 24000;
 				return ActionResult.success(this.world.isClient);
 			} else {
