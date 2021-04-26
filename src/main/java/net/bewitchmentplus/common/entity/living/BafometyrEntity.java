@@ -33,6 +33,11 @@ public class BafometyrEntity extends BWHostileEntity {
 	}
 
 	@Override
+	public boolean canUsePortals() {
+		return true;
+	}
+
+	@Override
 	public boolean canSpawn(WorldAccess world, SpawnReason spawnReason) {
 		boolean flag = super.canSpawn(world, spawnReason);
 		if (flag && (spawnReason == SpawnReason.SPAWNER || spawnReason == SpawnReason.STRUCTURE || spawnReason == SpawnReason.MOB_SUMMONED || spawnReason == SpawnReason.SPAWN_EGG || spawnReason == SpawnReason.COMMAND || spawnReason == SpawnReason.DISPENSER || spawnReason == SpawnReason.NATURAL)) {

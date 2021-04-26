@@ -22,6 +22,11 @@ public class IncubusEntity extends BWHostileEntity {
 	}
 
 	@Override
+	public boolean canUsePortals() {
+		return true;
+	}
+
+	@Override
 	public int getVariants() {
 		return 0;
 	}
