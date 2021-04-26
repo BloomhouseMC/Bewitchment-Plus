@@ -36,12 +36,6 @@ public class CambionEntity extends BWHostileEntity {
 		super(entityType, world);
 	}
 
-	private static List<ItemStack> getBarteredItem(CambionEntity cambionEntity) {
-		LootTable lootTable = cambionEntity.world.getServer().getLootManager().getTable(LootTables.NETHER_BRIDGE_CHEST);
-		List<ItemStack> list = lootTable.generateLoot((new LootContext.Builder((ServerWorld) cambionEntity.world)).parameter(LootContextParameters.THIS_ENTITY, cambionEntity).random(cambionEntity.world.random).build(LootContextTypes.BARTER));
-		return list;
-	}
-
 	public EntityGroup getGroup() {
 		return BewitchmentAPI.DEMON;
 	}
@@ -84,8 +78,8 @@ public class CambionEntity extends BWHostileEntity {
 		if (barterTimer == 0) {
 			if (itemStack.getItem() == BWPTags.CAMBION_TRADE) {
 				player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
-				ItemStack itemStack2 = ItemUsage.method_30012(itemStack, player, getBarteredItem()); //Fixme: Pick up on a resource table, and give a player a random item, or a random amount of one specific item at a time.
-				player.setStackInHand(hand, itemStack2);
+				//ItemStack itemStack2 = ItemUsage.method_30012(itemStack, player, getBarteredItem()); //Fixme: Pick up on a resource table, and give a player a random item, or a random amount of one specific item at a time.
+				//player.setStackInHand(hand, itemStack2);
 				barterTimer = 1200; //Timer exists to avoid cheese
 				return ActionResult.success(this.world.isClient);
 			} else {
