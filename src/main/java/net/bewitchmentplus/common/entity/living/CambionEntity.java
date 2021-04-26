@@ -77,9 +77,9 @@ public class CambionEntity extends BWHostileEntity {
 		if (barterTimer == 0) {
 			if (itemStack.getItem() == BWPTags.CAMBION_TRADE) {
 				player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
-				ItemStack itemStack2 = ItemUsage.method_30012(itemStack, player, getBarteredItem());
+				ItemStack itemStack2 = ItemUsage.method_30012(itemStack, player, getBarteredItem()); //Fixme: Pick up on a resource table, and give a player a random item, or a random amount of one specific item at a time.
 				player.setStackInHand(hand, itemStack2);
-				barterTimer = 24000;
+				barterTimer = 24000; //Timer exists to avoid cheese
 				return ActionResult.success(this.world.isClient);
 			} else {
 				return super.interactMob(player, hand);
