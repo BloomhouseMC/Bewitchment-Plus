@@ -4,18 +4,13 @@ import moriyashiine.bewitchment.api.BewitchmentAPI;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
 import net.bewitchmentplus.BewitchmentPlus;
 import net.bewitchmentplus.common.registry.BWPTags;
-import net.minecraft.entity.EntityGroup;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsage;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.LootTables;
-import net.minecraft.loot.context.LootContext;
-import net.minecraft.loot.context.LootContextParameters;
-import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -26,10 +21,11 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.gen.feature.StructureFeature;
 
-import java.util.List;
+import java.util.Random;
 
 public class CambionEntity extends BWHostileEntity {
 
+	public int attackTick = 0;
 	int barterTimer = 0;
 
 	protected CambionEntity(EntityType<? extends HostileEntity> entityType, World world) {
@@ -68,6 +64,45 @@ public class CambionEntity extends BWHostileEntity {
 	public void tick() {
 		super.tick();
 		if (barterTimer > 0) barterTimer--;
+	}
+
+	@Override
+	public boolean tryAttack(Entity target) {
+		boolean flag = super.tryAttack(target);
+		Random rand = new Random();
+		int i = rand.nextInt(100);
+		if (i <= 5) {
+			toggleAttack(false);
+			if (target instanceof LivingEntity) {
+				target.setOnFireFor(40);
+			}
+		} else if (i <= 7) {
+			toggleAttack(false);
+			if (target instanceof LivingEntity) {
+				((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 100));
+			}
+		}
+		return flag;
+	}
+
+	public void toggleAttack(boolean attacking) {
+		if (attacking) {
+			attackTick = 11;
+			world.sendEntityStatus(this, (byte) 4);
+		} else {
+			attackTick = 2;
+			world.sendEntityStatus(this, (byte) 5);
+		}
+	}
+
+	@Override
+	protected void initGoals() {
+		goalSelector.add(0, new SwimGoal(this));
+		goalSelector.add(1, new MeleeAttackGoal(this, 1, true));
+		goalSelector.add(2, new WanderAroundFarGoal(this, 1));
+		goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8));
+		goalSelector.add(3, new LookAroundGoal(this));
+		targetSelector.add(0, new RevengeGoal(this));
 	}
 
 	//Todo: Grab from a loot table. Also set up the timer fully.
