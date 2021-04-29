@@ -20,8 +20,8 @@ public class CambionEntityModel<T extends CambionEntity> extends BipedEntityMode
 
 	private BipedEntityModel<T> model;
 
-	public CambionEntityModel(float scale) {
-		super(scale);
+	public CambionEntityModel() {
+		super(1);
 	}
 
 	@Override
