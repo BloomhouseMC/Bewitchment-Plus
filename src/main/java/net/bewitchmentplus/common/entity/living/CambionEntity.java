@@ -17,6 +17,7 @@ import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -114,6 +115,28 @@ public class CambionEntity extends BWHostileEntity {
 	@Override
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable CompoundTag entityTag) {
 		dataTracker.set(MALE, random.nextBoolean());
+		Random rand = new Random();
+		int i = rand.nextInt(100);
+		int j = rand.nextInt(100);
+		int k = rand.nextInt(100);
+		if (i <= 50) {
+			this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
+		}
+		if (i <= 25) {
+			this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.GOLDEN_SWORD));
+		}
+		if (j <= 25) {
+			this.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.CHAINMAIL_CHESTPLATE));
+		}
+		if (j <= 15) {
+			this.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.GOLDEN_CHESTPLATE));
+		}
+		if (j <= 50) {
+			this.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.LEATHER_CHESTPLATE));
+		}
+		if (k <= 15) {
+			this.equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
+		}
 		return super.initialize(world, difficulty, spawnReason, entityData, entityTag);
 	}
 
