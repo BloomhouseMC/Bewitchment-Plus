@@ -33,6 +33,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
+//Todo: Make this not targeted by golems
 public class CambionEntity extends BWHostileEntity {
 	public static final TrackedData<Boolean> MALE = DataTracker.registerData(CambionEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
