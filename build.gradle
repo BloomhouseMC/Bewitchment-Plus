@@ -76,6 +76,10 @@ repositories {
     maven {
         url 'https://repo.repsy.io/mvn/gandiber/geckolib'
     }
+    maven {
+        name "fall flying lib"
+        url "https://dl.bintray.com/adriantodt/maven"
+    }	
 }
 
 dependencies {
@@ -108,6 +112,7 @@ dependencies {
     modImplementation "com.github.emilyploszaj:step-height-entity-attribute:${step_height_version}"
     include "com.github.emilyploszaj:step-height-entity-attribute:${step_height_version}"
     modImplementation "io.github.ladysnake:PlayerAbilityLib:${pal_version}"
+	modImplementation "net.adriantodt.fabricmc:fallflyinglib:${project.ffl_version}"
 
 }
 
