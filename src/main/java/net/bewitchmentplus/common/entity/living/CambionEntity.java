@@ -119,7 +119,7 @@ public class CambionEntity extends BWHostileEntity {
 		int i = rand.nextInt(100);
 		int j = rand.nextInt(100);
 		int k = rand.nextInt(100);
-		if (i <= 50) {
+		if (i <= 45) {
 			this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
 		}
 		if (i <= 25) {
