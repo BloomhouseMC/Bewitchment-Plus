@@ -131,7 +131,7 @@ public class CambionEntity extends BWHostileEntity {
 		if (j <= 15) {
 			this.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.GOLDEN_CHESTPLATE));
 		}
-		if (j <= 50) {
+		if (j <= 45) {
 			this.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.LEATHER_CHESTPLATE));
 		}
 		if (k <= 15) {
