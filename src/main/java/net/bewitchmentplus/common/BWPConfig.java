@@ -22,7 +22,7 @@ public class BWPConfig implements ConfigData {
 	public final int blackDogMaxGroupCount = 2;
 
 	public final List<String> cambionBiomeCategories = Arrays.asList(Biome.Category.NETHER.getName(), Biome.Category.DESERT.getName());
-	public final int cambionWeight = 8;
+	public final int cambionWeight = 12;
 	public final int cambionMinGroupCount = 0;
 	public final int cambionMaxGroupCount = 2;
 
