@@ -1,29 +1,38 @@
 package net.bewitchmentplus.common.entity.living;
 
 import moriyashiine.bewitchment.api.BewitchmentAPI;
+import moriyashiine.bewitchment.common.entity.living.DemonEntity;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
 import net.bewitchmentplus.BewitchmentPlus;
 import net.bewitchmentplus.common.registry.BWPTags;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.gen.feature.StructureFeature;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
 public class CambionEntity extends BWHostileEntity {
+	public static final TrackedData<Boolean> MALE = DataTracker.registerData(CambionEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
 	public int attackTick = 0;
 	int barterTimer = 0;
@@ -93,6 +102,30 @@ public class CambionEntity extends BWHostileEntity {
 			attackTick = 2;
 			world.sendEntityStatus(this, (byte) 5);
 		}
+	}
+
+	@Override
+	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable CompoundTag entityTag) {
+		dataTracker.set(MALE, random.nextBoolean());
+		return super.initialize(world, difficulty, spawnReason, entityData, entityTag);
+	}
+
+	@Override
+	public void readCustomDataFromTag(CompoundTag tag) {
+		super.readCustomDataFromTag(tag);
+		dataTracker.set(MALE, tag.getBoolean("Male"));
+	}
+
+	@Override
+	public void writeCustomDataToTag(CompoundTag tag) {
+		super.writeCustomDataToTag(tag);
+		tag.putBoolean("Male", dataTracker.get(MALE));
+	}
+
+	@Override
+	protected void initDataTracker() {
+		super.initDataTracker();
+		dataTracker.startTracking(MALE, true);
 	}
 
 	@Override
