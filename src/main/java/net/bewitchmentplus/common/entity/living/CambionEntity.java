@@ -1,7 +1,6 @@
 package net.bewitchmentplus.common.entity.living;
 
 import moriyashiine.bewitchment.api.BewitchmentAPI;
-import moriyashiine.bewitchment.common.entity.living.DemonEntity;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
 import net.bewitchmentplus.BewitchmentPlus;
 import net.bewitchmentplus.common.registry.BWPTags;
@@ -44,6 +43,10 @@ public class CambionEntity extends BWHostileEntity {
 		super(entityType, world);
 	}
 
+	public static DefaultAttributeContainer.Builder createAttributes() {
+		return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 20.00D).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4.0D).add(EntityAttributes.GENERIC_ARMOR, 2.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.35D).add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.35D).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 24.0D);
+	}
+
 	public EntityGroup getGroup() {
 		return BewitchmentAPI.DEMON;
 	}
@@ -70,10 +73,6 @@ public class CambionEntity extends BWHostileEntity {
 			return (nearestVillage != null && Math.sqrt(nearestVillage.getSquaredDistance(getBlockPos())) < 128);
 		}
 		return false;
-	}
-
-	public static DefaultAttributeContainer.Builder createAttributes() {
-		return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 20.00D).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4.0D).add(EntityAttributes.GENERIC_ARMOR, 2.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.35D).add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.35D).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 24.0D);
 	}
 
 	@Override

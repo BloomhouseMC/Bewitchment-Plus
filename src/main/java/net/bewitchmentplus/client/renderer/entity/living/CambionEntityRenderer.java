@@ -1,8 +1,5 @@
 package net.bewitchmentplus.client.renderer.entity.living;
 
-import moriyashiine.bewitchment.client.model.entity.living.DemonEntityModel;
-import moriyashiine.bewitchment.common.Bewitchment;
-import moriyashiine.bewitchment.common.entity.living.DemonEntity;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
 import net.bewitchmentplus.BewitchmentPlus;
 import net.bewitchmentplus.client.model.entity.living.CambionEntityModel;

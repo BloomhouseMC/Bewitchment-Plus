@@ -1,16 +1,12 @@
 package net.bewitchmentplus.client.model.entity.living;
 
-import moriyashiine.bewitchment.client.model.entity.living.DemonEntityModel;
-import moriyashiine.bewitchment.common.entity.living.DemonEntity;
 import net.bewitchmentplus.common.entity.living.CambionEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
-import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
 import net.minecraft.util.Arm;
 
 @Environment(EnvType.CLIENT)
@@ -40,8 +36,7 @@ public class CambionEntityModel<T extends CambionEntity> extends BipedEntityMode
 	protected ModelPart getArm(Arm arm) {
 		if (model == male) {
 			return ((CambionEntityModel.Male) model).getArm(arm);
-		}
-		else if (model == female) {
+		} else if (model == female) {
 			return ((CambionEntityModel.Female) model).getArm(arm);
 		}
 		return super.getArm(arm);
@@ -90,7 +85,7 @@ public class CambionEntityModel<T extends CambionEntity> extends BipedEntityMode
 		private final ModelPart hair01;
 		private final ModelPart hair00;
 
-		private boolean realArm = false;
+		private final boolean realArm = false;
 
 
 		public Male() {
@@ -314,7 +309,7 @@ public class CambionEntityModel<T extends CambionEntity> extends BipedEntityMode
 		private final ModelPart hair01;
 		private final ModelPart hair00;
 
-		private boolean realArm = false;
+		private final boolean realArm = false;
 
 		public Female() {
 			super(1, 0, 64, 64);
