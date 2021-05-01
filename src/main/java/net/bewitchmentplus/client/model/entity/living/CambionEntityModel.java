@@ -271,6 +271,24 @@ public class CambionEntityModel<T extends CambionEntity> extends BipedEntityMode
 		}
 
 		@Override
+		public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+			super.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
+			copyRotation(head, super.head);
+			copyRotation(bipedLeftArm, super.leftArm);
+			bipedLeftArm.roll -= 0.1309f;
+			copyRotation(bipedRightArm, super.rightArm);
+			bipedRightArm.roll += 0.1309f;
+			copyRotation(bipedLeftLeg, super.leftLeg);
+			bipedLeftLeg.pitch /= 2;
+			bipedLeftLeg.pitch -= 0.2793f;
+			bipedLeftLeg.roll -= 0.1047f;
+			copyRotation(bipedRightLeg, super.rightLeg);
+			bipedRightLeg.pitch /= 2;
+			bipedRightLeg.pitch -= 0.2793f;
+			bipedRightLeg.roll += 0.1047f;
+		}
+
+		@Override
 		protected ModelPart getArm(Arm arm) {
 			return realArm ? (arm == Arm.LEFT ? bipedLeftArm : bipedRightArm) : super.getArm(arm);
 		}
@@ -495,6 +513,24 @@ public class CambionEntityModel<T extends CambionEntity> extends BipedEntityMode
 			bipedLeftLeg.render(matrices, vertices, light, overlay, red, green, blue, alpha);
 			bipedRightLeg.render(matrices, vertices, light, overlay, red, green, blue, alpha);
 			head.render(matrices, vertices, light, overlay, red, green, blue, alpha);
+		}
+
+		@Override
+		public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+			super.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
+			copyRotation(head, super.head);
+			copyRotation(bipedLeftArm, super.leftArm);
+			bipedLeftArm.roll -= 0.1309f;
+			copyRotation(bipedRightArm, super.rightArm);
+			bipedRightArm.roll += 0.1309f;
+			copyRotation(bipedLeftLeg, super.leftLeg);
+			bipedLeftLeg.pitch /= 2;
+			bipedLeftLeg.pitch -= 0.2793f;
+			bipedLeftLeg.roll -= 0.1047f;
+			copyRotation(bipedRightLeg, super.rightLeg);
+			bipedRightLeg.pitch /= 2;
+			bipedRightLeg.pitch -= 0.2793f;
+			bipedRightLeg.roll += 0.1047f;
 		}
 
 		public void setRotationAngle(ModelPart bone, float x, float y, float z) {
