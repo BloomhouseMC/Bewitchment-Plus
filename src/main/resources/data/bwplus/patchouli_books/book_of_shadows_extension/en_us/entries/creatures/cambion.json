@@ -1,0 +1,16 @@
+{
+  "category": "bewitchment:creatures",
+  "name": "Druden",
+  "icon": "minecraft:iron_axe",
+  "pages": [
+	{
+	  "type": "text",
+	  "text": "Cambions are the unholy pairing of a human and a demon, they seem to be tolerated at most by villagers, but will still guard their homes anyways. Their attacks have a chance of dealing fire or poison damage. They appear to be willing to barter with the player if one gives them certain items."
+	},
+	{
+	  "type": "entity",
+	  "entity": "bwplus:cambion",
+	  "offset": 0.1
+	}
+  ]
+}

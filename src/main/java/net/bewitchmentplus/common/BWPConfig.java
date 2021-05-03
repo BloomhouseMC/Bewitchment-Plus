@@ -34,4 +34,13 @@ public class BWPConfig implements ConfigData {
 
 	@ConfigEntry.Gui.RequiresRestart
 	public boolean bafometyrStructureSpawn = true;
+
+	@ConfigEntry.Gui.RequiresRestart
+	public boolean vanillaMaterialsBewitchmentIdols = true;
+
+	@ConfigEntry.Gui.RequiresRestart
+	public boolean vanillaMaterialsBewitchmentStatues = true;
+
+	@ConfigEntry.Gui.RequiresRestart
+	public boolean vanillaMaterialsBewitchmentSectFleeceBlocks = true;
 }
