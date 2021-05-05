@@ -42,5 +42,5 @@ public class BWPConfig implements ConfigData {
 	public boolean vanillaMaterialsBewitchmentStatues = true;
 
 	@ConfigEntry.Gui.RequiresRestart
-	public boolean vanillaMaterialsBewitchmentSectFleeceBlocks = true;
+	public boolean bewitchmentSectFleeceBlocks = true;
 }
