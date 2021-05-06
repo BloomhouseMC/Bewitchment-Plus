@@ -8,26 +8,26 @@ import net.minecraft.world.World;
 
 public class VengefulGhostEntity extends BWHostileEntity {
 
-	protected VengefulGhostEntity(EntityType<? extends HostileEntity> entityType, World world) {
-		super(entityType, world);
-	}
+    protected VengefulGhostEntity(EntityType<? extends HostileEntity> entityType, World world) {
+        super(entityType, world);
+    }
 
-	public EntityGroup getGroup() {
-		return EntityGroup.UNDEAD;
-	}
+    public EntityGroup getGroup() {
+        return EntityGroup.UNDEAD;
+    }
 
 
-	protected boolean hasShiny() {
-		return true;
-	}
+    protected boolean hasShiny() {
+        return true;
+    }
 
-	@Override
-	public boolean canUsePortals() {
-		return true;
-	}
+    @Override
+    public boolean canUsePortals() {
+        return true;
+    }
 
-	@Override
-	public int getVariants() {
-		return 0;
-	}
+    @Override
+    public int getVariants() {
+        return 0;
+    }
 }

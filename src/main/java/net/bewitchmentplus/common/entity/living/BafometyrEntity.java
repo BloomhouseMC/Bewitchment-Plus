@@ -15,39 +15,39 @@ import net.minecraft.world.gen.feature.StructureFeature;
 
 public class BafometyrEntity extends BWHostileEntity {
 
-	public BafometyrEntity(EntityType<? extends HostileEntity> entityType, World world) {
-		super(entityType, world);
-	}
+    public BafometyrEntity(EntityType<? extends HostileEntity> entityType, World world) {
+        super(entityType, world);
+    }
 
-	public EntityGroup getGroup() {
-		return BewitchmentAPI.DEMON;
-	}
+    public EntityGroup getGroup() {
+        return BewitchmentAPI.DEMON;
+    }
 
-	protected boolean hasShiny() {
-		return true;
-	}
+    protected boolean hasShiny() {
+        return true;
+    }
 
-	@Override
-	public int getVariants() {
-		return 0;
-	}
+    @Override
+    public int getVariants() {
+        return 0;
+    }
 
-	@Override
-	public boolean canUsePortals() {
-		return true;
-	}
+    @Override
+    public boolean canUsePortals() {
+        return true;
+    }
 
-	@Override
-	public boolean canSpawn(WorldAccess world, SpawnReason spawnReason) {
-		boolean flag = super.canSpawn(world, spawnReason);
-		if (flag && (spawnReason == SpawnReason.SPAWNER || spawnReason == SpawnReason.STRUCTURE || spawnReason == SpawnReason.MOB_SUMMONED || spawnReason == SpawnReason.SPAWN_EGG || spawnReason == SpawnReason.COMMAND || spawnReason == SpawnReason.DISPENSER || spawnReason == SpawnReason.NATURAL)) {
-			return true;
-		}
-		if (world instanceof ServerWorld && BewitchmentPlus.config.bafometyrStructureSpawn) {
-			BlockPos nearestFortress = ((ServerWorld) world).locateStructure(StructureFeature.FORTRESS, getBlockPos(), 3, false);
-			return (nearestFortress != null && Math.sqrt(nearestFortress.getSquaredDistance(getBlockPos())) < 128);
-		}
-		return false;
-	}
+    @Override
+    public boolean canSpawn(WorldAccess world, SpawnReason spawnReason) {
+        boolean flag = super.canSpawn(world, spawnReason);
+        if (flag && (spawnReason == SpawnReason.SPAWNER || spawnReason == SpawnReason.STRUCTURE || spawnReason == SpawnReason.MOB_SUMMONED || spawnReason == SpawnReason.SPAWN_EGG || spawnReason == SpawnReason.COMMAND || spawnReason == SpawnReason.DISPENSER || spawnReason == SpawnReason.NATURAL)) {
+            return true;
+        }
+        if (world instanceof ServerWorld && BewitchmentPlus.config.bafometyrStructureSpawn) {
+            BlockPos nearestFortress = ((ServerWorld) world).locateStructure(StructureFeature.FORTRESS, getBlockPos(), 3, false);
+            return (nearestFortress != null && Math.sqrt(nearestFortress.getSquaredDistance(getBlockPos())) < 128);
+        }
+        return false;
+    }
 
 }
