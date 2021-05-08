@@ -113,6 +113,9 @@ dependencies {
     include "com.github.emilyploszaj:step-height-entity-attribute:${step_height_version}"
     modImplementation "io.github.ladysnake:PlayerAbilityLib:${pal_version}"
     modImplementation "net.adriantodt.fabricmc:fallflyinglib:${project.ffl_version}"
+    modImplementation ("com.github.apace100:origins-fabric:${project.origins_version}") {
+         exclude(group: "*")
+     }
 
 }
 
