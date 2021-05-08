@@ -93,6 +93,8 @@ public class BlackDogEntity extends BWHostileEntity {
     @Override
     public void tick() {
         super.tick();
+        if (this.getAttacker().isMobOrPlayer())
+            this.applyStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, 100, 0, true, true));
         if (world.isThundering())
             this.applyStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 100, 0, true, true));
         this.applyStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 100, 0, true, true));
