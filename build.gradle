@@ -102,8 +102,8 @@ dependencies {
     modImplementation "io.github.ladysnake:Impersonate:${impersonate_version}"
     modImplementation "vazkii.patchouli:Patchouli:${project.patchouli_version}"
 
-    include 'com.github.Um-Mitternacht:BWLOGIC:-SNAPSHOT'
-    modImplementation 'com.github.Um-Mitternacht:BWLOGIC:-SNAPSHOT'
+    include 'com.github.Um-Mitternacht:BWLOGIC:master-SNAPSHOT'
+    modImplementation 'com.github.Um-Mitternacht:BWLOGIC:master-SNAPSHOT'
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-api:${project.rei_version}"
     modRuntime "me.shedaniel:RoughlyEnoughItems:${project.rei_version}"
     modImplementation 'com.github.MoriyaShiine:bewitchment:master-SNAPSHOT'
@@ -140,6 +140,10 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 
 jar {
     from "LICENSE"
+}
+
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 }
 
 publishing {
