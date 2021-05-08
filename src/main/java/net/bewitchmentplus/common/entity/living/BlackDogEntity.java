@@ -95,7 +95,6 @@ public class BlackDogEntity extends BWHostileEntity {
         super.tick();
         if (world.isThundering())
             this.applyStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 100, 0, true, true));
-        if ()
         this.applyStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 100, 0, true, true));
         if (!world.isClient && !hasCustomName() && world.isDay() && !world.isRaining() && world.isSkyVisibleAllowingSea(getBlockPos())) {
             PlayerStream.watching(this).forEach(playerEntity -> SpawnSmokeParticlesPacket.send(playerEntity, this));
