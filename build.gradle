@@ -109,7 +109,7 @@ dependencies {
     modImplementation 'com.github.Um-Mitternacht:BWLOGIC:master-SNAPSHOT'
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-api:${project.rei_version}"
     modRuntime "me.shedaniel:RoughlyEnoughItems:${project.rei_version}"
-    modImplementation 'com.github.MoriyaShiine:bewitchment:master-SNAPSHOT'
+	modImplementation "curse.maven:bewitchment-394915:${project.bewitchment_version}"
     modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
     modImplementation "io.github.emilyalexandra:nourish:${nourish_version}"
     modImplementation "com.github.emilyploszaj:step-height-entity-attribute:${step_height_version}"
