@@ -80,6 +80,9 @@ repositories {
         name "fall flying lib"
         url "https://dl.bintray.com/adriantodt/maven"
     }
+    maven {
+        url "https://www.cursemaven.com"
+    }
 }
 
 dependencies {
