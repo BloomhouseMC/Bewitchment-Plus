@@ -64,11 +64,6 @@ repositories {
         name = "CurseForge"
         url = "https://minecraft.curseforge.com/api/maven"
     }
-
-    maven {
-        name = "jitpack"
-        url = "https://jitpack.io"
-    }
     maven {
         name "requiem"
         url "https://dl.bintray.com/ladysnake/mods"
@@ -83,6 +78,10 @@ repositories {
     maven {
         url "https://www.cursemaven.com"
     }
+    maven {
+        name = "jitpack"
+        url = "https://jitpack.io"
+    }	
 }
 
 dependencies {
