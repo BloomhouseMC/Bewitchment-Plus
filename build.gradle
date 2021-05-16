@@ -112,6 +112,7 @@ dependencies {
     modImplementation "com.github.emilyploszaj:step-height-entity-attribute:${step_height_version}"
     include "com.github.emilyploszaj:step-height-entity-attribute:${step_height_version}"
     modImplementation "net.adriantodt.fabricmc:fallflyinglib:${project.ffl_version}"
+    modImplementation "dev.emi:trinkets:${trinkets_version}"
     modImplementation ("com.github.apace100:origins-fabric:${project.origins_version}") {
          exclude(group: "*")
      }
