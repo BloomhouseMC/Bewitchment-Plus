@@ -189,6 +189,6 @@ public class CambionEntity extends BWHostileEntity {
 
     @Override
     public int getVariants() {
-        return 6;
+        return 3;
     }
 }

@@ -274,18 +274,11 @@ public class CambionEntityModel<T extends CambionEntity> extends BipedEntityMode
         public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
             super.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
             copyRotation(head, super.head);
+            copyRotation(body, super.torso);
             copyRotation(bipedLeftArm, super.leftArm);
-            bipedLeftArm.roll -= 0.1309f;
             copyRotation(bipedRightArm, super.rightArm);
-            bipedRightArm.roll += 0.1309f;
             copyRotation(bipedLeftLeg, super.leftLeg);
-            bipedLeftLeg.pitch /= 2;
-            bipedLeftLeg.pitch -= 0.2793f;
-            bipedLeftLeg.roll -= 0.1047f;
             copyRotation(bipedRightLeg, super.rightLeg);
-            bipedRightLeg.pitch /= 2;
-            bipedRightLeg.pitch -= 0.2793f;
-            bipedRightLeg.roll += 0.1047f;
         }
 
         @Override
@@ -519,18 +512,11 @@ public class CambionEntityModel<T extends CambionEntity> extends BipedEntityMode
         public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
             super.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
             copyRotation(head, super.head);
+            copyRotation(body, super.torso);
             copyRotation(bipedLeftArm, super.leftArm);
-            bipedLeftArm.roll -= 0.1309f;
             copyRotation(bipedRightArm, super.rightArm);
-            bipedRightArm.roll += 0.1309f;
             copyRotation(bipedLeftLeg, super.leftLeg);
-            bipedLeftLeg.pitch /= 2;
-            bipedLeftLeg.pitch -= 0.2793f;
-            bipedLeftLeg.roll -= 0.1047f;
             copyRotation(bipedRightLeg, super.rightLeg);
-            bipedRightLeg.pitch /= 2;
-            bipedRightLeg.pitch -= 0.2793f;
-            bipedRightLeg.roll += 0.1047f;
         }
 
         public void setRotationAngle(ModelPart bone, float x, float y, float z) {
