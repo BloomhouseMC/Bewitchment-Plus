@@ -78,6 +78,14 @@ repositories {
     maven {
         url "https://www.cursemaven.com"
     }
+	maven {
+		name = "cardinal"
+		url = "https://maven.abusedmaster.xyz/"
+	}
+    maven {
+        name = 'Ladysnake Mods'
+        url = 'https://ladysnake.jfrog.io/artifactory/mods'
+    }	
     maven {
         name = "jitpack"
         url = "https://jitpack.io"
@@ -115,6 +123,8 @@ dependencies {
     include "com.github.emilyploszaj:step-height-entity-attribute:${step_height_version}"
     modImplementation "net.adriantodt.fabricmc:fallflyinglib:${project.ffl_version}"
     modImplementation "dev.emi:trinkets:${trinkets_version}"
+	modApi "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:2.8.2"
+    modApi "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:2.8.2"
     modImplementation ("com.github.apace100:origins-fabric:${project.origins_version}") {
          exclude(group: "*")
      }
