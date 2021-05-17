@@ -39,30 +39,30 @@ import org.apache.logging.log4j.Logger;
 //GSVB DROO YV NVG DRGS DIZGS
 
 public class BewitchmentPlus implements ModInitializer {
-    public static final String MODID = "bwplus";
-    public static final Logger logger = LogManager.getLogger(MODID);
-    public static final ItemGroup BEWITCHMENT_PLUS_MOBS_GROUP = FabricItemGroupBuilder.build(new Identifier(MODID, MODID), () -> new ItemStack(BWPObjects.THYRSUS_ITEM));
-    public static BWPConfig config;
+	public static final String MODID = "bwplus";
+	public static final Logger logger = LogManager.getLogger(MODID);
+	public static final ItemGroup BEWITCHMENT_PLUS_MOBS_GROUP = FabricItemGroupBuilder.build(new Identifier(MODID, MODID), () -> new ItemStack(BWPObjects.THYRSUS_ITEM));
+	public static BWPConfig config;
 
-    @Override
-    public void onInitialize() {
+	@Override
+	public void onInitialize() {
 
-        AutoConfig.register(BWPConfig.class, GsonConfigSerializer::new);
-        config = AutoConfig.getConfigHolder(BWPConfig.class).getConfig();
-        logger.info("Remember when I told you how my");
-        logger.info("Kin is different in some ways?");
+		AutoConfig.register(BWPConfig.class, GsonConfigSerializer::new);
+		config = AutoConfig.getConfigHolder(BWPConfig.class).getConfig();
+		logger.info("Remember when I told you how my");
+		logger.info("Kin is different in some ways?");
 
-        logger.info("It's a fact, she is exactly that!");
-        logger.info("A harbinger of death from the world of witchcraft,");
-        logger.info("And she's feeding them cakes and her ale to this innocent boy,");
-        logger.info("And her magic brings dismay!");
+		logger.info("It's a fact, she is exactly that!");
+		logger.info("A harbinger of death from the world of witchcraft,");
+		logger.info("And she's feeding them cakes and her ale to this innocent boy,");
+		logger.info("And her magic brings dismay!");
 
-        logger.info("I hear her in the wind, the bane of our town");
-        logger.info("Come with me, father, I'm to expose a heathen");
+		logger.info("I hear her in the wind, the bane of our town");
+		logger.info("Come with me, father, I'm to expose a heathen");
 
-        BWPEntityTypes.init();
-        BWPObjects.init();
-        BWPEntitySpawns.init();
-        BWPStatusEffects.init();
-    }
+		BWPEntityTypes.init();
+		BWPObjects.init();
+		BWPEntitySpawns.init();
+		BWPStatusEffects.init();
+	}
 }

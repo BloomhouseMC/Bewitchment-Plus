@@ -30,101 +30,101 @@ import java.util.Random;
 @SuppressWarnings("ALL")
 public class BlackDogEntity extends BWHostileEntity {
 
-    public BlackDogEntity(EntityType<? extends HostileEntity> entityType, World world) {
-        super(entityType, world);
-        this.setPathfindingPenalty(PathNodeType.DANGER_OTHER, 0.0F);
-        this.setPathfindingPenalty(PathNodeType.DAMAGE_OTHER, 0.0F);
-        this.setPathfindingPenalty(PathNodeType.DANGER_CACTUS, 0.0F);
-        this.setPathfindingPenalty(PathNodeType.DAMAGE_CACTUS, 0.0F);
-        experiencePoints = 5;
-    }
+	public BlackDogEntity(EntityType<? extends HostileEntity> entityType, World world) {
+		super(entityType, world);
+		this.setPathfindingPenalty(PathNodeType.DANGER_OTHER, 0.0F);
+		this.setPathfindingPenalty(PathNodeType.DAMAGE_OTHER, 0.0F);
+		this.setPathfindingPenalty(PathNodeType.DANGER_CACTUS, 0.0F);
+		this.setPathfindingPenalty(PathNodeType.DAMAGE_CACTUS, 0.0F);
+		experiencePoints = 5;
+	}
 
-    public static DefaultAttributeContainer.Builder createAttributes() {
-        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 10.00D).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3.0D).add(EntityAttributes.GENERIC_ARMOR, 2.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.35D).add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.35D).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32.0D);
-    }
+	public static DefaultAttributeContainer.Builder createAttributes() {
+		return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 10.00D).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3.0D).add(EntityAttributes.GENERIC_ARMOR, 2.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.35D).add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.35D).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32.0D);
+	}
 
-    public static boolean spawnRestriction(EntityType<BlackDogEntity> type, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos pos, Random random) {
-        ServerWorld world = serverWorldAccess.toServerWorld();
+	public static boolean spawnRestriction(EntityType<BlackDogEntity> type, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos pos, Random random) {
+		ServerWorld world = serverWorldAccess.toServerWorld();
 
-        if (BewitchmentPlus.config.blackDogBiomeCategories.contains(world.getBiome(pos).getCategory().getName())) {
-            return true;
-        }
+		if (BewitchmentPlus.config.blackDogBiomeCategories.contains(world.getBiome(pos).getCategory().getName())) {
+			return true;
+		}
 
-        if (BewitchmentPlus.config.blackDogStructureSpawn) {
-            int maxDistanceToStructure = 16;
+		if (BewitchmentPlus.config.blackDogStructureSpawn) {
+			int maxDistanceToStructure = 16;
 
-            BlockPos outpost = world.locateStructure(StructureFeature.PILLAGER_OUTPOST, pos, 1, false);
-            if (outpost != null && withinDistance(outpost, pos, maxDistanceToStructure)) {
-                return true;
-            }
+			BlockPos outpost = world.locateStructure(StructureFeature.PILLAGER_OUTPOST, pos, 1, false);
+			if (outpost != null && withinDistance(outpost, pos, maxDistanceToStructure)) {
+				return true;
+			}
 
-            BlockPos mansion = world.locateStructure(StructureFeature.MANSION, pos, 1, false);
-            if (mansion != null && withinDistance(mansion, pos, maxDistanceToStructure)) {
-                return true;
-            }
+			BlockPos mansion = world.locateStructure(StructureFeature.MANSION, pos, 1, false);
+			if (mansion != null && withinDistance(mansion, pos, maxDistanceToStructure)) {
+				return true;
+			}
 
-            BlockPos village = world.locateStructure(StructureFeature.VILLAGE, pos, 1, false);
-            if (village != null && withinDistance(village, pos, maxDistanceToStructure)) {
-                return true;
-            }
-        }
+			BlockPos village = world.locateStructure(StructureFeature.VILLAGE, pos, 1, false);
+			if (village != null && withinDistance(village, pos, maxDistanceToStructure)) {
+				return true;
+			}
+		}
 
-        return false;
-    }
+		return false;
+	}
 
-    public static boolean withinDistance(BlockPos a, BlockPos b, int distance) {
-        double ax = a.getX();
-        double az = a.getZ();
+	public static boolean withinDistance(BlockPos a, BlockPos b, int distance) {
+		double ax = a.getX();
+		double az = a.getZ();
 
-        double bx = b.getX();
-        double bz = b.getZ();
+		double bx = b.getX();
+		double bz = b.getZ();
 
-        bx -= ax;
-        bz -= az;
+		bx -= ax;
+		bz -= az;
 
-        return bx * bx + bz * bz <= distance * distance;
-    }
+		return bx * bx + bz * bz <= distance * distance;
+	}
 
-    @Override
-    public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
-        return false;
-    }
+	@Override
+	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
+		return false;
+	}
 
-    @Override
-    public void tick() {
-        super.tick();
-        if (this.getAttacker().isMobOrPlayer())
-            this.applyStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, 100, 0, true, true));
-        if (world.isThundering())
-            this.applyStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 100, 0, true, true));
-        this.applyStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 100, 0, true, true));
-        if (!world.isClient && !hasCustomName() && world.isDay() && !world.isRaining() && world.isSkyVisibleAllowingSea(getBlockPos())) {
-            PlayerStream.watching(this).forEach(playerEntity -> SpawnSmokeParticlesPacket.send(playerEntity, this));
-            remove();
-        }
-    }
+	@Override
+	public void tick() {
+		super.tick();
+		if (this.getAttacker().isMobOrPlayer())
+			this.applyStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, 100, 0, true, true));
+		if (world.isThundering())
+			this.applyStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 100, 0, true, true));
+		this.applyStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 100, 0, true, true));
+		if (!world.isClient && !hasCustomName() && world.isDay() && !world.isRaining() && world.isSkyVisibleAllowingSea(getBlockPos())) {
+			PlayerStream.watching(this).forEach(playerEntity -> SpawnSmokeParticlesPacket.send(playerEntity, this));
+			remove();
+		}
+	}
 
-    public EntityGroup getGroup() {
-        return EntityGroup.UNDEAD;
-    }
+	public EntityGroup getGroup() {
+		return EntityGroup.UNDEAD;
+	}
 
-    protected boolean hasShiny() {
-        return true;
-    }
+	protected boolean hasShiny() {
+		return true;
+	}
 
-    @Override
-    protected void initGoals() {
-        goalSelector.add(0, new SwimGoal(this));
-        goalSelector.add(1, new MeleeAttackGoal(this, 1, true));
-        goalSelector.add(2, new WanderAroundFarGoal(this, 1));
-        goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8));
-        goalSelector.add(3, new LookAroundGoal(this));
-        targetSelector.add(0, new RevengeGoal(this));
-        targetSelector.add(1, new FollowTargetGoal<>(this, LivingEntity.class, 10, true, false, entity -> entity instanceof PlayerEntity || entity instanceof SheepEntity || entity instanceof MerchantEntity || entity.getGroup() == EntityGroup.ILLAGER));
-    }
+	@Override
+	protected void initGoals() {
+		goalSelector.add(0, new SwimGoal(this));
+		goalSelector.add(1, new MeleeAttackGoal(this, 1, true));
+		goalSelector.add(2, new WanderAroundFarGoal(this, 1));
+		goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8));
+		goalSelector.add(3, new LookAroundGoal(this));
+		targetSelector.add(0, new RevengeGoal(this));
+		targetSelector.add(1, new FollowTargetGoal<>(this, LivingEntity.class, 10, true, false, entity -> entity instanceof PlayerEntity || entity instanceof SheepEntity || entity instanceof MerchantEntity || entity.getGroup() == EntityGroup.ILLAGER));
+	}
 
-    @Override
-    public int getVariants() {
-        return 5;
-    }
+	@Override
+	public int getVariants() {
+		return 5;
+	}
 }

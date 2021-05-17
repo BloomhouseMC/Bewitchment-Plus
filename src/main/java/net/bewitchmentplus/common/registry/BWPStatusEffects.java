@@ -11,16 +11,16 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class BWPStatusEffects {
-    private static final Map<StatusEffect, Identifier> STATUS_EFFECTS = new LinkedHashMap<>();
+	private static final Map<StatusEffect, Identifier> STATUS_EFFECTS = new LinkedHashMap<>();
 
-    public static final StatusEffect GROWTH = create("growth", new GrowthStatusEffect(StatusEffectType.BENEFICIAL, 0x71BC78));
+	public static final StatusEffect GROWTH = create("growth", new GrowthStatusEffect(StatusEffectType.BENEFICIAL, 0x71BC78));
 
-    private static <T extends StatusEffect> T create(String name, T effect) {
-        STATUS_EFFECTS.put(effect, new Identifier(BewitchmentPlus.MODID, name));
-        return effect;
-    }
+	private static <T extends StatusEffect> T create(String name, T effect) {
+		STATUS_EFFECTS.put(effect, new Identifier(BewitchmentPlus.MODID, name));
+		return effect;
+	}
 
-    public static void init() {
-        STATUS_EFFECTS.keySet().forEach(effect -> Registry.register(Registry.STATUS_EFFECT, STATUS_EFFECTS.get(effect), effect));
-    }
+	public static void init() {
+		STATUS_EFFECTS.keySet().forEach(effect -> Registry.register(Registry.STATUS_EFFECT, STATUS_EFFECTS.get(effect), effect));
+	}
 }

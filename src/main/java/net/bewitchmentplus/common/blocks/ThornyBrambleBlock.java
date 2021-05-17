@@ -9,15 +9,15 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class ThornyBrambleBlock extends BrambleBlock {
-    public ThornyBrambleBlock(Settings settings) {
-        super(settings);
-    }
+	public ThornyBrambleBlock(Settings settings) {
+		super(settings);
+	}
 
-    @Override
-    public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-        if (!world.isClient && entity instanceof LivingEntity) {
-            LivingEntity livingEntity = (LivingEntity) entity;
-            livingEntity.damage(DamageSource.CACTUS, 2);
-        }
-    }
+	@Override
+	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
+		if (!world.isClient && entity instanceof LivingEntity) {
+			LivingEntity livingEntity = (LivingEntity) entity;
+			livingEntity.damage(DamageSource.CACTUS, 2);
+		}
+	}
 }

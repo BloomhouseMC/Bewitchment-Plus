@@ -5,11 +5,11 @@ import net.minecraft.entity.EntityGroup;
 
 public class RubezahlEntity {
 
-    public EntityGroup getGroup() {
-        return BewitchmentAPI.DEMON;
-    }
+	public EntityGroup getGroup() {
+		return BewitchmentAPI.DEMON;
+	}
 
-    protected boolean hasShiny() {
-        return true;
-    }
+	protected boolean hasShiny() {
+		return true;
+	}
 }

@@ -10,8 +10,8 @@ import net.minecraft.client.gui.screen.Screen;
 
 @Environment(EnvType.CLIENT)
 public class BWPlusModMenu implements ModMenuApi {
-    @Override
-    public ConfigScreenFactory<?> getModConfigScreenFactory() {
-        return (ConfigScreenFactory<Screen>) screen -> AutoConfig.getConfigScreen(BWPConfig.class, screen).get();
-    }
+	@Override
+	public ConfigScreenFactory<?> getModConfigScreenFactory() {
+		return (ConfigScreenFactory<Screen>) screen -> AutoConfig.getConfigScreen(BWPConfig.class, screen).get();
+	}
 }

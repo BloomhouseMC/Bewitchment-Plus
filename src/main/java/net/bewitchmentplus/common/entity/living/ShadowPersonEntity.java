@@ -9,25 +9,25 @@ import net.minecraft.world.World;
 
 public class ShadowPersonEntity extends BWHostileEntity {
 
-    protected ShadowPersonEntity(EntityType<? extends HostileEntity> entityType, World world) {
-        super(entityType, world);
-    }
+	protected ShadowPersonEntity(EntityType<? extends HostileEntity> entityType, World world) {
+		super(entityType, world);
+	}
 
-    public EntityGroup getGroup() {
-        return BewitchmentAPI.DEMON;
-    }
+	public EntityGroup getGroup() {
+		return BewitchmentAPI.DEMON;
+	}
 
-    protected boolean hasShiny() {
-        return true;
-    }
+	protected boolean hasShiny() {
+		return true;
+	}
 
-    @Override
-    public int getVariants() {
-        return 0;
-    }
+	@Override
+	public int getVariants() {
+		return 0;
+	}
 
-    @Override
-    public boolean canUsePortals() {
-        return true;
-    }
+	@Override
+	public boolean canUsePortals() {
+		return true;
+	}
 }
