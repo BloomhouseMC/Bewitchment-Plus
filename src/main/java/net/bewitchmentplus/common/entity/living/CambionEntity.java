@@ -3,6 +3,7 @@ package net.bewitchmentplus.common.entity.living;
 import moriyashiine.bewitchment.api.BewitchmentAPI;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
 import net.bewitchmentplus.BewitchmentPlus;
+import net.bewitchmentplus.common.registry.BWPTags;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -181,7 +182,7 @@ public class CambionEntity extends BWHostileEntity {
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
 		ItemStack itemStack = player.getStackInHand(hand);
 		if (barterTimer == 0) {
-			if (itemStack.getItem() == Items.GOLD_INGOT) {
+			if (itemStack.getItem() == BWPTags.CAMBION_TRADE) {
 				player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
 				ItemStack itemStack2 = ItemUsage.method_30012(itemStack, player, new ItemStack((ItemConvertible) LootTables.ABANDONED_MINESHAFT_CHEST)); //Fixme: Pick up on a resource table, and give a player a random item, or a random amount of one specific item at a time.
 				player.setStackInHand(hand, itemStack2);
