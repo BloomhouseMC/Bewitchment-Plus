@@ -3,7 +3,6 @@ package net.bewitchmentplus.common.entity.living;
 import moriyashiine.bewitchment.api.BewitchmentAPI;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
 import net.bewitchmentplus.BewitchmentPlus;
-import net.bewitchmentplus.common.registry.BWPTags;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -16,11 +15,9 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
-import net.minecraft.loot.LootTables;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -181,18 +178,37 @@ public class CambionEntity extends BWHostileEntity {
 	@Override
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
 		ItemStack itemStack = player.getStackInHand(hand);
+		Random rand = new Random();
 		if (barterTimer == 0) {
-			if (itemStack.getItem() == BWPTags.CAMBION_TRADE) {
-				player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
-				ItemStack itemStack2 = ItemUsage.method_30012(itemStack, player, new ItemStack((ItemConvertible) LootTables.ABANDONED_MINESHAFT_CHEST)); //Fixme: Pick up on a resource table, and give a player a random item, or a random amount of one specific item at a time.
-				player.setStackInHand(hand, itemStack2);
-				barterTimer = 1200; //Timer exists to avoid cheese
-				return ActionResult.success(this.world.isClient);
+			if (itemStack.getItem() == Items.GOLD_INGOT) {
+				switch (rand.nextInt(3)) {
+					case 0:
+						ItemStack itemStack2 = ItemUsage.method_30012(itemStack, player, new ItemStack(Items.DIAMOND));
+						player.setStackInHand(hand, itemStack2);
+						barterTimer = 1200; //Timer exists to avoid cheese
+						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
+						ActionResult.success(this.world.isClient);
+						break;
+					case 1:
+						ItemStack itemStack3 = ItemUsage.method_30012(itemStack, player, new ItemStack(Items.GOLDEN_HORSE_ARMOR));
+						player.setStackInHand(hand, itemStack3);
+						barterTimer = 1200; //Timer exists to avoid cheese
+						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
+						ActionResult.success(this.world.isClient);
+						break;
+					case 2:
+						ItemStack itemStack4 = ItemUsage.method_30012(itemStack, player, new ItemStack(Items.GOLDEN_APPLE));
+						player.setStackInHand(hand, itemStack4);
+						barterTimer = 1200; //Timer exists to avoid cheese
+						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
+						ActionResult.success(this.world.isClient);
+						break;
+				}
 			} else {
 				return super.interactMob(player, hand);
 			}
 		}
-		return null;
+		return super.interactMob(player, hand);
 	}
 
 	@Override
