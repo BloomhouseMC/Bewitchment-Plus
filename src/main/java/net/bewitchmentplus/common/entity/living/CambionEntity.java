@@ -264,7 +264,7 @@ public class CambionEntity extends BWHostileEntity {
 						ActionResult.success(this.world.isClient);
 						break;
 					case 10:
-						ItemStack itemStack12 = ItemUsage.method_30270(itemStack, player, new ItemStack(Items.LEATHER, j), true);
+						ItemStack itemStack12 = ItemUsage.method_30270(itemStack, player, new ItemStack(Items.LEATHER, k), true);
 						player.setStackInHand(hand, itemStack12);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
@@ -292,7 +292,7 @@ public class CambionEntity extends BWHostileEntity {
 						ActionResult.success(this.world.isClient);
 						break;
 					case 14:
-						ItemStack itemStack16 = ItemUsage.method_30270(itemStack, player, new ItemStack(Items.ARROW, j), true);
+						ItemStack itemStack16 = ItemUsage.method_30270(itemStack, player, new ItemStack(Items.ARROW, k), true);
 						player.setStackInHand(hand, itemStack16);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
@@ -313,7 +313,7 @@ public class CambionEntity extends BWHostileEntity {
 						ActionResult.success(this.world.isClient);
 						break;
 					case 17:
-						ItemStack itemStack19 = ItemUsage.method_30270(itemStack, player, new ItemStack(Items.STRING, j), true);
+						ItemStack itemStack19 = ItemUsage.method_30270(itemStack, player, new ItemStack(Items.STRING, k), true);
 						player.setStackInHand(hand, itemStack19);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
