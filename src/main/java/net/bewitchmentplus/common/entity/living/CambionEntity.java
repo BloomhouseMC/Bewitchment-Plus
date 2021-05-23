@@ -173,18 +173,20 @@ public class CambionEntity extends BWHostileEntity {
 	public boolean canPickupItem(ItemStack stack) {
 		return super.canPickupItem(stack);
 	}
-
-	//Todo: Grab from a loot table. Also set up the timer fully.
+	
 	//Todo: Add items to the cambion trade tag
 	@Override
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
 		ItemStack itemStack = player.getStackInHand(hand);
 		Random rand = new Random();
+		int i = rand.nextInt(64);
+		int j = rand.nextInt(16);
+		int k = rand.nextInt(32);
 		if (barterTimer == 0) {
 			if (itemStack.getItem() == Items.GOLD_INGOT) {
 				switch (rand.nextInt(5)) {
 					case 0:
-						ItemStack itemStack2 = ItemUsage.method_30270(itemStack, player, new ItemStack(Items.DIAMOND), true);
+						ItemStack itemStack2 = ItemUsage.method_30270(itemStack, player, new ItemStack(Items.DIAMOND, j), true);
 						player.setStackInHand(hand, itemStack2);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
@@ -212,7 +214,7 @@ public class CambionEntity extends BWHostileEntity {
 						ActionResult.success(this.world.isClient);
 						break;
 					case 4:
-						ItemStack itemStack6 = ItemUsage.method_30270(itemStack, player, new ItemStack(BWObjects.DEMON_HORN), true);
+						ItemStack itemStack6 = ItemUsage.method_30270(itemStack, player, new ItemStack(BWObjects.DEMON_HORN, j), true);
 						player.setStackInHand(hand, itemStack6);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
