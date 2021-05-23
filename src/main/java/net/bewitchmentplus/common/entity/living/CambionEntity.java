@@ -173,7 +173,7 @@ public class CambionEntity extends BWHostileEntity {
 	public boolean canPickupItem(ItemStack stack) {
 		return super.canPickupItem(stack);
 	}
-	
+
 	//Todo: Add items to the cambion trade tag
 	@Override
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
@@ -182,9 +182,17 @@ public class CambionEntity extends BWHostileEntity {
 		int i = rand.nextInt(64);
 		int j = rand.nextInt(16);
 		int k = rand.nextInt(32);
+		int l = rand.nextInt(8);
 		if (barterTimer == 0) {
 			if (itemStack.getItem() == Items.GOLD_INGOT) {
-				switch (rand.nextInt(5)) {
+				switch (rand.nextInt(20)) {
+					default:
+						ItemStack itemStack1 = ItemUsage.method_30270(itemStack, player, new ItemStack(Items.GOLD_INGOT, j), true);
+						player.setStackInHand(hand, itemStack1);
+						barterTimer = 1200; //Timer exists to avoid cheese
+						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
+						ActionResult.success(this.world.isClient);
+						break;
 					case 0:
 						ItemStack itemStack2 = ItemUsage.method_30270(itemStack, player, new ItemStack(Items.DIAMOND, j), true);
 						player.setStackInHand(hand, itemStack2);
@@ -216,6 +224,104 @@ public class CambionEntity extends BWHostileEntity {
 					case 4:
 						ItemStack itemStack6 = ItemUsage.method_30270(itemStack, player, new ItemStack(BWObjects.DEMON_HORN, j), true);
 						player.setStackInHand(hand, itemStack6);
+						barterTimer = 1200; //Timer exists to avoid cheese
+						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
+						ActionResult.success(this.world.isClient);
+						break;
+					case 5:
+						ItemStack itemStack7 = ItemUsage.method_30270(itemStack, player, new ItemStack(Items.BLAZE_POWDER, j), true);
+						player.setStackInHand(hand, itemStack7);
+						barterTimer = 1200; //Timer exists to avoid cheese
+						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
+						ActionResult.success(this.world.isClient);
+						break;
+					case 6:
+						ItemStack itemStack8 = ItemUsage.method_30270(itemStack, player, new ItemStack(Items.REDSTONE, k), true);
+						player.setStackInHand(hand, itemStack8);
+						barterTimer = 1200; //Timer exists to avoid cheese
+						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
+						ActionResult.success(this.world.isClient);
+						break;
+					case 7:
+						ItemStack itemStack9 = ItemUsage.method_30270(itemStack, player, new ItemStack(BWObjects.DEMON_HEART), true);
+						player.setStackInHand(hand, itemStack9);
+						barterTimer = 4800; //Timer exists to avoid cheese
+						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
+						ActionResult.success(this.world.isClient);
+						break;
+					case 8:
+						ItemStack itemStack10 = ItemUsage.method_30270(itemStack, player, new ItemStack(BWObjects.SNAKE_TONGUE, i), true);
+						player.setStackInHand(hand, itemStack10);
+						barterTimer = 1200; //Timer exists to avoid cheese
+						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
+						ActionResult.success(this.world.isClient);
+						break;
+					case 9:
+						ItemStack itemStack11 = ItemUsage.method_30270(itemStack, player, new ItemStack(Items.NETHER_WART, j), true);
+						player.setStackInHand(hand, itemStack11);
+						barterTimer = 1200; //Timer exists to avoid cheese
+						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
+						ActionResult.success(this.world.isClient);
+						break;
+					case 10:
+						ItemStack itemStack12 = ItemUsage.method_30270(itemStack, player, new ItemStack(Items.LEATHER, j), true);
+						player.setStackInHand(hand, itemStack12);
+						barterTimer = 1200; //Timer exists to avoid cheese
+						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
+						ActionResult.success(this.world.isClient);
+						break;
+					case 11:
+						ItemStack itemStack13 = ItemUsage.method_30270(itemStack, player, new ItemStack(Items.NAUTILUS_SHELL), true);
+						player.setStackInHand(hand, itemStack13);
+						barterTimer = 4800; //Timer exists to avoid cheese
+						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
+						ActionResult.success(this.world.isClient);
+						break;
+					case 12:
+						ItemStack itemStack14 = ItemUsage.method_30270(itemStack, player, new ItemStack(Items.ENDER_PEARL, j), true);
+						player.setStackInHand(hand, itemStack14);
+						barterTimer = 1200; //Timer exists to avoid cheese
+						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
+						ActionResult.success(this.world.isClient);
+						break;
+					case 13:
+						ItemStack itemStack15 = ItemUsage.method_30270(itemStack, player, new ItemStack(Items.IRON_NUGGET, k), true);
+						player.setStackInHand(hand, itemStack15);
+						barterTimer = 1200; //Timer exists to avoid cheese
+						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
+						ActionResult.success(this.world.isClient);
+						break;
+					case 14:
+						ItemStack itemStack16 = ItemUsage.method_30270(itemStack, player, new ItemStack(Items.ARROW, j), true);
+						player.setStackInHand(hand, itemStack16);
+						barterTimer = 1200; //Timer exists to avoid cheese
+						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
+						ActionResult.success(this.world.isClient);
+						break;
+					case 15:
+						ItemStack itemStack17 = ItemUsage.method_30270(itemStack, player, new ItemStack(Items.QUARTZ, j), true);
+						player.setStackInHand(hand, itemStack17);
+						barterTimer = 1200; //Timer exists to avoid cheese
+						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
+						ActionResult.success(this.world.isClient);
+						break;
+					case 16:
+						ItemStack itemStack18 = ItemUsage.method_30270(itemStack, player, new ItemStack(Items.LAPIS_LAZULI, j), true);
+						player.setStackInHand(hand, itemStack18);
+						barterTimer = 1200; //Timer exists to avoid cheese
+						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
+						ActionResult.success(this.world.isClient);
+						break;
+					case 17:
+						ItemStack itemStack19 = ItemUsage.method_30270(itemStack, player, new ItemStack(Items.STRING, j), true);
+						player.setStackInHand(hand, itemStack19);
+						barterTimer = 1200; //Timer exists to avoid cheese
+						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
+						ActionResult.success(this.world.isClient);
+						break;
+					case 18:
+						ItemStack itemStack20 = ItemUsage.method_30270(itemStack, player, new ItemStack(Items.GOLDEN_CHESTPLATE), true);
+						player.setStackInHand(hand, itemStack20);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
 						ActionResult.success(this.world.isClient);
