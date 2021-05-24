@@ -185,7 +185,7 @@ public class CambionEntity extends BWHostileEntity {
 		int l = rand.nextInt(8);
 		if (barterTimer == 0) {
 			if (itemStack.getItem() == Items.GOLD_INGOT) {
-				switch (rand.nextInt(20)) {
+				switch (rand.nextInt(22)) {
 					default:
 						ItemStack itemStack1 = ItemUsage.method_30270(itemStack, player, new ItemStack(Items.GOLD_INGOT, j), true);
 						player.setStackInHand(hand, itemStack1);
@@ -285,7 +285,7 @@ public class CambionEntity extends BWHostileEntity {
 						ActionResult.success(this.world.isClient);
 						break;
 					case 13:
-						ItemStack itemStack15 = ItemUsage.method_30270(itemStack, player, new ItemStack(Items.IRON_NUGGET, k), true);
+						ItemStack itemStack15 = ItemUsage.method_30270(itemStack, player, new ItemStack(Items.IRON_INGOT, j), true);
 						player.setStackInHand(hand, itemStack15);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
@@ -322,6 +322,20 @@ public class CambionEntity extends BWHostileEntity {
 					case 18:
 						ItemStack itemStack20 = ItemUsage.method_30270(itemStack, player, new ItemStack(Items.GOLDEN_CHESTPLATE), true);
 						player.setStackInHand(hand, itemStack20);
+						barterTimer = 1200; //Timer exists to avoid cheese
+						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
+						ActionResult.success(this.world.isClient);
+						break;
+					case 19:
+						ItemStack itemStack21 = ItemUsage.method_30270(itemStack, player, new ItemStack(BWObjects.DRAGONS_BLOOD_SAPLING), true);
+						player.setStackInHand(hand, itemStack21);
+						barterTimer = 2400; //Timer exists to avoid cheese
+						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
+						ActionResult.success(this.world.isClient);
+						break;
+					case 20:
+						ItemStack itemStack22 = ItemUsage.method_30270(itemStack, player, new ItemStack(BWObjects.DRAGONS_BLOOD_RESIN, l), true);
+						player.setStackInHand(hand, itemStack22);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
 						ActionResult.success(this.world.isClient);
