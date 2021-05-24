@@ -126,6 +126,9 @@ public class CambionEntity extends BWHostileEntity {
 		if (i <= 25) {
 			this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.GOLDEN_SWORD));
 		}
+		if (i <= 15) {
+			this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(BWObjects.ATHAME));
+		}
 		if (j <= 25) {
 			this.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.CHAINMAIL_CHESTPLATE));
 		}
