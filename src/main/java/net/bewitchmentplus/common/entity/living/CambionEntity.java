@@ -113,6 +113,7 @@ public class CambionEntity extends BWHostileEntity {
 		}
 	}
 
+	//Todo: Redo this to mirror logic used on 1.12.2. It was handled better there.
 	@Override
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable CompoundTag entityTag) {
 		dataTracker.set(MALE, random.nextBoolean());
