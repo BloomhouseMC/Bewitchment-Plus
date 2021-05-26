@@ -118,9 +118,9 @@ public class CambionEntity extends BWHostileEntity {
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable CompoundTag entityTag) {
 		dataTracker.set(MALE, random.nextBoolean());
 		Random rand = new Random();
-		int a = rand.nextInt(3);
-		int b = rand.nextInt(3);
-		int c = rand.nextInt(3);
+		int a = rand.nextInt(4);
+		int b = rand.nextInt(4);
+		int c = rand.nextInt(4);
 		if (a == 3) {
 			this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
 		}
