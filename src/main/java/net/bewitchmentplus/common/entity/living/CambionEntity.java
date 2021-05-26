@@ -118,28 +118,28 @@ public class CambionEntity extends BWHostileEntity {
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable CompoundTag entityTag) {
 		dataTracker.set(MALE, random.nextBoolean());
 		Random rand = new Random();
-		int i = rand.nextInt(100);
-		int j = rand.nextInt(100);
-		int k = rand.nextInt(100);
-		if (i <= 45) {
+		int a = rand.nextInt(3);
+		int b = rand.nextInt(3);
+		int c = rand.nextInt(3);
+		if (a == 3) {
 			this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
 		}
-		if (i <= 25) {
+		if (a == 2) {
 			this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.GOLDEN_SWORD));
 		}
-		if (i <= 15) {
+		if (a == 1) {
 			this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(BWObjects.ATHAME));
 		}
-		if (j <= 25) {
+		if (b == 2) {
 			this.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.CHAINMAIL_CHESTPLATE));
 		}
-		if (j <= 15) {
+		if (b == 1) {
 			this.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.GOLDEN_CHESTPLATE));
 		}
-		if (j <= 45) {
+		if (b == 3) {
 			this.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.LEATHER_CHESTPLATE));
 		}
-		if (k <= 15) {
+		if (c == 1) {
 			this.equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
 		}
 		return super.initialize(world, difficulty, spawnReason, entityData, entityTag);
