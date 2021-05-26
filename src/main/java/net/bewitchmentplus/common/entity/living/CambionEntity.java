@@ -119,7 +119,6 @@ public class CambionEntity extends BWHostileEntity {
 		dataTracker.set(MALE, random.nextBoolean());
 		Random rand = new Random();
 		int a = rand.nextInt(4);
-		int b = rand.nextInt(4);
 		int c = rand.nextInt(4);
 		if (a == 3) {
 			this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
@@ -129,15 +128,6 @@ public class CambionEntity extends BWHostileEntity {
 		}
 		if (a == 1) {
 			this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(BWObjects.ATHAME));
-		}
-		if (b == 2) {
-			this.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.CHAINMAIL_CHESTPLATE));
-		}
-		if (b == 1) {
-			this.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.GOLDEN_CHESTPLATE));
-		}
-		if (b == 3) {
-			this.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.LEATHER_CHESTPLATE));
 		}
 		if (c == 1) {
 			this.equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
