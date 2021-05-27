@@ -316,21 +316,21 @@ public class CambionEntity extends BWHostileEntity {
 						ActionResult.success(this.world.isClient);
 						break;
 					case 18:
-						ItemStack itemStack20 = ItemUsage.method_30270(itemStack, player, new ItemStack(Items.GOLDEN_CHESTPLATE), true);
+						ItemStack itemStack20 = new ItemStack(Items.GOLDEN_CHESTPLATE);
 						player.inventory.insertStack(itemStack20);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
 						ActionResult.success(this.world.isClient);
 						break;
 					case 19:
-						ItemStack itemStack21 = ItemUsage.method_30270(itemStack, player, new ItemStack(BWObjects.DRAGONS_BLOOD_SAPLING), true);
+						ItemStack itemStack21 = new ItemStack(BWObjects.DRAGONS_BLOOD_SAPLING);
 						player.inventory.insertStack(itemStack21);
 						barterTimer = 2400; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
 						ActionResult.success(this.world.isClient);
 						break;
 					case 20:
-						ItemStack itemStack22 = ItemUsage.method_30270(itemStack, player, new ItemStack(BWObjects.DRAGONS_BLOOD_RESIN, l), true);
+						ItemStack itemStack22 = new ItemStack(BWObjects.DRAGONS_BLOOD_RESIN, l);
 						player.inventory.insertStack(itemStack22);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
