@@ -178,10 +178,10 @@ public class CambionEntity extends BWHostileEntity {
 		int l = rand.nextInt(8);
 		if (barterTimer == 0) {
 			if (itemStack.getItem() == Items.GOLD_INGOT) {
-				player.inventory.removeOne(itemStack);
 				switch (rand.nextInt(22)) {
 					default:
 						ItemStack itemStack1 = new ItemStack(Items.GOLD_INGOT, j);
+						itemStack.decrement(1);
 						player.inventory.insertStack(itemStack1);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
@@ -189,6 +189,7 @@ public class CambionEntity extends BWHostileEntity {
 						break;
 					case 0:
 						ItemStack itemStack2 = new ItemStack(Items.DIAMOND, j);
+						itemStack.decrement(1);
 						player.inventory.insertStack(itemStack2);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
@@ -196,6 +197,7 @@ public class CambionEntity extends BWHostileEntity {
 						break;
 					case 1:
 						ItemStack itemStack3 = new ItemStack(Items.GOLDEN_HORSE_ARMOR);
+						itemStack.decrement(1);
 						player.inventory.insertStack(itemStack3);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
@@ -203,6 +205,7 @@ public class CambionEntity extends BWHostileEntity {
 						break;
 					case 2:
 						ItemStack itemStack4 = new ItemStack(Items.GOLDEN_APPLE);
+						itemStack.decrement(1);
 						player.inventory.insertStack(itemStack4);
 						barterTimer = 4800; //Timer exists to avoid cheese. Golden apples are powerful, give them a longer cooldown.
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
@@ -210,6 +213,7 @@ public class CambionEntity extends BWHostileEntity {
 						break;
 					case 3:
 						ItemStack itemStack5 = new ItemStack(Items.SADDLE);
+						itemStack.decrement(1);
 						player.inventory.insertStack(itemStack5);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
@@ -217,6 +221,7 @@ public class CambionEntity extends BWHostileEntity {
 						break;
 					case 4:
 						ItemStack itemStack6 = new ItemStack(BWObjects.DEMON_HORN, j);
+						itemStack.decrement(1);
 						player.inventory.insertStack(itemStack6);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
@@ -224,6 +229,7 @@ public class CambionEntity extends BWHostileEntity {
 						break;
 					case 5:
 						ItemStack itemStack7 = new ItemStack(Items.BLAZE_POWDER, j);
+						itemStack.decrement(1);
 						player.inventory.insertStack(itemStack7);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
@@ -231,6 +237,7 @@ public class CambionEntity extends BWHostileEntity {
 						break;
 					case 6:
 						ItemStack itemStack8 = new ItemStack(Items.REDSTONE, k);
+						itemStack.decrement(1);
 						player.inventory.insertStack(itemStack8);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
@@ -238,6 +245,7 @@ public class CambionEntity extends BWHostileEntity {
 						break;
 					case 7:
 						ItemStack itemStack9 = new ItemStack(BWObjects.DEMON_HEART);
+						itemStack.decrement(1);
 						player.inventory.insertStack(itemStack9);
 						barterTimer = 4800; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
@@ -245,6 +253,7 @@ public class CambionEntity extends BWHostileEntity {
 						break;
 					case 8:
 						ItemStack itemStack10 = new ItemStack(BWObjects.SNAKE_TONGUE, i);
+						itemStack.decrement(1);
 						player.inventory.insertStack(itemStack10);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
@@ -252,6 +261,7 @@ public class CambionEntity extends BWHostileEntity {
 						break;
 					case 9:
 						ItemStack itemStack11 = new ItemStack(Items.NETHER_WART, j);
+						itemStack.decrement(1);
 						player.inventory.insertStack(itemStack11);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
@@ -259,6 +269,7 @@ public class CambionEntity extends BWHostileEntity {
 						break;
 					case 10:
 						ItemStack itemStack12 = new ItemStack(Items.LEATHER, k);
+						itemStack.decrement(1);
 						player.inventory.insertStack(itemStack12);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
@@ -266,6 +277,7 @@ public class CambionEntity extends BWHostileEntity {
 						break;
 					case 11:
 						ItemStack itemStack13 = new ItemStack(Items.NAUTILUS_SHELL);
+						itemStack.decrement(1);
 						player.inventory.insertStack(itemStack13);
 						barterTimer = 4800; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
@@ -273,6 +285,7 @@ public class CambionEntity extends BWHostileEntity {
 						break;
 					case 12:
 						ItemStack itemStack14 = new ItemStack(Items.ENDER_PEARL, j);
+						itemStack.decrement(1);
 						player.inventory.insertStack(itemStack14);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
@@ -280,6 +293,7 @@ public class CambionEntity extends BWHostileEntity {
 						break;
 					case 13:
 						ItemStack itemStack15 = new ItemStack(Items.IRON_INGOT, j);
+						itemStack.decrement(1);
 						player.inventory.insertStack(itemStack15);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
@@ -287,6 +301,7 @@ public class CambionEntity extends BWHostileEntity {
 						break;
 					case 14:
 						ItemStack itemStack16 = new ItemStack(Items.ARROW, k);
+						itemStack.decrement(1);
 						player.inventory.insertStack(itemStack16);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
@@ -294,6 +309,7 @@ public class CambionEntity extends BWHostileEntity {
 						break;
 					case 15:
 						ItemStack itemStack17 = new ItemStack(Items.QUARTZ, j);
+						itemStack.decrement(1);
 						player.inventory.insertStack(itemStack17);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
@@ -301,6 +317,7 @@ public class CambionEntity extends BWHostileEntity {
 						break;
 					case 16:
 						ItemStack itemStack18 = new ItemStack(Items.LAPIS_LAZULI, j);
+						itemStack.decrement(1);
 						player.inventory.insertStack(itemStack18);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
@@ -308,6 +325,7 @@ public class CambionEntity extends BWHostileEntity {
 						break;
 					case 17:
 						ItemStack itemStack19 = new ItemStack(Items.STRING, k);
+						itemStack.decrement(1);
 						player.inventory.insertStack(itemStack19);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
@@ -315,6 +333,7 @@ public class CambionEntity extends BWHostileEntity {
 						break;
 					case 18:
 						ItemStack itemStack20 = new ItemStack(Items.GOLDEN_CHESTPLATE);
+						itemStack.decrement(1);
 						player.inventory.insertStack(itemStack20);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
@@ -322,6 +341,7 @@ public class CambionEntity extends BWHostileEntity {
 						break;
 					case 19:
 						ItemStack itemStack21 = new ItemStack(BWObjects.DRAGONS_BLOOD_SAPLING);
+						itemStack.decrement(1);
 						player.inventory.insertStack(itemStack21);
 						barterTimer = 2400; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
@@ -329,6 +349,7 @@ public class CambionEntity extends BWHostileEntity {
 						break;
 					case 20:
 						ItemStack itemStack22 = new ItemStack(BWObjects.DRAGONS_BLOOD_RESIN, l);
+						itemStack.decrement(1);
 						player.inventory.insertStack(itemStack22);
 						barterTimer = 1200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
