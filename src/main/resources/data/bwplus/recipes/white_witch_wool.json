@@ -2,7 +2,7 @@
   "type": "crafting_shapeless",
   "ingredients": [
 	{
-	  "item": "bewitchment:mandrake"
+	  "item": "bewitchment:mandrake_root"
 	},
 	{
 	  "item": "bewitchment:belladonna"
