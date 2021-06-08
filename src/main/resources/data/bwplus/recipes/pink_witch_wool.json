@@ -1,0 +1,36 @@
+{
+  "type": "crafting_shapeless",
+  "ingredients": [
+	{
+	  "item": "bwplus:white_witch_wool"
+	},
+	{
+	  "item": "bwplus:white_witch_wool"
+	},	
+	{
+	  "item": "bwplus:white_witch_wool"
+	},
+	{
+	  "item": "bwplus:white_witch_wool"
+	},
+	{
+	  "item": "bwplus:white_witch_wool"
+	},
+	{
+	  "item": "bwplus:white_witch_wool"
+	},	
+	{
+	  "item": "bwplus:white_witch_wool"
+	},
+	{
+	  "item": "bwplus:white_witch_wool"
+	},
+	{
+	  "item": "pink_dye"
+	}	
+  ],
+  "result": {
+	"item": "bwplus:pink_witch_wool",
+	"count": 8
+  }
+}
