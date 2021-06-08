@@ -1,0 +1,21 @@
+{
+  "type": "crafting_shapeless",
+  "ingredients": [
+	{
+	  "item": "bewitchment:mandrake"
+	},
+	{
+	  "item": "bewitchment:belladonna"
+	},	
+	{
+	  "item": "string"
+	},
+	{
+	  "item": "string"
+	}
+  ],
+  "result": {
+	"item": "bwplus:white_witch_wool",
+	"count": "4"
+  }
+}
