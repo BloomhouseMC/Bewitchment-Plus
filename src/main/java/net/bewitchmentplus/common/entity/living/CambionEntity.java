@@ -68,11 +68,17 @@ public class CambionEntity extends BWHostileEntity {
 		if (flag && (spawnReason == SpawnReason.SPAWNER || spawnReason == SpawnReason.STRUCTURE || spawnReason == SpawnReason.MOB_SUMMONED || spawnReason == SpawnReason.SPAWN_EGG || spawnReason == SpawnReason.COMMAND || spawnReason == SpawnReason.DISPENSER || spawnReason == SpawnReason.NATURAL)) {
 			return true;
 		}
-		if (world instanceof ServerWorld && BewitchmentPlus.config.cambionStructureSpawn) {
+		if (world instanceof ServerWorld && BewitchmentPlus.config.cambionVillageStructureSpawn) {
 			BlockPos nearestVillage = ((ServerWorld) world).locateStructure(StructureFeature.VILLAGE, getBlockPos(), 3, false);
-			BlockPos nearestBastion = ((ServerWorld) world).locateStructure(StructureFeature.BASTION_REMNANT, getBlockPos(), 3, false);
-			BlockPos nearestFortress = ((ServerWorld) world).locateStructure(StructureFeature.FORTRESS, getBlockPos(), 3, false);
 			return (nearestVillage != null && Math.sqrt(nearestVillage.getSquaredDistance(getBlockPos())) < 128);
+		}
+		if (world instanceof ServerWorld && BewitchmentPlus.config.cambionNetherFortressStructureSpawn) {
+			BlockPos nearestFortress = ((ServerWorld) world).locateStructure(StructureFeature.FORTRESS, getBlockPos(), 3, false);
+			return (nearestFortress != null && Math.sqrt(nearestFortress.getSquaredDistance(getBlockPos())) < 128);
+		}
+		if (world instanceof ServerWorld && BewitchmentPlus.config.cambionBastionStructureSpawn) {
+			BlockPos nearestBastion = ((ServerWorld) world).locateStructure(StructureFeature.BASTION_REMNANT, getBlockPos(), 3, false);
+			return (nearestBastion != null && Math.sqrt(nearestBastion.getSquaredDistance(getBlockPos())) < 128);
 		}
 		return false;
 	}
