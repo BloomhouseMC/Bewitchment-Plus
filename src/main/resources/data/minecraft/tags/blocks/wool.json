@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+	"bwplus:red_witch_wool",
+	"bwplus:green_witch_wool",
+	"bwplus:yellow_witch_wool",
+	"bwplus:orange_witch_wool",	
+	"bwplus:magenta_witch_wool",
+	"bwplus:purple_witch_wool",		
+	"bwplus:gray_witch_wool",
+	"bwplus:light_gray_witch_wool",		
+	"bwplus:light_blue_witch_wool",		
+	"bwplus:cyan_witch_wool",	
+	"bwplus:pink_witch_wool",	
+	"bwplus:lime_witch_wool",	
+	"bwplus:white_witch_wool",	
+	"bwplus:black_witch_wool",	
+	"bwplus:brown_witch_wool",		
+	"bwplus:blue_witch_wool"
+  ]
+}
