@@ -1,5 +1,8 @@
 package net.bewitchmentplus.common.items;
 
+import moriyashiine.bewitchment.api.BewitchmentAPI;
+import moriyashiine.bewitchment.api.interfaces.entity.MagicAccessor;
+import moriyashiine.bewitchment.mixin.PlayerEntityMixin;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.HorseBaseEntity;
@@ -23,29 +26,34 @@ public class ThyrsusItem extends SwordItem {
 	@Override
 	public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
 		Random random = new Random();
-		if (entity instanceof AnimalEntity) {
-			AnimalEntity animalEntity = (AnimalEntity) entity;
-			if (animalEntity.isAlive()) {
-				animalEntity.setLoveTicks(5000);
-				stack.damage(6, random, null);
-				user.playSound(SoundEvents.BLOCK_BAMBOO_HIT, 1, 1);
-			}
-			if (entity instanceof TameableEntity) {
-				TameableEntity tameableEntity = (TameableEntity) entity;
-				if (!tameableEntity.isTamed()) {
-					tameableEntity.setOwnerUuid(user.getUuid());
-					tameableEntity.setTamed(true);
-					stack.damage(12, random, null);
+		if (user instanceof MagicAccessor) {
+			if (entity instanceof AnimalEntity) {
+				AnimalEntity animalEntity = (AnimalEntity) entity;
+				if (animalEntity.isAlive()) {
+					animalEntity.setLoveTicks(5000);
+					stack.damage(6, random, null);
 					user.playSound(SoundEvents.BLOCK_BAMBOO_HIT, 1, 1);
+					BewitchmentAPI.drainMagic(user, 2, false);
 				}
-			}
-			if (entity instanceof HorseBaseEntity) {
-				HorseBaseEntity horseBaseEntity = (HorseBaseEntity) entity;
-				if (!horseBaseEntity.isTame()) {
-					horseBaseEntity.setOwnerUuid(user.getUuid());
-					horseBaseEntity.setTame(true);
-					stack.damage(12, random, null);
-					user.playSound(SoundEvents.BLOCK_BAMBOO_HIT, 1, 1);
+				if (entity instanceof TameableEntity) {
+					TameableEntity tameableEntity = (TameableEntity) entity;
+					if (!tameableEntity.isTamed()) {
+						tameableEntity.setOwnerUuid(user.getUuid());
+						tameableEntity.setTamed(true);
+						stack.damage(12, random, null);
+						user.playSound(SoundEvents.BLOCK_BAMBOO_HIT, 1, 1);
+						BewitchmentAPI.drainMagic(user, 4, false);
+					}
+				}
+				if (entity instanceof HorseBaseEntity) {
+					HorseBaseEntity horseBaseEntity = (HorseBaseEntity) entity;
+					if (!horseBaseEntity.isTame()) {
+						horseBaseEntity.setOwnerUuid(user.getUuid());
+						horseBaseEntity.setTame(true);
+						stack.damage(12, random, null);
+						user.playSound(SoundEvents.BLOCK_BAMBOO_HIT, 1, 1);
+						BewitchmentAPI.drainMagic(user, 4, false);
+					}
 				}
 			}
 		}
