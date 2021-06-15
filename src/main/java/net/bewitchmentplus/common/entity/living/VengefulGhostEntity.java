@@ -27,6 +27,11 @@ public class VengefulGhostEntity extends BWHostileEntity {
 	}
 
 	@Override
+	public boolean isFireImmune() {
+		return true;
+	}
+
+	@Override
 	public int getVariants() {
 		return 0;
 	}

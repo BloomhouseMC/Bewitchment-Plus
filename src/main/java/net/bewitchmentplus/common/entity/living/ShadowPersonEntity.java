@@ -27,6 +27,11 @@ public class ShadowPersonEntity extends BWHostileEntity {
 	}
 
 	@Override
+	public boolean isFireImmune() {
+		return true;
+	}
+
+	@Override
 	public boolean canUsePortals() {
 		return true;
 	}
