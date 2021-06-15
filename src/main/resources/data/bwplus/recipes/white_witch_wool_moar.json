@@ -6,9 +6,6 @@
 	},
 	{
 	  "item": "bewitchment:belladonna"
-	},	
-	{
-	  "item": "white_wool"
 	},
 	{
 	  "item": "white_wool"
@@ -18,7 +15,10 @@
 	},
 	{
 	  "item": "white_wool"
-	}	
+	},
+	{
+	  "item": "white_wool"
+	}
   ],
   "result": {
 	"item": "bwplus:white_witch_wool",

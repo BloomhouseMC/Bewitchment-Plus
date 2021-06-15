@@ -39,11 +39,6 @@ public class BlackDogEntity extends BWHostileEntity {
 		experiencePoints = 5;
 	}
 
-	@Override
-	public boolean isFireImmune() {
-		return true;
-	}
-
 	public static DefaultAttributeContainer.Builder createAttributes() {
 		return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 10.00D).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3.0D).add(EntityAttributes.GENERIC_ARMOR, 2.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.35D).add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.35D).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32.0D);
 	}
@@ -88,6 +83,11 @@ public class BlackDogEntity extends BWHostileEntity {
 		bz -= az;
 
 		return bx * bx + bz * bz <= distance * distance;
+	}
+
+	@Override
+	public boolean isFireImmune() {
+		return true;
 	}
 
 	@Override

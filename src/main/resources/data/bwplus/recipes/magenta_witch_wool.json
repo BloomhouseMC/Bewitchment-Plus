@@ -6,9 +6,6 @@
 	},
 	{
 	  "item": "bwplus:white_witch_wool"
-	},	
-	{
-	  "item": "bwplus:white_witch_wool"
 	},
 	{
 	  "item": "bwplus:white_witch_wool"
@@ -18,7 +15,10 @@
 	},
 	{
 	  "item": "bwplus:white_witch_wool"
-	},	
+	},
+	{
+	  "item": "bwplus:white_witch_wool"
+	},
 	{
 	  "item": "bwplus:white_witch_wool"
 	},
@@ -27,7 +27,7 @@
 	},
 	{
 	  "item": "magenta_dye"
-	}	
+	}
   ],
   "result": {
 	"item": "bwplus:magenta_witch_wool",

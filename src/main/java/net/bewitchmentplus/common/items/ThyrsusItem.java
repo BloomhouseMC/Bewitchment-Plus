@@ -2,7 +2,6 @@ package net.bewitchmentplus.common.items;
 
 import moriyashiine.bewitchment.api.BewitchmentAPI;
 import moriyashiine.bewitchment.api.interfaces.entity.MagicAccessor;
-import moriyashiine.bewitchment.mixin.PlayerEntityMixin;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.HorseBaseEntity;
