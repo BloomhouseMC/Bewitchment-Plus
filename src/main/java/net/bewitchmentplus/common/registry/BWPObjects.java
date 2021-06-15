@@ -22,7 +22,7 @@ public class BWPObjects {
 
 	public static final Item DRUDEN_SPAWN_EGG = create("druden_spawn_egg", new SpawnEggItem(BWPEntityTypes.DRUDEN, 0x006400, 0x989898, gen()));
 	public static final Item BLACK_DOG_SPAWN_EGG = create("black_dog_spawn_egg", new SpawnEggItem(BWPEntityTypes.BLACK_DOG, 0x000000, 0x000000, gen()));
-	public static final Item CAMBION_SPAWN_EGG = create("cambion_spawn_egg", new SpawnEggItem(BWPEntityTypes.CAMBION, 0x000000, 0x000000, gen()));
+	public static final Item CAMBION_SPAWN_EGG = create("cambion_spawn_egg", new SpawnEggItem(BWPEntityTypes.CAMBION, 0xE34234, 0x343434, gen()));
 
 	public static final Item THYRSUS_ITEM = create("thyrsus", new ThyrsusItem(ToolMaterials.IRON, 1, 2, gen()));
 
