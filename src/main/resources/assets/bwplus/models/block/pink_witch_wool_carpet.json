@@ -1,0 +1,6 @@
+{
+  "parent": "block/carpet",
+  "textures": {
+	"all": "bwplus:block/pink_witch_wool"
+  }
+}
