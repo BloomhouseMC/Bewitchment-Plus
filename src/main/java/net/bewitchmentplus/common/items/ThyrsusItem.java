@@ -55,7 +55,7 @@ public class ThyrsusItem extends SwordItem {
 							BewitchmentAPI.drainMagic(user, 4, false);
 						}
 					else if (stack.getDamage() <= 0) {
-						stack.isUsedOnRelease();
+						//stack.isUsedOnRelease();
 						}
 
 					}
