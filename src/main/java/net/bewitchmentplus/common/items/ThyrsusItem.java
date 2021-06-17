@@ -23,6 +23,11 @@ public class ThyrsusItem extends SwordItem {
 	}
 
 	@Override
+	public boolean isDamageable() {
+		return true;
+	}
+
+	@Override
 	public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
 		Random random = new Random();
 		if (user instanceof MagicAccessor) {
@@ -54,10 +59,6 @@ public class ThyrsusItem extends SwordItem {
 							user.playSound(SoundEvents.BLOCK_BAMBOO_HIT, 1, 1);
 							BewitchmentAPI.drainMagic(user, 4, false);
 						}
-					else if (stack.getDamage() <= 0) {
-						//stack.isUsedOnRelease();
-						}
-
 					}
 				}
 			}
