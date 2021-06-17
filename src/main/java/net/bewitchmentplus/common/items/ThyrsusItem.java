@@ -26,32 +26,38 @@ public class ThyrsusItem extends SwordItem {
 	public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
 		Random random = new Random();
 		if (user instanceof MagicAccessor) {
-			if (entity instanceof AnimalEntity) {
-				AnimalEntity animalEntity = (AnimalEntity) entity;
-				if (animalEntity.isAlive()) {
-					animalEntity.setLoveTicks(5000);
-					stack.damage(6, random, null);
-					user.playSound(SoundEvents.BLOCK_BAMBOO_HIT, 1, 1);
-					BewitchmentAPI.drainMagic(user, 2, false);
-				}
-				if (entity instanceof TameableEntity) {
-					TameableEntity tameableEntity = (TameableEntity) entity;
-					if (!tameableEntity.isTamed()) {
-						tameableEntity.setOwnerUuid(user.getUuid());
-						tameableEntity.setTamed(true);
-						stack.damage(12, random, null);
+			if (stack.getDamage() > 0) {
+				if (entity instanceof AnimalEntity) {
+					AnimalEntity animalEntity = (AnimalEntity) entity;
+					if (animalEntity.isAlive()) {
+						animalEntity.setLoveTicks(5000);
+						stack.damage(6, random, null);
 						user.playSound(SoundEvents.BLOCK_BAMBOO_HIT, 1, 1);
-						BewitchmentAPI.drainMagic(user, 4, false);
+						BewitchmentAPI.drainMagic(user, 2, false);
 					}
-				}
-				if (entity instanceof HorseBaseEntity) {
-					HorseBaseEntity horseBaseEntity = (HorseBaseEntity) entity;
-					if (!horseBaseEntity.isTame()) {
-						horseBaseEntity.setOwnerUuid(user.getUuid());
-						horseBaseEntity.setTame(true);
-						stack.damage(12, random, null);
-						user.playSound(SoundEvents.BLOCK_BAMBOO_HIT, 1, 1);
-						BewitchmentAPI.drainMagic(user, 4, false);
+					if (entity instanceof TameableEntity) {
+						TameableEntity tameableEntity = (TameableEntity) entity;
+						if (!tameableEntity.isTamed()) {
+							tameableEntity.setOwnerUuid(user.getUuid());
+							tameableEntity.setTamed(true);
+							stack.damage(12, random, null);
+							user.playSound(SoundEvents.BLOCK_BAMBOO_HIT, 1, 1);
+							BewitchmentAPI.drainMagic(user, 4, false);
+						}
+					}
+					if (entity instanceof HorseBaseEntity) {
+						HorseBaseEntity horseBaseEntity = (HorseBaseEntity) entity;
+						if (!horseBaseEntity.isTame()) {
+							horseBaseEntity.setOwnerUuid(user.getUuid());
+							horseBaseEntity.setTame(true);
+							stack.damage(12, random, null);
+							user.playSound(SoundEvents.BLOCK_BAMBOO_HIT, 1, 1);
+							BewitchmentAPI.drainMagic(user, 4, false);
+						}
+					else if (stack.getDamage() <= 0) {
+						stack.isUsedOnRelease();
+						}
+
 					}
 				}
 			}

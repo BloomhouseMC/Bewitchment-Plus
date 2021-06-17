@@ -1,6 +1,6 @@
 {
   "parent": "block/carpet",
   "textures": {
-	"all": "bwplus:block/white_witch_wool"
+	"wool": "bwplus:block/white_witch_wool"
   }
 }
