@@ -34,7 +34,7 @@ public class ThyrsusItem extends SwordItem {
 			if (stack.getDamage() > 0) {
 				if (entity instanceof AnimalEntity) {
 					AnimalEntity animalEntity = (AnimalEntity) entity;
-					if (animalEntity.isAlive()) {
+					if (animalEntity.isAlive() && !animalEntity.isInLove()) {
 						animalEntity.setLoveTicks(5000);
 						stack.damage(6, random, null);
 						user.playSound(SoundEvents.BLOCK_BAMBOO_HIT, 1, 1);
