@@ -32,6 +32,8 @@ public class CambionEntityModel<T extends CambionEntity> extends BipedEntityMode
 		model.render(matrices, vertices, light, overlay, red, green, blue, alpha);
 	}
 
+	private boolean realArm = false;
+
 	@Override
 	protected ModelPart getArm(Arm arm) {
 		if (model == male) {
@@ -85,7 +87,7 @@ public class CambionEntityModel<T extends CambionEntity> extends BipedEntityMode
 		private final ModelPart hair01;
 		private final ModelPart hair00;
 
-		private final boolean realArm = false;
+		private boolean realArm = false;
 
 
 		public Male() {
@@ -272,7 +274,9 @@ public class CambionEntityModel<T extends CambionEntity> extends BipedEntityMode
 
 		@Override
 		public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+			realArm = false;
 			super.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
+			realArm = true;
 			copyRotation(head, super.head);
 			copyRotation(body, super.torso);
 			copyRotation(bipedLeftArm, super.leftArm);
@@ -320,7 +324,7 @@ public class CambionEntityModel<T extends CambionEntity> extends BipedEntityMode
 		private final ModelPart hair01;
 		private final ModelPart hair00;
 
-		private final boolean realArm = false;
+		private boolean realArm = false;
 
 		public Female() {
 			super(1, 0, 64, 64);
@@ -510,7 +514,9 @@ public class CambionEntityModel<T extends CambionEntity> extends BipedEntityMode
 
 		@Override
 		public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+			realArm = false;
 			super.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
+			realArm = true;
 			copyRotation(head, super.head);
 			copyRotation(body, super.torso);
 			copyRotation(bipedLeftArm, super.leftArm);

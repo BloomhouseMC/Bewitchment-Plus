@@ -1,5 +1,6 @@
 package net.bewitchmentplus.common.registry;
 
+import moriyashiine.bewitchment.common.block.util.BWCarpetBlock;
 import net.bewitchmentplus.BewitchmentPlus;
 import net.bewitchmentplus.common.items.ThyrsusItem;
 import net.minecraft.block.Block;
@@ -8,6 +9,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.item.ToolMaterials;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -43,22 +45,22 @@ public class BWPObjects {
 	public static final Block RED_WITCH_WOOL = create("red_witch_wool", new Block(copyOf(Blocks.WHITE_WOOL)), true);
 	public static final Block BLACK_WITCH_WOOL = create("black_witch_wool", new Block(copyOf(Blocks.WHITE_WOOL)), true);
 
-	public static final Block WHITE_WITCH_WOOL_CARPET = create("white_witch_wool_carpet", new Block(copyOf(Blocks.WHITE_CARPET)), true);
-	public static final Block ORANGE_WITCH_WOOL_CARPET = create("orange_witch_wool_carpet", new Block(copyOf(Blocks.WHITE_CARPET)), true);
-	public static final Block MAGENTA_WITCH_WOOL_CARPET = create("magenta_witch_wool_carpet", new Block(copyOf(Blocks.WHITE_CARPET)), true);
-	public static final Block LIGHT_BLUE_WITCH_WOOL_CARPET = create("light_blue_witch_wool_carpet", new Block(copyOf(Blocks.WHITE_CARPET)), true);
-	public static final Block YELLOW_WITCH_WOOL_CARPET = create("yellow_witch_wool_carpet", new Block(copyOf(Blocks.WHITE_CARPET)), true);
-	public static final Block LIME_WITCH_WOOL_CARPET = create("lime_witch_wool_carpet", new Block(copyOf(Blocks.WHITE_CARPET)), true);
-	public static final Block GRAY_WITCH_WOOL_CARPET = create("gray_witch_wool_carpet", new Block(copyOf(Blocks.WHITE_CARPET)), true);
-	public static final Block PINK_WITCH_WOOL_CARPET = create("pink_witch_wool_carpet", new Block(copyOf(Blocks.WHITE_CARPET)), true);
-	public static final Block LIGHT_GRAY_WITCH_WOOL_CARPET = create("light_gray_witch_wool_carpet", new Block(copyOf(Blocks.WHITE_CARPET)), true);
-	public static final Block CYAN_WITCH_WOOL_CARPET = create("cyan_witch_wool_carpet", new Block(copyOf(Blocks.WHITE_CARPET)), true);
-	public static final Block PURPLE_WITCH_WOOL_CARPET = create("purple_witch_wool_carpet", new Block(copyOf(Blocks.WHITE_CARPET)), true);
-	public static final Block BLUE_WITCH_WOOL_CARPET = create("blue_witch_wool_carpet", new Block(copyOf(Blocks.WHITE_CARPET)), true);
-	public static final Block BROWN_WITCH_WOOL_CARPET = create("brown_witch_wool_carpet", new Block(copyOf(Blocks.WHITE_CARPET)), true);
-	public static final Block GREEN_WITCH_WOOL_CARPET = create("green_witch_wool_carpet", new Block(copyOf(Blocks.WHITE_CARPET)), true);
-	public static final Block RED_WITCH_WOOL_CARPET = create("red_witch_wool_carpet", new Block(copyOf(Blocks.WHITE_CARPET)), true);
-	public static final Block BLACK_WITCH_WOOL_CARPET = create("black_witch_wool_carpet", new Block(copyOf(Blocks.WHITE_CARPET)), true);
+	public static final Block WHITE_WITCH_WOOL_CARPET = create("white_witch_wool_carpet", new BWCarpetBlock(DyeColor.WHITE, copyOf(Blocks.WHITE_CARPET)), true);
+	public static final Block ORANGE_WITCH_WOOL_CARPET = create("orange_witch_wool_carpet", new BWCarpetBlock(DyeColor.WHITE, copyOf(Blocks.WHITE_CARPET)), true);
+	public static final Block MAGENTA_WITCH_WOOL_CARPET = create("magenta_witch_wool_carpet", new BWCarpetBlock(DyeColor.WHITE, copyOf(Blocks.WHITE_CARPET)), true);
+	public static final Block LIGHT_BLUE_WITCH_WOOL_CARPET = create("light_blue_witch_wool_carpet", new BWCarpetBlock(DyeColor.WHITE, copyOf(Blocks.WHITE_CARPET)), true);
+	public static final Block YELLOW_WITCH_WOOL_CARPET = create("yellow_witch_wool_carpet", new BWCarpetBlock(DyeColor.WHITE, copyOf(Blocks.WHITE_CARPET)), true);
+	public static final Block LIME_WITCH_WOOL_CARPET = create("lime_witch_wool_carpet", new BWCarpetBlock(DyeColor.WHITE, copyOf(Blocks.WHITE_CARPET)), true);
+	public static final Block GRAY_WITCH_WOOL_CARPET = create("gray_witch_wool_carpet", new BWCarpetBlock(DyeColor.WHITE, copyOf(Blocks.WHITE_CARPET)), true);
+	public static final Block PINK_WITCH_WOOL_CARPET = create("pink_witch_wool_carpet", new BWCarpetBlock(DyeColor.WHITE, copyOf(Blocks.WHITE_CARPET)), true);
+	public static final Block LIGHT_GRAY_WITCH_WOOL_CARPET = create("light_gray_witch_wool_carpet", new BWCarpetBlock(DyeColor.WHITE, copyOf(Blocks.WHITE_CARPET)), true);
+	public static final Block CYAN_WITCH_WOOL_CARPET = create("cyan_witch_wool_carpet", new BWCarpetBlock(DyeColor.WHITE, copyOf(Blocks.WHITE_CARPET)), true);
+	public static final Block PURPLE_WITCH_WOOL_CARPET = create("purple_witch_wool_carpet", new BWCarpetBlock(DyeColor.WHITE, copyOf(Blocks.WHITE_CARPET)), true);
+	public static final Block BLUE_WITCH_WOOL_CARPET = create("blue_witch_wool_carpet", new BWCarpetBlock(DyeColor.WHITE, copyOf(Blocks.WHITE_CARPET)), true);
+	public static final Block BROWN_WITCH_WOOL_CARPET = create("brown_witch_wool_carpet", new BWCarpetBlock(DyeColor.WHITE, copyOf(Blocks.WHITE_CARPET)), true);
+	public static final Block GREEN_WITCH_WOOL_CARPET = create("green_witch_wool_carpet", new BWCarpetBlock(DyeColor.WHITE, copyOf(Blocks.WHITE_CARPET)), true);
+	public static final Block RED_WITCH_WOOL_CARPET = create("red_witch_wool_carpet", new BWCarpetBlock(DyeColor.WHITE, copyOf(Blocks.WHITE_CARPET)), true);
+	public static final Block BLACK_WITCH_WOOL_CARPET = create("black_witch_wool_carpet", new BWCarpetBlock(DyeColor.WHITE, copyOf(Blocks.WHITE_CARPET)), true);
 
 	private static <T extends Block> T create(String name, T block, boolean createItem) {
 		BLOCKS.put(block, new Identifier(BewitchmentPlus.MODID, name));

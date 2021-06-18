@@ -82,6 +82,8 @@ public class DrudenEntityModel<T extends DrudenEntity> extends BipedEntityModel<
 	private final ModelPart HAIR;
 	private final ModelPart Base_r1;
 
+	private boolean realArm = false;
+
 	public DrudenEntityModel() {
 		super(1, 0, 128, 64);
 		textureWidth = 128;
@@ -487,7 +489,9 @@ public class DrudenEntityModel<T extends DrudenEntity> extends BipedEntityModel<
 
 	@Override
 	public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+		realArm = false;
 		super.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
+		realArm = true;
 		copyRotation(head, super.head);
 		copyRotation(bipedLeftArm, super.leftArm);
 		bipedLeftArm.roll -= 0.1309f;
