@@ -15,6 +15,7 @@ public class CambionEntityModel<T extends CambionEntity> extends BipedEntityMode
 	private final BipedEntityModel<T> female = new CambionEntityModel.Female();
 
 	private BipedEntityModel<T> model;
+	private final boolean realArm = false;
 
 	public CambionEntityModel() {
 		super(1);
@@ -31,8 +32,6 @@ public class CambionEntityModel<T extends CambionEntity> extends BipedEntityMode
 	public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) {
 		model.render(matrices, vertices, light, overlay, red, green, blue, alpha);
 	}
-
-	private boolean realArm = false;
 
 	@Override
 	protected ModelPart getArm(Arm arm) {
