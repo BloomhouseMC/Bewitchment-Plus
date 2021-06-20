@@ -2,9 +2,14 @@ package net.bewitchmentplus.common.entity.living;
 
 import moriyashiine.bewitchment.api.BewitchmentAPI;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
 public class ShadowPersonEntity extends BWHostileEntity {
@@ -24,6 +29,16 @@ public class ShadowPersonEntity extends BWHostileEntity {
 	@Override
 	public int getVariants() {
 		return 0;
+	}
+
+	@Override
+	public boolean tryAttack(Entity target) {
+		boolean flag = super.tryAttack(target);
+		if (flag && target instanceof LivingEntity) {
+			((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 600, 3));
+			swingHand(Hand.MAIN_HAND);
+		}
+		return flag;
 	}
 
 	@Override
