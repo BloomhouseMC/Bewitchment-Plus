@@ -13,9 +13,8 @@ import net.minecraft.util.Arm;
 public class CambionEntityModel<T extends CambionEntity> extends BipedEntityModel<T> {
 	private final BipedEntityModel<T> male = new CambionEntityModel.Male();
 	private final BipedEntityModel<T> female = new CambionEntityModel.Female();
-
-	private BipedEntityModel<T> model;
 	private final boolean realArm = false;
+	private BipedEntityModel<T> model;
 
 	public CambionEntityModel() {
 		super(1);

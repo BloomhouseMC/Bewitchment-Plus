@@ -1,6 +1,7 @@
 package net.bewitchmentplus.common.entity.living;
 
 import moriyashiine.bewitchment.api.BewitchmentAPI;
+import moriyashiine.bewitchment.common.entity.living.LeonardEntity;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
 import moriyashiine.bewitchment.common.registry.BWObjects;
 import net.bewitchmentplus.BewitchmentPlus;
@@ -168,7 +169,7 @@ public class CambionEntity extends BWHostileEntity {
 		goalSelector.add(3, new LookAroundGoal(this));
 		targetSelector.add(0, new RevengeGoal(this));
 		this.targetSelector.add(3, new FollowTargetGoal(this, MobEntity.class, 5, false, false, (livingEntity) -> {
-			return livingEntity instanceof Monster && !(livingEntity instanceof CambionEntity);
+			return livingEntity instanceof Monster && !(livingEntity instanceof CambionEntity) && !(livingEntity instanceof LeonardEntity);
 		}));
 	}
 

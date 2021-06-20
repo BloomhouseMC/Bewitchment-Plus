@@ -1,12 +1,19 @@
 package net.bewitchmentplus.common.entity.living;
 
 import moriyashiine.bewitchment.api.BewitchmentAPI;
+import moriyashiine.bewitchment.common.entity.living.BaphometEntity;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
 import net.bewitchmentplus.BewitchmentPlus;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.Monster;
+import net.minecraft.entity.passive.MerchantEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -40,6 +47,20 @@ public class BafometyrEntity extends BWHostileEntity {
 	@Override
 	public boolean isFireImmune() {
 		return true;
+	}
+
+	@Override
+	protected void initGoals() {
+		goalSelector.add(0, new SwimGoal(this));
+		goalSelector.add(1, new MeleeAttackGoal(this, 1, true));
+		goalSelector.add(2, new WanderAroundFarGoal(this, 1));
+		goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8));
+		goalSelector.add(3, new LookAroundGoal(this));
+		targetSelector.add(0, new RevengeGoal(this));
+		targetSelector.add(1, new FollowTargetGoal<>(this, LivingEntity.class, 10, true, false, entity -> entity instanceof PlayerEntity || entity instanceof MerchantEntity || entity.getGroup() == EntityGroup.ILLAGER));
+		this.targetSelector.add(3, new FollowTargetGoal(this, MobEntity.class, 5, false, false, (livingEntity) -> {
+			return livingEntity instanceof Monster && !(livingEntity instanceof BafometyrEntity) && !(livingEntity instanceof BaphometEntity);
+		}));
 	}
 
 	@Override
