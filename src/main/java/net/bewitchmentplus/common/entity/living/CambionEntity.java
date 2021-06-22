@@ -39,8 +39,9 @@ import java.util.Random;
 //Todo: Make this not targeted by golems
 public class CambionEntity extends BWHostileEntity {
 	public static final TrackedData<Boolean> MALE = DataTracker.registerData(CambionEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+	public static final TrackedData<Boolean> HAS_TARGET = DataTracker.registerData(CambionEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
-	public int attackTick = 0;
+	public int attackTimer = 0;
 	int barterTimer = 0;
 
 	public CambionEntity(EntityType<? extends HostileEntity> entityType, World world) {
@@ -89,7 +90,7 @@ public class CambionEntity extends BWHostileEntity {
 	public void tick() {
 		super.tick();
 		if (barterTimer > 0) barterTimer--;
-		if (attackTick > 0) attackTick--;
+		if (attackTimer > 0) attackTimer--;
 	}
 
 	@Override
@@ -98,35 +99,20 @@ public class CambionEntity extends BWHostileEntity {
 		Random rand = new Random();
 		int i = rand.nextInt(100);
 		if (flag && target instanceof LivingEntity) {
-			toggleAttack(true);
 			swingHand(Hand.MAIN_HAND);
 		}
 		if (i <= 5) {
-			toggleAttack(true);
 			if (target instanceof LivingEntity) {
 				target.setOnFireFor(40);
-				attackTick = 11;
 				swingHand(Hand.MAIN_HAND);
 			}
 		} else if (i <= 7) {
-			toggleAttack(true);
 			if (target instanceof LivingEntity) {
 				((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 100));
-				attackTick = 2;
 				swingHand(Hand.MAIN_HAND);
 			}
 		}
 		return flag;
-	}
-
-	public void toggleAttack(boolean attacking) {
-		if (attacking) {
-			attackTick = 11;
-			world.sendEntityStatus(this, (byte) 4);
-		} else {
-			attackTick = 2;
-			world.sendEntityStatus(this, (byte) 5);
-		}
 	}
 
 	//Todo: Redo this to mirror logic used on 1.12.2. It was handled better there.
@@ -155,6 +141,7 @@ public class CambionEntity extends BWHostileEntity {
 	public void readCustomDataFromTag(CompoundTag tag) {
 		super.readCustomDataFromTag(tag);
 		dataTracker.set(MALE, tag.getBoolean("Male"));
+		attackTimer = 40;
 	}
 
 	@Override
@@ -167,6 +154,7 @@ public class CambionEntity extends BWHostileEntity {
 	protected void initDataTracker() {
 		super.initDataTracker();
 		dataTracker.startTracking(MALE, true);
+		dataTracker.startTracking(HAS_TARGET, false);
 	}
 
 	@Override
