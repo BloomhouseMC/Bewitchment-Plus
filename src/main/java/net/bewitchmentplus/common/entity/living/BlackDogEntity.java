@@ -3,6 +3,8 @@ package net.bewitchmentplus.common.entity.living;
 import moriyashiine.bewitchment.client.network.packet.SpawnSmokeParticlesPacket;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
 import net.bewitchmentplus.BewitchmentPlus;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.server.PlayerStream;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
@@ -15,7 +17,9 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.mob.IllagerEntity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.WitchEntity;
 import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -29,6 +33,8 @@ import java.util.Random;
 
 @SuppressWarnings("ALL")
 public class BlackDogEntity extends BWHostileEntity {
+
+	public int attackTick = 0;
 
 	public BlackDogEntity(EntityType<? extends HostileEntity> entityType, World world) {
 		super(entityType, world);
@@ -98,12 +104,40 @@ public class BlackDogEntity extends BWHostileEntity {
 	@Override
 	public void tick() {
 		super.tick();
+		if (attackTick > 0) {
+			attackTick--;
+		}
 		if (world.isThundering())
 			this.applyStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 100, 0, true, true));
 		this.applyStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 100, 0, true, true));
 		if (!world.isClient && !hasCustomName() && world.isDay() && !world.isRaining() && world.isSkyVisibleAllowingSea(getBlockPos())) {
 			PlayerStream.watching(this).forEach(playerEntity -> SpawnSmokeParticlesPacket.send(playerEntity, this));
 			remove();
+		}
+	}
+
+	public void toggleAttack(boolean attacking) {
+		if (attacking) {
+			attackTick = 11;
+			world.sendEntityStatus(this, (byte) 4);
+		}
+		else {
+			attackTick = 2;
+			world.sendEntityStatus(this, (byte) 5);
+		}
+	}
+
+	@Environment(EnvType.CLIENT)
+	@Override
+	public void handleStatus(byte id) {
+		if (id == 4) {
+			attackTick = 11;
+		}
+		if (id == 5) {
+			attackTick = 2;
+		}
+		else {
+			super.handleStatus(id);
 		}
 	}
 
@@ -118,12 +152,37 @@ public class BlackDogEntity extends BWHostileEntity {
 	@Override
 	protected void initGoals() {
 		goalSelector.add(0, new SwimGoal(this));
-		goalSelector.add(1, new MeleeAttackGoal(this, 1, true));
+		goalSelector.add(1, new MeleeAttackGoal(this, 1, true) {
+			@Override
+			public void start() {
+				super.start();
+				toggleAttack(true);
+			}
+		});
 		goalSelector.add(2, new WanderAroundFarGoal(this, 1));
+		goalSelector.add(2, new PounceAtTargetGoal(this, 0.25f) {
+			@Override
+			public void start() {
+				super.start();
+				toggleAttack(true);
+			}
+		});
 		goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8));
 		goalSelector.add(3, new LookAroundGoal(this));
-		targetSelector.add(0, new RevengeGoal(this));
-		targetSelector.add(1, new FollowTargetGoal<>(this, LivingEntity.class, 10, true, false, entity -> entity instanceof PlayerEntity || entity instanceof SheepEntity || entity instanceof MerchantEntity || entity.getGroup() == EntityGroup.ILLAGER));
+		targetSelector.add(0, new RevengeGoal(this) {
+			@Override
+			public void start() {
+				super.start();
+				toggleAttack(true);
+			}
+		});
+		targetSelector.add(1, new FollowTargetGoal(this, LivingEntity.class, 10, true, false, entity -> entity instanceof PlayerEntity || entity instanceof SheepEntity || entity instanceof MerchantEntity || entity instanceof IllagerEntity || entity instanceof WitchEntity) {
+			@Override
+			public void start() {
+				super.start();
+				toggleAttack(true);
+			}
+		});
 	}
 
 	@Override
