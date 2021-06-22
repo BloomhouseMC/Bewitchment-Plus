@@ -189,7 +189,7 @@ public class CambionEntity extends BWHostileEntity {
 		int l = rand.nextInt(8);
 		if (barterTimer == 0) {
 			if (itemStack.getItem() == Items.GOLD_INGOT) {
-				switch (rand.nextInt(22)) {
+				switch (rand.nextInt(24)) {
 					default:
 						ItemStack itemStack1 = new ItemStack(Items.GOLD_INGOT, j);
 						itemStack.decrement(1);
@@ -363,6 +363,22 @@ public class CambionEntity extends BWHostileEntity {
 						itemStack.decrement(1);
 						player.inventory.insertStack(itemStack22);
 						barterTimer = 1200; //Timer exists to avoid cheese
+						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
+						ActionResult.success(this.world.isClient);
+						break;
+					case 21:
+						ItemStack itemStack23 = new ItemStack(Items.TOTEM_OF_UNDYING, 1);
+						itemStack.decrement(1);
+						player.inventory.insertStack(itemStack23);
+						barterTimer = 7200; //Timer exists to avoid cheese
+						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
+						ActionResult.success(this.world.isClient);
+						break;
+					case 22:
+						ItemStack itemStack24 = new ItemStack(Items.LODESTONE, 1);
+						itemStack.decrement(1);
+						player.inventory.insertStack(itemStack24);
+						barterTimer = 7200; //Timer exists to avoid cheese
 						player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, SoundCategory.NEUTRAL, 1, 1);
 						ActionResult.success(this.world.isClient);
 						break;
