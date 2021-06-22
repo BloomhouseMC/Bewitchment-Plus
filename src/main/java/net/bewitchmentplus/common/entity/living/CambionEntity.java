@@ -89,6 +89,7 @@ public class CambionEntity extends BWHostileEntity {
 	public void tick() {
 		super.tick();
 		if (barterTimer > 0) barterTimer--;
+		if (attackTick > 0) attackTick--;
 	}
 
 	@Override
@@ -96,15 +97,23 @@ public class CambionEntity extends BWHostileEntity {
 		boolean flag = super.tryAttack(target);
 		Random rand = new Random();
 		int i = rand.nextInt(100);
+		if (flag && target instanceof LivingEntity) {
+			toggleAttack(true);
+			swingHand(Hand.MAIN_HAND);
+		}
 		if (i <= 5) {
-			toggleAttack(false);
+			toggleAttack(true);
 			if (target instanceof LivingEntity) {
 				target.setOnFireFor(40);
+				attackTick = 11;
+				swingHand(Hand.MAIN_HAND);
 			}
 		} else if (i <= 7) {
-			toggleAttack(false);
+			toggleAttack(true);
 			if (target instanceof LivingEntity) {
 				((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 100));
+				attackTick = 2;
+				swingHand(Hand.MAIN_HAND);
 			}
 		}
 		return flag;
