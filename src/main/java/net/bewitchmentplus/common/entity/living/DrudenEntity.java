@@ -3,6 +3,8 @@ package net.bewitchmentplus.common.entity.living;
 import moriyashiine.bewitchment.api.BewitchmentAPI;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
 import net.bewitchmentplus.common.registry.BWPObjects;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Fertilizable;
@@ -16,6 +18,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.mob.IllagerEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -73,6 +76,9 @@ public class DrudenEntity extends BWHostileEntity {
 
 	public void tick() {
 		super.tick();
+		if (attackTick > 0) {
+			attackTick--;
+		}
 		if (this.isOnFire())
 			this.applyDamage(DamageSource.ON_FIRE, 6);
 	}
@@ -198,12 +204,43 @@ public class DrudenEntity extends BWHostileEntity {
 	@Override
 	protected void initGoals() {
 		goalSelector.add(0, new SwimGoal(this));
-		goalSelector.add(1, new MeleeAttackGoal(this, 1, true));
+		goalSelector.add(1, new MeleeAttackGoal(this, 1, true) {
+			@Override
+			public void start() {
+				super.start();
+				toggleAttack(true);
+			}
+		});
 		goalSelector.add(2, new WanderAroundFarGoal(this, 1));
 		goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8));
 		goalSelector.add(3, new LookAroundGoal(this));
-		targetSelector.add(0, new RevengeGoal(this));
-		targetSelector.add(1, new FollowTargetGoal<>(this, LivingEntity.class, 10, true, false, entity -> entity instanceof PlayerEntity || entity instanceof MerchantEntity || entity.getGroup() == EntityGroup.ILLAGER));
+		targetSelector.add(0, new RevengeGoal(this) {
+			@Override
+			public void start() {
+				super.start();
+				toggleAttack(true);
+			}
+		});
+		targetSelector.add(1, new FollowTargetGoal(this, LivingEntity.class, 10, true, false, entity -> entity instanceof PlayerEntity || entity instanceof MerchantEntity || entity instanceof IllagerEntity) {
+			@Override
+			public void start() {
+				super.start();
+				toggleAttack(true);
+			}
+		});
+	}
+
+	@Environment(EnvType.CLIENT)
+	@Override
+	public void handleStatus(byte id) {
+		if (id == 4) {
+			attackTick = 11;
+		}
+		if (id == 5) {
+			attackTick = 2;
+		} else {
+			super.handleStatus(id);
+		}
 	}
 
 	@Override
