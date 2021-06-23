@@ -27,6 +27,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -141,10 +142,14 @@ public class DrudenEntity extends BWHostileEntity {
 		boolean flag = super.tryAttack(target);
 		Random rand = new Random();
 		int i = rand.nextInt(100);
+		if (target instanceof LivingEntity) {
+			swingHand(Hand.MAIN_HAND);
+		}
 		if (i <= 10) {
 			toggleAttack(false);
 			if (target instanceof LivingEntity) {
 				((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 100));
+				swingHand(Hand.MAIN_HAND);
 			}
 		}
 		return flag;
@@ -204,30 +209,12 @@ public class DrudenEntity extends BWHostileEntity {
 	@Override
 	protected void initGoals() {
 		goalSelector.add(0, new SwimGoal(this));
-		goalSelector.add(1, new MeleeAttackGoal(this, 1, true) {
-			@Override
-			public void start() {
-				super.start();
-				toggleAttack(true);
-			}
-		});
+		goalSelector.add(1, new MeleeAttackGoal(this, 1, true));
 		goalSelector.add(2, new WanderAroundFarGoal(this, 1));
 		goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8));
 		goalSelector.add(3, new LookAroundGoal(this));
-		targetSelector.add(0, new RevengeGoal(this) {
-			@Override
-			public void start() {
-				super.start();
-				toggleAttack(true);
-			}
-		});
-		targetSelector.add(1, new FollowTargetGoal(this, LivingEntity.class, 10, true, false, entity -> entity instanceof PlayerEntity || entity instanceof MerchantEntity || entity instanceof IllagerEntity) {
-			@Override
-			public void start() {
-				super.start();
-				toggleAttack(true);
-			}
-		});
+		targetSelector.add(0, new RevengeGoal(this));
+		targetSelector.add(1, new FollowTargetGoal<>(this, LivingEntity.class, 10, true, false, entity -> entity instanceof PlayerEntity || entity instanceof MerchantEntity || entity instanceof IllagerEntity));
 	}
 
 	@Environment(EnvType.CLIENT)
