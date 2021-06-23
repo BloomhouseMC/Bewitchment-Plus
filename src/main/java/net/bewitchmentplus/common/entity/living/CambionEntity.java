@@ -41,7 +41,6 @@ public class CambionEntity extends BWHostileEntity {
 	public static final TrackedData<Boolean> MALE = DataTracker.registerData(CambionEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 	public static final TrackedData<Boolean> HAS_TARGET = DataTracker.registerData(CambionEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
-	public int attackTimer = 0;
 	int barterTimer = 0;
 
 	public CambionEntity(EntityType<? extends HostileEntity> entityType, World world) {
@@ -90,7 +89,6 @@ public class CambionEntity extends BWHostileEntity {
 	public void tick() {
 		super.tick();
 		if (barterTimer > 0) barterTimer--;
-		if (attackTimer > 0) attackTimer--;
 	}
 
 	@Override
@@ -141,7 +139,6 @@ public class CambionEntity extends BWHostileEntity {
 	public void readCustomDataFromTag(CompoundTag tag) {
 		super.readCustomDataFromTag(tag);
 		dataTracker.set(MALE, tag.getBoolean("Male"));
-		attackTimer = 40;
 	}
 
 	@Override

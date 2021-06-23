@@ -12,6 +12,7 @@ import net.minecraft.client.render.entity.model.ModelWithArms;
 import net.minecraft.client.render.entity.model.ModelWithHead;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Arm;
+import net.minecraft.util.Hand;
 
 public class DrudenEntityModel<T extends DrudenEntity> extends BipedEntityModel<T> implements ModelWithArms, ModelWithHead {
 	private final ModelPart body;
@@ -505,6 +506,10 @@ public class DrudenEntityModel<T extends DrudenEntity> extends BipedEntityModel<
 		bipedRightLeg.pitch /= 2;
 		bipedRightLeg.pitch -= 0.2793f;
 		bipedRightLeg.roll += 0.1047f;
+		if (entity.isAttacking()) {
+			entity.swingHand(Hand.MAIN_HAND);
+			bipedRightArm.pitch = -0.75f;
+		}
 	}
 
 	private void setRotation(ModelPart bone, float x, float y, float z) {

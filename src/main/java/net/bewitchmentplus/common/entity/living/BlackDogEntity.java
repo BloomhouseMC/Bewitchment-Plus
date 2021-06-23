@@ -118,7 +118,7 @@ public class BlackDogEntity extends BWHostileEntity {
 
 	public void toggleAttack(boolean attacking) {
 		if (attacking) {
-			attackTick = 11;
+			attackTick = 40;
 			world.sendEntityStatus(this, (byte) 4);
 		}
 		else {
