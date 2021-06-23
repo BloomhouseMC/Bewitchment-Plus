@@ -506,9 +506,13 @@ public class DrudenEntityModel<T extends DrudenEntity> extends BipedEntityModel<
 		bipedRightLeg.pitch /= 2;
 		bipedRightLeg.pitch -= 0.2793f;
 		bipedRightLeg.roll += 0.1047f;
-		if (entity.isAttacking()) {
+		if (entity.isAttacking() && (!entity.isLeftHanded())) {
 			entity.swingHand(Hand.MAIN_HAND);
-			bipedRightArm.pitch = -0.75f;
+			bipedRightArm.pitch = -1.35f;
+		}
+		else if (entity.isAttacking() && (entity.isLeftHanded())) {
+			entity.swingHand(Hand.MAIN_HAND);
+			bipedLeftArm.pitch = -1.35f;
 		}
 	}
 
