@@ -41,7 +41,6 @@ import java.util.Random;
 
 @SuppressWarnings("ALL")
 public class DrudenEntity extends BWHostileEntity {
-	public int attackTick = 0;
 
 	public DrudenEntity(EntityType<? extends HostileEntity> entityType, World world) {
 		super(entityType, world);
@@ -77,9 +76,6 @@ public class DrudenEntity extends BWHostileEntity {
 
 	public void tick() {
 		super.tick();
-		if (attackTick > 0) {
-			attackTick--;
-		}
 		if (this.isOnFire())
 			this.applyDamage(DamageSource.ON_FIRE, 6);
 	}
@@ -146,7 +142,6 @@ public class DrudenEntity extends BWHostileEntity {
 			swingHand(Hand.MAIN_HAND);
 		}
 		if (i <= 10) {
-			toggleAttack(false);
 			if (target instanceof LivingEntity) {
 				((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 100));
 				swingHand(Hand.MAIN_HAND);
@@ -163,16 +158,6 @@ public class DrudenEntity extends BWHostileEntity {
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
 		return SoundEvents.BLOCK_BAMBOO_HIT;
-	}
-
-	public void toggleAttack(boolean attacking) {
-		if (attacking) {
-			attackTick = 11;
-			world.sendEntityStatus(this, (byte) 4);
-		} else {
-			attackTick = 2;
-			world.sendEntityStatus(this, (byte) 5);
-		}
 	}
 
 	@Override
@@ -215,19 +200,6 @@ public class DrudenEntity extends BWHostileEntity {
 		goalSelector.add(3, new LookAroundGoal(this));
 		targetSelector.add(0, new RevengeGoal(this));
 		targetSelector.add(1, new FollowTargetGoal<>(this, LivingEntity.class, 10, true, false, entity -> entity instanceof PlayerEntity || entity instanceof MerchantEntity || entity instanceof IllagerEntity));
-	}
-
-	@Environment(EnvType.CLIENT)
-	@Override
-	public void handleStatus(byte id) {
-		if (id == 4) {
-			attackTick = 11;
-		}
-		if (id == 5) {
-			attackTick = 2;
-		} else {
-			super.handleStatus(id);
-		}
 	}
 
 	@Override
