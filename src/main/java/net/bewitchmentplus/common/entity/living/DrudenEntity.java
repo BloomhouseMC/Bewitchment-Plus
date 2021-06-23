@@ -139,12 +139,12 @@ public class DrudenEntity extends BWHostileEntity {
 		Random rand = new Random();
 		int i = rand.nextInt(100);
 		if (target instanceof LivingEntity) {
-			swingHand(Hand.MAIN_HAND);
+			swingHand(Hand.MAIN_HAND, true);
 		}
 		if (i <= 10) {
 			if (target instanceof LivingEntity) {
 				((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 100));
-				swingHand(Hand.MAIN_HAND);
+				swingHand(Hand.MAIN_HAND, true);
 			}
 		}
 		return flag;
