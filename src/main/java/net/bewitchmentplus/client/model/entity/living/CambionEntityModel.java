@@ -8,11 +8,12 @@ import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.ModelWithArms;
+import net.minecraft.client.render.entity.model.ModelWithHead;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Arm;
 
 @Environment(EnvType.CLIENT)
-public class CambionEntityModel<T extends CambionEntity> extends BipedEntityModel<T> implements ModelWithArms {
+public class CambionEntityModel<T extends CambionEntity> extends BipedEntityModel<T> implements ModelWithArms, ModelWithHead {
 	private final BipedEntityModel<T> male = new CambionEntityModel.Male();
 	private final BipedEntityModel<T> female = new CambionEntityModel.Female();
 	private final boolean realArm = false;
@@ -56,7 +57,7 @@ public class CambionEntityModel<T extends CambionEntity> extends BipedEntityMode
 		to.roll = from.roll;
 	}
 
-	private class Male extends BipedEntityModel<T> implements ModelWithArms {
+	private class Male extends BipedEntityModel<T> implements ModelWithArms, ModelWithHead {
 		private final ModelPart body;
 		private final ModelPart bipedLeftArm;
 		private final ModelPart lClaws;
@@ -291,7 +292,7 @@ public class CambionEntityModel<T extends CambionEntity> extends BipedEntityMode
 		}
 	}
 
-	private class Female extends BipedEntityModel<T> implements ModelWithArms {
+	private class Female extends BipedEntityModel<T> implements ModelWithArms, ModelWithHead {
 		private final ModelPart body;
 		private final ModelPart skirtFront;
 		private final ModelPart skirtBack;
