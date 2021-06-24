@@ -12,7 +12,7 @@ import net.minecraft.client.render.entity.model.ModelWithArms;
 import net.minecraft.client.render.entity.model.ModelWithHead;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Arm;
-import net.minecraft.util.Hand;
+import net.minecraft.util.math.MathHelper;
 
 public class DrudenEntityModel<T extends DrudenEntity> extends BipedEntityModel<T> implements ModelWithArms, ModelWithHead {
 	private final ModelPart body;
@@ -506,6 +506,16 @@ public class DrudenEntityModel<T extends DrudenEntity> extends BipedEntityModel<
 		bipedRightLeg.pitch /= 2;
 		bipedRightLeg.pitch -= 0.2793f;
 		bipedRightLeg.roll += 0.1047f;
+
+		this.bipedRightArm.pitch = -MathHelper.cos(limbAngle * 0.6662F + 3.1415927F) * 2.0F * limbDistance * 0.75F;
+		this.bipedLeftArm.pitch = MathHelper.cos(limbAngle * 0.6662F + 3.1415927F) * 2.0F * limbDistance * 0.75F;
+		float k = MathHelper.sin(entity.handSwingProgress * 3.1415927F);
+		if (k > 0) {
+			this.bipedRightArm.pitch = -k;
+			if (entity.getDataTracker().get(DrudenEntity.SPEAR_LUNGE)) {
+				this.bipedLeftArm.pitch = -k;
+			}
+		}
 	}
 
 	private void setRotation(ModelPart bone, float x, float y, float z) {

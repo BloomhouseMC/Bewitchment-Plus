@@ -39,7 +39,7 @@ import java.util.Random;
 //Todo: Make this not targeted by golems
 public class CambionEntity extends BWHostileEntity {
 	public static final TrackedData<Boolean> MALE = DataTracker.registerData(CambionEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-	public static final TrackedData<Boolean> HAS_TARGET = DataTracker.registerData(CambionEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+	public static final TrackedData<Boolean> PUNCH = DataTracker.registerData(CambionEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
 	int barterTimer = 0;
 
@@ -151,7 +151,7 @@ public class CambionEntity extends BWHostileEntity {
 	protected void initDataTracker() {
 		super.initDataTracker();
 		dataTracker.startTracking(MALE, true);
-		dataTracker.startTracking(HAS_TARGET, false);
+		this.dataTracker.startTracking(PUNCH, false);
 	}
 
 	@Override

@@ -112,8 +112,7 @@ public class BlackDogEntityModel<T extends BlackDogEntity> extends EntityModel<T
 		boolean attacking = entity.attackTick > 0;
 		if (attacking) {
 			tail.pitch = 1;
-		}
-		else {
+		} else {
 			tail.pitch = 0;
 		}
 	}

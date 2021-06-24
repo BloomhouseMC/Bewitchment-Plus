@@ -120,8 +120,7 @@ public class BlackDogEntity extends BWHostileEntity {
 		if (attacking) {
 			attackTick = 40;
 			world.sendEntityStatus(this, (byte) 4);
-		}
-		else {
+		} else {
 			attackTick = 2;
 			world.sendEntityStatus(this, (byte) 5);
 		}
@@ -135,8 +134,7 @@ public class BlackDogEntity extends BWHostileEntity {
 		}
 		if (id == 5) {
 			attackTick = 2;
-		}
-		else {
+		} else {
 			super.handleStatus(id);
 		}
 	}

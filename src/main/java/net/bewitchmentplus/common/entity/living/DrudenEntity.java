@@ -3,8 +3,6 @@ package net.bewitchmentplus.common.entity.living;
 import moriyashiine.bewitchment.api.BewitchmentAPI;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
 import net.bewitchmentplus.common.registry.BWPObjects;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Fertilizable;
@@ -15,6 +13,9 @@ import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
@@ -41,6 +42,8 @@ import java.util.Random;
 
 @SuppressWarnings("ALL")
 public class DrudenEntity extends BWHostileEntity {
+
+	public static final TrackedData<Boolean> SPEAR_LUNGE = DataTracker.registerData(DrudenEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
 	public DrudenEntity(EntityType<? extends HostileEntity> entityType, World world) {
 		super(entityType, world);
@@ -151,6 +154,22 @@ public class DrudenEntity extends BWHostileEntity {
 	}
 
 	@Override
+	public boolean damage(DamageSource source, float amount) {
+		if (this.world.random.nextInt(3) == 0 && !this.dataTracker.get(SPEAR_LUNGE)) {
+			dataTracker.set(SPEAR_LUNGE, true);
+		} else {
+			dataTracker.set(SPEAR_LUNGE, false);
+		}
+		return this.isInvulnerableTo(source) ? false : super.damage(source, amount);
+	}
+
+	@Override
+	protected void initDataTracker() {
+		super.initDataTracker();
+		this.dataTracker.startTracking(SPEAR_LUNGE, false);
+	}
+
+	@Override
 	protected SoundEvent getDeathSound() {
 		return SoundEvents.BLOCK_BAMBOO_BREAK;
 	}
@@ -158,6 +177,16 @@ public class DrudenEntity extends BWHostileEntity {
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
 		return SoundEvents.BLOCK_BAMBOO_HIT;
+	}
+
+	@Override
+	public void readCustomDataFromTag(CompoundTag tag) {
+		super.readCustomDataFromTag(tag);
+	}
+
+	@Override
+	public void writeCustomDataToTag(CompoundTag tag) {
+		super.writeCustomDataToTag(tag);
 	}
 
 	@Override
