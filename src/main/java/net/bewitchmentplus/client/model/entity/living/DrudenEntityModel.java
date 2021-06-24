@@ -507,13 +507,13 @@ public class DrudenEntityModel<T extends DrudenEntity> extends BipedEntityModel<
 		bipedRightLeg.pitch -= 0.2793f;
 		bipedRightLeg.roll += 0.1047f;
 
-		this.bipedRightArm.pitch = -MathHelper.cos(limbAngle * 0.6662F + 3.1415927F) * 2.0F * limbDistance * 0.75F;
-		this.bipedLeftArm.pitch = MathHelper.cos(limbAngle * 0.6662F + 3.1415927F) * 2.0F * limbDistance * 0.75F;
-		float k = MathHelper.sin(entity.handSwingProgress * 3.1415927F);
-		if (k > 0) {
-			this.bipedRightArm.pitch = -k;
+		this.bipedRightArm.pitch = -MathHelper.cos(limbAngle * 0.6662F + 3.1415927F) * 2.0F * limbDistance * 0.55F;
+		this.bipedLeftArm.pitch = MathHelper.cos(limbAngle * 0.6662F + 3.1415927F) * 2.0F * limbDistance * 0.55F;
+		float j = MathHelper.sin(entity.handSwingProgress * 3.1415927F);
+		if (j > 0) {
+			this.bipedRightArm.pitch = -j;
 			if (entity.getDataTracker().get(DrudenEntity.SPEAR_LUNGE)) {
-				this.bipedLeftArm.pitch = -k;
+				this.bipedLeftArm.pitch = -j;
 			}
 		}
 	}
