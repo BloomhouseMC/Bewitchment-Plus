@@ -68,6 +68,11 @@ public class DrudenEntity extends BWHostileEntity {
 		}
 	}
 
+	@Override
+	public boolean isLeftHanded() {
+		return false;
+	}
+
 	public boolean canHaveStatusEffect(StatusEffectInstance effect) {
 		return effect.getEffectType() == StatusEffects.SLOWNESS ? false : super.canHaveStatusEffect(effect);
 	}
