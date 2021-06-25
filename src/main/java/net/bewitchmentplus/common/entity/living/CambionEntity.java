@@ -60,6 +60,11 @@ public class CambionEntity extends BWHostileEntity {
 	}
 
 	@Override
+	public boolean isLeftHanded() {
+		return false;
+	}
+
+	@Override
 	public boolean canUsePortals() {
 		return true;
 	}
