@@ -1,8 +1,6 @@
 {
   "replace": false,
   "values": [
-	"bwplus:druden",
-	"bwplus:black_dog",
 	"bwplus:cambion"
   ]
 }
