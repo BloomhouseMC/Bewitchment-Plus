@@ -10,6 +10,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.MathHelper;
 
 @Environment(EnvType.CLIENT)
+//Credit to Moriyashiine for the modified model
 public class BlackDogEntityModel<T extends BlackDogEntity> extends EntityModel<T> {
 	private final ModelPart lForeleg;
 	private final ModelPart body;
