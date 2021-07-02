@@ -15,6 +15,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class BWPEntitySpawns {
+	//Credit to Moriyashiine for showing how this is done
 	private static final Map<ConfiguredFeature<?, ?>, Identifier> CONFIGURED_FEATURES = new LinkedHashMap<>();
 
 	private static final FeatureSize EMPTY_SIZE = new TwoLayersFeatureSize(0, 0, 0);

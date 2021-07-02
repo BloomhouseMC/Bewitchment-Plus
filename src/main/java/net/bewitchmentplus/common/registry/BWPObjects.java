@@ -19,6 +19,7 @@ import java.util.Map;
 import static net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings.copyOf;
 
 public class BWPObjects {
+	//Credit to Moriyashiine for showing how this is done
 	private static final Map<Block, Identifier> BLOCKS = new LinkedHashMap<>();
 	private static final Map<Item, Identifier> ITEMS = new LinkedHashMap<>();
 

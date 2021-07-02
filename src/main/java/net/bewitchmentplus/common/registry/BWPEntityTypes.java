@@ -16,6 +16,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class BWPEntityTypes {
+	//Credit to Moriyashiine for showing how this is done
 	private static final Map<EntityType<?>, Identifier> ENTITY_TYPES = new LinkedHashMap<>();
 
 	public static final EntityType<CambionEntity> CAMBION = create("cambion", CambionEntity.createAttributes(), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, CambionEntity::new).dimensions(EntityDimensions.changing(0.75f, 3f)).build());
