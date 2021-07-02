@@ -12,6 +12,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Arm;
 import net.minecraft.util.math.MathHelper;
 
+//Credit to Moriyashiine for showing how this is done
 @Environment(EnvType.CLIENT)
 public class CambionEntityModel<T extends CambionEntity> extends BipedEntityModel<T> implements ModelWithArms, ModelWithHead {
 	private final BipedEntityModel<T> male = new CambionEntityModel.Male();

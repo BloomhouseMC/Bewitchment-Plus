@@ -31,6 +31,7 @@ import net.minecraft.world.gen.feature.StructureFeature;
 
 import java.util.Random;
 
+//Credit to Moriyashiine for really this entire mob
 @SuppressWarnings("ALL")
 public class BlackDogEntity extends BWHostileEntity {
 
