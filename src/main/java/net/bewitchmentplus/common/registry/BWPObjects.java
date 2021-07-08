@@ -2,6 +2,7 @@ package net.bewitchmentplus.common.registry;
 
 import moriyashiine.bewitchment.common.block.util.BWCarpetBlock;
 import net.bewitchmentplus.BewitchmentPlus;
+import net.bewitchmentplus.common.items.CleaverItem;
 import net.bewitchmentplus.common.items.ThyrsusItem;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -28,6 +29,7 @@ public class BWPObjects {
 	public static final Item CAMBION_SPAWN_EGG = create("cambion_spawn_egg", new SpawnEggItem(BWPEntityTypes.CAMBION, 0xE34234, 0x343434, gen()));
 
 	public static final Item THYRSUS_ITEM = create("thyrsus", new ThyrsusItem(ToolMaterials.IRON, 1, 2, gen()));
+	public static final Item CLEAVER_ITEM = create("cleaver", new CleaverItem(ToolMaterials.IRON, 3, 1, gen()));
 
 	public static final Block WHITE_WITCH_WOOL = create("white_witch_wool", new Block(copyOf(Blocks.WHITE_WOOL)), true);
 	public static final Block ORANGE_WITCH_WOOL = create("orange_witch_wool", new Block(copyOf(Blocks.WHITE_WOOL)), true);

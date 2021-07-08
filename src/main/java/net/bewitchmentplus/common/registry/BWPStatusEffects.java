@@ -1,6 +1,7 @@
 package net.bewitchmentplus.common.registry;
 
 import net.bewitchmentplus.BewitchmentPlus;
+import net.bewitchmentplus.common.statuseffects.FecundStatusEffect;
 import net.bewitchmentplus.common.statuseffects.GrowthStatusEffect;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectType;
@@ -10,10 +11,12 @@ import net.minecraft.util.registry.Registry;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+//Credit to Moriyashiine for showing how this is done
 public class BWPStatusEffects {
 	private static final Map<StatusEffect, Identifier> STATUS_EFFECTS = new LinkedHashMap<>();
 
 	public static final StatusEffect GROWTH = create("growth", new GrowthStatusEffect(StatusEffectType.BENEFICIAL, 0x71BC78));
+	public static final StatusEffect FECUND = create("fecund", new FecundStatusEffect(StatusEffectType.BENEFICIAL, 0xFFB7C5));
 
 	private static <T extends StatusEffect> T create(String name, T effect) {
 		STATUS_EFFECTS.put(effect, new Identifier(BewitchmentPlus.MODID, name));
