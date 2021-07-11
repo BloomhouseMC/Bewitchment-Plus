@@ -59,6 +59,6 @@ public class CleaverEntity extends BWHostileEntity {
 
 	@Override
 	public int getVariants() {
-		return 0;
+		return 3;
 	}
 }
