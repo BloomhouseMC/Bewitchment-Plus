@@ -66,7 +66,7 @@ public class CleaverEntity extends BWHostileEntity {
 		goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8));
 		goalSelector.add(3, new LookAroundGoal(this));
 		targetSelector.add(0, new RevengeGoal(this));
-		targetSelector.add(1, new FollowTargetGoal<>(this, LivingEntity.class, 10, true, false, entity -> entity instanceof PlayerEntity || entity instanceof MerchantEntity || entity.getGroup() == EntityGroup.ILLAGER || (entity.getGroup() == BewitchmentAPI.DEMON) || !(entity instanceof CleaverEntity)));
+		targetSelector.add(1, new FollowTargetGoal<>(this, LivingEntity.class, 10, true, false, entity -> entity instanceof PlayerEntity || entity instanceof MerchantEntity || entity.getGroup() == EntityGroup.ILLAGER || (entity.getGroup() == BewitchmentAPI.DEMON & !(entity instanceof CleaverEntity))));
 	}
 
 	@Override
