@@ -5,7 +5,10 @@ import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
 import net.bewitchmentplus.common.registry.BWPObjects;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -18,7 +21,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class CleaverEntity extends BWHostileEntity {
-	protected CleaverEntity(EntityType<? extends HostileEntity> entityType, World world) {
+	public CleaverEntity(EntityType<? extends HostileEntity> entityType, World world) {
 		super(entityType, world);
 	}
 
@@ -40,6 +43,10 @@ public class CleaverEntity extends BWHostileEntity {
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable CompoundTag entityTag) {
 		this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(BWPObjects.CLEAVER_ITEM));
 		return super.initialize(world, difficulty, spawnReason, entityData, entityTag);
+	}
+
+	public static DefaultAttributeContainer.Builder createAttributes() {
+		return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 35.00D).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 6.0D).add(EntityAttributes.GENERIC_ARMOR, 4.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.55D).add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 16.0D);
 	}
 
 	@Override

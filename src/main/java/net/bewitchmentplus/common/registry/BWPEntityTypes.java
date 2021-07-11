@@ -3,6 +3,7 @@ package net.bewitchmentplus.common.registry;
 import net.bewitchmentplus.BewitchmentPlus;
 import net.bewitchmentplus.common.entity.living.BlackDogEntity;
 import net.bewitchmentplus.common.entity.living.CambionEntity;
+import net.bewitchmentplus.common.entity.living.CleaverEntity;
 import net.bewitchmentplus.common.entity.living.DrudenEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
@@ -22,6 +23,7 @@ public class BWPEntityTypes {
 	public static final EntityType<CambionEntity> CAMBION = create("cambion", CambionEntity.createAttributes(), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, CambionEntity::new).dimensions(EntityDimensions.changing(0.75f, 3f)).build());
 	public static final EntityType<DrudenEntity> DRUDEN = create("druden", DrudenEntity.createAttributes(), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, DrudenEntity::new).dimensions(EntityDimensions.changing(0.75f, 3f)).build());
 	public static final EntityType<BlackDogEntity> BLACK_DOG = create("black_dog", BlackDogEntity.createAttributes(), FabricEntityTypeBuilder.createMob().spawnGroup(SpawnGroup.MONSTER).entityFactory(BlackDogEntity::new).spawnRestriction(SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BlackDogEntity::spawnRestriction).dimensions(EntityDimensions.changing(0.75f, 3f)).build());
+	public static final EntityType<CleaverEntity> CLEAVER = create("cleaver", CleaverEntity.createAttributes(), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, CleaverEntity::new).dimensions(EntityDimensions.changing(0.75f, 3f)).build());
 
 	private static <T extends LivingEntity> EntityType<T> create(String name, DefaultAttributeContainer.Builder attributes, EntityType<T> type) {
 		FabricDefaultAttributeRegistry.register(type, attributes);
