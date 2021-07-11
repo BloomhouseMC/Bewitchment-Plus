@@ -268,9 +268,14 @@ public class CleaverEntityModel <T extends CleaverEntity> extends BipedEntityMod
 		bone.roll = z;
 	}
 
+	protected ModelPart getArm(Arm arm) {
+		return arm == Arm.LEFT ? this.bipedLeftArm : this.bipedRightArm;
+	}
+
 	@Override
 	public void setArmAngle(Arm arm, MatrixStack matrices) {
-
+		super.setArmAngle(arm, matrices);
+		matrices.translate(0, 0.05, 0);
 	}
 
 	@Override
