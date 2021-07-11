@@ -1,7 +1,10 @@
 package net.bewitchmentplus.client.model.entity.living;
 
+import net.bewitchmentplus.common.entity.living.CleaverEntity;
+import net.bewitchmentplus.common.entity.living.DrudenEntity;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.ModelWithArms;
 import net.minecraft.client.render.entity.model.ModelWithHead;
@@ -13,7 +16,7 @@ import net.minecraft.util.Arm;
 // Exported for Minecraft version 1.15
 // Paste this class into your mod and generate all required imports
 
-public class CleaverEntityModel extends EntityModel<Entity> implements ModelWithArms, ModelWithHead {
+public class CleaverEntityModel <T extends CleaverEntity> extends BipedEntityModel<T> implements ModelWithArms, ModelWithHead {
 	private final ModelPart body;
 	private final ModelPart loincloth;
 	private final ModelPart loincloth02;
@@ -51,6 +54,7 @@ public class CleaverEntityModel extends EntityModel<Entity> implements ModelWith
 	private final ModelPart rHorn04;
 
 	public CleaverEntityModel() {
+		super(1, 0, 64, 64);
 		textureWidth = 64;
 		textureHeight = 64;
 		body = new ModelPart(this);
@@ -245,11 +249,6 @@ public class CleaverEntityModel extends EntityModel<Entity> implements ModelWith
 		rHorn03.addChild(rHorn04);
 		setRotationAngle(rHorn04, 0.1396F, 0.0F, 0.3491F);
 		rHorn04.setTextureOffset(43, 43).addCuboid(-0.9F, -2.4F, -0.5F, 1.0F, 2.0F, 1.0F, 0.0F, true);
-	}
-
-	@Override
-	public void setAngles(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		//previously the render function, render code was moved to a method below
 	}
 
 	@Override
