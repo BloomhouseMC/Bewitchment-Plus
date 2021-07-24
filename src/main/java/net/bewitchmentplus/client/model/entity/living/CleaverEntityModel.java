@@ -268,6 +268,30 @@ public class CleaverEntityModel <T extends CleaverEntity> extends BipedEntityMod
 		bone.roll = z;
 	}
 
+	@Override
+	public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+		super.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
+		copyRotation(head, super.head);
+		copyRotation(bipedLeftArm, super.leftArm);
+		bipedLeftArm.roll -= 0.1309f;
+		copyRotation(bipedRightArm, super.rightArm);
+		bipedRightArm.roll += 0.1309f;
+		copyRotation(bipedLeftLeg, super.leftLeg);
+		bipedLeftLeg.pitch /= 2;
+		bipedLeftLeg.pitch -= 0.2793f;
+		bipedLeftLeg.roll -= 0.1047f;
+		copyRotation(bipedRightLeg, super.rightLeg);
+		bipedRightLeg.pitch /= 2;
+		bipedRightLeg.pitch -= 0.2793f;
+		bipedRightLeg.roll += 0.1047f;
+	}
+
+	private void copyRotation(ModelPart to, ModelPart from) {
+		to.pitch = from.pitch;
+		to.yaw = from.yaw;
+		to.roll = from.roll;
+	}
+
 	protected ModelPart getArm(Arm arm) {
 		return arm == Arm.LEFT ? this.bipedLeftArm : this.bipedRightArm;
 	}
