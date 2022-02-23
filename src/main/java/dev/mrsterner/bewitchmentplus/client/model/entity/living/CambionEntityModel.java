@@ -7,7 +7,6 @@ import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
-import net.minecraft.client.render.entity.model.PiglinEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 
 @Environment(EnvType.CLIENT)
@@ -19,7 +18,7 @@ public class CambionEntityModel extends BipedEntityModel<CambionEntity> {
 	private final ModelPart right_leg;
 	private final ModelPart head;
 
-	public CambionEntityModel(ModelPart root, boolean male) {
+	public CambionEntityModel(ModelPart root) {
 		super(root);
 		this.body = root.getChild("body");
 		this.left_arm = root.getChild("left_arm");
@@ -63,42 +62,8 @@ public class CambionEntityModel extends BipedEntityModel<CambionEntity> {
 		ModelPartData lHorn05 = lHorn04.addChild("lHorn05", ModelPartBuilder.create().uv(43, 0).cuboid(-0.5F, -2.1F, -0.5F, 1.0F, 2.0F, 1.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -2.7F, 0.0F, 0.0524F, 0.0F, -0.3142F));
 		ModelPartData hair01 = head.addChild("hair01", ModelPartBuilder.create().uv(40, 36).cuboid(-3.99F, 0.0F, -0.1F, 8.0F, 8.0F, 1.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -7.2F, 3.2F, 0.3491F, 0.0F, 0.0F));
 		ModelPartData hair00 = head.addChild("hair00", ModelPartBuilder.create().uv(38, 46).cuboid(-4.01F, 0.0F, -1.0F, 8.0F, 11.0F, 2.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -5.5F, 3.2F, 0.1396F, 0.0F, 0.0F));
-
-
-/*
-		root.addChild("body", ModelPartBuilder.create().uv(16, 16).cuboid(-4.0F, 0.0F, -2.0F, 8.0F, 13.0F, 4.0F), ModelTransform.of(0.0F, -2.0F, 0.0F, 0.0F, 0.0F, 0.0F));
-			ModelPartData head = root.addChild("head", ModelPartBuilder.create().cuboid(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F), ModelTransform.of(0.0F, -2.0F, 0.0F, 0.0F, 0.0F, 0.0F));
-			head.addChild("snout", ModelPartBuilder.create().uv(21, 35).cuboid(-1.5F, -1.0F, -2.0F, 3.0F, 2.0F, 3.0F), ModelTransform.of(0.0F, -2.5F, -3.9F, 0.4189F, 0.0F, 0.0F));
-			head.addChild("upperJaw", ModelPartBuilder.create().uv(21, 41).cuboid(-2.0F, -1.0F, -1.7F, 4.0F, 2.0F, 2.0F), ModelTransform.of(0.0F, -1.4F, -4.0F, 0.0F, 0.0F, 0.0F));
-			head.addChild("lowerJaw", ModelPartBuilder.create().uv(21, 46).cuboid(-1.5F, -0.5F, -1.6F, 3.0F, 1.0F, 2.0F), ModelTransform.of(0.0F, -0.4F, -4.0F, 0.0F, 0.0F, 0.0F));
-			ModelPartData lUpperHorn01 = head.addChild("lUpperHorn01", ModelPartBuilder.create().uv(24, 0).mirrored(true).cuboid(-1.0F, -1.0F, -1.8F, 2.0F, 2.0F, 3.0F), ModelTransform.of(2.0F, -8.7F, -0.5F, 0.8727F, 0.1745F, 0.0F));
-			ModelPartData lUpperHorn02 = lUpperHorn01.addChild("lUpperHorn02", ModelPartBuilder.create().uv(33, 7).mirrored(true).cuboid(-0.5F, -0.6F, -0.5F, 1.0F, 1.0F, 3.0F, new Dilation(0.2F, 0.2F, 0.2F)), ModelTransform.of(0.0F, 0.0F, 0.9F, -0.3142F, 0.2618F, 0.0F));
-			lUpperHorn02.addChild("lUpperHorn03", ModelPartBuilder.create().uv(42, 7).mirrored(true).cuboid(-0.5F, -0.5F, -0.4F, 1.0F, 1.0F, 3.0F), ModelTransform.of(0.0F, 0.0F, 2.4F, -0.1745F, 0.1745F, 0.0F));
-			ModelPartData rUpperHorn01 = head.addChild("rUpperHorn01", ModelPartBuilder.create().uv(24, 0).mirrored(true).cuboid(-1.0F, -1.0F, -1.8F, 2.0F, 2.0F, 3.0F), ModelTransform.of(-2.0F, -8.7F, -0.5F, 0.8727F, -0.1745F, 0.0F));
-			ModelPartData rUpperHorn02 = rUpperHorn01.addChild("rUpperHorn02", ModelPartBuilder.create().uv(33, 7).mirrored(true).cuboid(-0.5F, -0.6F, -0.5F, 1.0F, 1.0F, 3.0F, new Dilation(0.2F, 0.2F, 0.2F)), ModelTransform.of(0.0F, 0.0F, 0.9F, -0.3142F, -0.2618F, 0.0F));
-			rUpperHorn02.addChild("rUpperHorn03", ModelPartBuilder.create().uv(42, 7).mirrored(true).cuboid(-0.5F, -0.5F, -0.4F, 1.0F, 1.0F, 3.0F), ModelTransform.of(0.0F, 0.0F, 2.4F, -0.1745F, -0.1745F, 0.0F));
-			ModelPartData rHorn01 = head.addChild("rHorn01", ModelPartBuilder.create().mirrored(true).cuboid(-1.0F, -2.0F, -1.0F, 2.0F, 2.0F, 2.0F), ModelTransform.of(-2.9F, -7.3F, 0.6F, -0.6109F, 0.0F, -1.309F));
-			ModelPartData rHorn02 = rHorn01.addChild("rHorn02", ModelPartBuilder.create().uv(0, 4).mirrored(true).cuboid(-0.4F, -2.0F, -0.5F, 1.0F, 2.0F, 1.0F, new Dilation(0.2F, 0.2F, 0.2F)), ModelTransform.of(0.1F, -1.5F, -0.1F, -0.2618F, 0.0F, -0.4014F));
-			ModelPartData rHorn03 = rHorn02.addChild("rHorn03", ModelPartBuilder.create().uv(0, 4).mirrored(true).cuboid(-0.2F, -2.0F, -0.5F, 1.0F, 2.0F, 1.0F, new Dilation(0.1F, 0.1F, 0.1F)), ModelTransform.of(0.0F, -1.6F, 0.0F, -0.1745F, 0.0F, -0.4363F));
-			ModelPartData rHorn04 = rHorn03.addChild("rHorn04", ModelPartBuilder.create().uv(49, 0).mirrored(true).cuboid(-0.5F, -3.0F, -0.5F, 1.0F, 3.0F, 1.0F), ModelTransform.of(0.0F, -1.7F, 0.0F, 0.0524F, 0.0F, -0.1396F));
-			rHorn04.addChild("rHorn05", ModelPartBuilder.create().uv(43, 0).mirrored(true).cuboid(-0.5F, -2.1F, -0.5F, 1.0F, 2.0F, 1.0F), ModelTransform.of(0.0F, -2.7F, 0.0F, 0.0524F, 0.0F, 0.3142F));
-			ModelPartData lHorn01 = head.addChild("lHorn01", ModelPartBuilder.create().cuboid(-1.0F, -2.0F, -1.0F, 2.0F, 2.0F, 2.0F), ModelTransform.of(2.9F, -7.3F, 0.6F, -0.6109F, 0.0F, 1.309F));
-			ModelPartData lHorn02 = lHorn01.addChild("lHorn02", ModelPartBuilder.create().uv(0, 4).cuboid(-0.6F, -2.0F, -0.5F, 1.0F, 2.0F, 1.0F, new Dilation(0.2F, 0.2F, 0.2F)), ModelTransform.of(-0.1F, -1.5F, -0.1F, -0.2618F, 0.0F, 0.4014F));
-			ModelPartData lHorn03 = lHorn02.addChild("lHorn03", ModelPartBuilder.create().uv(0, 4).cuboid(-0.8F, -2.0F, -0.5F, 1.0F, 2.0F, 1.0F, new Dilation(0.1F, 0.1F, 0.1F)), ModelTransform.of(0.0F, -1.6F, 0.0F, -0.1745F, 0.0F, 0.4363F));
-			ModelPartData lHorn04 = lHorn03.addChild("lHorn04", ModelPartBuilder.create().uv(49, 0).cuboid(-0.5F, -3.0F, -0.5F, 1.0F, 3.0F, 1.0F), ModelTransform.of(0.0F, -1.7F, 0.0F, 0.0524F, 0.0F, 0.1396F));
-			lHorn04.addChild("lHorn05", ModelPartBuilder.create().uv(43, 0).cuboid(-0.5F, -2.1F, -0.5F, 1.0F, 2.0F, 1.0F), ModelTransform.of(0.0F, -2.7F, 0.0F, 0.0524F, 0.0F, -0.3142F));
-			head.addChild("hair01", ModelPartBuilder.create().uv(40, 36).cuboid(-3.99F, 0.0F, -0.1F, 8.0F, 8.0F, 1.0F), ModelTransform.of(0.0F, -7.2F, 3.2F, 0.3491F, 0.0F, 0.0F));
-			head.addChild("hair00", ModelPartBuilder.create().uv(38, 46).cuboid(-4.01F, 0.0F, -1.0F, 8.0F, 11.0F, 2.0F), ModelTransform.of(0.0F, -5.5F, 3.2F, 0.1396F, 0.0F, 0.0F));
-			root.addChild("right_leg", ModelPartBuilder.create().uv(0, 16).mirrored(true).cuboid(-2.0F, 0.0F, -2.0F, 4.0F, 13.0F, 4.0F), ModelTransform.of(-1.9F, 11.0F, 0.0F, 0.0F, 0.0F, 0.0F));
-			root.addChild("left_leg", ModelPartBuilder.create().uv(0, 16).cuboid(-2.0F, 0.0F, -2.0F, 4.0F, 13.0F, 4.0F), ModelTransform.of(1.9F, 11.0F, 0.0F, 0.0F, 0.0F, 0.0F));
-			ModelPartData right_arm = root.addChild("right_arm", ModelPartBuilder.create().uv(40, 16).mirrored(true).cuboid(-3.0F, -2.0F, -2.0F, 4.0F, 14.0F, 4.0F), ModelTransform.of(-5.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.1F));
-			right_arm.addChild("rClaws", ModelPartBuilder.create().uv(0, 34).mirrored(true).cuboid(-1.1F, 0.0F, -2.1F, 2.0F, 3.0F, 4.0F), ModelTransform.of(-2.4F, 11.5F, 0.0F, 0.0F, 0.0F, -0.2793F));
-			ModelPartData left_arm = root.addChild("left_arm", ModelPartBuilder.create().uv(40, 16).cuboid(-1.0F, -2.0F, -2.0F, 4.0F, 14.0F, 4.0F), ModelTransform.of(5.0F, 0.0F, 0.0F, 0.0F, 0.0F, -0.1F));
-			left_arm.addChild("lClaws", ModelPartBuilder.create().uv(0, 34).cuboid(-1.1F, 0.0F, -2.1F, 2.0F, 3.0F, 4.0F), ModelTransform.of(2.4F, 11.5F, 0.0F, 0.0F, 0.0F, 0.2793F));
-			
- */
-			return TexturedModelData.of(data, 64, 64);
-		}
+		return TexturedModelData.of(data, 64, 64);
+	}
 	public static TexturedModelData getTexturedModelDataFemale() {
 		ModelData data = new ModelData();
 		ModelPartData root = data.getRoot();
@@ -134,44 +99,6 @@ public class CambionEntityModel extends BipedEntityModel<CambionEntity> {
 		ModelPartData lHorn05 = lHorn04.addChild("lHorn05", ModelPartBuilder.create().uv(43, 0).cuboid(-0.5F, -2.1F, -0.5F, 1.0F, 2.0F, 1.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -2.7F, 0.0F, 0.0524F, 0.0F, -0.3142F));
 		ModelPartData hair01 = head.addChild("hair01", ModelPartBuilder.create().uv(40, 36).cuboid(-3.99F, 0.0F, -0.1F, 8.0F, 8.0F, 1.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -7.2F, 3.2F, 0.3491F, 0.0F, 0.0F));
 		ModelPartData hair00 = head.addChild("hair00", ModelPartBuilder.create().uv(38, 46).cuboid(-4.01F, 0.0F, -1.0F, 8.0F, 11.0F, 2.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -5.5F, 3.2F, 0.1396F, 0.0F, 0.0F));
-
-
-/*
-
-		ModelPartData body = root.addChild("body",
-		ModelPartBuilder.create().uv(16, 16).cuboid(-4.0F, 0.0F, -2.0F, 8.0F, 13.0F, 4.0F), ModelTransform.of(0.0F, -2.0F, 0.0F, 0.0F, 0.0F, 0.0F));
-		body.addChild("skirtFront", ModelPartBuilder.create().uv(0, 42).cuboid(-4.5F, -0.1F, -0.5F, 9.0F, 9.0F, 2.0F), ModelTransform.of(0.0F, 12.9F, -1.7F, 0.0F, 0.0F, 0.0F));
-		body.addChild("skirtBack", ModelPartBuilder.create().uv(0, 53).cuboid(-4.5F, -0.1F, -0.5F, 9.0F, 9.0F, 2.0F), ModelTransform.of(0.0F, 12.9F, 0.6F, 0.0F, 0.0F, 0.0F));
-		ModelPartData head = root.addChild("head", ModelPartBuilder.create().cuboid(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F), ModelTransform.of(0.0F, -2.0F, 0.0F, 0.0F, 0.0F, 0.0F));
-		head.addChild("snout", ModelPartBuilder.create().uv(21, 35).cuboid(-1.5F, -1.0F, -2.0F, 3.0F, 2.0F, 3.0F), ModelTransform.of(0.0F, -2.5F, -3.9F, 0.4189F, 0.0F, 0.0F));
-		head.addChild("upperJaw", ModelPartBuilder.create().uv(23, 41).cuboid(-2.0F, -1.0F, -1.7F, 4.0F, 2.0F, 2.0F), ModelTransform.of(0.0F, -1.4F, -4.0F, 0.0F, 0.0F, 0.0F));
-		head.addChild("lowerJaw", ModelPartBuilder.create().uv(23, 46).cuboid(-1.5F, -0.5F, -1.6F, 3.0F, 1.0F, 2.0F), ModelTransform.of(0.0F, -0.4F, -4.0F, 0.0F, 0.0F, 0.0F));
-		ModelPartData lUpperHorn01 = head.addChild("lUpperHorn01", ModelPartBuilder.create().uv(24, 0).mirrored(true).cuboid(-1.0F, -1.0F, -1.8F, 2.0F, 2.0F, 3.0F), ModelTransform.of(2.0F, -8.7F, -0.5F, 0.8727F, 0.1745F, 0.0F));
-		ModelPartData lUpperHorn02 = lUpperHorn01.addChild("lUpperHorn02", ModelPartBuilder.create().uv(33, 7).mirrored(true).cuboid(-0.5F, -0.6F, -0.5F, 1.0F, 1.0F, 3.0F, new Dilation(0.2F, 0.2F, 0.2F)), ModelTransform.of(0.0F, 0.0F, 0.9F, -0.3142F, 0.2618F, 0.0F));
-		lUpperHorn02.addChild("lUpperHorn03", ModelPartBuilder.create().uv(42, 7).mirrored(true).cuboid(-0.5F, -0.5F, -0.4F, 1.0F, 1.0F, 3.0F), ModelTransform.of(0.0F, 0.0F, 2.4F, -0.1745F, 0.1745F, 0.0F));
-		ModelPartData rUpperHorn01 = head.addChild("rUpperHorn01", ModelPartBuilder.create().uv(24, 0).mirrored(true).cuboid(-1.0F, -1.0F, -1.8F, 2.0F, 2.0F, 3.0F), ModelTransform.of(-2.0F, -8.7F, -0.5F, 0.8727F, -0.1745F, 0.0F));
-		ModelPartData rUpperHorn02 = rUpperHorn01.addChild("rUpperHorn02", ModelPartBuilder.create().uv(33, 7).mirrored(true).cuboid(-0.5F, -0.6F, -0.5F, 1.0F, 1.0F, 3.0F, new Dilation(0.2F, 0.2F, 0.2F)), ModelTransform.of(0.0F, 0.0F, 0.9F, -0.3142F, -0.2618F, 0.0F));
-		rUpperHorn02.addChild("rUpperHorn03", ModelPartBuilder.create().uv(42, 7).mirrored(true).cuboid(-0.5F, -0.5F, -0.4F, 1.0F, 1.0F, 3.0F), ModelTransform.of(0.0F, 0.0F, 2.4F, -0.1745F, -0.1745F, 0.0F));
-		ModelPartData rHorn01 = head.addChild("rHorn01", ModelPartBuilder.create().mirrored(true).cuboid(-1.0F, -2.0F, -1.0F, 2.0F, 2.0F, 2.0F), ModelTransform.of(-2.9F, -7.3F, 0.6F, -0.6109F, 0.0F, -1.309F));
-		ModelPartData rHorn02 = rHorn01.addChild("rHorn02", ModelPartBuilder.create().uv(0, 4).mirrored(true).cuboid(-0.4F, -2.0F, -0.5F, 1.0F, 2.0F, 1.0F, new Dilation(0.2F, 0.2F, 0.2F)), ModelTransform.of(0.1F, -1.5F, -0.1F, -0.2618F, 0.0F, -0.4014F));
-		ModelPartData rHorn03 = rHorn02.addChild("rHorn03", ModelPartBuilder.create().uv(0, 4).mirrored(true).cuboid(-0.2F, -2.0F, -0.5F, 1.0F, 2.0F, 1.0F, new Dilation(0.1F, 0.1F, 0.1F)), ModelTransform.of(0.0F, -1.6F, 0.0F, -0.1745F, 0.0F, -0.4363F));
-		ModelPartData rHorn04 = rHorn03.addChild("rHorn04", ModelPartBuilder.create().uv(49, 0).mirrored(true).cuboid(-0.5F, -3.0F, -0.5F, 1.0F, 3.0F, 1.0F), ModelTransform.of(0.0F, -1.7F, 0.0F, 0.0524F, 0.0F, -0.1396F));
-		rHorn04.addChild("rHorn05", ModelPartBuilder.create().uv(43, 0).mirrored(true).cuboid(-0.5F, -2.1F, -0.5F, 1.0F, 2.0F, 1.0F), ModelTransform.of(0.0F, -2.7F, 0.0F, 0.0524F, 0.0F, 0.3142F));
-		ModelPartData lHorn01 = head.addChild("lHorn01", ModelPartBuilder.create().cuboid(-1.0F, -2.0F, -1.0F, 2.0F, 2.0F, 2.0F), ModelTransform.of(2.9F, -7.3F, 0.6F, -0.6109F, 0.0F, 1.309F));
-		ModelPartData lHorn02 = lHorn01.addChild("lHorn02", ModelPartBuilder.create().uv(0, 4).cuboid(-0.6F, -2.0F, -0.5F, 1.0F, 2.0F, 1.0F, new Dilation(0.2F, 0.2F, 0.2F)), ModelTransform.of(-0.1F, -1.5F, -0.1F, -0.2618F, 0.0F, 0.4014F));
-		ModelPartData lHorn03 = lHorn02.addChild("lHorn03", ModelPartBuilder.create().uv(0, 4).cuboid(-0.8F, -2.0F, -0.5F, 1.0F, 2.0F, 1.0F, new Dilation(0.1F, 0.1F, 0.1F)), ModelTransform.of(0.0F, -1.6F, 0.0F, -0.1745F, 0.0F, 0.4363F));
-		ModelPartData lHorn04 = lHorn03.addChild("lHorn04", ModelPartBuilder.create().uv(49, 0).cuboid(-0.5F, -3.0F, -0.5F, 1.0F, 3.0F, 1.0F), ModelTransform.of(0.0F, -1.7F, 0.0F, 0.0524F, 0.0F, 0.1396F));
-		lHorn04.addChild("lHorn05", ModelPartBuilder.create().uv(43, 0).cuboid(-0.5F, -2.1F, -0.5F, 1.0F, 2.0F, 1.0F), ModelTransform.of(0.0F, -2.7F, 0.0F, 0.0524F, 0.0F, -0.3142F));
-		head.addChild("hair01", ModelPartBuilder.create().uv(40, 36).cuboid(-3.99F, 0.0F, -0.1F, 8.0F, 8.0F, 1.0F), ModelTransform.of(0.0F, -7.2F, 3.2F, 0.3491F, 0.0F, 0.0F));
-		head.addChild("hair00", ModelPartBuilder.create().uv(38, 46).cuboid(-4.01F, 0.0F, -1.0F, 8.0F, 11.0F, 2.0F), ModelTransform.of(0.0F, -5.5F, 3.2F, 0.1396F, 0.0F, 0.0F));
-		root.addChild("right_leg", ModelPartBuilder.create().uv(0, 16).mirrored(true).cuboid(-2.0F, 0.0F, -2.0F, 4.0F, 13.0F, 4.0F), ModelTransform.of(-1.9F, 11.0F, 0.0F, 0.0F, 0.0F, 0.0F));
-		root.addChild("left_leg", ModelPartBuilder.create().uv(0, 16).cuboid(-2.0F, 0.0F, -2.0F, 4.0F, 13.0F, 4.0F), ModelTransform.of(1.9F, 11.0F, 0.0F, 0.0F, 0.0F, 0.0F));
-		ModelPartData right_arm = root.addChild("right_arm", ModelPartBuilder.create().uv(40, 16).mirrored(true).cuboid(-2.0F, -2.0F, -2.0F, 3.0F, 14.0F, 4.0F), ModelTransform.of(-5.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.1F));
-		right_arm.addChild("rClaws", ModelPartBuilder.create().uv(0, 34).mirrored(true).cuboid(-1.1F, 0.0F, -2.1F, 2.0F, 3.0F, 4.0F), ModelTransform.of(-1.15F, 11.5F, 0.0F, 0.0F, 0.0F, -0.2793F));
-		ModelPartData left_arm = root.addChild("left_arm", ModelPartBuilder.create().uv(40, 16).cuboid(-1.0F, -2.0F, -2.0F, 3.0F, 14.0F, 4.0F), ModelTransform.of(5.0F, 0.0F, 0.0F, 0.0F, 0.0F, -0.1F));
-		left_arm.addChild("lClaws", ModelPartBuilder.create().uv(0, 34).cuboid(-1.1F, 0.0F, -2.1F, 2.0F, 3.0F, 4.0F), ModelTransform.of(1.4F, 11.5F, 0.0F, 0.0F, 0.0F, 0.2793F));
-		
- */
 		return TexturedModelData.of(data, 64, 64);
 	}
 
@@ -190,7 +117,4 @@ public class CambionEntityModel extends BipedEntityModel<CambionEntity> {
 			ModelRenderer.yaw = y;
 			ModelRenderer.roll = z;
 		}
-
-
-
 }

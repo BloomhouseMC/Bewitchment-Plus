@@ -10,7 +10,6 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.BipedEntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.feature.ArmorFeatureRenderer;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
@@ -29,10 +28,10 @@ public class CambionEntityRenderer extends BipedEntityRenderer<CambionEntity, Bi
 	private final BipedEntityModel MALE_MODEL, FEMALE_MODEL;
 
 	public CambionEntityRenderer(EntityRendererFactory.Context context) {
-		super(context, new CambionEntityModel(context.getPart(BewitchmentPlusClient.MALE_CAMBION_MODEL_LAYER), true), 0.5f);
+		super(context, new CambionEntityModel(context.getPart(BewitchmentPlusClient.MALE_CAMBION_MODEL_LAYER)), 0.5f);
 		this.addFeature(new ArmorFeatureRenderer<>(this, new BipedEntityModel(context.getPart(EntityModelLayers.PLAYER_INNER_ARMOR)), new BipedEntityModel(context.getPart(EntityModelLayers.PLAYER_OUTER_ARMOR))));
 		MALE_MODEL = model;
-		FEMALE_MODEL = new CambionEntityModel(context.getPart(BewitchmentPlusClient.FEMALE_CAMBION_MODEL_LAYER), false);
+		FEMALE_MODEL = new CambionEntityModel(context.getPart(BewitchmentPlusClient.FEMALE_CAMBION_MODEL_LAYER));
 	}
 
 	@Override
