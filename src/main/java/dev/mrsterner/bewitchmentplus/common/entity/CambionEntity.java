@@ -73,7 +73,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 		.add(EntityAttributes.GENERIC_MAX_HEALTH, 20.00D)
 		.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4.0D)
 		.add(EntityAttributes.GENERIC_ARMOR, 2.0D)
-		.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.35D)
+		.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D)
 		.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.35D)
 		.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 24.0D);
 	}
@@ -164,7 +164,6 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 
 	@Override
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityTag) {
-		this.setPersistent();
 		if(!this.isBaby()){
 			this.initEquipment(difficulty);
 		}
