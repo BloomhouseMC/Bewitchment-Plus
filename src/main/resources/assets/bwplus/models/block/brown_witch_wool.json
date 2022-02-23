@@ -1,6 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-	"all": "bwplus:block/brown_witch_wool"
-  }
-}

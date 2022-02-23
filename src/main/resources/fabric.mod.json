@@ -19,13 +19,13 @@
   "environment": "*",
   "entrypoints": {
 	"main": [
-	  "net.bewitchmentplus.BewitchmentPlus"
+      "dev.mrsterner.bewitchmentplus.BewitchmentPlus"
 	],
 	"client": [
-	  "net.bewitchmentplus.client.BewitchmentPlusClient"
+      "dev.mrsterner.bewitchmentplus.client.BewitchmentPlusClient"
 	],
 	"modmenu": [
-	  "net.bewitchmentplus.client.compat.BWPlusModMenu"
+      "dev.mrsterner.bewitchmentplus.client.compat.BWPlusModMenu"
 	]
   },
   "custom": {
@@ -39,8 +39,8 @@
   "depends": {
 	"fabricloader": ">=0.7.4",
 	"fabric": "*",
-	"minecraft": "1.16.x",
-	"bewitchment": "1.16.5-15"
+	"minecraft": "1.18.x",
+    "bewitchment": ">=1.18-14"
   },
   "suggests": {
 	"another-mod": "*"

@@ -1,0 +1,13 @@
+{
+  "type": "bwplus:slot",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+
+        }
+      ]
+    }
+  ]
+}

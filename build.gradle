@@ -1,19 +1,31 @@
 plugins {
-    id 'fabric-loom' version '0.6-SNAPSHOT'
+    id 'fabric-loom' version '0.10-SNAPSHOT'
     id 'maven-publish'
 }
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
 
 archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
 
+loom {
+    accessWidenerPath = file("src/main/resources/bewitchmentplus.accesswidener")
+}
+
 repositories {
     maven {
         name = "Bewitchment"
         url = "https://www.cursemaven.com"
+    }
+    maven {
+        name = 'Ladysnake Mods'
+        url = 'https://ladysnake.jfrog.io/artifactory/mods'
+        content {
+            includeGroup 'io.github.ladysnake'
+            includeGroupByRegex 'io\\.github\\.onyxstudios.*'
+        }
     }
     maven {
         name = "wood api"
@@ -22,14 +34,6 @@ repositories {
     maven {
         name = "reach"
         url = "https://maven.jamieswhiteshirt.com/libs-release"
-    }
-    maven {
-        name = "pal"
-        url = "https://dl.bintray.com/ladysnake/libs"
-    }
-    maven {
-        name = "somnus"
-        url = "https://maven.theillusivec4.top"
     }
     maven {
         name = "cardinal"
@@ -45,7 +49,7 @@ repositories {
     }
     maven {
         name = "Mod Menu"
-        url = "https://maven.terraformersmc.com/releases"
+        url =  "https://maven.terraformersmc.com/releases"
     }
     maven {
         name = "Conditional Crafting"
@@ -59,37 +63,26 @@ repositories {
     maven {
         name = "Cotton"
         url = "http://server.bbkr.space:8081/artifactory/libs-release/"
+        allowInsecureProtocol = true
     }
     maven {
         name = "CurseForge"
         url = "https://minecraft.curseforge.com/api/maven"
     }
     maven {
-        name "requiem"
-        url "https://dl.bintray.com/ladysnake/mods"
+        name "appleskin"
+        url "https://maven.ryanliptak.com/"
     }
     maven {
-        url 'https://repo.repsy.io/mvn/gandiber/geckolib'
+        name "impersonate"
+        url "https://oss.sonatype.org/content/repositories/snapshots"
     }
-    maven {
-        name "fall flying lib"
-        url "https://dl.bintray.com/adriantodt/maven"
-    }
-    maven {
-        url "https://www.cursemaven.com"
-    }
-	maven {
-		name = "cardinal"
-		url = "https://maven.abusedmaster.xyz/"
-	}
-    maven {
-        name = 'Ladysnake Mods'
-        url = 'https://ladysnake.jfrog.io/artifactory/mods'
-    }	
+
+
     maven {
         name = "jitpack"
         url = "https://jitpack.io"
-    }	
+    }
 }
 
 dependencies {
@@ -101,80 +94,50 @@ dependencies {
     include "com.terraformersmc.terraform-api:terraform-wood-api-v1:${project.terraform_wood_api_version}"
     modImplementation "com.jamieswhiteshirt:reach-entity-attributes:${project.reach_version}"
     include "com.jamieswhiteshirt:reach-entity-attributes:${project.reach_version}"
+    modImplementation "io.github.ladysnake:PlayerAbilityLib:${pal_version}"
+
+    modImplementation "com.github.emilyploszaj:step-height-entity-attribute:${step_height_version}"
+    modImplementation "io.github.ladysnake:PlayerAbilityLib:${pal_version}"
+    include "io.github.ladysnake:PlayerAbilityLib:${pal_version}"
 
     modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
+    //modImplementation "top.theillusivec4.somnus:somnus-fabric:${project.somnus_version}"
     modImplementation("com.github.virtuoel:pehkui:${project.pehkui_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
-    modImplementation "top.theillusivec4.somnus:somnus-fabric:${project.somnus_version}"
-    modImplementation "io.github.ladysnake:Impersonate:${impersonate_version}"
+    modImplementation "io.github.ladysnake:impersonate:${impersonate_version}"
     modImplementation "vazkii.patchouli:Patchouli:${project.patchouli_version}"
-    modImplementation "io.github.ladysnake:PlayerAbilityLib:${pal_version}"
-    include "io.github.ladysnake:PlayerAbilityLib:${pal_version}"
-
-    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api:${project.rei_version}"
-    modRuntime "me.shedaniel:RoughlyEnoughItems:${project.rei_version}"
-	modImplementation "curse.maven:bewitchment-394915:${project.bewitchment_version}"
+    modImplementation "com.github.emilyalexandra:trinkets:${trinkets_version}"
     modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
-    modImplementation "io.github.emilyalexandra:nourish:${nourish_version}"
-    modImplementation "com.github.emilyploszaj:step-height-entity-attribute:${step_height_version}"
-    include "com.github.emilyploszaj:step-height-entity-attribute:${step_height_version}"
-    modImplementation "dev.emi:trinkets:${trinkets_version}"
-	modApi "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:2.8.2"
-    modApi "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:2.8.2"
-    modImplementation ("com.github.apace100:origins-fabric:${project.origins_version}") {
-         exclude(group: "*")
-     }
+
+
+
+    modImplementation "curse.maven:bewitchment-394915:${project.bewitchment_version}"
+    //include(modImplementation("io.github.ytg1234:fabric-recipe-conditions:${project.conditional_recipes_version}"))
+    modCompileOnly("squeek.appleskin:appleskin-fabric:${appleskin_version}:api") {
+        transitive = false
+    }
+    modRuntime "squeek.appleskin:appleskin-fabric:${appleskin_version}"
 }
 
 processResources {
     inputs.property "version", project.version
 
-    from(sourceSets.main.resources.srcDirs) {
-        include "fabric.mod.json"
+    filesMatching("fabric.mod.json") {
         expand "version": project.version
     }
-
-    from(sourceSets.main.resources.srcDirs) {
-        exclude "fabric.mod.json"
-    }
 }
 
-tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 17
 }
 
-task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = "sources"
-    from sourceSets.main.allSource
+java {
+    withSourcesJar()
 }
 
 jar {
     from "LICENSE"
-}
-
-configurations.all {
-    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
-}
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            // add all the jars that should be included when publishing to maven
-            artifact(remapJar) {
-                builtBy remapJar
-            }
-            artifact(sourcesJar) {
-                builtBy remapSourcesJar
-            }
-        }
-    }
-
-    repositories {
-        // select the repositories you want to publish to
-        // uncomment to publish to the local maven
-        // mavenLocal()
-    }
 }
