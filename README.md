@@ -1,6 +1,6 @@
 <div align="center">
 
-<img alt="BewitchmentPlus Icon" src="src/main/resources/assets/bewitchmentplus/icon.png" width="128">
+<img alt="BewitchmentPlus Icon" src="src/main/resources/assets/bewplus/icon.png" width="128">
 
 # Bewitchment Plus
 
