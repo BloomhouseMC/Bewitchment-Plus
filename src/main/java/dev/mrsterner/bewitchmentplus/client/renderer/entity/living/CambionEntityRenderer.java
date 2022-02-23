@@ -71,7 +71,6 @@ public class CambionEntityRenderer extends BipedEntityRenderer<CambionEntity, Bi
 		model = entityIn.getDataTracker().get(CambionEntity.MALE) ? MALE_MODEL : FEMALE_MODEL;
 		this.setModelVisibilities(entityIn);
 		float g = 0.9375f;
-		System.out.println("IsBaby");
 		if (entityIn.isBaby()) {
 			g = (float)((double)g * 0.5);
 			this.shadowRadius = 0.25f;

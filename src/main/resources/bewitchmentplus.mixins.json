@@ -6,7 +6,8 @@
   "mixins": [
     "IronGolemTargetingMixin",
     "LootContextTypesAccessor",
-    "MobEntityAccessor"
+    "MobEntityAccessor",
+    "VillagerBreedTaskMixin"
   ],
   "client": [
   ],

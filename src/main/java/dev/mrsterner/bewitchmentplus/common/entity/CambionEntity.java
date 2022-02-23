@@ -9,8 +9,6 @@ import dev.mrsterner.bewitchmentplus.mixin.MobEntityAccessor;
 import moriyashiine.bewitchment.api.BewitchmentAPI;
 import moriyashiine.bewitchment.common.entity.living.LeonardEntity;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
-import moriyashiine.bewitchment.common.registry.BWObjects;
-import net.minecraft.client.render.entity.CowEntityRenderer;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -22,16 +20,12 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.*;
-import net.minecraft.entity.passive.CowEntity;
-import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.InventoryChangedListener;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.context.LootContext;
@@ -39,7 +33,6 @@ import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.stat.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
@@ -58,6 +51,8 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 	private static final UUID BABY_SPEED_ID = UUID.fromString("B9766B59-9566-4402-BC1F-2EE2A276D836");
 	private static final EntityAttributeModifier BABY_SPEED_BONUS = new EntityAttributeModifier(BABY_SPEED_ID, "Baby speed boost", 0.5, EntityAttributeModifier.Operation.MULTIPLY_BASE);
 	public SimpleInventory cambionInventory = new SimpleInventory(8);
+	public static final int BABY_AGE = -12000;
+	private int age;
 	private static final Map<EquipmentSlot, Identifier> EQUIPMENT_SLOT_ITEMS = Util.make(Maps.newHashMap(),
 	(slotItems) -> {
 		slotItems.put(EquipmentSlot.MAINHAND, BWPLootTables.CAMBION_MAIN_HAND);
@@ -158,11 +153,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 		return new ItemStack(BWPObjects.CAMBION_SPAWN_EGG.asItem());
 	}
 
-	@Override
-	public void tickMovement() {
-		this.tickHandSwing();
-		super.tickMovement();
-	}
+
 
 	@Override
 	public boolean tryAttack(Entity target) {
@@ -275,6 +266,36 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 			entityAttributeInstance.removeModifier(BABY_SPEED_BONUS);
 			if (baby) {
 				entityAttributeInstance.addTemporaryModifier(BABY_SPEED_BONUS);
+			}
+		}
+	}
+
+	public int getAge(){
+		return this.age;
+	}
+
+	public void setAge(int age) {
+		int i = this.age;
+		this.age = age;
+		if (i < 0 && age >= 0 || i >= 0 && age < 0) {
+			this.dataTracker.set(BABY, age < 0);
+			this.onGrowUp();
+		}
+	}
+
+	protected void onGrowUp() {
+	}
+
+	@Override
+	public void tickMovement() {
+		this.tickHandSwing();
+		super.tickMovement();
+		if (this.isAlive()) {
+			int i = this.getAge();
+			if (i < 0) {
+				this.setAge(++i);
+			} else if (i > 0) {
+				this.setAge(--i);
 			}
 		}
 	}
