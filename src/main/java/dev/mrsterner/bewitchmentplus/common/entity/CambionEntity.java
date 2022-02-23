@@ -2,6 +2,7 @@ package dev.mrsterner.bewitchmentplus.common.entity;
 
 import com.google.common.collect.Maps;
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
+import dev.mrsterner.bewitchmentplus.common.registry.BWPEntityTypes;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPLootTables;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
 import dev.mrsterner.bewitchmentplus.mixin.MobEntityAccessor;
@@ -9,15 +10,21 @@ import moriyashiine.bewitchment.api.BewitchmentAPI;
 import moriyashiine.bewitchment.common.entity.living.LeonardEntity;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
 import moriyashiine.bewitchment.common.registry.BWObjects;
+import net.minecraft.client.render.entity.CowEntityRenderer;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.*;
+import net.minecraft.entity.passive.CowEntity;
+import net.minecraft.entity.passive.PassiveEntity;
+import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.InventoryChangedListener;
@@ -25,12 +32,16 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.SpawnEggItem;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.stat.Stats;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.hit.HitResult;
@@ -39,13 +50,13 @@ import net.minecraft.world.*;
 import net.minecraft.world.gen.feature.StructureFeature;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class CambionEntity extends BWHostileEntity implements InventoryChangedListener, InventoryOwner {
 	private static final TrackedData<Boolean> BABY = DataTracker.registerData(PiglinEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 	public static final TrackedData<Boolean> MALE = DataTracker.registerData(CambionEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+	private static final UUID BABY_SPEED_ID = UUID.fromString("B9766B59-9566-4402-BC1F-2EE2A276D836");
+	private static final EntityAttributeModifier BABY_SPEED_BONUS = new EntityAttributeModifier(BABY_SPEED_ID, "Baby speed boost", 0.5, EntityAttributeModifier.Operation.MULTIPLY_BASE);
 	public SimpleInventory cambionInventory = new SimpleInventory(8);
 	private static final Map<EquipmentSlot, Identifier> EQUIPMENT_SLOT_ITEMS = Util.make(Maps.newHashMap(),
 	(slotItems) -> {
@@ -56,7 +67,6 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 		slotItems.put(EquipmentSlot.LEGS, BWPLootTables.CAMBION_LEGGINGS);
 		slotItems.put(EquipmentSlot.FEET, BWPLootTables.CAMBION_BOOTS);
 	});
-
 
 	public CambionEntity(EntityType<? extends HostileEntity> entityType, World world) {
 		super(entityType, world);
@@ -161,28 +171,13 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 		return super.tryAttack(target);
 	}
 
-	//Todo: Redo this to mirror logic used on 1.12.2. It was handled better there.
 	@Override
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityTag) {
 		this.setPersistent();
-		this.initEquipment(difficulty);
-
+		if(!this.isBaby()){
+			this.initEquipment(difficulty);
+		}
 		dataTracker.set(MALE, random.nextBoolean());
-		Random rand = new Random();
-		int a = rand.nextInt(4);
-		int c = rand.nextInt(4);
-		if (a == 3) {
-			this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
-		}
-		if (a == 2) {
-			this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.GOLDEN_SWORD));
-		}
-		if (a == 1) {
-			this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(BWObjects.ATHAME));
-		}
-		if (c == 1) {
-			this.equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
-		}
 		return super.initialize(world, difficulty, spawnReason, entityData, entityTag);
 	}
 
@@ -272,7 +267,46 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 		}
 	}
 
+	@Override
+	public void setBaby(boolean baby) {
+		this.getDataTracker().set(BABY, baby);
+		if (this.world != null && !this.world.isClient) {
+			EntityAttributeInstance entityAttributeInstance = this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+			entityAttributeInstance.removeModifier(BABY_SPEED_BONUS);
+			if (baby) {
+				entityAttributeInstance.addTemporaryModifier(BABY_SPEED_BONUS);
+			}
+		}
+	}
 
+	@Override
+	public void onTrackedDataSet(TrackedData<?> data) {
+		if (BABY.equals(data)) {
+			this.calculateDimensions();
+		}
+		super.onTrackedDataSet(data);
+	}
+
+	@Override
+	protected ActionResult interactMob(PlayerEntity player, Hand hand) {
+		ActionResult actionResult = this.interactWithSpawnEgg(player, hand);
+		if (actionResult.isAccepted()) {
+			return actionResult;
+		}
+		return super.interactMob(player, hand);
+	}
+
+	private ActionResult interactWithSpawnEgg(PlayerEntity player, Hand hand) {
+		ItemStack itemStack = player.getStackInHand(hand);
+		if (itemStack.getItem() instanceof SpawnEggItem spawnEggItem) {
+			if (this.world instanceof ServerWorld serverWorld) {
+				spawnEggItem.spawnBaby(player, this, BWPEntityTypes.CAMBION, serverWorld, this.getPos(), itemStack);
+				return ActionResult.SUCCESS;
+			}
+			return ActionResult.CONSUME;
+		}
+		return ActionResult.PASS;
+	}
 
 	protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
 		super.dropEquipment(source, lootingMultiplier, allowDrops);

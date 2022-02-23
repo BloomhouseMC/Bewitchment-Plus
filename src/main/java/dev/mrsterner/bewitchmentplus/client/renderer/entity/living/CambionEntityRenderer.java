@@ -9,11 +9,16 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.BipedEntityRenderer;
+import net.minecraft.client.render.entity.CowEntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.client.render.entity.VillagerEntityRenderer;
 import net.minecraft.client.render.entity.feature.ArmorFeatureRenderer;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
+import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Arm;
@@ -49,10 +54,31 @@ public class CambionEntityRenderer extends BipedEntityRenderer<CambionEntity, Bi
 		return entity.getDataTracker().get(CambionEntity.MALE) ? MALE_TEXTURES[variant] : FEMALE_TEXTURES[variant];
 	}
 
+	protected void scale(VillagerEntity villagerEntity, MatrixStack matrixStack, float f) {
+		float g = 0.9375f;
+		System.out.println("IsBaby");
+		if (villagerEntity.isBaby()) {
+			g = (float)((double)g * 0.5);
+			this.shadowRadius = 0.25f;
+		} else {
+			this.shadowRadius = 0.5f;
+		}
+		matrixStack.scale(g, g, g);
+	}
+
 	@Override
 	public void render(CambionEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn) {
 		model = entityIn.getDataTracker().get(CambionEntity.MALE) ? MALE_MODEL : FEMALE_MODEL;
 		this.setModelVisibilities(entityIn);
+		float g = 0.9375f;
+		System.out.println("IsBaby");
+		if (entityIn.isBaby()) {
+			g = (float)((double)g * 0.5);
+			this.shadowRadius = 0.25f;
+		} else {
+			this.shadowRadius = 0.5f;
+		}
+		matrixStackIn.scale(g, g, g);
 		super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
 	}
 
