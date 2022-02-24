@@ -23,11 +23,9 @@ public class IronGolemTargetingMixin {
 		}
 	}
 
-	@Inject(method = "canTarget", at = @At(value = "HEAD"), cancellable = true)
+	@Inject(method = "canTarget", at = @At(value = "RETURN"), cancellable = true)
 	private void canTargetInject(EntityType<?> type, CallbackInfoReturnable<Boolean> cir) {
-		if (((IronGolemEntity) (Object) this).isPlayerCreated() && type == EntityType.PLAYER) {
-			cir.setReturnValue(false);
-		} else if (type == EntityType.CREEPER || type == BWPEntityTypes.CAMBION) {
+		if (type == BWPEntityTypes.CAMBION) {
 			cir.setReturnValue(false);
 		}
 	}

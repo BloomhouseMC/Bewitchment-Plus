@@ -101,7 +101,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 		boolean flag = super.canSpawn(world, spawnReason);
 		if (flag && (spawnReason == SpawnReason.SPAWNER || spawnReason == SpawnReason.STRUCTURE || spawnReason == SpawnReason.MOB_SUMMONED || spawnReason == SpawnReason.SPAWN_EGG || spawnReason == SpawnReason.COMMAND || spawnReason == SpawnReason.DISPENSER || spawnReason == SpawnReason.NATURAL)) {
 			return true;
-		}
+		}//Todo maybe remove natural spawn
 		if (world instanceof ServerWorld && BewitchmentPlus.config.cambionVillageStructureSpawn) {
 			BlockPos nearestVillage = ((ServerWorld) world).locateStructure(StructureFeature.VILLAGE, getBlockPos(), 3, false);
 			return (nearestVillage != null && Math.sqrt(nearestVillage.getSquaredDistance(getBlockPos())) < 128);
@@ -121,29 +121,29 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 	public void equipStack(EquipmentSlot slotIn, ItemStack stack) {
 		super.equipStack(slotIn, stack);
 		switch (slotIn) {
-			case CHEST:
-				if (this.cambionInventory.getStack(1).isEmpty())
-					this.cambionInventory.setStack(1, ((MobEntityAccessor)this).armorItems().get(slotIn.getEntitySlotId()));
-				break;
-			case FEET:
-				if (this.cambionInventory.getStack(3).isEmpty())
-					this.cambionInventory.setStack(3, ((MobEntityAccessor)this).armorItems().get(slotIn.getEntitySlotId()));
-				break;
 			case HEAD:
 				if (this.cambionInventory.getStack(0).isEmpty())
 					this.cambionInventory.setStack(0, ((MobEntityAccessor)this).armorItems().get(slotIn.getEntitySlotId()));
+				break;
+			case CHEST:
+				if (this.cambionInventory.getStack(1).isEmpty())
+					this.cambionInventory.setStack(1, ((MobEntityAccessor)this).armorItems().get(slotIn.getEntitySlotId()));
 				break;
 			case LEGS:
 				if (this.cambionInventory.getStack(2).isEmpty())
 					this.cambionInventory.setStack(2, ((MobEntityAccessor)this).armorItems().get(slotIn.getEntitySlotId()));
 				break;
-			case MAINHAND:
-				if (this.cambionInventory.getStack(5).isEmpty())
-					this.cambionInventory.setStack(5, ((MobEntityAccessor)this).armorItems().get(slotIn.getEntitySlotId()));
+			case FEET:
+				if (this.cambionInventory.getStack(3).isEmpty())
+					this.cambionInventory.setStack(3, ((MobEntityAccessor)this).armorItems().get(slotIn.getEntitySlotId()));
 				break;
 			case OFFHAND:
 				if (this.cambionInventory.getStack(4).isEmpty())
 					this.cambionInventory.setStack(4, ((MobEntityAccessor)this).armorItems().get(slotIn.getEntitySlotId()));
+				break;
+			case MAINHAND:
+				if (this.cambionInventory.getStack(5).isEmpty())
+					this.cambionInventory.setStack(5, ((MobEntityAccessor)this).armorItems().get(slotIn.getEntitySlotId()));
 				break;
 		}
 	}
@@ -283,6 +283,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 	}
 
 	protected void onGrowUp() {
+		this.setBaby(false);
 	}
 
 	@Override
