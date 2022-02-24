@@ -1,0 +1,6 @@
+{
+  "parent": "bwplus:block/color_provider",
+  "textures": {
+	"texture": "bwplus:block/white_witch_wool"
+  }
+}
