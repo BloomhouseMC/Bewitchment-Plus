@@ -1,6 +1,7 @@
 package dev.mrsterner.bewitchmentplus;
 
 import dev.mrsterner.bewitchmentplus.common.BWPConfig;
+import dev.mrsterner.bewitchmentplus.common.registry.BWPBlockEntityTypes;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPEntitySpawns;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPEntityTypes;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
@@ -26,6 +27,7 @@ public class BewitchmentPlus implements ModInitializer {
 
 		BWPEntityTypes.init();
 		BWPObjects.init();
+		BWPBlockEntityTypes.init();
 		BWPEntitySpawns.init();
 	}
 }

@@ -16,7 +16,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:gold_sword",
+          "name": "minecraft:golden_sword",
           "conditions": [
             {
               "condition": "minecraft:random_chance",

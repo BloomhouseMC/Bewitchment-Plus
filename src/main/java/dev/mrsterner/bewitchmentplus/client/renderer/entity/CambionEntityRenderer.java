@@ -1,4 +1,4 @@
-package dev.mrsterner.bewitchmentplus.client.renderer.entity.living;
+package dev.mrsterner.bewitchmentplus.client.renderer.entity;
 
 import dev.mrsterner.bewitchmentplus.client.BewitchmentPlusClient;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;

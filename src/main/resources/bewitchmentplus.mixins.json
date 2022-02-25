@@ -10,6 +10,7 @@
     "VillagerBreedTaskMixin"
   ],
   "client": [
+    "TexturedRenderLayersMixin"
   ],
   "injectors": {
 	"defaultRequire": 1

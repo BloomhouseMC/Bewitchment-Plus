@@ -1,0 +1,6 @@
+{
+  "parent": "bewitchment:block/iron_candelabra",
+  "textures": {
+    "particle": "bwplus:block/copper_candelabra"
+  }
+}
