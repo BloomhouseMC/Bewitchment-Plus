@@ -2,7 +2,17 @@
 	"format_version": "1.8.0",
 	"animations": {
 		"animation.niffler.idle": {
-			"loop": true
+			"loop": true,
+			"bones": {
+				"body": {
+					"position": {
+						"vector": [0, -3.8, 0]
+					},
+					"scale": {
+						"vector": [0.5, 0.5, 0.5]
+					}
+				}
+			}
 		},
 		"animation.niffler.walk": {
 			"loop": true,
@@ -25,20 +35,23 @@
 					},
 					"position": {
 						"0.0": {
-							"vector": [0, 0, 0]
+							"vector": [0, -3.9, 0]
 						},
 						"0.24": {
-							"vector": [0, 0.4, 0]
+							"vector": [0, "0.4-3.9", 0]
 						},
 						"0.52": {
-							"vector": [0, 0, 0]
+							"vector": [0, "0-3.9", 0]
 						},
 						"0.76": {
-							"vector": [0, 0.4, 0]
+							"vector": [0, "0.4-3.9", 0]
 						},
 						"1.04": {
-							"vector": [0, 0, 0]
+							"vector": [0, "0-3.9", 0]
 						}
+					},
+					"scale": {
+						"vector": [0.5, 0.5, 0.5]
 					}
 				},
 				"head": {
@@ -238,7 +251,10 @@
 						}
 					},
 					"position": {
-						"vector": [0, -1, 0]
+						"vector": [0, -4.8, 0]
+					},
+					"scale": {
+						"vector": [0.5, 0.5, 0.5]
 					}
 				},
 				"head": {
@@ -461,6 +477,12 @@
 				"body": {
 					"rotation": {
 						"vector": [-70, 0, 0]
+					},
+					"position": {
+						"vector": [0, -4.2, 0]
+					},
+					"scale": {
+						"vector": [0.5, 0.5, 0.5]
 					}
 				},
 				"tail": {

@@ -22,7 +22,7 @@ public class BlackDogEntityRenderer extends MobEntityRenderer<BlackDogEntity, Bl
 			int variants = entity.getVariants();
 			TEXTURES = new Identifier[variants];
 			for (int i = 0; i < variants; i++) {
-				TEXTURES[i] = new Identifier(BewitchmentPlus.MODID, "textures/entity/living/black_dog/" + i + ".png");
+				TEXTURES[i] = new Identifier(BewitchmentPlus.MODID, "textures/entity/black_dog/" + i + ".png");
 			}
 		}
 		return TEXTURES[entity.getDataTracker().get(BWHostileEntity.VARIANT)];

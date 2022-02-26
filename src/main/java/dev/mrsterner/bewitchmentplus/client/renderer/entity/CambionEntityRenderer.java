@@ -42,8 +42,8 @@ public class CambionEntityRenderer extends BipedEntityRenderer<CambionEntity, Bi
 			MALE_TEXTURES = new Identifier[variants];
 			FEMALE_TEXTURES = new Identifier[variants];
 			for (int i = 0; i < variants; i++) {
-				MALE_TEXTURES[i] = new Identifier(BewitchmentPlus.MODID, "textures/entity/living/cambion/male_" + i + ".png");
-				FEMALE_TEXTURES[i] = new Identifier(BewitchmentPlus.MODID, "textures/entity/living/cambion/female_" + i + ".png");
+				MALE_TEXTURES[i] = new Identifier(BewitchmentPlus.MODID, "textures/entity/cambion/male_" + i + ".png");
+				FEMALE_TEXTURES[i] = new Identifier(BewitchmentPlus.MODID, "textures/entity/cambion/female_" + i + ".png");
 			}
 		}
 		int variant = entity.getDataTracker().get(BWHostileEntity.VARIANT);

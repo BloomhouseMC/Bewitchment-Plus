@@ -9,7 +9,7 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 import software.bernie.geckolib3.model.provider.data.EntityModelData;
 
 public class NifflerEntityModel extends AnimatedGeoModel<NifflerEntity> {
-    private Identifier currentTexture = new Identifier(BewitchmentPlus.MODID, "textures/entity/werewolf/werewolf.png");
+    private Identifier currentTexture = new Identifier(BewitchmentPlus.MODID, "textures/entity/niffler/niffler_1.png");
 
     public void setCurrentTexture(Identifier currentTexture) {
         this.currentTexture = currentTexture;
@@ -17,7 +17,7 @@ public class NifflerEntityModel extends AnimatedGeoModel<NifflerEntity> {
 
     @Override
     public Identifier getModelLocation(NifflerEntity object) {
-        return new Identifier(BewitchmentPlus.MODID, "geo/werewolf.geo.json");
+        return new Identifier(BewitchmentPlus.MODID, "geo/niffler.geo.json");
     }
 
     @Override
@@ -27,7 +27,7 @@ public class NifflerEntityModel extends AnimatedGeoModel<NifflerEntity> {
 
     @Override
     public Identifier getAnimationFileLocation(NifflerEntity animatable) {
-        return new Identifier(BewitchmentPlus.MODID, "animations/werewolf.animation.json");
+        return new Identifier(BewitchmentPlus.MODID, "animations/niffler.animation.json");
     }
 
     @SuppressWarnings("unchecked")
@@ -38,7 +38,7 @@ public class NifflerEntityModel extends AnimatedGeoModel<NifflerEntity> {
         EntityModelData extraData = (EntityModelData) customPredicate.getExtraDataOfType(EntityModelData.class).get(0);
         if (head != null) {
             head.setRotationX(extraData.headPitch * ((float) Math.PI / 180F));
-            head.setRotationZ(extraData.netHeadYaw * ((float) Math.PI / 180F));
+            head.setRotationY(extraData.netHeadYaw * ((float) Math.PI / 180F));
         }
     }
 }
