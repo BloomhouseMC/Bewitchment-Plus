@@ -26,12 +26,11 @@ public class NifflerEntityRenderer extends GeoEntityRenderer<NifflerEntity> {
     }
 
     @Override
-    public void renderEarly(NifflerEntity animatable, MatrixStack stackIn, float ticks, VertexConsumerProvider renderTypeBuffer, VertexConsumer vertexBuilder, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float partialTicks) {
-        stackIn.push();
-        stackIn.scale(0.5F,0.5F, 0.5F);
-        stackIn.pop();
-        super.renderEarly(animatable, stackIn, ticks, renderTypeBuffer, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, partialTicks);
+    public void renderEarly(NifflerEntity animatable, MatrixStack matrices, float ticks, VertexConsumerProvider renderTypeBuffer, VertexConsumer vertexBuilder, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float partialTicks) {
+        matrices.scale(0.5F,0.5F, 0.5F);
+        super.renderEarly(animatable, matrices, ticks, renderTypeBuffer, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, partialTicks);
     }
+
 
     @Override
     public void renderRecursively(GeoBone bone, MatrixStack stack, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {

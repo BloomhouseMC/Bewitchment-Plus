@@ -1,5 +1,7 @@
 package dev.mrsterner.bewitchmentplus.common.entity;
 
+import dev.mrsterner.bewitchmentplus.common.entity.ai.ForgetBlocksGoal;
+import dev.mrsterner.bewitchmentplus.common.entity.ai.NifflerSeekGoal;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPEntityTypes;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPTags;
 import dev.mrsterner.bewitchmentplus.mixin.MobEntityAccessor;
@@ -25,6 +27,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -38,12 +41,17 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 public class NifflerEntity extends BWTameableEntity implements IAnimatable, InventoryOwner {
     public SimpleInventory nifflerInventory = new SimpleInventory(6);
+    public List<Long> blocksChecked = new ArrayList<>();
     private static final TrackedData<Boolean> NIFFLING = DataTracker.registerData(NifflerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> SITTING = DataTracker.registerData(NifflerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Boolean> SLEEPING = DataTracker.registerData(NifflerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     final AnimationFactory factory = new AnimationFactory(this);
     public NifflerEntity(EntityType<? extends TameableEntity> type, World world) {
         super(type, world);
@@ -87,6 +95,12 @@ public class NifflerEntity extends BWTameableEntity implements IAnimatable, Inve
     @Override
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
+        NbtList blockList = nbt.getList("BlockPositions", 10);
+        for(int k = 0; k < blockList.size(); ++k){
+            NbtCompound compoundnbtBlock = blockList.getCompound(k);
+            this.blocksChecked.add(compoundnbtBlock.getLong("Block"));
+        }
+
         NbtList listnbt = nbt.getList("Inventory", 10);
         for (int i = 0; i < listnbt.size(); ++i) {
             NbtCompound compoundnbt = listnbt.getCompound(i);
@@ -104,15 +118,22 @@ public class NifflerEntity extends BWTameableEntity implements IAnimatable, Inve
     @Override
     public void writeCustomDataToNbt(NbtCompound nbt) {
         super.writeCustomDataToNbt(nbt);
-        NbtList listnbt = new NbtList();
+        NbtList listnbtBlockPos = new NbtList();
+        for(long pos : this.blocksChecked){
+            NbtCompound compound = new NbtCompound();
+            compound.putLong("Block", pos);
+        }
+        nbt.put("BlockPositions", listnbtBlockPos);
+
+        NbtList listnbtInventory = new NbtList();
         for (int i = 0; i < this.nifflerInventory.size(); ++i) {
             ItemStack itemstack = this.nifflerInventory.getStack(i);
             NbtCompound compoundnbt = new NbtCompound();
             compoundnbt.putByte("Slot", (byte) i);
             itemstack.writeNbt(compoundnbt);
-            listnbt.add(compoundnbt);
+            listnbtInventory.add(compoundnbt);
         }
-        nbt.put("Inventory", listnbt);
+        nbt.put("Inventory", listnbtInventory);
     }
 
 
@@ -126,9 +147,12 @@ public class NifflerEntity extends BWTameableEntity implements IAnimatable, Inve
         this.goalSelector.add(5, new WanderAroundFarGoal(this, 1.0D));
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(6, new LookAroundGoal(this));
+        this.goalSelector.add(2, new ForgetBlocksGoal(this));
+        this.goalSelector.add(1, new NifflerSeekGoal(this));
+
         this.targetSelector.add(0, new TrackOwnerAttackerGoal(this));
         this.targetSelector.add(1, new AttackWithOwnerGoal(this));
-        this.targetSelector.add(2, new RevengeGoal(this, new Class[0]));
+        this.targetSelector.add(2, new RevengeGoal(this));
     }
 
     public void setTamed(boolean tamed) {
@@ -156,6 +180,7 @@ public class NifflerEntity extends BWTameableEntity implements IAnimatable, Inve
     protected void initDataTracker() {
         this.dataTracker.startTracking(NIFFLING, false);
         this.dataTracker.startTracking(SITTING, false);
+        this.dataTracker.startTracking(SLEEPING, false);
         super.initDataTracker();
     }
 

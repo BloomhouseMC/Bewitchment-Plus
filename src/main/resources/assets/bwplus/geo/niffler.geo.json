@@ -44,6 +44,27 @@
 					]
 				},
 				{
+					"name": "eyelids",
+					"parent": "head",
+					"pivot": [0, 9.7, -8]
+				},
+				{
+					"name": "bone",
+					"parent": "eyelids",
+					"pivot": [0, 9.7, -8],
+					"cubes": [
+						{"origin": [2.1, 9.2, -15], "size": [1, 2, 2], "uv": [0, 46]}
+					]
+				},
+				{
+					"name": "bone2",
+					"parent": "eyelids",
+					"pivot": [0, 9.7, -8],
+					"cubes": [
+						{"origin": [-3.1, 9.2, -15], "size": [1, 2, 2], "uv": [0, 46]}
+					]
+				},
+				{
 					"name": "leftFrontLeg",
 					"parent": "body",
 					"pivot": [4.5, 5.7, -6],
