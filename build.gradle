@@ -78,6 +78,11 @@ repositories {
         url "https://oss.sonatype.org/content/repositories/snapshots"
     }
 
+    maven {
+        name "GeckoLib"
+        url "https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/"
+    }
+
 
     maven {
         name = "jitpack"
@@ -111,6 +116,7 @@ dependencies {
     modImplementation "vazkii.patchouli:Patchouli:${project.patchouli_version}"
     modImplementation "com.github.emilyalexandra:trinkets:${trinkets_version}"
     modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
+    modImplementation "software.bernie.geckolib:geckolib-fabric-${project.gecko_version}"
 
 
 

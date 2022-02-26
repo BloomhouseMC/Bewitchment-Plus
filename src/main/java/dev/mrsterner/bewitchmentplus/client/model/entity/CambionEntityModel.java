@@ -1,4 +1,4 @@
-package dev.mrsterner.bewitchmentplus.client.model.entity.living;
+package dev.mrsterner.bewitchmentplus.client.model.entity;
 
 import dev.mrsterner.bewitchmentplus.common.entity.CambionEntity;
 import net.fabricmc.api.EnvType;

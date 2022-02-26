@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "bewitchment:silver_ingot",
+    "bewitchment:silver_nugget",
+    "bewitchment:silver_chunk",
+    "minecraft:gold_ingot",
+    "minecraft:gold_nugget",
+    "minecraft:gold_chunk"
+  ]
+}

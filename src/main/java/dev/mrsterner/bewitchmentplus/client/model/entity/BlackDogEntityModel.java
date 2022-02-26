@@ -1,4 +1,4 @@
-package dev.mrsterner.bewitchmentplus.client.model.entity.living;
+package dev.mrsterner.bewitchmentplus.client.model.entity;
 
 import dev.mrsterner.bewitchmentplus.common.entity.BlackDogEntity;
 import net.fabricmc.api.EnvType;

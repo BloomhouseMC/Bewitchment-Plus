@@ -3,7 +3,7 @@ package dev.mrsterner.bewitchmentplus.client.renderer.entity;
 import dev.mrsterner.bewitchmentplus.client.BewitchmentPlusClient;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
-import dev.mrsterner.bewitchmentplus.client.model.entity.living.BlackDogEntityModel;
+import dev.mrsterner.bewitchmentplus.client.model.entity.BlackDogEntityModel;
 import dev.mrsterner.bewitchmentplus.common.entity.BlackDogEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;

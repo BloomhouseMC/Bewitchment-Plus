@@ -8,4 +8,5 @@ import net.minecraft.util.Identifier;
 
 public class BWPTags {
     public static final Tag<Item> GOBLET_LIQUIDS = TagFactory.ITEM.create(new Identifier(BewitchmentPlus.MODID, "goblet_liquids"));
+    public static final Tag<Item> NIFFLER = TagFactory.ITEM.create(new Identifier(BewitchmentPlus.MODID, "niffler"));
 }
