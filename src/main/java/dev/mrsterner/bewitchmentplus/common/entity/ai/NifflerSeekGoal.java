@@ -5,6 +5,7 @@ import dev.mrsterner.bewitchmentplus.common.registry.BWPTags;
 import dev.mrsterner.bewitchmentplus.common.utils.RandomPermuteIterator;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.ChestBlockEntity;
+import net.minecraft.block.entity.LootableContainerBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.inventory.Inventory;
@@ -113,8 +114,9 @@ public class NifflerSeekGoal extends Goal {
             for (double y = -yRangeCheck; y <= yRangeCheck; ++y) {
                 for (double z = -rangeCheck; z <= rangeCheck; ++z) {
                     BlockPos lootPos = new BlockPos(blockPos.getX() + x, blockPos.getY() + y, blockPos.getZ() + z);
-                    if(niffler.world.getBlockEntity(lootPos) instanceof ChestBlockEntity chestBlockEntity){
+                    if(niffler.world.getBlockEntity(lootPos) instanceof LootableContainerBlockEntity chestBlockEntity){
                         blockList.add(chestBlockEntity.getPos());
+                        niffler.blocksChecked.add(chestBlockEntity.getPos().asLong());
                     }
                 }
             }
