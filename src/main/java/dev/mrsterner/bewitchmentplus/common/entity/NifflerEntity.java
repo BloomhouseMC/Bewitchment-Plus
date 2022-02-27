@@ -1,17 +1,11 @@
 package dev.mrsterner.bewitchmentplus.common.entity;
 
-import dev.mrsterner.bewitchmentplus.common.entity.ai.NifflerForgetContainerGoal;
-import dev.mrsterner.bewitchmentplus.common.entity.ai.NifflerSeekGoal;
-import dev.mrsterner.bewitchmentplus.common.entity.ai.NifflerSleepGoal;
-import dev.mrsterner.bewitchmentplus.common.entity.ai.NifflerWakeGoal;
+import dev.mrsterner.bewitchmentplus.common.entity.ai.*;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPEntityTypes;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPTags;
 import dev.mrsterner.bewitchmentplus.mixin.MobEntityAccessor;
 import moriyashiine.bewitchment.common.entity.living.util.BWTameableEntity;
-import net.minecraft.entity.EntityData;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.InventoryOwner;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
@@ -24,11 +18,13 @@ import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -177,6 +173,48 @@ public class NifflerEntity extends BWTameableEntity implements IAnimatable, Inve
         }
 
     }
+
+    @Override
+    protected void loot(ItemEntity item) {
+        ItemStack itemStack = item.getStack();
+        if (this.canPickupItem(itemStack)) {
+            this.triggerItemPickedUpByEntityCriteria(item);
+            this.equipStack(EquipmentSlot.MAINHAND, itemStack.split(1));
+            this.handDropChances[EquipmentSlot.MAINHAND.getEntitySlotId()] = 2.0f;
+            this.sendPickup(item, itemStack.getCount());
+            item.discard();
+        }
+    }
+
+    @Override
+    public void tickMovement() {
+        super.tickMovement();
+        if (!this.world.isClient && this.canPickUpLoot() && this.isAlive() && !this.dead && this.world.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING)) {
+            List<ItemEntity> list = this.world.getNonSpectatingEntities(ItemEntity.class, this.getBoundingBox().expand(1.0, 0.0, 1.0));
+            for (ItemEntity itemEntity : list) {
+                if (itemEntity.isRemoved() || itemEntity.getStack().isEmpty() || itemEntity.cannotPickup() || !this.canGather(itemEntity.getStack())) continue;
+                this.loot(itemEntity);
+            }
+        }
+    }
+
+    @Override
+    public boolean canPickUpLoot() {
+        ItemStack itemStack = this.getEquippedStack(EquipmentSlot.MAINHAND);
+        return itemStack.isEmpty();
+    }
+
+    @Override
+    public boolean canPickupItem(ItemStack stack) {
+        ItemStack itemStack = this.getEquippedStack(EquipmentSlot.MAINHAND);
+        return itemStack.isEmpty();
+    }
+
+    private void dropItem(ItemStack stack) {
+        ItemEntity itemEntity = new ItemEntity(this.world, this.getX(), this.getY(), this.getZ(), stack);
+        this.world.spawnEntity(itemEntity);
+    }
+
 
     @Override
     @Nullable
