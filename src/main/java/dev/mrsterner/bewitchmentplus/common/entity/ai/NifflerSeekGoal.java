@@ -70,19 +70,14 @@ public class NifflerSeekGoal extends Goal {
                         itemStacks.add(new Pair<>(inventory.getStack(i), i));
                     }
                 }
-                if(itemStacks.size()>0){
+                if(itemStacks.size() > 0){
                     try{
                         RandomPermuteIterator pickItemAtRandom = new RandomPermuteIterator(itemStacks.size());
                         int k = pickItemAtRandom.nextElement();
                         ItemStack itemStack = itemStacks.get(k).getLeft();
                         if(niffler.nifflerInventory.canInsert(itemStack)){
                             for(int i = 0; i < niffler.nifflerInventory.size(); i++){
-                                if(niffler.nifflerInventory.getStack(i).getItem().equals(itemStack.getItem())){
-                                    niffler.nifflerInventory.getStack(i).increment(1);
-                                    inventory.getStack(itemStacks.get(pickItemAtRandom.nextElement()).getRight()).decrement(1);
-                                    this.niffleCooldown = -200;
-                                    break;
-                                }else if(niffler.nifflerInventory.getStack(i).getItem().equals(Items.AIR)){
+                                if(niffler.nifflerInventory.getStack(i).getItem().equals(itemStack.getItem()) || niffler.nifflerInventory.getStack(i).getItem().equals(Items.AIR)){
                                     niffler.nifflerInventory.setStack(i, itemStack.split(1));
                                     this.niffleCooldown = -200;
                                     break;
@@ -94,7 +89,6 @@ public class NifflerSeekGoal extends Goal {
                     }
                     break;
                 }
-
             }
         } catch (Exception e) {
             e.printStackTrace();
