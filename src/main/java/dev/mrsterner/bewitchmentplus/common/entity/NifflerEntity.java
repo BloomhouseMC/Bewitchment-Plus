@@ -5,6 +5,7 @@ import dev.mrsterner.bewitchmentplus.common.registry.BWPEntityTypes;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPTags;
 import dev.mrsterner.bewitchmentplus.mixin.MobEntityAccessor;
 import moriyashiine.bewitchment.common.entity.living.util.BWTameableEntity;
+import net.minecraft.client.particle.RainSplashParticle;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
