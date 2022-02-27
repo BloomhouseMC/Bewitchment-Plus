@@ -50,7 +50,7 @@ public class NifflerSeekGoal extends Goal {
                         RandomPermuteIterator pickItemAtRandom = new RandomPermuteIterator(itemStacks.size());
                         int k = pickItemAtRandom.nextElement();
                         ItemStack itemStack = itemStacks.get(k).getLeft();
-                        if(niffler.world.getBlockEntity(chestPos) instanceof ChestBlockEntity chestBlockEntity){
+                        if(niffler.world.getBlockEntity(chestPos) instanceof ChestBlockEntity){
                             niffler.world.emitGameEvent(null, GameEvent.CONTAINER_OPEN, chestPos);
                             this.blockPos = chestPos;
                             niffler.world.addSyncedBlockEvent(chestPos, niffler.world.getBlockState(chestPos).getBlock(), 1, 1);
@@ -90,8 +90,6 @@ public class NifflerSeekGoal extends Goal {
             lootChest();
         }
         if(chestOpenAnimationCooldown == 0 && blockPos != null && this.shouldCloseChest){
-            System.out.println("close");
-            niffler.world.addSyncedBlockEvent(blockPos, niffler.world.getBlockState(blockPos).getBlock(), 0, 0);
             niffler.world.addSyncedBlockEvent(blockPos, niffler.world.getBlockState(blockPos).getBlock(), 1, 0);
             niffler.world.emitGameEvent(null, GameEvent.CONTAINER_CLOSE, blockPos);
             niffler.world.playSound(null, blockPos, SoundEvents.BLOCK_CHEST_CLOSE, SoundCategory.BLOCKS, 1,1);
