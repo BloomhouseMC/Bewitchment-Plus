@@ -1,7 +1,8 @@
 package dev.mrsterner.bewitchmentplus.common.entity;
 
-import dev.mrsterner.bewitchmentplus.common.entity.ai.ForgetBlocksGoal;
+import dev.mrsterner.bewitchmentplus.common.entity.ai.NifflerForgetContainerGoal;
 import dev.mrsterner.bewitchmentplus.common.entity.ai.NifflerSeekGoal;
+import dev.mrsterner.bewitchmentplus.common.entity.ai.NifflerSleepGoal;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPEntityTypes;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPTags;
 import dev.mrsterner.bewitchmentplus.mixin.MobEntityAccessor;
@@ -26,8 +27,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -42,7 +41,6 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -51,7 +49,7 @@ public class NifflerEntity extends BWTameableEntity implements IAnimatable, Inve
     public List<Long> blocksChecked = new ArrayList<>();
     private static final TrackedData<Boolean> NIFFLING = DataTracker.registerData(NifflerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> SITTING = DataTracker.registerData(NifflerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-    private static final TrackedData<Boolean> SLEEPING = DataTracker.registerData(NifflerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    public static final TrackedData<Boolean> SLEEPING = DataTracker.registerData(NifflerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     final AnimationFactory factory = new AnimationFactory(this);
     public NifflerEntity(EntityType<? extends TameableEntity> type, World world) {
         super(type, world);
@@ -71,8 +69,10 @@ public class NifflerEntity extends BWTameableEntity implements IAnimatable, Inve
         AnimationBuilder builder = new AnimationBuilder();
         Vec3d motionCalc = new Vec3d(this.getX()-this.prevX, this.getY()-this.prevY,this.getZ()-this.prevZ);
         boolean isMovingHorizontal = Math.sqrt(Math.pow(motionCalc.x, 2) + Math.pow(motionCalc.z, 2)) > 0.005;
-        if (!this.isOnGround() && motionCalc.getY() < 0){
-
+        if(this.dataTracker.get(SLEEPING)){
+            builder.addAnimation("animation.niffler.sleep", true);
+        }else if (!this.isOnGround() && motionCalc.getY() < 0){
+            //TODO create falling animation
         }else if(isMovingHorizontal || animationEvent.isMoving()){
             animationController.setAnimationSpeed(2);
             if(this.dataTracker.get(NIFFLING)){
@@ -92,6 +92,7 @@ public class NifflerEntity extends BWTameableEntity implements IAnimatable, Inve
         animationController.setAnimation(builder);
         return PlayState.CONTINUE;
     }
+
     @Override
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
@@ -147,8 +148,9 @@ public class NifflerEntity extends BWTameableEntity implements IAnimatable, Inve
         this.goalSelector.add(5, new WanderAroundFarGoal(this, 1.0D));
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(6, new LookAroundGoal(this));
-        //this.goalSelector.add(2, new ForgetBlocksGoal(this));
-        this.goalSelector.add(1, new NifflerSeekGoal(this));
+        this.goalSelector.add(4, new NifflerForgetContainerGoal(this));
+        this.goalSelector.add(2, new NifflerSeekGoal(this));
+        this.goalSelector.add(1, new NifflerSleepGoal(this));
 
         this.targetSelector.add(0, new TrackOwnerAttackerGoal(this));
         this.targetSelector.add(1, new AttackWithOwnerGoal(this));
