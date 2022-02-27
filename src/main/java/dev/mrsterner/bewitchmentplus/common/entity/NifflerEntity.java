@@ -3,6 +3,7 @@ package dev.mrsterner.bewitchmentplus.common.entity;
 import dev.mrsterner.bewitchmentplus.common.entity.ai.NifflerForgetContainerGoal;
 import dev.mrsterner.bewitchmentplus.common.entity.ai.NifflerSeekGoal;
 import dev.mrsterner.bewitchmentplus.common.entity.ai.NifflerSleepGoal;
+import dev.mrsterner.bewitchmentplus.common.entity.ai.NifflerWakeGoal;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPEntityTypes;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPTags;
 import dev.mrsterner.bewitchmentplus.mixin.MobEntityAccessor;
@@ -137,6 +138,10 @@ public class NifflerEntity extends BWTameableEntity implements IAnimatable, Inve
         nbt.put("Inventory", listnbtInventory);
     }
 
+    @Override
+    public boolean canMoveVoluntarily() {
+        return super.canMoveVoluntarily() && !this.dataTracker.get(SLEEPING);
+    }
 
     @Override
     protected void initGoals() {
@@ -151,6 +156,7 @@ public class NifflerEntity extends BWTameableEntity implements IAnimatable, Inve
         this.goalSelector.add(4, new NifflerForgetContainerGoal(this));
         this.goalSelector.add(2, new NifflerSeekGoal(this));
         this.goalSelector.add(1, new NifflerSleepGoal(this));
+        this.goalSelector.add(1, new NifflerWakeGoal(this));
 
         this.targetSelector.add(0, new TrackOwnerAttackerGoal(this));
         this.targetSelector.add(1, new AttackWithOwnerGoal(this));
