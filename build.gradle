@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '0.10-SNAPSHOT'
+    id 'fabric-loom' version '0.11-SNAPSHOT'
     id 'maven-publish'
 }
 
@@ -125,7 +125,7 @@ dependencies {
     modCompileOnly("squeek.appleskin:appleskin-fabric:${appleskin_version}:api") {
         transitive = false
     }
-    modRuntime "squeek.appleskin:appleskin-fabric:${appleskin_version}"
+    //modRuntime "squeek.appleskin:appleskin-fabric:${appleskin_version}"
 }
 
 processResources {
