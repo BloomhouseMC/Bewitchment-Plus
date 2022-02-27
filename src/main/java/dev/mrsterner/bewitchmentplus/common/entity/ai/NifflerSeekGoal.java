@@ -9,6 +9,8 @@ import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -20,6 +22,7 @@ import java.util.List;
 public class NifflerSeekGoal extends Goal {
     public final NifflerEntity niffler;
     List<BlockPos> blockList = new ArrayList<>();
+    BlockPos blockPos = null;
     boolean shouldContinue = true;
     int niffleCooldown = -200;
 
@@ -35,6 +38,14 @@ public class NifflerSeekGoal extends Goal {
         super.tick();
     }
 
+    @Override
+    public void stop() {
+        //TODO implement chest close
+        if(blockPos != null){
+            niffler.world.playSound(null, blockPos, SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.BLOCKS, 1,1);
+        }
+        super.stop();
+    }
 
     @Override
     public boolean shouldContinue() {
@@ -52,6 +63,7 @@ public class NifflerSeekGoal extends Goal {
                 List<Pair<ItemStack, Integer>> itemStacks = new ArrayList<>();
                 if(niffler.world.getBlockEntity(chestPos) instanceof ChestBlockEntity){
                     niffler.world.addSyncedBlockEvent(chestPos, niffler.world.getBlockState(chestPos).getBlock(), 1, 1);
+                    niffler.world.playSound(null, chestPos, SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.BLOCKS, 1,1);
                 }
                 for(int i = 0; i < inventory.size(); i++){
                     if(BWPTags.NIFFLER.contains(inventory.getStack(i).getItem())){
@@ -61,9 +73,7 @@ public class NifflerSeekGoal extends Goal {
                 if(itemStacks.size()>0){
                     try{
                         RandomPermuteIterator pickItemAtRandom = new RandomPermuteIterator(itemStacks.size());
-
                         int k = pickItemAtRandom.nextElement();
-                        System.out.println("RandomSelect: "+k);
                         ItemStack itemStack = itemStacks.get(k).getLeft();
                         if(niffler.nifflerInventory.canInsert(itemStack)){
                             for(int i = 0; i < niffler.nifflerInventory.size(); i++){
