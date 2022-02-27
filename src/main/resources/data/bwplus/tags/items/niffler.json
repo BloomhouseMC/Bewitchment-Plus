@@ -3,9 +3,9 @@
   "values": [
     "bewitchment:silver_ingot",
     "bewitchment:silver_nugget",
-    "bewitchment:silver_chunk",
+    "bewitchment:raw_silver",
     "minecraft:gold_ingot",
     "minecraft:gold_nugget",
-    "minecraft:gold_chunk"
+    "minecraft:raw_gold"
   ]
 }
