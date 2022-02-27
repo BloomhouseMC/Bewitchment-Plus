@@ -23,48 +23,19 @@ public class NifflerSeekGoal extends Goal {
     public final NifflerEntity niffler;
     List<BlockPos> blockList = new ArrayList<>();
     BlockPos blockPos = null;
-    boolean shouldContinue = true;
-    int niffleCooldown = -200;
+    private int niffleCooldown = -200;
 
     public NifflerSeekGoal(NifflerEntity niffler) {
         this.niffler = niffler;
     }
 
-    @Override
-    public void tick() {
-        if(niffleCooldown < 0){
-            niffleCooldown++;
-        }
-        super.tick();
-    }
-
-    @Override
-    public void stop() {
-        //TODO implement chest close
-        if(blockPos != null){
-            niffler.world.playSound(null, blockPos, SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.BLOCKS, 1,1);
-        }
-        super.stop();
-    }
-
-    @Override
-    public boolean shouldContinue() {
-        return super.shouldContinue() && niffleCooldown == 0;
-    }
-
-    @Override
-    public void start() {
-        super.start();
+    public void lootChest(){
         try {
             RandomPermuteIterator randomPermuteIterator = new RandomPermuteIterator(blockList.size());
             while (randomPermuteIterator.hasMoreElements()){
                 BlockPos chestPos = blockList.get(randomPermuteIterator.nextElement());
                 Inventory inventory = getInventoryAt(niffler.world, chestPos.getX(), chestPos.getY(), chestPos.getZ());
                 List<Pair<ItemStack, Integer>> itemStacks = new ArrayList<>();
-                if(niffler.world.getBlockEntity(chestPos) instanceof ChestBlockEntity){
-                    niffler.world.addSyncedBlockEvent(chestPos, niffler.world.getBlockState(chestPos).getBlock(), 1, 1);
-                    niffler.world.playSound(null, chestPos, SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.BLOCKS, 1,1);
-                }
                 for(int i = 0; i < inventory.size(); i++){
                     if(BWPTags.NIFFLER.contains(inventory.getStack(i).getItem())){
                         itemStacks.add(new Pair<>(inventory.getStack(i), i));
@@ -75,6 +46,10 @@ public class NifflerSeekGoal extends Goal {
                         RandomPermuteIterator pickItemAtRandom = new RandomPermuteIterator(itemStacks.size());
                         int k = pickItemAtRandom.nextElement();
                         ItemStack itemStack = itemStacks.get(k).getLeft();
+                        if(niffler.world.getBlockEntity(chestPos) instanceof ChestBlockEntity){
+                            niffler.world.addSyncedBlockEvent(chestPos, niffler.world.getBlockState(chestPos).getBlock(), 1, 1);
+                            niffler.world.playSound(null, chestPos, SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.BLOCKS, 1,1);
+                        }
                         if(niffler.nifflerInventory.canInsert(itemStack)){
                             for(int i = 0; i < niffler.nifflerInventory.size(); i++){
                                 if(niffler.nifflerInventory.getStack(i).getItem().equals(itemStack.getItem()) || niffler.nifflerInventory.getStack(i).getItem().equals(Items.AIR)){
@@ -93,6 +68,33 @@ public class NifflerSeekGoal extends Goal {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void tick() {
+        if(this.niffleCooldown < 0){
+            this.niffleCooldown++;
+        }
+        if(this.niffleCooldown == 0){
+            lootChest();
+        }
+        super.tick();
+    }
+
+    @Override
+    public void stop() {
+        if(blockPos != null){
+            if(niffler.world.getBlockEntity(blockPos) instanceof ChestBlockEntity){
+                niffler.world.addSyncedBlockEvent(blockPos, niffler.world.getBlockState(blockPos).getBlock(), 1, 0);
+                niffler.world.playSound(null, blockPos, SoundEvents.BLOCK_CHEST_CLOSE, SoundCategory.BLOCKS, 1,1);
+            }
+        }
+        super.stop();
+    }
+
+    @Override
+    public boolean shouldContinue() {
+        return true;
     }
 
     @Override
