@@ -107,7 +107,7 @@ public class NifflerSeekGoal extends Goal {
 
     @Override
     public boolean canStart() {
-        int rangeCheck = 8;
+        int rangeCheck = 8;//TODO create a goal to make niffler walk to inventory instead of being able to open it from distance
         int yRangeCheck = 4;
         BlockPos blockPos = niffler.getBlockPos();
         for(double x = -rangeCheck; x <= rangeCheck; ++x) {
