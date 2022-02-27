@@ -5,6 +5,7 @@ import dev.mrsterner.bewitchmentplus.common.registry.BWPTags;
 import dev.mrsterner.bewitchmentplus.common.utils.RandomPermuteIterator;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.ChestBlockEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
@@ -14,6 +15,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -22,8 +24,10 @@ import java.util.List;
 public class NifflerSeekGoal extends Goal {
     public final NifflerEntity niffler;
     List<BlockPos> blockList = new ArrayList<>();
-    BlockPos blockPos = null;
     private int niffleCooldown = -200;
+    private int chestOpenAnimationCooldown = -20;
+    private boolean shouldCloseChest = false;
+    private BlockPos blockPos = null;
 
     public NifflerSeekGoal(NifflerEntity niffler) {
         this.niffler = niffler;
@@ -46,7 +50,9 @@ public class NifflerSeekGoal extends Goal {
                         RandomPermuteIterator pickItemAtRandom = new RandomPermuteIterator(itemStacks.size());
                         int k = pickItemAtRandom.nextElement();
                         ItemStack itemStack = itemStacks.get(k).getLeft();
-                        if(niffler.world.getBlockEntity(chestPos) instanceof ChestBlockEntity){
+                        if(niffler.world.getBlockEntity(chestPos) instanceof ChestBlockEntity chestBlockEntity){
+                            niffler.world.emitGameEvent(null, GameEvent.CONTAINER_OPEN, chestPos);
+                            this.blockPos = chestPos;
                             niffler.world.addSyncedBlockEvent(chestPos, niffler.world.getBlockState(chestPos).getBlock(), 1, 1);
                             niffler.world.playSound(null, chestPos, SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.BLOCKS, 1,1);
                         }
@@ -55,6 +61,8 @@ public class NifflerSeekGoal extends Goal {
                                 if(niffler.nifflerInventory.getStack(i).getItem().equals(itemStack.getItem()) || niffler.nifflerInventory.getStack(i).getItem().equals(Items.AIR)){
                                     niffler.nifflerInventory.setStack(i, itemStack.split(1));
                                     this.niffleCooldown = -200;
+                                    this.chestOpenAnimationCooldown = -20;
+                                    this.shouldCloseChest = true;
                                     break;
                                 }
                             }
@@ -72,25 +80,26 @@ public class NifflerSeekGoal extends Goal {
 
     @Override
     public void tick() {
+        if(this.chestOpenAnimationCooldown < 0){
+            this.chestOpenAnimationCooldown++;
+        }
         if(this.niffleCooldown < 0){
             this.niffleCooldown++;
         }
         if(this.niffleCooldown == 0){
             lootChest();
         }
+        if(chestOpenAnimationCooldown == 0 && blockPos != null && this.shouldCloseChest){
+            System.out.println("close");
+            niffler.world.addSyncedBlockEvent(blockPos, niffler.world.getBlockState(blockPos).getBlock(), 0, 0);
+            niffler.world.addSyncedBlockEvent(blockPos, niffler.world.getBlockState(blockPos).getBlock(), 1, 0);
+            niffler.world.emitGameEvent(null, GameEvent.CONTAINER_CLOSE, blockPos);
+            niffler.world.playSound(null, blockPos, SoundEvents.BLOCK_CHEST_CLOSE, SoundCategory.BLOCKS, 1,1);
+            this.shouldCloseChest = false;
+        }
         super.tick();
     }
 
-    @Override
-    public void stop() {
-        if(blockPos != null){
-            if(niffler.world.getBlockEntity(blockPos) instanceof ChestBlockEntity){
-                niffler.world.addSyncedBlockEvent(blockPos, niffler.world.getBlockState(blockPos).getBlock(), 1, 0);
-                niffler.world.playSound(null, blockPos, SoundEvents.BLOCK_CHEST_CLOSE, SoundCategory.BLOCKS, 1,1);
-            }
-        }
-        super.stop();
-    }
 
     @Override
     public boolean shouldContinue() {
