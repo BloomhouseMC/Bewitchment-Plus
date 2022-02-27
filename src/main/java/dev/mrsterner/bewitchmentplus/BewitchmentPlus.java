@@ -1,10 +1,7 @@
 package dev.mrsterner.bewitchmentplus;
 
 import dev.mrsterner.bewitchmentplus.common.BWPConfig;
-import dev.mrsterner.bewitchmentplus.common.registry.BWPBlockEntityTypes;
-import dev.mrsterner.bewitchmentplus.common.registry.BWPEntitySpawns;
-import dev.mrsterner.bewitchmentplus.common.registry.BWPEntityTypes;
-import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
+import dev.mrsterner.bewitchmentplus.common.registry.*;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
@@ -17,7 +14,7 @@ import net.minecraft.util.Identifier;
 
 public class BewitchmentPlus implements ModInitializer {
 	public static final String MODID = "bwplus";
-	public static final ItemGroup BEWITCHMENT_PLUS_GROUP = FabricItemGroupBuilder.build(new Identifier(MODID, MODID), () -> new ItemStack(Items.ANDESITE));
+	public static final ItemGroup BEWITCHMENT_PLUS_GROUP = FabricItemGroupBuilder.build(new Identifier(MODID, MODID), () -> new ItemStack(BWPObjects.SILVER_GOBLET));
 	public static BWPConfig config;
 
 	@Override
@@ -29,5 +26,6 @@ public class BewitchmentPlus implements ModInitializer {
 		BWPObjects.init();
 		BWPBlockEntityTypes.init();
 		BWPEntitySpawns.init();
+		BWPCriterion.init();
 	}
 }

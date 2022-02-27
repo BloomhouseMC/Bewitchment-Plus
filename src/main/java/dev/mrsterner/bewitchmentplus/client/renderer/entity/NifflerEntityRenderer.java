@@ -1,17 +1,24 @@
 package dev.mrsterner.bewitchmentplus.client.renderer.entity;
 
+import dev.mrsterner.bewitchmentplus.api.Magical;
 import dev.mrsterner.bewitchmentplus.client.model.entity.NifflerEntityModel;
+import dev.mrsterner.bewitchmentplus.common.criterion.MagicalCriterion;
 import dev.mrsterner.bewitchmentplus.common.entity.NifflerEntity;
+import dev.mrsterner.bewitchmentplus.common.registry.BWPCriterion;
+import net.minecraft.advancement.criterion.Criterion;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3f;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib3.core.util.Color;
 import software.bernie.geckolib3.geo.render.built.GeoBone;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
@@ -20,9 +27,16 @@ public class NifflerEntityRenderer extends GeoEntityRenderer<NifflerEntity> {
         super(ctx, new NifflerEntityModel());
     }
 
+
+
     @Override
     public RenderLayer getRenderType(NifflerEntity animatable, float partialTicks, MatrixStack stack, @Nullable VertexConsumerProvider renderTypeBuffer, @Nullable VertexConsumer vertexBuilder, int packedLightIn, Identifier textureLocation) {
         return RenderLayer.getEntityTranslucent(this.getTextureLocation(animatable));
+    }
+
+    @Override
+    public Color getRenderColor(NifflerEntity animatable, float partialTicks, MatrixStack stack, VertexConsumerProvider renderTypeBuffer, VertexConsumer vertexBuilder, int packedLightIn) {
+        return Color.ofRGBA(1.0F,1.0F,1.0F, MinecraftClient.getInstance().getCameraEntity() instanceof AbstractClientPlayerEntity playerEntity && Magical.of(playerEntity).get().hasMagical() ? 1 : 0.1F);
     }
 
     @Override
