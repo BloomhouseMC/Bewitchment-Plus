@@ -3,6 +3,7 @@ package dev.mrsterner.bewitchmentplus.client;
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import dev.mrsterner.bewitchmentplus.client.model.entity.BlackDogEntityModel;
 import dev.mrsterner.bewitchmentplus.client.model.entity.CambionEntityModel;
+import dev.mrsterner.bewitchmentplus.client.renderer.GobletItemRenderer;
 import dev.mrsterner.bewitchmentplus.client.renderer.entity.BlackDogEntityRenderer;
 import dev.mrsterner.bewitchmentplus.client.renderer.entity.CambionEntityRenderer;
 import dev.mrsterner.bewitchmentplus.client.renderer.entity.GobletBlockEntityRenderer;
@@ -12,10 +13,7 @@ import dev.mrsterner.bewitchmentplus.common.registry.BWPBlockEntityTypes;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPEntityTypes;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.minecraft.block.Block;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
@@ -27,12 +25,20 @@ public class BewitchmentPlusClient implements ClientModInitializer {
 	public static final EntityModelLayer BLACKDOG_MODEL_LAYER = new EntityModelLayer(new Identifier(BewitchmentPlus.MODID, "blackdog"), "blackdog");
 	public static final EntityModelLayer MALE_CAMBION_MODEL_LAYER = new EntityModelLayer(new Identifier(BewitchmentPlus.MODID, "male_cambion"), "male_cambion");
 	public static final EntityModelLayer FEMALE_CAMBION_MODEL_LAYER = new EntityModelLayer(new Identifier(BewitchmentPlus.MODID, "female_cambion"), "female_cambion");
-
+	private final BuiltinItemRendererRegistry.DynamicItemRenderer renderer = new GobletItemRenderer();
 	@Override
 	public void onInitializeClient() {
 		ClientSpriteRegistryCallback.event(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).register(((atlasTexture, registry) -> {
 			registry.register(new Identifier(BewitchmentPlus.MODID, "block/honey_flow"));
 		}));
+		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.SILVER_GOBLET, renderer);
+		/*
+		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.SILVER_GOBLET,
+		(stack, mode, matrices, vertexConsumers, light, overlay) ->
+		MinecraftClient.getInstance().getBlockEntityRenderDispatcher().renderEntity(new GobletBlockEntity(BlockPos.ORIGIN, BWPObjects.SILVER_GOBLET.getDefaultState()), matrices, vertexConsumers, light, overlay));
+
+
+		 */
 		EntityRendererRegistry.register(BWPEntityTypes.NIFFLER, NifflerEntityRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(BLACKDOG_MODEL_LAYER, BlackDogEntityModel::getTexturedModelData);
 		EntityRendererRegistry.register(BWPEntityTypes.BLACK_DOG, BlackDogEntityRenderer::new);

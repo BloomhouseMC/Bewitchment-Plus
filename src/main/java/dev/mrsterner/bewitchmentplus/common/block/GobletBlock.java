@@ -1,25 +1,31 @@
 package dev.mrsterner.bewitchmentplus.common.block;
 
 import dev.mrsterner.bewitchmentplus.common.block.blockentity.GobletBlockEntity;
+import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPTags;
 import moriyashiine.bewitchment.common.misc.BWUtil;
 import moriyashiine.bewitchment.common.registry.BWObjects;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
@@ -29,9 +35,13 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class GobletBlock extends BlockWithEntity implements Waterloggable {
+import java.util.List;
+
+public class GobletBlock extends Block implements BlockEntityProvider, Waterloggable {
     public static final IntProperty LIQUID_STATE = IntProperty.of("liquid_state", 0,3);
     private static final VoxelShape SHAPE;
+    public Item dropItem;
+
 
 
 
@@ -48,6 +58,20 @@ public class GobletBlock extends BlockWithEntity implements Waterloggable {
         return ActionResult.success(world.isClient);
     }
 
+    @Override
+    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        if (blockEntity instanceof GobletBlockEntity gobletBlockEntity) {
+            if (!world.isClient && player.isCreative() && !gobletBlockEntity.isEmpty()) {
+                ItemStack itemStack = new ItemStack(dropItem);
+                blockEntity.setStackNbt(itemStack);
+                ItemEntity itemEntity = new ItemEntity(world, (double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, itemStack);
+                itemEntity.setToDefaultPickupDelay();
+                world.spawnEntity(itemEntity);
+            }
+        }
+        super.onBreak(world, pos, state, player);
+    }
 
 
     @Override

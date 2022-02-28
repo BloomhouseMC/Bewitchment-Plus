@@ -3,6 +3,7 @@ package dev.mrsterner.bewitchmentplus.common.registry;
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import dev.mrsterner.bewitchmentplus.common.block.FleeceBlock;
 import dev.mrsterner.bewitchmentplus.common.block.GobletBlock;
+import dev.mrsterner.bewitchmentplus.common.item.GobletItem;
 import moriyashiine.bewitchment.api.block.CandelabraBlock;
 import moriyashiine.bewitchment.common.registry.BWObjects;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -27,10 +28,10 @@ public class BWPObjects {
 	private static final Map<Block, Identifier> BLOCKS = new LinkedHashMap<>();
 	private static final Map<Item, Identifier> ITEMS = new LinkedHashMap<>();
 
-	public static final Block COPPER_GOBLET = register("copper_goblet", new GobletBlock(FabricBlockSettings.copyOf(Blocks.COPPER_BLOCK)), true);
-	public static final Block SILVER_GOBLET = register("silver_goblet", new GobletBlock(FabricBlockSettings.copyOf(BWObjects.SILVER_BLOCK)), true);
-	public static final Block GOLD_GOBLET = register("gold_goblet", new GobletBlock(FabricBlockSettings.copyOf(Blocks.GOLD_BLOCK)), true);
-	public static final Block NETHERITE_GOBLET = register("netherite_goblet", new GobletBlock(FabricBlockSettings.copyOf(Blocks.NETHERITE_BLOCK)), true);
+	public static final Block COPPER_GOBLET = registerGoblet("copper_goblet", new GobletBlock(FabricBlockSettings.copyOf(Blocks.COPPER_BLOCK)));
+	public static final Block SILVER_GOBLET = registerGoblet("silver_goblet", new GobletBlock(FabricBlockSettings.copyOf(BWObjects.SILVER_BLOCK)));
+	public static final Block GOLD_GOBLET = registerGoblet("gold_goblet", new GobletBlock(FabricBlockSettings.copyOf(Blocks.GOLD_BLOCK)));
+	public static final Block NETHERITE_GOBLET = registerGoblet("netherite_goblet", new GobletBlock(FabricBlockSettings.copyOf(Blocks.NETHERITE_BLOCK)));
 
 	public static final Block COPPER_CANDELABRA = register("copper_candelabra", new CandelabraBlock(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).luminance(blockState -> blockState.get(Properties.LIT) ? 15 : 0), (byte) 8), true);
 
@@ -80,6 +81,13 @@ public class BWPObjects {
 	public static FleeceBlock registerFleece(String id, DyeColor color, boolean carpet){
 		var block = new FleeceBlock(color, FabricBlockSettings.copyOf(Blocks.WHITE_WOOL), carpet);
 		register(id, block, BewitchmentPlus.BEWITCHMENT_PLUS_GROUP);
+		return block;
+	}
+
+	private static <T extends Block> T registerGoblet(String id, T block) {
+		var fullId = new Identifier(BewitchmentPlus.MODID, id);
+		Registry.register(Registry.BLOCK, fullId, block);
+		Registry.register(Registry.ITEM, fullId, new GobletItem(block, gen()));
 		return block;
 	}
 

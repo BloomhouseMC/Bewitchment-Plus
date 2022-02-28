@@ -127,6 +127,12 @@ public class GobletBlockEntity extends BlockEntity implements Inventory {
     }
 
     public void onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        ItemStack itemStack = player.getMainHandStack();
+        if (itemStack.getItem().asItem() == state.getBlock().asItem()) {
+
+        }
+
+
         if (world.getBlockEntity(pos) instanceof GobletBlockEntity goblet) {
             ItemStack stack = player.getStackInHand(hand);
             System.out.println("Stack: "+(stack.getItem() == Items.GLASS_BOTTLE));
