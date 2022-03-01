@@ -1,0 +1,6 @@
+{
+  "parent": "block/carpet",
+  "textures": {
+	"wool": "bwplus:block/light_gray_witch_wool"
+  }
+}

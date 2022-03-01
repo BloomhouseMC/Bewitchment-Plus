@@ -1,7 +1,7 @@
 package dev.mrsterner.bewitchmentplus.common.block;
 
 import dev.mrsterner.bewitchmentplus.common.block.blockentity.GobletBlockEntity;
-import dev.mrsterner.bewitchmentplus.common.item.GobletItem;
+import dev.mrsterner.bewitchmentplus.common.item.GobletBlockItem;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPBlockEntityTypes;
 import moriyashiine.bewitchment.common.registry.BWObjects;
 import net.minecraft.block.*;
@@ -101,7 +101,7 @@ public class GobletBlock extends Block implements BlockEntityProvider, Waterlogg
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         if(world.getBlockEntity(pos) instanceof GobletBlockEntity gobletBlock){
-            gobletBlock.setGoblet((GobletItem) itemStack.getItem());
+            gobletBlock.setGoblet((GobletBlockItem) itemStack.getItem());
             world.setBlockState(pos, state.with(LIQUID_STATE, (gobletBlock.getStack(0).getItem()) == Items.HONEY_BOTTLE ? 2 : (gobletBlock.getStack(0).getItem()) == BWObjects.BOTTLE_OF_BLOOD ? 3 : (gobletBlock.getStack(0).getItem()) == Items.POTION ? 1 :0));
             gobletBlock.setColor((gobletBlock.getStack(0).getItem()) == Items.HONEY_BOTTLE ? 0xff9500 : (gobletBlock.getStack(0).getItem()) == BWObjects.BOTTLE_OF_BLOOD ? 0xff0000 : (gobletBlock.getStack(0).getItem()) == Items.POTION ? 0x3f76e4 : 0);
         }

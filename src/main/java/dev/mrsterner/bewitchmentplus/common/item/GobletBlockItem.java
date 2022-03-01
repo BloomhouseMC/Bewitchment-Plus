@@ -18,8 +18,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 
-public class GobletItem extends BlockItem {
-    public GobletItem(Block block, Settings settings) {
+public class GobletBlockItem extends BlockItem {
+    public GobletBlockItem(Block block, Settings settings) {
         super(block, settings);
     }
 

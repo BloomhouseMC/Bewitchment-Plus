@@ -3,7 +3,7 @@ package dev.mrsterner.bewitchmentplus.common.registry;
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import dev.mrsterner.bewitchmentplus.common.block.FleeceBlock;
 import dev.mrsterner.bewitchmentplus.common.block.GobletBlock;
-import dev.mrsterner.bewitchmentplus.common.item.GobletItem;
+import dev.mrsterner.bewitchmentplus.common.item.GobletBlockItem;
 import moriyashiine.bewitchment.api.block.CandelabraBlock;
 import moriyashiine.bewitchment.common.registry.BWObjects;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -12,7 +12,6 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.CarpetBlock;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.DyeColor;
@@ -27,11 +26,11 @@ public class BWPObjects {
 	private static final Map<Block, Identifier> BLOCKS = new LinkedHashMap<>();
 	private static final Map<Item, Identifier> ITEMS = new LinkedHashMap<>();
 
-	public static final Block SILVER_GOBLET = registerGoblet("silver_goblet", new GobletBlock(FabricBlockSettings.copyOf(BWObjects.SILVER_BLOCK)));
-	public static final Block GOLD_GOBLET = registerGoblet("gold_goblet", new GobletBlock(FabricBlockSettings.copyOf(Blocks.GOLD_BLOCK)));
-	public static final Block NETHERITE_GOBLET = registerGoblet("netherite_goblet", new GobletBlock(FabricBlockSettings.copyOf(Blocks.NETHERITE_BLOCK)));
+	public static final Block SILVER_GOBLET = registerGoblet("silver_goblet", new GobletBlock(FabricBlockSettings.copyOf(BWObjects.SILVER_BLOCK)), true);
+	public static final Block GOLD_GOBLET = registerGoblet("gold_goblet", new GobletBlock(FabricBlockSettings.copyOf(Blocks.GOLD_BLOCK)),true);
+	public static final Block NETHERITE_GOBLET = registerGoblet("netherite_goblet", new GobletBlock(FabricBlockSettings.copyOf(Blocks.NETHERITE_BLOCK)),true);
 
-	public static final Block COPPER_CANDELABRA = register("copper_candelabra", new CandelabraBlock(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).luminance(blockState -> blockState.get(Properties.LIT) ? 15 : 0), (byte) 8), true);
+	//public static final Block COPPER_CANDELABRA = register("copper_candelabra", new CandelabraBlock(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).luminance(blockState -> blockState.get(Properties.LIT) ? 15 : 0), (byte) 8), true);
 
 	public static final Block WHITE_FLEECE = registerFleece("white_witch_wool", DyeColor.WHITE, false);
 	public static final Block ORANGE_FLEECE = registerFleece("orange_witch_wool", DyeColor.ORANGE, false);
@@ -78,21 +77,16 @@ public class BWPObjects {
 
 	public static FleeceBlock registerFleece(String id, DyeColor color, boolean carpet){
 		var block = new FleeceBlock(color, FabricBlockSettings.copyOf(Blocks.WHITE_WOOL), carpet);
-		register(id, block, BewitchmentPlus.BEWITCHMENT_PLUS_GROUP);
+		register(id, block, true);
 		return block;
 	}
 
-	private static <T extends Block> T registerGoblet(String id, T block) {
-		var fullId = new Identifier(BewitchmentPlus.MODID, id);
-		Registry.register(Registry.BLOCK, fullId, block);
-		Registry.register(Registry.ITEM, fullId, new GobletItem(block, gen()));
-		return block;
-	}
 
-	private static <T extends Block> T register(String id, T block, ItemGroup itemGroup) {
-		var fullId = new Identifier(BewitchmentPlus.MODID, id);
-		Registry.register(Registry.BLOCK, fullId, block);
-		Registry.register(Registry.ITEM, fullId, new BlockItem(block, new Item.Settings().group(itemGroup)));
+	private static <T extends Block> T registerGoblet(String id, T block, boolean customeBlockItem) {
+		BLOCKS.put(block, new Identifier(BewitchmentPlus.MODID, id));
+		if (customeBlockItem) {
+			ITEMS.put(new GobletBlockItem(block, gen()), BLOCKS.get(block));
+		}
 		return block;
 	}
 
@@ -103,8 +97,6 @@ public class BWPObjects {
 		}
 		return block;
 	}
-
-
 
 	private static <T extends Item> T register(String name, T item) {
 		ITEMS.put(item, new Identifier(BewitchmentPlus.MODID, name));

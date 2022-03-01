@@ -1,6 +1,6 @@
 package dev.mrsterner.bewitchmentplus.common.block.blockentity;
 
-import dev.mrsterner.bewitchmentplus.common.item.GobletItem;
+import dev.mrsterner.bewitchmentplus.common.item.GobletBlockItem;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPBlockEntityTypes;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPTags;
@@ -33,7 +33,7 @@ import static dev.mrsterner.bewitchmentplus.common.block.GobletBlock.LIQUID_STAT
 
 public class GobletBlockEntity extends BlockEntity implements Inventory {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(1, ItemStack.EMPTY);
-    private GobletItem goblet = (GobletItem) BWPObjects.COPPER_GOBLET.asItem();
+    private GobletBlockItem goblet = (GobletBlockItem) BWPObjects.SILVER_GOBLET.asItem();
     public int color = 0x000000;
 
     public GobletBlockEntity(BlockPos pos, BlockState state) {
@@ -50,7 +50,7 @@ public class GobletBlockEntity extends BlockEntity implements Inventory {
         NbtCompound nbtCompound = nbt.getCompound("Goblet");
         if (nbtCompound != null && !nbtCompound.isEmpty()) {
             ItemStack itemStack = ItemStack.fromNbt(nbtCompound);
-            this.goblet = (GobletItem) itemStack.getItem();
+            this.goblet = (GobletBlockItem) itemStack.getItem();
         }
     }
 
@@ -166,11 +166,11 @@ public class GobletBlockEntity extends BlockEntity implements Inventory {
             }
         }
     }
-    public GobletItem getGoblet() {
+    public GobletBlockItem getGoblet() {
         return goblet;
     }
 
-    public void setGoblet(GobletItem goblet) {
+    public void setGoblet(GobletBlockItem goblet) {
         this.goblet = goblet;
     }
 }

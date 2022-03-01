@@ -1,6 +1,6 @@
 {
-  "parent": "bwplus:block/color_provider",
+  "parent": "block/cube_all",
   "textures": {
-	"texture": "bwplus:block/white_witch_wool"
+	"all": "bwplus:block/white_witch_wool"
   }
 }

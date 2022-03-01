@@ -1,9 +1,10 @@
 package dev.mrsterner.bewitchmentplus.client.renderer;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import dev.mrsterner.bewitchmentplus.client.model.GobletItemModel;
 import dev.mrsterner.bewitchmentplus.common.block.blockentity.GobletBlockEntity;
-import dev.mrsterner.bewitchmentplus.common.item.GobletItem;
+import dev.mrsterner.bewitchmentplus.common.item.GobletBlockItem;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
 import moriyashiine.bewitchment.common.registry.BWObjects;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
@@ -23,6 +24,7 @@ import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.BakedQuad;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.Inventories;
@@ -34,20 +36,23 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3f;
 import org.jetbrains.annotations.Nullable;
 
+import static net.minecraft.screen.PlayerScreenHandler.BLOCK_ATLAS_TEXTURE;
+
 public class GobletBlockItemRenderer implements BlockEntityRenderer<GobletBlockEntity>, BuiltinItemRendererRegistry.DynamicItemRenderer {
    public GobletItemModel gobletItemModel;
-    private static final float EDGE_SIZE = 6f / 16f;
+   public static final SpriteIdentifier BLOOD = new SpriteIdentifier(BLOCK_ATLAS_TEXTURE, new Identifier(BewitchmentPlus.MODID, "block/goblet_fluid_2"));
+    public static final SpriteIdentifier HONEY = new SpriteIdentifier(BLOCK_ATLAS_TEXTURE, new Identifier(BewitchmentPlus.MODID, "block/honey_flow"));
+    private static final float EDGE_SIZE = 1f / 16f;//6f / 16f;
     private static final float INNER_SIZE = 1f - (EDGE_SIZE * 2f);
 
    public GobletBlockItemRenderer(){
        gobletItemModel = new GobletItemModel(GobletItemModel.getTexturedModelData().createModel());
    }
 
-    public Identifier getGobletTexture(GobletItem itemStack) {
+    public Identifier getGobletTexture(GobletBlockItem itemStack) {
         var silver = BWPObjects.SILVER_GOBLET.asItem() == itemStack.asItem();
         var gold = BWPObjects.GOLD_GOBLET.asItem() == itemStack.asItem();
-        var copper = BWPObjects.COPPER_GOBLET.asItem() == itemStack.asItem();
-        String string = silver ? "textures/block/silver_goblet.png" : gold ? "textures/block/gold_goblet.png" : copper ? "textures/block/copper_goblet.png" : "textures/block/netherite_goblet.png" ;
+        String string = silver ? "textures/block/silver_goblet.png" : gold ? "textures/block/gold_goblet.png" : "textures/block/netherite_goblet.png" ;
         Identifier identifier = new Identifier(BewitchmentPlus.MODID, string);
         return identifier;
     }
@@ -57,15 +62,17 @@ public class GobletBlockItemRenderer implements BlockEntityRenderer<GobletBlockE
         matrices.push();
         matrices.translate(0F,1.2F,0F);
         matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(180));
-        VertexConsumer ivertexbuilder1 = ItemRenderer.getItemGlintConsumer(vertexConsumers, this.gobletItemModel.getLayer(getGobletTexture((GobletItem) stack.getItem())), false, stack.hasGlint());
+        VertexConsumer ivertexbuilder1 = ItemRenderer.getItemGlintConsumer(vertexConsumers, this.gobletItemModel.getLayer(getGobletTexture((GobletBlockItem) stack.getItem())), false, stack.hasGlint());
         gobletItemModel.render(matrices, ivertexbuilder1, light,overlay,1,1,1,1);
         matrices.pop();
         if (stack.hasNbt()) {
             var nbt = stack.getNbt();
             if (nbt.contains("BlockEntityTag")) {
                 matrices.push();
-                matrices.translate(-0.5F,0.55F,0.5F);
+                matrices.scale(0.25f,0.25f,0.25f);
+                matrices.translate(-0.5F,0.75F,0.5F);
                 matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(180));
+
                 render(FluidVariant.of(Fluids.WATER), matrices, vertexConsumers, light, overlay, null, stack);
                 matrices.pop();
             }
@@ -77,6 +84,7 @@ public class GobletBlockItemRenderer implements BlockEntityRenderer<GobletBlockE
         matrices.push();
         var handler = FluidVariantRendering.getHandlerOrDefault(variant.getFluid());
         var sprite = handler.getSprite(variant);
+
         var flipped = handler.fillsFromTop(variant);
         var luminance = variant.getFluid().getDefaultState().getBlockState().getLuminance();
 
@@ -88,16 +96,29 @@ public class GobletBlockItemRenderer implements BlockEntityRenderer<GobletBlockE
         var newColor = ColorHelper.swapRedBlueIfNeeded(0x3f76e4);
         if(entity != null){
             newColor = ColorHelper.swapRedBlueIfNeeded(entity.color);
+            if(entity.color == 0xff0000){
+                sprite = BLOOD.getSprite();//handler.getSprite(variant);
+            }
+            if(entity.color == 0xff9500){
+                sprite = HONEY.getSprite();//handler.getSprite(variant);
+            }
         }else if (itemStack.hasNbt()) {
             var nbt = itemStack.getNbt();
             if (nbt.contains("BlockEntityTag")) {
+
                 var slots = DefaultedList.ofSize(1, ItemStack.EMPTY);
                 Inventories.readNbt(nbt.getCompound("BlockEntityTag"), slots);
                 var slos = slots.get(0);
                 newColor = ColorHelper.swapRedBlueIfNeeded(slos.getItem() == BWObjects.BOTTLE_OF_BLOOD ? 0xff0000 : slos.getItem() == Items.HONEY_BOTTLE ? 0xff9500 : 0x3f76e4);
+                if(slos.getItem() == BWObjects.BOTTLE_OF_BLOOD){
+                    sprite = BLOOD.getSprite();//handler.getSprite(variant);
+                }
+                if(slos.getItem() == Items.HONEY_BOTTLE){
+                    sprite = HONEY.getSprite();//handler.getSprite(variant);
+                }
+
             }
         }
-
 
         emitFluidFace(emitter, sprite, newColor, flipped, Direction.UP, 1f, 0f);
         emitFluidFace(emitter, sprite, newColor, flipped, Direction.DOWN, 1f,0f);
@@ -148,12 +169,16 @@ public class GobletBlockItemRenderer implements BlockEntityRenderer<GobletBlockE
 
     @Override
     public void render(GobletBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-       matrices.translate(0,-0.15,0);
+
        if(!entity.getStack(0).isEmpty()){
+           matrices.push();
+           matrices.scale(0.25f,0.25f,0.25f);
+           matrices.translate(1.5,0.9,1.5);
            render(FluidVariant.of(Fluids.WATER), matrices, vertexConsumers, light, overlay, entity, null);
+           matrices.pop();
        }
        VertexConsumer ivertexbuilder1 = ItemRenderer.getItemGlintConsumer(vertexConsumers, this.gobletItemModel.getLayer(getGobletTexture(entity.getGoblet())), false, false);
-       matrices.translate(0.5,1.65,0.5);
+       matrices.translate(0.5,1.5,0.5);
        matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(180));
        gobletItemModel.render(matrices, ivertexbuilder1, light,overlay,1,1,1,1);
     }
