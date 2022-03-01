@@ -10,7 +10,6 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.CarpetBlock;
-import net.minecraft.block.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -28,7 +27,6 @@ public class BWPObjects {
 	private static final Map<Block, Identifier> BLOCKS = new LinkedHashMap<>();
 	private static final Map<Item, Identifier> ITEMS = new LinkedHashMap<>();
 
-	public static final Block COPPER_GOBLET = registerGoblet("copper_goblet", new GobletBlock(FabricBlockSettings.copyOf(Blocks.COPPER_BLOCK)));
 	public static final Block SILVER_GOBLET = registerGoblet("silver_goblet", new GobletBlock(FabricBlockSettings.copyOf(BWObjects.SILVER_BLOCK)));
 	public static final Block GOLD_GOBLET = registerGoblet("gold_goblet", new GobletBlock(FabricBlockSettings.copyOf(Blocks.GOLD_BLOCK)));
 	public static final Block NETHERITE_GOBLET = registerGoblet("netherite_goblet", new GobletBlock(FabricBlockSettings.copyOf(Blocks.NETHERITE_BLOCK)));

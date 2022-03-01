@@ -1,6 +1,5 @@
 package dev.mrsterner.bewitchmentplus.api;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface Magical {

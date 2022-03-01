@@ -52,7 +52,6 @@ public class CambionEntityRenderer extends BipedEntityRenderer<CambionEntity, Bi
 
 	protected void scale(VillagerEntity villagerEntity, MatrixStack matrixStack, float f) {
 		float g = 0.9375f;
-		System.out.println("IsBaby");
 		if (villagerEntity.isBaby()) {
 			g = (float)((double)g * 0.5);
 			this.shadowRadius = 0.25f;

@@ -4,7 +4,6 @@ import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import dev.mrsterner.bewitchmentplus.common.entity.BlackDogEntity;
 import dev.mrsterner.bewitchmentplus.common.entity.CambionEntity;
 import dev.mrsterner.bewitchmentplus.common.entity.NifflerEntity;
-import moriyashiine.bewitchment.common.registry.BWEntityTypes;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.*;

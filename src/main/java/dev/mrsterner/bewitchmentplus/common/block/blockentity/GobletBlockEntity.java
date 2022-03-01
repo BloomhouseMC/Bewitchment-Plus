@@ -1,6 +1,8 @@
 package dev.mrsterner.bewitchmentplus.common.block.blockentity;
 
+import dev.mrsterner.bewitchmentplus.common.item.GobletItem;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPBlockEntityTypes;
+import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPTags;
 import moriyashiine.bewitchment.common.misc.BWUtil;
 import moriyashiine.bewitchment.common.registry.BWObjects;
@@ -31,7 +33,8 @@ import static dev.mrsterner.bewitchmentplus.common.block.GobletBlock.LIQUID_STAT
 
 public class GobletBlockEntity extends BlockEntity implements Inventory {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(1, ItemStack.EMPTY);
-    public int color = 0x3f76e4;
+    private GobletItem goblet = (GobletItem) BWPObjects.COPPER_GOBLET.asItem();
+    public int color = 0x000000;
 
     public GobletBlockEntity(BlockPos pos, BlockState state) {
         super(BWPBlockEntityTypes.GOBLET, pos, state);
@@ -44,6 +47,11 @@ public class GobletBlockEntity extends BlockEntity implements Inventory {
         if (nbt.contains("Color")) {
             color = nbt.getInt("Color");
         }
+        NbtCompound nbtCompound = nbt.getCompound("Goblet");
+        if (nbtCompound != null && !nbtCompound.isEmpty()) {
+            ItemStack itemStack = ItemStack.fromNbt(nbtCompound);
+            this.goblet = (GobletItem) itemStack.getItem();
+        }
     }
 
 
@@ -53,6 +61,7 @@ public class GobletBlockEntity extends BlockEntity implements Inventory {
         super.writeNbt(nbt);
         Inventories.writeNbt(nbt, inventory);
         nbt.putInt("Color", color);
+        nbt.put("Goblet", goblet.getDefaultStack().writeNbt(new NbtCompound()));
     }
 
     @Nullable
@@ -115,6 +124,8 @@ public class GobletBlockEntity extends BlockEntity implements Inventory {
     }
 
 
+
+
     @Override
     public void clear() {
         inventory.clear();
@@ -128,11 +139,6 @@ public class GobletBlockEntity extends BlockEntity implements Inventory {
 
     public void onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         ItemStack itemStack = player.getMainHandStack();
-        if (itemStack.getItem().asItem() == state.getBlock().asItem()) {
-
-        }
-
-
         if (world.getBlockEntity(pos) instanceof GobletBlockEntity goblet) {
             ItemStack stack = player.getStackInHand(hand);
             System.out.println("Stack: "+(stack.getItem() == Items.GLASS_BOTTLE));
@@ -159,5 +165,12 @@ public class GobletBlockEntity extends BlockEntity implements Inventory {
                 world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1,1);
             }
         }
+    }
+    public GobletItem getGoblet() {
+        return goblet;
+    }
+
+    public void setGoblet(GobletItem goblet) {
+        this.goblet = goblet;
     }
 }

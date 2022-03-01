@@ -1,34 +1,25 @@
 package dev.mrsterner.bewitchmentplus.common.block;
 
 import dev.mrsterner.bewitchmentplus.common.block.blockentity.GobletBlockEntity;
-import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
-import dev.mrsterner.bewitchmentplus.common.registry.BWPTags;
-import moriyashiine.bewitchment.common.misc.BWUtil;
+import dev.mrsterner.bewitchmentplus.common.item.GobletItem;
+import dev.mrsterner.bewitchmentplus.common.registry.BWPBlockEntityTypes;
 import moriyashiine.bewitchment.common.registry.BWObjects;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.*;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
+import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
@@ -37,13 +28,12 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
+import static net.minecraft.block.ShulkerBoxBlock.CONTENTS;
+
 public class GobletBlock extends Block implements BlockEntityProvider, Waterloggable {
     public static final IntProperty LIQUID_STATE = IntProperty.of("liquid_state", 0,3);
     private static final VoxelShape SHAPE;
     public Item dropItem;
-
-
-
 
     public GobletBlock(Settings settings) {
         super(settings);
@@ -73,6 +63,28 @@ public class GobletBlock extends Block implements BlockEntityProvider, Waterlogg
         super.onBreak(world, pos, state, player);
     }
 
+    @Override
+    public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
+        ItemStack itemStack = super.getPickStack(world, pos, state);
+        world.getBlockEntity(pos, BWPBlockEntityTypes.GOBLET).ifPresent((blockEntity) -> {
+            blockEntity.setStackNbt(itemStack);
+        });
+        return itemStack;
+    }
+
+    @Override
+    public List<ItemStack> getDroppedStacks(BlockState state, net.minecraft.loot.context.LootContext.Builder builder) {
+        BlockEntity blockEntity = builder.getNullable(LootContextParameters.BLOCK_ENTITY);
+        if (blockEntity instanceof GobletBlockEntity jarBlockEntity) {
+            builder = builder.putDrop(CONTENTS, (context, consumer) -> {
+                for(int i = 0; i < jarBlockEntity.size(); ++i) {
+                    consumer.accept(jarBlockEntity.getStack(i));
+                }
+            });
+        }
+
+        return super.getDroppedStacks(state, builder);
+    }
 
     @Override
     public FluidState getFluidState(BlockState state) {
@@ -84,6 +96,16 @@ public class GobletBlock extends Block implements BlockEntityProvider, Waterlogg
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         return super.getPlacementState(ctx).with(LIQUID_STATE, 0).with(Properties.WATERLOGGED, ctx.getWorld().getFluidState(ctx.getBlockPos()).getFluid() == Fluids.WATER);
+    }
+
+    @Override
+    public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+        if(world.getBlockEntity(pos) instanceof GobletBlockEntity gobletBlock){
+            gobletBlock.setGoblet((GobletItem) itemStack.getItem());
+            world.setBlockState(pos, state.with(LIQUID_STATE, (gobletBlock.getStack(0).getItem()) == Items.HONEY_BOTTLE ? 2 : (gobletBlock.getStack(0).getItem()) == BWObjects.BOTTLE_OF_BLOOD ? 3 : (gobletBlock.getStack(0).getItem()) == Items.POTION ? 1 :0));
+            gobletBlock.setColor((gobletBlock.getStack(0).getItem()) == Items.HONEY_BOTTLE ? 0xff9500 : (gobletBlock.getStack(0).getItem()) == BWObjects.BOTTLE_OF_BLOOD ? 0xff0000 : (gobletBlock.getStack(0).getItem()) == Items.POTION ? 0x3f76e4 : 0);
+        }
+        super.onPlaced(world, pos, state, placer, itemStack);
     }
 
     @Override
