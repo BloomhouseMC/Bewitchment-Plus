@@ -1,6 +1,5 @@
 package dev.mrsterner.bewitchmentplus.client.renderer;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import dev.mrsterner.bewitchmentplus.client.model.GobletItemModel;
 import dev.mrsterner.bewitchmentplus.common.block.blockentity.GobletBlockEntity;
@@ -36,25 +35,23 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3f;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 import static net.minecraft.screen.PlayerScreenHandler.BLOCK_ATLAS_TEXTURE;
 
 public class GobletBlockItemRenderer implements BlockEntityRenderer<GobletBlockEntity>, BuiltinItemRendererRegistry.DynamicItemRenderer {
-   public GobletItemModel gobletItemModel;
-   public static final SpriteIdentifier BLOOD = new SpriteIdentifier(BLOCK_ATLAS_TEXTURE, new Identifier(BewitchmentPlus.MODID, "block/goblet_fluid_2"));
-    public static final SpriteIdentifier HONEY = new SpriteIdentifier(BLOCK_ATLAS_TEXTURE, new Identifier(BewitchmentPlus.MODID, "block/honey_flow"));
-    private static final float EDGE_SIZE = 1f / 16f;//6f / 16f;
+    public GobletItemModel gobletItemModel;
+    public static final SpriteIdentifier BLOOD = new SpriteIdentifier(BLOCK_ATLAS_TEXTURE, new Identifier(BewitchmentPlus.MODID, "block/goblet_fluid"));
+    public static final SpriteIdentifier HONEY = new SpriteIdentifier(BLOCK_ATLAS_TEXTURE, new Identifier(BewitchmentPlus.MODID, "block/honey_fluid"));
+    private static final float EDGE_SIZE = 1f / 16f;
     private static final float INNER_SIZE = 1f - (EDGE_SIZE * 2f);
 
-   public GobletBlockItemRenderer(){
+    public GobletBlockItemRenderer(){
        gobletItemModel = new GobletItemModel(GobletItemModel.getTexturedModelData().createModel());
-   }
+    }
 
     public Identifier getGobletTexture(GobletBlockItem itemStack) {
-        var silver = BWPObjects.SILVER_GOBLET.asItem() == itemStack.asItem();
-        var gold = BWPObjects.GOLD_GOBLET.asItem() == itemStack.asItem();
-        String string = silver ? "textures/block/silver_goblet.png" : gold ? "textures/block/gold_goblet.png" : "textures/block/netherite_goblet.png" ;
-        Identifier identifier = new Identifier(BewitchmentPlus.MODID, string);
-        return identifier;
+        return new Identifier(BewitchmentPlus.MODID, BWPObjects.SILVER_GOBLET.asItem() == itemStack.asItem() ? "textures/block/silver_goblet.png" : BWPObjects.GOLD_GOBLET.asItem() == itemStack.asItem() ? "textures/block/gold_goblet.png" : "textures/block/netherite_goblet.png");
     }
 
     @Override
@@ -72,51 +69,51 @@ public class GobletBlockItemRenderer implements BlockEntityRenderer<GobletBlockE
                 matrices.scale(0.25f,0.25f,0.25f);
                 matrices.translate(-0.5F,0.75F,0.5F);
                 matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(180));
-
-                render(FluidVariant.of(Fluids.WATER), matrices, vertexConsumers, light, overlay, null, stack);
+                renderFluid(matrices, vertexConsumers, light, overlay, null, stack);
                 matrices.pop();
             }
         }
     }
 
+    @Override
+    public void render(GobletBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+        if(!entity.getStack(0).isEmpty()){
+            matrices.push();
+            matrices.scale(0.25f,0.25f,0.25f);
+            matrices.translate(1.5,0.9,1.5);
+            renderFluid(matrices, vertexConsumers, light, overlay, entity, null);
+            matrices.pop();
+        }
+        VertexConsumer ivertexbuilder1 = ItemRenderer.getItemGlintConsumer(vertexConsumers, this.gobletItemModel.getLayer(getGobletTexture(entity.getGoblet())), false, false);
+        matrices.translate(0.5,1.5,0.5);
+        matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(180));
+        gobletItemModel.render(matrices, ivertexbuilder1, light,overlay,1,1,1,1);
+    }
 
-    private void render(FluidVariant variant, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, @Nullable GobletBlockEntity entity, @Nullable ItemStack itemStack) {
+
+    private void renderFluid(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, @Nullable GobletBlockEntity entity, @Nullable ItemStack itemStack) {
         matrices.push();
+        var variant = FluidVariant.of(Fluids.WATER);
         var handler = FluidVariantRendering.getHandlerOrDefault(variant.getFluid());
-        var sprite = handler.getSprite(variant);
-
+        var sprite = handler.getSprites(variant)[0];
         var flipped = handler.fillsFromTop(variant);
         var luminance = variant.getFluid().getDefaultState().getBlockState().getLuminance();
-
         var renderer = RendererAccessImpl.INSTANCE.getRenderer();
         var consumer = vertexConsumers.getBuffer(RenderLayer.getTranslucent());
-
         var builder = renderer.meshBuilder();
         var emitter = builder.getEmitter();
         var newColor = ColorHelper.swapRedBlueIfNeeded(0x3f76e4);
         if(entity != null){
             newColor = ColorHelper.swapRedBlueIfNeeded(entity.color);
-            if(entity.color == 0xff0000){
-                sprite = BLOOD.getSprite();//handler.getSprite(variant);
-            }
-            if(entity.color == 0xff9500){
-                sprite = HONEY.getSprite();//handler.getSprite(variant);
-            }
-        }else if (itemStack.hasNbt()) {
+            sprite = entity.color == 0xff0000 ? BLOOD.getSprite() : entity.color == 0xff9500 ? HONEY.getSprite() : handler.getSprites(variant)[0];
+        }else if (itemStack != null && itemStack.hasNbt()) {
             var nbt = itemStack.getNbt();
             if (nbt.contains("BlockEntityTag")) {
-
                 var slots = DefaultedList.ofSize(1, ItemStack.EMPTY);
                 Inventories.readNbt(nbt.getCompound("BlockEntityTag"), slots);
                 var slos = slots.get(0);
                 newColor = ColorHelper.swapRedBlueIfNeeded(slos.getItem() == BWObjects.BOTTLE_OF_BLOOD ? 0xff0000 : slos.getItem() == Items.HONEY_BOTTLE ? 0xff9500 : 0x3f76e4);
-                if(slos.getItem() == BWObjects.BOTTLE_OF_BLOOD){
-                    sprite = BLOOD.getSprite();//handler.getSprite(variant);
-                }
-                if(slos.getItem() == Items.HONEY_BOTTLE){
-                    sprite = HONEY.getSprite();//handler.getSprite(variant);
-                }
-
+                sprite = slos.getItem() == BWObjects.BOTTLE_OF_BLOOD ? BLOOD.getSprite() : slos.getItem() == Items.HONEY_BOTTLE ? HONEY.getSprite() : handler.getSprites(variant)[0];
             }
         }
 
@@ -128,7 +125,6 @@ public class GobletBlockItemRenderer implements BlockEntityRenderer<GobletBlockE
         emitFluidFace(emitter, sprite, newColor, flipped, Direction.WEST, 1f, 0f);
 
         var mesh = builder.build();
-
         var newLight = (light & 0xFFFF_0000) | (Math.max((light >> 4) & 0xF, luminance) << 4);
         renderMesh(mesh, matrices, consumer, newLight, overlay);
         matrices.pop();
@@ -158,28 +154,12 @@ public class GobletBlockItemRenderer implements BlockEntityRenderer<GobletBlockE
 
     private void renderMesh(Mesh mesh, MatrixStack matrices, VertexConsumer consumer, int light, int overlay) {
         var quadList = ModelHelper.toQuadLists(mesh);
-        for (int x = 0; x < quadList.length; x++) {
-            for (BakedQuad bq : quadList[x]) {
-                float[] brightness = new float[] {1f, 1f, 1f, 1f};
+        for (List<BakedQuad> bakedQuads : quadList) {
+            for (BakedQuad bq : bakedQuads) {
+                float[] brightness = new float[]{1f, 1f, 1f, 1f};
                 int[] lights = new int[]{light, light, light, light};
                 consumer.quad(matrices.peek(), bq, brightness, 1f, 1f, 1f, lights, overlay, true);
             }
         }
-    }
-
-    @Override
-    public void render(GobletBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-
-       if(!entity.getStack(0).isEmpty()){
-           matrices.push();
-           matrices.scale(0.25f,0.25f,0.25f);
-           matrices.translate(1.5,0.9,1.5);
-           render(FluidVariant.of(Fluids.WATER), matrices, vertexConsumers, light, overlay, entity, null);
-           matrices.pop();
-       }
-       VertexConsumer ivertexbuilder1 = ItemRenderer.getItemGlintConsumer(vertexConsumers, this.gobletItemModel.getLayer(getGobletTexture(entity.getGoblet())), false, false);
-       matrices.translate(0.5,1.5,0.5);
-       matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(180));
-       gobletItemModel.render(matrices, ivertexbuilder1, light,overlay,1,1,1,1);
     }
 }
