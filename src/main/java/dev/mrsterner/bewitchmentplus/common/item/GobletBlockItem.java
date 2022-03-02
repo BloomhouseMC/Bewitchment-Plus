@@ -115,7 +115,17 @@ public class GobletBlockItem extends BlockItem {
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         if (stack.hasNbt()) {
-            tooltip.add(new TranslatableText("liquid." + stack.getOrCreateNbt().getString("Liquid").replace(":", ".")).formatted(Formatting.DARK_RED));
+            if (stack.getNbt().contains("BlockEntityTag")) {
+                var slots = DefaultedList.ofSize(1, ItemStack.EMPTY);
+                Inventories.readNbt(stack.getNbt().getCompound("BlockEntityTag"), slots);
+                var slos = slots.get(0);
+
+                boolean vamp = stack.getNbt().getCompound("BlockEntityTag").getBoolean("VampireBlood");
+                tooltip.add(new TranslatableText("liquid." + slos.toString().replace("1 ", ""))
+                .formatted(vamp ? Formatting.ITALIC : Formatting.DARK_RED)
+                .formatted(slos.getItem() == BWObjects.BOTTLE_OF_BLOOD ? Formatting.DARK_RED : slos.getItem() == Items.HONEY_BOTTLE ? Formatting.GOLD : Formatting.AQUA));
+            }
+
         }
     }
 

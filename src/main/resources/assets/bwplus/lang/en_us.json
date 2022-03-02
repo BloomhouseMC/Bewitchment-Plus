@@ -3,5 +3,9 @@
   "entity.bwplus.black_dog": "Black Dog",
   "entity.bwplus.cambion": "Cambion",
   "item.bwplus.black_dog_spawn_egg": "Black Dog Spawn Egg",
-  "item.bwplus.cambion_spawn_egg": "Cambion Spawn Egg"
+  "item.bwplus.cambion_spawn_egg": "Cambion Spawn Egg",
+
+  "liquid.bottle_of_blood" : "Blood",
+  "liquid.potion" : "Water",
+  "liquid.honey_bottle" : "Honey"
 }
