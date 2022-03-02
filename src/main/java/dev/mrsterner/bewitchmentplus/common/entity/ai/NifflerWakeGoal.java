@@ -6,7 +6,7 @@ import net.minecraft.entity.ai.goal.Goal;
 import static dev.mrsterner.bewitchmentplus.common.entity.NifflerEntity.SLEEPING;
 
 public class NifflerWakeGoal extends Goal {
-    private NifflerEntity niffler;
+    private final NifflerEntity niffler;
 
     public NifflerWakeGoal(NifflerEntity niffler){
         this.niffler = niffler;

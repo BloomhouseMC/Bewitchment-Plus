@@ -77,9 +77,7 @@ public class BlackDogEntity extends BWHostileEntity {
 			}
 
 			BlockPos village = world.locateStructure(StructureFeature.VILLAGE, pos, 1, false);
-			if (village != null && withinDistance(village, pos, maxDistanceToStructure)) {
-				return true;
-			}
+			return village != null && withinDistance(village, pos, maxDistanceToStructure);
 		}
 
 		return false;
