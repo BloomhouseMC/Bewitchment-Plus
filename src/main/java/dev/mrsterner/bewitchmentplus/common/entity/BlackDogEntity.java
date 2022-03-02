@@ -1,6 +1,7 @@
 package dev.mrsterner.bewitchmentplus.common.entity;
 
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
+import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
 import moriyashiine.bewitchment.client.network.packet.SpawnSmokeParticlesPacket;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
 import net.fabricmc.api.EnvType;
@@ -24,7 +25,9 @@ import net.minecraft.entity.mob.WitchEntity;
 import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -192,4 +195,10 @@ public class BlackDogEntity extends BWHostileEntity {
 	public int getVariants() {
 		return 5;
 	}
+
+
+	public ItemStack getPickedResult(HitResult target) {
+		return new ItemStack(BWPObjects.BLACK_DOG_SPAWN_EGG.asItem());
+	}
+
 }

@@ -26,7 +26,7 @@ public class BewitchmentPlusClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		ClientSpriteRegistryCallback.event(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).register(((atlasTexture, registry) -> {
-			registry.register(new Identifier(BewitchmentPlus.MODID, "block/honey_flow"));
+			registry.register(new Identifier(BewitchmentPlus.MODID, "block/honey_fluid"));
 		}));
 
 		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.SILVER_GOBLET, renderer);

@@ -1,0 +1,21 @@
+{
+  "type": "bewitchment:ritual_recipe",
+  "ingredients": [
+    {
+      "item": "bewitchment:heaven_extract"
+    },
+    {
+      "item": "minecraft:ender_pearl"
+    },
+    {
+      "item": "bewitchment:elder_bark"
+    },
+    {
+      "item": "bewitchment:ectoplasm"
+    }
+  ],
+  "inner": "normal",
+  "outer": "eldritch",
+  "ritual_function": "bwplus:spectral_familiar",
+  "cost": 600
+}

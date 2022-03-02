@@ -104,9 +104,16 @@ public class NifflerSeekGoal extends Goal {
         return true;
     }
 
+
+    /**TODO
+     * create a goal to make niffler walk to inventory instead of being able to open it from distance:
+     * @see dev.mrsterner.bewitchmentplus.common.entity.ai.NifflerWalkToInventoryGoal
+     *
+     * @return true if niffler has found valid inventory
+     */
     @Override
     public boolean canStart() {
-        int rangeCheck = 8;//TODO create a goal to make niffler walk to inventory instead of being able to open it from distance
+        int rangeCheck = 8;
         int yRangeCheck = 4;
         BlockPos blockPos = niffler.getBlockPos();
         for(double x = -rangeCheck; x <= rangeCheck; ++x) {

@@ -67,8 +67,10 @@ public class BWPObjects {
 	public static final Block RGB_FLEECE_CARPET = register("rgb_witch_wool_carpet", new CarpetBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL)), true);
 
 	//ITEMS
-	public static final Item BLACK_DOG_SPAWN_EGG = register("black_dog_spawn_egg", new SpawnEggItem(BWPEntityTypes.BLACK_DOG, 0x000000, 0x000000, gen()));
+	public static final Item BLACK_DOG_SPAWN_EGG = register("black_dog_spawn_egg", new SpawnEggItem(BWPEntityTypes.BLACK_DOG, 0x000000, 0x343434, gen()));
 	public static final Item CAMBION_SPAWN_EGG = register("cambion_spawn_egg",new SpawnEggItem(BWPEntityTypes.CAMBION,  0xE34234, 0x343434, gen()));
+
+	public static final Item SPECTRAL_CRYSTAL = register("spectral_crystal", new Item(gen()));
 
 
 	public static FleeceBlock registerFleece(String id, DyeColor color, boolean carpet){

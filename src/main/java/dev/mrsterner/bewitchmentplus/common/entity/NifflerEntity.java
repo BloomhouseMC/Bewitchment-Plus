@@ -155,6 +155,7 @@ public class NifflerEntity extends BWTameableEntity implements IAnimatable, Inve
         this.goalSelector.add(5, new WanderAroundFarGoal(this, 1.0D));
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(6, new LookAroundGoal(this));
+        this.goalSelector.add(7, new NifflerWalkToInventoryGoal(this));
         this.goalSelector.add(9, new GoToVillageGoal(this, 200));
 
         this.targetSelector.add(0, new TrackOwnerAttackerGoal(this));

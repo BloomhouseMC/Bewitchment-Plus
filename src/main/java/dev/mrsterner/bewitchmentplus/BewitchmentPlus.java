@@ -39,6 +39,7 @@ public class BewitchmentPlus implements ModInitializer {
 		BWPBlockEntityTypes.init();
 		BWPEntitySpawns.init();
 		BWPCriterion.init();
+		BWPRitualFunctions.init();
 
 		UseItemCallback.EVENT.register((player, world, hand) -> {
 			if (!world.isClient() && player.getMainHandStack().getItem() instanceof AthameItem) {
@@ -53,6 +54,7 @@ public class BewitchmentPlus implements ModInitializer {
 						compound.put("Goblet", player.getOffHandStack().getItem().getDefaultStack().writeNbt(new NbtCompound()));
 						player.getOffHandStack().getOrCreateNbt().put("BlockEntityTag", compound);
 						player.damage(DamageSource.player(player), BWComponents.TRANSFORMATION_COMPONENT.get(player).getTransformation() == BWTransformations.VAMPIRE ? player.getHealth() - 1 : 4);
+						return TypedActionResult.consume(player.getMainHandStack());
 					}
 				}
 			}

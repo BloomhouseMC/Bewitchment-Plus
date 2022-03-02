@@ -4,6 +4,7 @@ import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import dev.mrsterner.bewitchmentplus.common.entity.BlackDogEntity;
 import dev.mrsterner.bewitchmentplus.common.entity.CambionEntity;
 import dev.mrsterner.bewitchmentplus.common.entity.NifflerEntity;
+import dev.mrsterner.bewitchmentplus.common.entity.PhoenixEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.*;
@@ -21,6 +22,7 @@ public class BWPEntityTypes {
 	public static final EntityType<CambionEntity> CAMBION = create("cambion", CambionEntity.createAttributes(), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, CambionEntity::new).dimensions(EntityDimensions.changing(0.75f, 3f)).build());
 	public static final EntityType<BlackDogEntity> BLACK_DOG = create("black_dog", BlackDogEntity.createAttributes(), FabricEntityTypeBuilder.createMob().spawnGroup(SpawnGroup.MONSTER).entityFactory(BlackDogEntity::new).spawnRestriction(SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BlackDogEntity::spawnRestriction).dimensions(EntityDimensions.changing(0.75f, 0.75f)).build());
 	public static final EntityType<NifflerEntity> NIFFLER = create("niffler", NifflerEntity.createAttributes(), FabricEntityTypeBuilder.createMob().spawnGroup(SpawnGroup.CREATURE).entityFactory(NifflerEntity::new).dimensions(EntityDimensions.changing(0.5f, 0.5f)).build());
+	public static final EntityType<PhoenixEntity> PHOENIX = create("phoenix", PhoenixEntity.createAttributes(), FabricEntityTypeBuilder.createMob().spawnGroup(SpawnGroup.CREATURE).entityFactory(PhoenixEntity::new).dimensions(EntityDimensions.changing(0.5f, 0.5f)).build());
 
 
 	private static <T extends LivingEntity> EntityType<T> create(String name, DefaultAttributeContainer.Builder attributes, EntityType<T> type) {

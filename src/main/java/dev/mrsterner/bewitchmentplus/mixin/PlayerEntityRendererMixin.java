@@ -10,8 +10,6 @@ import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
-import net.minecraft.client.render.item.HeldItemRenderer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -27,7 +25,7 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
 
 
     /**
-     * When the player is holding athame and goblet, we use the Block pose
+     * When the player is holding athame and goblet, we use the Block pose to resemble cutting action
      * @param abstractClientPlayerEntity
      * @param hand
      * @param cir

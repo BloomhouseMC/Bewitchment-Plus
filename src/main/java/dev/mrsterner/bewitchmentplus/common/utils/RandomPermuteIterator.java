@@ -8,6 +8,11 @@ public class RandomPermuteIterator implements Enumeration<Integer> {
     int seed, N, m, next;
     boolean hasNext = true;
 
+    /**
+     *
+     * @param N ceiling of random permutator
+     * @throws Exception
+     */
     public RandomPermuteIterator(int N) throws Exception {
         if (N <= 0 || N > Math.pow(2, 62)) throw new Exception("Unsupported size: " + N);
         this.N = N;
