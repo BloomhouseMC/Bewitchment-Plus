@@ -1,14 +1,42 @@
 package dev.mrsterner.bewitchmentplus;
 
 import dev.mrsterner.bewitchmentplus.common.BWPConfig;
+import dev.mrsterner.bewitchmentplus.common.item.GobletBlockItem;
 import dev.mrsterner.bewitchmentplus.common.registry.*;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
+import moriyashiine.bewitchment.api.component.TransformationComponent;
+import moriyashiine.bewitchment.api.registry.Transformation;
+import moriyashiine.bewitchment.common.item.AthameItem;
+import moriyashiine.bewitchment.common.misc.BWUtil;
+import moriyashiine.bewitchment.common.registry.BWComponents;
+import moriyashiine.bewitchment.common.registry.BWObjects;
+import moriyashiine.bewitchment.common.registry.BWTransformations;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.fabricmc.fabric.api.event.player.UseItemCallback;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.inventory.Inventories;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtType;
+import net.minecraft.nbt.scanner.NbtScanner;
+import net.minecraft.nbt.visitor.NbtElementVisitor;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.collection.DefaultedList;
+
+import java.io.DataOutput;
+import java.io.IOException;
 
 
 public class BewitchmentPlus implements ModInitializer {
@@ -26,6 +54,34 @@ public class BewitchmentPlus implements ModInitializer {
 		BWPBlockEntityTypes.init();
 		BWPEntitySpawns.init();
 		BWPCriterion.init();
+
+
+		UseItemCallback.EVENT.register((player, world, hand) -> {
+			if (player.getMainHandStack().getItem() instanceof GobletBlockItem) {
+				if(player.getMainHandStack().getNbt() != null){
+					System.out.println(player.getMainHandStack().getNbt());
+				}
+			}
+			return TypedActionResult.pass(player.getMainHandStack());
+		});
+		UseItemCallback.EVENT.register((player, world, hand) -> {
+			if (!world.isClient() && player.getMainHandStack().getItem() instanceof AthameItem) {
+				if (player.getOffHandStack().getItem() instanceof GobletBlockItem) {
+					if(!player.getOffHandStack().hasNbt()){
+						world.playSound(null, player.getBlockPos(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.PLAYERS, 1, 0.5f);
+						NbtCompound compound = new NbtCompound();
+						var slots = DefaultedList.ofSize(1, BWObjects.BOTTLE_OF_BLOOD.getDefaultStack());
+						Inventories.writeNbt(compound, slots);
+						compound.putInt("Color", 0xff0000);
+						compound.putBoolean("VampireBlood", BWComponents.TRANSFORMATION_COMPONENT.get(player).getTransformation() == BWTransformations.VAMPIRE);
+						compound.put("Goblet", player.getOffHandStack().getItem().getDefaultStack().writeNbt(new NbtCompound()));
+						player.getOffHandStack().getOrCreateNbt().put("BlockEntityTag", compound);
+						player.damage(DamageSource.player(player), BWComponents.TRANSFORMATION_COMPONENT.get(player).getTransformation() == BWTransformations.VAMPIRE ? player.getHealth() - 1 : 4);
+					}
+				}
+			}
+			return TypedActionResult.pass(player.getMainHandStack());
+		});
 
 	}
 }

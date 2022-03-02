@@ -35,6 +35,7 @@ public class GobletBlockEntity extends BlockEntity implements Inventory {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(1, ItemStack.EMPTY);
     private GobletBlockItem goblet = (GobletBlockItem) BWPObjects.SILVER_GOBLET.asItem();
     public int color = 0x000000;
+    private boolean vampireBlood = false;
 
     public GobletBlockEntity(BlockPos pos, BlockState state) {
         super(BWPBlockEntityTypes.GOBLET, pos, state);
@@ -46,6 +47,9 @@ public class GobletBlockEntity extends BlockEntity implements Inventory {
         Inventories.readNbt(nbt, inventory);
         if (nbt.contains("Color")) {
             color = nbt.getInt("Color");
+        }
+        if (nbt.contains("VampireBlood")) {
+            vampireBlood = nbt.getBoolean("VampireBlood");
         }
         NbtCompound nbtCompound = nbt.getCompound("Goblet");
         if (nbtCompound != null && !nbtCompound.isEmpty()) {
@@ -61,6 +65,7 @@ public class GobletBlockEntity extends BlockEntity implements Inventory {
         super.writeNbt(nbt);
         Inventories.writeNbt(nbt, inventory);
         nbt.putInt("Color", color);
+        nbt.putBoolean("VampireBlood", vampireBlood);
         nbt.put("Goblet", goblet.getDefaultStack().writeNbt(new NbtCompound()));
     }
 

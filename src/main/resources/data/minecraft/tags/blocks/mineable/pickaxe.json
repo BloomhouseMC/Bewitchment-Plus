@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-    "bwplus:silver_goblet"
+    "bwplus:silver_goblet",
+    "bwplus:gold_goblet",
+    "bwplus:netherite_goblet"
     ]
 }
