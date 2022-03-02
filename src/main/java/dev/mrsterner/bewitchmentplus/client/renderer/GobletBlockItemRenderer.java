@@ -111,9 +111,8 @@ public class GobletBlockItemRenderer implements BlockEntityRenderer<GobletBlockE
             if (nbt.contains("BlockEntityTag")) {
                 var slots = DefaultedList.ofSize(1, ItemStack.EMPTY);
                 Inventories.readNbt(nbt.getCompound("BlockEntityTag"), slots);
-                var slos = slots.get(0);
-                newColor = ColorHelper.swapRedBlueIfNeeded(slos.getItem() == BWObjects.BOTTLE_OF_BLOOD ? 0xff0000 : slos.getItem() == Items.HONEY_BOTTLE ? 0xff9500 : 0x3f76e4);
-                sprite = slos.getItem() == BWObjects.BOTTLE_OF_BLOOD ? BLOOD.getSprite() : slos.getItem() == Items.HONEY_BOTTLE ? HONEY.getSprite() : handler.getSprites(variant)[0];
+                newColor = ColorHelper.swapRedBlueIfNeeded(slots.get(0).getItem() == BWObjects.BOTTLE_OF_BLOOD ? 0xff0000 : slots.get(0).getItem() == Items.HONEY_BOTTLE ? 0xff9500 : 0x3f76e4);
+                sprite = slots.get(0).getItem() == BWObjects.BOTTLE_OF_BLOOD ? BLOOD.getSprite() : slots.get(0).getItem() == Items.HONEY_BOTTLE ? HONEY.getSprite() : handler.getSprites(variant)[0];
             }
         }
 

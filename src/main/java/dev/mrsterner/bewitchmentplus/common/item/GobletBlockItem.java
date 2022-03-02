@@ -1,6 +1,5 @@
 package dev.mrsterner.bewitchmentplus.common.item;
 
-import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
 import moriyashiine.bewitchment.common.Bewitchment;
 import moriyashiine.bewitchment.common.registry.BWComponents;
 import moriyashiine.bewitchment.common.registry.BWCurses;
@@ -8,7 +7,6 @@ import moriyashiine.bewitchment.common.registry.BWObjects;
 import moriyashiine.bewitchment.common.registry.BWTransformations;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.impl.client.indigo.renderer.helper.ColorHelper;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.Block;
 import net.minecraft.client.item.TooltipContext;
@@ -53,8 +51,7 @@ public class GobletBlockItem extends BlockItem {
         ItemStack itemStack = stack;
         var nbt = stack.getNbt();
         if (nbt != null && nbt.contains("BlockEntityTag")) {
-            if (user instanceof ServerPlayerEntity) {
-                ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)user;
+            if (user instanceof ServerPlayerEntity serverPlayerEntity) {
                 Criteria.CONSUME_ITEM.trigger(serverPlayerEntity, stack);
                 serverPlayerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
             }
@@ -118,14 +115,11 @@ public class GobletBlockItem extends BlockItem {
             if (stack.getNbt().contains("BlockEntityTag")) {
                 var slots = DefaultedList.ofSize(1, ItemStack.EMPTY);
                 Inventories.readNbt(stack.getNbt().getCompound("BlockEntityTag"), slots);
-                var slos = slots.get(0);
-
                 boolean vamp = stack.getNbt().getCompound("BlockEntityTag").getBoolean("VampireBlood");
-                tooltip.add(new TranslatableText("liquid." + slos.toString().replace("1 ", ""))
+                tooltip.add(new TranslatableText("liquid." + slots.get(0).toString().replace("1 ", ""))
                 .formatted(vamp ? Formatting.ITALIC : Formatting.DARK_RED)
-                .formatted(slos.getItem() == BWObjects.BOTTLE_OF_BLOOD ? Formatting.DARK_RED : slos.getItem() == Items.HONEY_BOTTLE ? Formatting.GOLD : Formatting.AQUA));
+                .formatted(slots.get(0).getItem() == BWObjects.BOTTLE_OF_BLOOD ? Formatting.DARK_RED : slots.get(0).getItem() == Items.HONEY_BOTTLE ? Formatting.GOLD : Formatting.AQUA));
             }
-
         }
     }
 

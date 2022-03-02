@@ -5,38 +5,23 @@ import dev.mrsterner.bewitchmentplus.common.item.GobletBlockItem;
 import dev.mrsterner.bewitchmentplus.common.registry.*;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
-import moriyashiine.bewitchment.api.component.TransformationComponent;
-import moriyashiine.bewitchment.api.registry.Transformation;
 import moriyashiine.bewitchment.common.item.AthameItem;
-import moriyashiine.bewitchment.common.misc.BWUtil;
 import moriyashiine.bewitchment.common.registry.BWComponents;
 import moriyashiine.bewitchment.common.registry.BWObjects;
 import moriyashiine.bewitchment.common.registry.BWTransformations;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
-import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.inventory.Inventories;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtType;
-import net.minecraft.nbt.scanner.NbtScanner;
-import net.minecraft.nbt.visitor.NbtElementVisitor;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.collection.DefaultedList;
-
-import java.io.DataOutput;
-import java.io.IOException;
 
 
 public class BewitchmentPlus implements ModInitializer {
@@ -55,15 +40,6 @@ public class BewitchmentPlus implements ModInitializer {
 		BWPEntitySpawns.init();
 		BWPCriterion.init();
 
-
-		UseItemCallback.EVENT.register((player, world, hand) -> {
-			if (player.getMainHandStack().getItem() instanceof GobletBlockItem) {
-				if(player.getMainHandStack().getNbt() != null){
-					System.out.println(player.getMainHandStack().getNbt());
-				}
-			}
-			return TypedActionResult.pass(player.getMainHandStack());
-		});
 		UseItemCallback.EVENT.register((player, world, hand) -> {
 			if (!world.isClient() && player.getMainHandStack().getItem() instanceof AthameItem) {
 				if (player.getOffHandStack().getItem() instanceof GobletBlockItem) {

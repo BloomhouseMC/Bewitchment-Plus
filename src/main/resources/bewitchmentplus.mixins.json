@@ -11,7 +11,8 @@
     "VillagerBreedTaskMixin"
   ],
   "client": [
-    "TexturedRenderLayersMixin"
+    "TexturedRenderLayersMixin",
+    "PlayerEntityRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
