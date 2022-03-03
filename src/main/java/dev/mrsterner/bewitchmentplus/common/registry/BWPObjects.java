@@ -3,6 +3,7 @@ package dev.mrsterner.bewitchmentplus.common.registry;
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import dev.mrsterner.bewitchmentplus.common.block.FleeceBlock;
 import dev.mrsterner.bewitchmentplus.common.block.GobletBlock;
+import dev.mrsterner.bewitchmentplus.common.block.PentacleBlock;
 import dev.mrsterner.bewitchmentplus.common.item.GobletBlockItem;
 import moriyashiine.bewitchment.common.registry.BWObjects;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -28,6 +29,8 @@ public class BWPObjects {
 	public static final Block SILVER_GOBLET = registerGoblet("silver_goblet", new GobletBlock(FabricBlockSettings.copyOf(BWObjects.SILVER_BLOCK)));
 	public static final Block GOLD_GOBLET = registerGoblet("gold_goblet", new GobletBlock(FabricBlockSettings.copyOf(Blocks.GOLD_BLOCK)));
 	public static final Block NETHERITE_GOBLET = registerGoblet("netherite_goblet", new GobletBlock(FabricBlockSettings.copyOf(Blocks.NETHERITE_BLOCK)));
+
+	public static final Block PENTACLE = register("pentacle", new PentacleBlock(FabricBlockSettings.copyOf(BWObjects.SILVER_BLOCK)), true);
 
 	public static final Block WHITE_FLEECE = registerFleece("white_witch_wool", DyeColor.WHITE, false);
 	public static final Block ORANGE_FLEECE = registerFleece("orange_witch_wool", DyeColor.ORANGE, false);

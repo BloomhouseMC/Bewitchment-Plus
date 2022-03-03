@@ -4,6 +4,7 @@ import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import dev.mrsterner.bewitchmentplus.client.model.entity.BlackDogEntityModel;
 import dev.mrsterner.bewitchmentplus.client.model.entity.CambionEntityModel;
 import dev.mrsterner.bewitchmentplus.client.renderer.GobletBlockItemRenderer;
+import dev.mrsterner.bewitchmentplus.client.renderer.RuneEntityRenderer;
 import dev.mrsterner.bewitchmentplus.client.renderer.entity.BlackDogEntityRenderer;
 import dev.mrsterner.bewitchmentplus.client.renderer.entity.CambionEntityRenderer;
 import dev.mrsterner.bewitchmentplus.client.renderer.entity.NifflerEntityRenderer;
@@ -11,8 +12,12 @@ import dev.mrsterner.bewitchmentplus.common.registry.BWPBlockEntityTypes;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPEntityTypes;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.Identifier;
@@ -41,6 +46,39 @@ public class BewitchmentPlusClient implements ClientModInitializer {
 		EntityModelLayerRegistry.registerModelLayer(MALE_CAMBION_MODEL_LAYER, CambionEntityModel::getTexturedModelDataMale);
 		EntityModelLayerRegistry.registerModelLayer(FEMALE_CAMBION_MODEL_LAYER, CambionEntityModel::getTexturedModelDataFemale);
 		EntityRendererRegistry.register(BWPEntityTypes.CAMBION, CambionEntityRenderer::new);
+		EntityRendererRegistry.register(BWPEntityTypes.RUNE, RuneEntityRenderer::new);
+		BlockRenderLayerMap.INSTANCE.putBlock(BWPObjects.PENTACLE, RenderLayer.getCutout());
 
+		ClientTickEvents.END_CLIENT_TICK.register(ClientTickHandler::clientTickEnd);
+
+	}
+
+	public final class ClientTickHandler {
+
+		private ClientTickHandler() {
+		}
+
+		public static int ticksInGame = 0;
+		public static float partialTicks = 0;
+		public static float delta = 0;
+		public static float total = 0;
+
+		public static void calcDelta() {
+			float oldTotal = total;
+			total = ticksInGame + partialTicks;
+			delta = total - oldTotal;
+		}
+
+		public static void renderTick(float renderTickTime) {
+			partialTicks = renderTickTime;
+		}
+
+		public static void clientTickEnd(MinecraftClient mc) {
+			if (!mc.isPaused()) {
+				ticksInGame++;
+				partialTicks = 0;
+			}
+			calcDelta();
+		}
 	}
 }

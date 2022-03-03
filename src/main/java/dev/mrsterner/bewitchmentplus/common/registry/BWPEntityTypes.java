@@ -1,10 +1,7 @@
 package dev.mrsterner.bewitchmentplus.common.registry;
 
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
-import dev.mrsterner.bewitchmentplus.common.entity.BlackDogEntity;
-import dev.mrsterner.bewitchmentplus.common.entity.CambionEntity;
-import dev.mrsterner.bewitchmentplus.common.entity.NifflerEntity;
-import dev.mrsterner.bewitchmentplus.common.entity.PhoenixEntity;
+import dev.mrsterner.bewitchmentplus.common.entity.*;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.*;
@@ -24,6 +21,7 @@ public class BWPEntityTypes {
 	public static final EntityType<NifflerEntity> NIFFLER = create("niffler", NifflerEntity.createAttributes(), FabricEntityTypeBuilder.createMob().spawnGroup(SpawnGroup.CREATURE).entityFactory(NifflerEntity::new).dimensions(EntityDimensions.changing(0.5f, 0.5f)).build());
 	public static final EntityType<PhoenixEntity> PHOENIX = create("phoenix", PhoenixEntity.createAttributes(), FabricEntityTypeBuilder.createMob().spawnGroup(SpawnGroup.CREATURE).entityFactory(PhoenixEntity::new).dimensions(EntityDimensions.changing(0.5f, 0.5f)).build());
 
+	public static final EntityType<RuneEntity> RUNE = create("rune", FabricEntityTypeBuilder.create(SpawnGroup.MISC, RuneEntity::new).dimensions(EntityDimensions.fixed(0F, 0F)).build());
 
 	private static <T extends LivingEntity> EntityType<T> create(String name, DefaultAttributeContainer.Builder attributes, EntityType<T> type) {
 		FabricDefaultAttributeRegistry.register(type, attributes);

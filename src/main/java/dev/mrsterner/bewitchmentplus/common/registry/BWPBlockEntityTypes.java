@@ -2,6 +2,7 @@ package dev.mrsterner.bewitchmentplus.common.registry;
 
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import dev.mrsterner.bewitchmentplus.common.block.blockentity.GobletBlockEntity;
+import dev.mrsterner.bewitchmentplus.common.block.blockentity.PentacleBlockEntity;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -17,6 +18,7 @@ public class BWPBlockEntityTypes {
 
 
     public static final BlockEntityType<GobletBlockEntity> GOBLET = create("goblet", FabricBlockEntityTypeBuilder.create(GobletBlockEntity::new, BWPObjects.GOLD_GOBLET, BWPObjects.NETHERITE_GOBLET, BWPObjects.SILVER_GOBLET).build(null));
+    public static final BlockEntityType<PentacleBlockEntity> PENTACLE = create("pentacle", FabricBlockEntityTypeBuilder.create(PentacleBlockEntity::new, BWPObjects.PENTACLE).build(null));
 
 
     private static <T extends BlockEntity> BlockEntityType<T> create(String name, BlockEntityType<T> type) {

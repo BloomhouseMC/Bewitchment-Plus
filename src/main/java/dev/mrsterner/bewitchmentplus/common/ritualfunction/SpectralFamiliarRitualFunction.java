@@ -1,6 +1,5 @@
 package dev.mrsterner.bewitchmentplus.common.ritualfunction;
 
-import dev.mrsterner.bewitchmentplus.common.entity.NifflerEntity;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPEntityTypes;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPTags;
 import moriyashiine.bewitchment.api.registry.RitualFunction;
@@ -10,7 +9,6 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.particle.ParticleType;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.function.Predicate;
