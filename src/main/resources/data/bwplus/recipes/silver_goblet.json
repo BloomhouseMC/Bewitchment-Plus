@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "S",
+    "n"
+  ],
+  "key": {
+    "n": {
+      "tag": "c:silver_nuggets"
+    },
+    "S": {
+      "tag": "c:silver_ingots"
+    }
+  },
+  "result": {
+    "item": "bwplus:silver_goblet"
+  }
+}

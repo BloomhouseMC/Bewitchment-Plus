@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "S",
+    "n"
+  ],
+  "key": {
+    "n": {
+      "item": "netherite_scrap"
+    },
+    "S": {
+      "item": "netherite_ingot"
+    }
+  },
+  "result": {
+    "item": "bwplus:netherite_goblet"
+  }
+}

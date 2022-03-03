@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "S",
+    "n"
+  ],
+  "key": {
+    "n": {
+      "item": "gold_nugget"
+    },
+    "S": {
+      "item": "gold_ingot"
+    }
+  },
+  "result": {
+    "item": "bwplus:gold_goblet"
+  }
+}
