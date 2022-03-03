@@ -143,11 +143,17 @@ public class GobletBlockEntity extends BlockEntity implements Inventory {
     }
 
     public void onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        ItemStack itemStack = player.getMainHandStack();
-        if (world.getBlockEntity(pos) instanceof GobletBlockEntity goblet) {
+        if (world.getBlockEntity(pos) instanceof GobletBlockEntity gobletBlockEntity) {
             ItemStack stack = player.getStackInHand(hand);
-            System.out.println("Stack: "+(stack.getItem() == Items.GLASS_BOTTLE));
-            System.out.println("Inventory: "+!getStack(0).isEmpty());
+            if(player.isSneaking() && stack.isEmpty()){
+                ItemStack pickup = new ItemStack(goblet);
+                if(!gobletBlockEntity.getStack(0).isEmpty()){
+                    gobletBlockEntity.setStackNbt(pickup);
+                }
+                player.setStackInHand(hand, pickup);
+                world.breakBlock(pos, false, player);
+
+            }else
             if(BWPTags.GOBLET_LIQUIDS.contains(stack.getItem())) {
                 if(!world.isClient()){
                     if(stack.getItem().equals(Items.HONEY_BOTTLE)){
@@ -165,7 +171,7 @@ public class GobletBlockEntity extends BlockEntity implements Inventory {
                 }
                 world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1,1);
             }else if(stack.getItem() == Items.GLASS_BOTTLE && !getStack(0).isEmpty()){
-                ItemStack itemsStack = goblet.getStack(0);
+                ItemStack itemsStack = gobletBlockEntity.getStack(0);
                 BWUtil.addItemToInventoryAndConsume(player,hand, itemsStack);
                 world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1,1);
             }

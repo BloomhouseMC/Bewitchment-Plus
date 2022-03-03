@@ -2,6 +2,6 @@
 	"parent": "builtin/entity",
 	"texture_size": [32, 32],
 	"textures": {
-		"particle": "bwplus:block/silver_goblet"
+		"particle": "bewitchment:block/silver_block"
 	}
 }
