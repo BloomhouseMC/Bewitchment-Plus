@@ -22,10 +22,11 @@ public class RuneEntityRenderer extends EntityRenderer<RuneEntity> {
     @Override
     public void render(RuneEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider provider, int light) {
         Shader shader = BWPShader.rune();
-        if (shader != null) {
-            //shader.getUniformOrDefault("Disfiguration").set((0.025F + 1 * ((1F - 0.15F) / 20F)) / 2F);
-        }
         double ticks = (BewitchmentPlusClient.ClientTickHandler.ticksInGame + tickDelta) * 0.5;
+        if (shader != null) {
+            shader.getUniformOrDefault("Disfiguration").set((float) ((0.025F + (ticks/10 % 30) * ((1F - 0.15F) / 20F)) / 2F));
+        }
+
         renderRing(true,10, ticks, entity, matrices, provider, light);
         //renderRing(false,20, ticks, entity, matrices, provider, light);
     }
