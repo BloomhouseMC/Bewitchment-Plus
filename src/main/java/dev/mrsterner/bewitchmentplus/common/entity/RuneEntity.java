@@ -16,7 +16,6 @@ import net.minecraft.world.World;
 public class RuneEntity extends Entity {
     public ItemStack stack;
     private int progress = 0;
-    private long tick = 0;
 
     public RuneEntity(EntityType<?> type, World world) {
         super(type, world);
@@ -36,7 +35,6 @@ public class RuneEntity extends Entity {
     @Override
     public void tick() {
         if(!world.isClient()) {
-            tick = world.getTime();
             if(getProgress()>= 0){
                 setProgress(getProgress() + 1);
             }

@@ -13,7 +13,9 @@
   "client": [
     "TexturedRenderLayersMixin",
     "PlayerEntityRendererMixin",
-    "MinecraftClientMixin"
+    "MinecraftClientMixin",
+    "GameRendererMixin",
+    "RenderLayerAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

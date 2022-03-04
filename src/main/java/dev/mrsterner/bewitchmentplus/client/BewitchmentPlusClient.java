@@ -40,6 +40,7 @@ public class BewitchmentPlusClient implements ClientModInitializer {
 		BlockEntityRendererRegistry.register(BWPBlockEntityTypes.GOBLET, ctx -> new GobletBlockItemRenderer());
 		SpriteIdentifierRegistry.INSTANCE.addIdentifier(GobletBlockItemRenderer.BLOOD);
 		SpriteIdentifierRegistry.INSTANCE.addIdentifier(GobletBlockItemRenderer.HONEY);
+		SpriteIdentifierRegistry.INSTANCE.addIdentifier(RuneEntityRenderer.RUNE_SPRITE);
 		EntityRendererRegistry.register(BWPEntityTypes.NIFFLER, NifflerEntityRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(BLACKDOG_MODEL_LAYER, BlackDogEntityModel::getTexturedModelData);
 		EntityRendererRegistry.register(BWPEntityTypes.BLACK_DOG, BlackDogEntityRenderer::new);
@@ -53,8 +54,7 @@ public class BewitchmentPlusClient implements ClientModInitializer {
 
 	}
 
-	public final class ClientTickHandler {
-
+	public static final class ClientTickHandler {
 		private ClientTickHandler() {
 		}
 

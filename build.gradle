@@ -105,6 +105,9 @@ dependencies {
     modImplementation "io.github.ladysnake:PlayerAbilityLib:${pal_version}"
     include "io.github.ladysnake:PlayerAbilityLib:${pal_version}"
 
+    //modImplementation "io.github.ladysnake:satin:${project.satin_version}"
+    //include "io.github.ladysnake:satin:${project.satin_version}"
+
     modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
