@@ -7,7 +7,6 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderPhase;
 import net.minecraft.client.render.VertexFormat;
 import net.minecraft.client.render.VertexFormats;
-import net.minecraft.client.render.block.entity.EndPortalBlockEntityRenderer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 
@@ -25,8 +24,8 @@ public class BWPRenderLayers extends RenderLayer {
     public static final Function<Identifier, RenderLayer> RUNE_LAYER = Util.memoize(texture -> {
         RenderLayer.MultiPhaseParameters glState = RenderLayer.MultiPhaseParameters.builder()
         .shader(new RenderPhase.Shader(BWPShader::rune))
-        .texture(Textures.create().add(texture, false, false).add(EndPortalBlockEntityRenderer.PORTAL_TEXTURE, false, false).build())
-        .transparency(TRANSLUCENT_TRANSPARENCY)
+        .texture(new RenderPhase.Texture(texture, false, false))
+        .transparency(RenderLayer.TRANSLUCENT_TRANSPARENCY)
         .cull(DISABLE_CULLING)
         .lightmap(ENABLE_LIGHTMAP)
         .build(true);

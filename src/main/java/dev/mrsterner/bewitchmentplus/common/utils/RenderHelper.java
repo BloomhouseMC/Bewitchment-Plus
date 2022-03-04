@@ -5,6 +5,9 @@ import net.minecraft.client.render.*;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Matrix4f;
+
+import static dev.mrsterner.bewitchmentplus.client.renderlayer.BWPRenderLayers.RUNE_LAYER;
 
 public class RenderHelper {
     public static int getColor(int... colors) {
@@ -74,6 +77,7 @@ public class RenderHelper {
     }
 
     public static void drawTexture(VertexConsumer renderer, MatrixStack matrices, Sprite sprite, float minU, float minV, float maxU, float maxV, int color, int light, int overlay, float alpha) {
+
         add(renderer, matrices, 0, 1, 0, minU, minV, color, light, overlay, alpha);
         add(renderer, matrices, 1, 1, 0, maxU, minV, color, light, overlay, alpha);
         add(renderer, matrices, 1, 1, 1, maxU, maxV, color, light, overlay, alpha);
@@ -100,5 +104,22 @@ public class RenderHelper {
         add(builder, matrices, 1, 1, 0, 0.25F, 0.25F, color, light, overlay, alpha);
         add(builder, matrices, 0, 1, 0, 0.125F, 0.25F, color, light, overlay, alpha);
         tessellator.draw();
+    }
+
+    public static void renderLayer(Identifier base, Matrix4f matrix4f, VertexConsumerProvider vertexConsumers, float sizeX, float sizeY, int light, int overlay, float[] rgba) {
+        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(getPortalEffect(base));
+
+        vertexConsumer.vertex(matrix4f, 0, 0, sizeY).color(rgba[0], rgba[1], rgba[2], rgba[3])
+        .texture(0, 1).light(light).overlay(overlay).normal(0, 1, 0).next();
+        vertexConsumer.vertex(matrix4f, sizeX, 0, sizeY).color(rgba[0], rgba[1], rgba[2], rgba[3])
+        .texture(1, 1).light(light).overlay(overlay).normal(0, 1, 0).next();
+        vertexConsumer.vertex(matrix4f, sizeX, 0, 0).color(rgba[0], rgba[1], rgba[2], rgba[3])
+        .texture(1, 0).light(light).overlay(overlay).normal(0, 1, 0).next();
+        vertexConsumer.vertex(matrix4f, 0, 0, 0).color(rgba[0], rgba[1], rgba[2], rgba[3])
+        .texture(0, 0).light(light).overlay(overlay).normal(0, 1, 0).next();
+    }
+
+    public static RenderLayer getPortalEffect(Identifier texture) {
+        return RUNE_LAYER.apply(texture);
     }
 }
