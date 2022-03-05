@@ -1,27 +1,43 @@
 package dev.mrsterner.bewitchmentplus;
 
 import dev.mrsterner.bewitchmentplus.common.BWPConfig;
+import dev.mrsterner.bewitchmentplus.common.block.blockentity.MimicChestBlockEntity;
 import dev.mrsterner.bewitchmentplus.common.item.GobletBlockItem;
 import dev.mrsterner.bewitchmentplus.common.registry.*;
+import dev.mrsterner.bewitchmentplus.common.world.BWPWorldState;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import moriyashiine.bewitchment.common.item.AthameItem;
+import moriyashiine.bewitchment.common.misc.BWUtil;
 import moriyashiine.bewitchment.common.registry.BWComponents;
 import moriyashiine.bewitchment.common.registry.BWObjects;
 import moriyashiine.bewitchment.common.registry.BWTransformations;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.ChestBlock;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.ChestBlockEntity;
+import net.minecraft.block.enums.ChestType;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.inventory.Inventories;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.state.property.Properties;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.math.BlockPos;
+
+import static net.minecraft.block.ChestBlock.CHEST_TYPE;
+import static net.minecraft.block.ChestBlock.FACING;
 
 
 public class BewitchmentPlus implements ModInitializer {
@@ -40,6 +56,34 @@ public class BewitchmentPlus implements ModInitializer {
 		BWPEntitySpawns.init();
 		BWPCriterion.init();
 		BWPRitualFunctions.init();
+
+		UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
+			BlockEntity blockEntity = world.getBlockEntity(hitResult.getBlockPos());
+			if(blockEntity instanceof ChestBlockEntity chestBlockEntity && !world.isClient()){
+				BWPWorldState worldState =BWPWorldState.get(world);
+				if(chestBlockEntity.getPos() == BWUtil.getClosestBlockPos(chestBlockEntity.getPos(), 8, currentPos -> worldState.mimicChests.contains(currentPos.asLong()))){
+					DefaultedList<ItemStack> temporatyLeechInventory = DefaultedList.ofSize(27, ItemStack.EMPTY);
+					BlockPos blockPos = hitResult.getBlockPos();
+					BlockState blockState = world.getBlockState(blockPos);
+					boolean single = blockState.get(CHEST_TYPE) == ChestType.SINGLE;
+					if(single){
+						Inventory chestInventory = ChestBlock.getInventory((ChestBlock)blockState.getBlock(), blockState, world, blockPos, true);
+						for(int i = 0; i < chestInventory.size(); i++){
+							temporatyLeechInventory.set(i, chestInventory.getStack(i));
+							chestInventory.setStack(i, ItemStack.EMPTY);
+						}
+						BlockState newLeechChestBlockState = BWPObjects.LEECH_CHEST.getDefaultState().with(Properties.HORIZONTAL_FACING, blockState.get(FACING));
+						world.setBlockState(blockPos, newLeechChestBlockState);
+						MimicChestBlockEntity leechChestBlockEntity = (MimicChestBlockEntity) world.getBlockEntity(blockPos);
+						leechChestBlockEntity.getInventoryChest();
+						for(int j = 0; j < temporatyLeechInventory.size(); j++){
+							leechChestBlockEntity.getInventoryChest().set(j, temporatyLeechInventory.get(j));
+						}
+					}
+				}
+			}
+			return ActionResult.PASS;
+		});
 
 		UseItemCallback.EVENT.register((player, world, hand) -> {
 			if (!world.isClient() && player.getMainHandStack().getItem() instanceof AthameItem) {

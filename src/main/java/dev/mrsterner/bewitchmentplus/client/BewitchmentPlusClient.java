@@ -22,6 +22,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.color.world.FoliageColors;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.block.entity.ChestBlockEntityRenderer;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.screen.PlayerScreenHandler;
@@ -55,6 +56,7 @@ public class BewitchmentPlusClient implements ClientModInitializer {
 		EntityRendererRegistry.register(BWPEntityTypes.RUNE, RuneEntityRenderer::new);
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), BWPObjects.PENTACLE,BWPObjects.BLOODROOT);
 		GeoItemRenderer.registerItemRenderer(BWPObjects.DRAGONBLOOD_STAFF, new DragonbloodStaffRenderer());
+		BlockEntityRendererRegistry.register(BWPBlockEntityTypes.MIMIC_CHEST_BLOCK_ENTITY, ChestBlockEntityRenderer::new);
 		ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) ->
 		view != null && pos != null ? BiomeColors.getFoliageColor(view, pos) :
 		FoliageColors.getDefaultColor(), BWPObjects.BLOODROOT);
