@@ -77,7 +77,6 @@ public class RenderHelper {
     }
 
     public static void drawTexture(VertexConsumer renderer, MatrixStack matrices, Sprite sprite, float minU, float minV, float maxU, float maxV, int color, int light, int overlay, float alpha) {
-
         add(renderer, matrices, 0, 1, 0, minU, minV, color, light, overlay, alpha);
         add(renderer, matrices, 1, 1, 0, maxU, minV, color, light, overlay, alpha);
         add(renderer, matrices, 1, 1, 1, maxU, maxV, color, light, overlay, alpha);

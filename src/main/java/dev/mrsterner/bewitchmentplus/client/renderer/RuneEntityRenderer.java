@@ -19,6 +19,17 @@ public class RuneEntityRenderer extends EntityRenderer<RuneEntity> {
         super(ctx);
     }
 
+    /** This method is calling the method which renders the circle of runes. Additionally, provides the shader with
+     * client tick for showing the instability property of the runes.
+     * {@link Shader#getUniformOrDefault(java.lang.String)}
+     *
+     * @param entity the entity in charge of the rendering
+     * @param yaw unused
+     * @param tickDelta used to smoothen animations
+     * @param matrices
+     * @param provider
+     * @param light
+     */
     @Override
     public void render(RuneEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider provider, int light) {
         Shader shader = BWPShader.rune();
@@ -31,6 +42,18 @@ public class RuneEntityRenderer extends EntityRenderer<RuneEntity> {
         //renderRing(false,20, ticks, entity, matrices, provider, light);
     }
 
+    /** this dynamically offsets the runes depending on amount of runes. Uses a special renderlayer to apply shader and texture.
+     * selects one of each available rune textures with {@link RuneEntityRenderer#getTexture(int)} and renders over and over
+     * again in a circle
+     *
+     * @param clockwise determines the direction of the individual runes y-axis spin to compensate for the circular movement
+     * @param salt it only needs to be different each different call to make the rings nor sync
+     * @param ticks client tick to progress animation
+     * @param entity
+     * @param matrices
+     * @param provider
+     * @param light
+     */
     public void renderRing(boolean clockwise,int salt, double ticks, RuneEntity entity, MatrixStack matrices, VertexConsumerProvider provider, int light){
         matrices.push();
         matrices.translate(0.5, 1.5, 0.5);
@@ -62,9 +85,6 @@ public class RuneEntityRenderer extends EntityRenderer<RuneEntity> {
                 matrices.scale(20,20,20);
                 Matrix4f matrix4f = matrices.peek().getPositionMatrix();
                 renderLayer(getTexture(i % 5 + 1), matrix4f, provider, 1,1,light, OverlayTexture.DEFAULT_UV, new float[]{1F, 1F, 1F, 1F});
-                //matrices.scale(1.5F,1.5F,1.5F);
-                //matrices.translate(0,1,0);
-                //renderPortalLayer(getTexture(i % 5 + 1), matrix4f, provider, 1F,1F,light, OverlayTexture.DEFAULT_UV, new float[]{1F, 1F, 1F, 0.5F});
                 if(radiusBase % 80 >= 50){
                     //entity.world.addParticle(ParticleTypes.DRIPPING_HONEY, entity.getX()+(x/10),entity.getY(),entity.getZ()+(z/10),0,0,0);
                 }
@@ -75,10 +95,25 @@ public class RuneEntityRenderer extends EntityRenderer<RuneEntity> {
         matrices.pop();
     }
 
+    /**
+     *
+     * @param j corresponds to a texture identifier
+     * @return the texture selected with j
+     */
     public Identifier getTexture(int j) {
         return new Identifier(BewitchmentPlus.MODID, "textures/block/rune_" + j + ".png");
     }
 
+    /**
+     * Makes the renderer render regardless of if the entity is on screen. we dont care about the camera anf frustum
+     * since we always want to render, we always return true
+     * @param entity
+     * @param frustum
+     * @param x
+     * @param y
+     * @param z
+     * @return
+     */
     @Override
     public boolean shouldRender(RuneEntity entity, Frustum frustum, double x, double y, double z) {
         return true;

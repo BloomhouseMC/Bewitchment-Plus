@@ -17,9 +17,21 @@ public class BWPRenderLayers extends RenderLayer {
         super(name, vertexFormat, drawMode, expectedBufferSize, hasCrumbling, translucent, startAction, endAction);
     }
 
+    /**
+     * Used by {@link BWPRenderLayers#RUNE_LAYER} to create the new renderlayer
+     * @param name
+     * @param format
+     * @param mode
+     * @param bufSize
+     * @param hasCrumbling
+     * @param sortOnUpload
+     * @param glState
+     * @return
+     */
     private static RenderLayer makeLayer(String name, VertexFormat format, VertexFormat.DrawMode mode, int bufSize, boolean hasCrumbling, boolean sortOnUpload, RenderLayer.MultiPhaseParameters glState) {
         return RenderLayerAccessor.of(name, format, mode, bufSize, hasCrumbling, sortOnUpload, glState);
     }
+
 
     public static final Function<Identifier, RenderLayer> RUNE_LAYER = Util.memoize(texture -> {
         RenderLayer.MultiPhaseParameters glState = RenderLayer.MultiPhaseParameters.builder()
