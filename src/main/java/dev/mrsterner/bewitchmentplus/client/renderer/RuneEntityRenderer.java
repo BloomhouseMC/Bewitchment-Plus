@@ -5,6 +5,7 @@ import dev.mrsterner.bewitchmentplus.client.BewitchmentPlusClient;
 import dev.mrsterner.bewitchmentplus.client.shader.BWPShader;
 import dev.mrsterner.bewitchmentplus.common.entity.RuneEntity;
 import net.minecraft.client.render.*;
+import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
@@ -12,13 +13,15 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.math.Vec3f;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import static dev.mrsterner.bewitchmentplus.common.utils.RenderHelper.renderLayer;
 
 public class RuneEntityRenderer extends EntityRenderer<RuneEntity> {
-    private float progress = 0;
+    private final EntityRenderDispatcher dispatcher;
     public RuneEntityRenderer(EntityRendererFactory.Context ctx) {
         super(ctx);
+        this.dispatcher = ctx.getRenderDispatcher();
     }
 
     /** This method is calling the method which renders the circle of runes. Additionally, provides the shader with
@@ -33,19 +36,17 @@ public class RuneEntityRenderer extends EntityRenderer<RuneEntity> {
      * @param light
      */
     @Override
-    public void render(RuneEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider provider, int light) {
-        Shader shader = BWPShader.rune();
-        double ticks = (BewitchmentPlusClient.ClientTickHandler.ticksInGame + tickDelta) * 0.5;
-        double cycle = ticks/10 % 30;
-        if (shader != null) {
-            shader.getUniformOrDefault("Disfiguration").set((float) ((0.025F + cycle * ((1F - 0.15F) / 20F)) / 2F));
+    public void render(@NonNull RuneEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider provider, int light) {
+        if(entity.getExpansionTick() < 200){
+            Shader shader = BWPShader.rune();
+            double ticks = (BewitchmentPlusClient.ClientTickHandler.ticksInGame + tickDelta) * 0.5;
+            double cycle = ticks/10 % 30;
+            if (shader != null) {
+                shader.getUniformOrDefault("Disfiguration").set((float) ((0.025F + cycle * ((1F - 0.15F) / 20F)) / 2F));
+            }
+            System.out.println(entity.getProgress());
+            renderRing(true,10, ticks, entity, matrices, provider, light);
         }
-
-        renderRing(true,10, ticks,tickDelta, entity, matrices, provider, light);
-    }
-
-    public double easeInOut(float t) {
-        return Math.exp(-1/t);
     }
 
     /** this dynamically offsets the runes depending on amount of runes. Uses a special renderlayer to apply shader and texture.
@@ -60,7 +61,7 @@ public class RuneEntityRenderer extends EntityRenderer<RuneEntity> {
      * @param provider
      * @param light
      */
-    public void renderRing(boolean clockwise,int salt, double ticks,float tickDelta, RuneEntity entity, MatrixStack matrices, VertexConsumerProvider provider, int light){
+    public void renderRing(boolean clockwise,int salt, double ticks, RuneEntity entity, MatrixStack matrices, VertexConsumerProvider provider, int light){
         matrices.push();
         matrices.translate(0.5, 1.5, 0.5);
         matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion((float) Math.sin(ticks/100) * salt));

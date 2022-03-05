@@ -4,6 +4,10 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.Packet;
@@ -13,11 +17,16 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import java.util.Optional;
+import java.util.UUID;
+
 public class RuneEntity extends Entity {
+    private static final TrackedData<Boolean> EXPANDING = DataTracker.registerData(RuneEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Float> EXPANSION_TICKS = DataTracker.registerData(RuneEntity.class, TrackedDataHandlerRegistry.FLOAT);
+    private static final TrackedData<Integer> PROGRESS = DataTracker.registerData(RuneEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Optional<UUID>> OWNER = DataTracker.registerData(RuneEntity.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
     public ItemStack stack;
-    private static int progress = 0;
-    private static boolean startExpanding = false;
-    private static double expansionTicks = 0;
+
 
     public RuneEntity(EntityType<?> type, World world) {
         super(type, world);
@@ -32,6 +41,10 @@ public class RuneEntity extends Entity {
 
     @Override
     protected void initDataTracker() {
+        this.dataTracker.startTracking(EXPANDING, false);
+        this.dataTracker.startTracking(EXPANSION_TICKS, 0.0F);
+        this.dataTracker.startTracking(PROGRESS, 0);
+        this.dataTracker.startTracking(OWNER, null);
     }
 
     @Override
@@ -51,10 +64,12 @@ public class RuneEntity extends Entity {
                     setExpansionTicks(0);
                 }
             }
-            //System.out.println(startExpanding + ", ExpansionTicks: "+expansionTicks);
-
         }
         super.tick();
+    }
+
+    public void killRune(){
+        this.kill();
     }
 
     @Override
@@ -69,49 +84,34 @@ public class RuneEntity extends Entity {
 
     @Override
     protected void readCustomDataFromNbt(NbtCompound nbt) {
-        /*
-        if(nbt.contains("Progress")){
-            setProgress(nbt.getInt("Progress"));
-        }
-        if(nbt.contains("Expand")){
-            setExpansion(nbt.getBoolean("Expand"));
-        }
-        if(nbt.contains("ExpansionTicks")){
-            setExpansionTicks(nbt.getDouble("ExpansionTicks"));
-        }
-
-         */
     }
 
     @Override
     protected void writeCustomDataToNbt(NbtCompound nbt) {
-        nbt.putInt("Progress", getProgress());
-        nbt.putBoolean("Expand", getExpansion());
-        nbt.putDouble("ExpansionTicks", getExpansionTick());
     }
 
     public int getProgress() {
-        return progress;
+        return this.dataTracker.get(PROGRESS);
     }
 
     public void setProgress(int progress) {
-        this.progress = progress;
+        this.dataTracker.set(PROGRESS, progress);
     }
 
-    public double getExpansionTick() {
-        return expansionTicks;
+    public float getExpansionTick() {
+        return this.dataTracker.get(EXPANSION_TICKS);
     }
 
-    public void setExpansionTicks(double expansionTicks) {
-        this.expansionTicks = expansionTicks;
+    public void setExpansionTicks(float expansionTicks) {
+        this.dataTracker.set(EXPANSION_TICKS, expansionTicks);
     }
 
     public boolean getExpansion() {
-        return startExpanding;
+        return this.dataTracker.get(EXPANDING);
     }
 
     public void setExpansion(boolean startExpanding) {
-        this.startExpanding = startExpanding;
+        this.dataTracker.set(EXPANDING, startExpanding);
     }
 
     @Override
