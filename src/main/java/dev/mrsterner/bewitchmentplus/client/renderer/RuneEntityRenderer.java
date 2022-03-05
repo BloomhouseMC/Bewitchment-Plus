@@ -9,12 +9,14 @@ import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.math.Vec3f;
 
 import static dev.mrsterner.bewitchmentplus.common.utils.RenderHelper.renderLayer;
 
 public class RuneEntityRenderer extends EntityRenderer<RuneEntity> {
+    private float progress = 0;
     public RuneEntityRenderer(EntityRendererFactory.Context ctx) {
         super(ctx);
     }
@@ -34,12 +36,16 @@ public class RuneEntityRenderer extends EntityRenderer<RuneEntity> {
     public void render(RuneEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider provider, int light) {
         Shader shader = BWPShader.rune();
         double ticks = (BewitchmentPlusClient.ClientTickHandler.ticksInGame + tickDelta) * 0.5;
+        double cycle = ticks/10 % 30;
         if (shader != null) {
-            shader.getUniformOrDefault("Disfiguration").set((float) ((0.025F + (ticks/10 % 30) * ((1F - 0.15F) / 20F)) / 2F));
+            shader.getUniformOrDefault("Disfiguration").set((float) ((0.025F + cycle * ((1F - 0.15F) / 20F)) / 2F));
         }
 
-        renderRing(true,10, ticks, entity, matrices, provider, light);
-        //renderRing(false,20, ticks, entity, matrices, provider, light);
+        renderRing(true,10, ticks,tickDelta, entity, matrices, provider, light);
+    }
+
+    public double easeInOut(float t) {
+        return Math.exp(-1/t);
     }
 
     /** this dynamically offsets the runes depending on amount of runes. Uses a special renderlayer to apply shader and texture.
@@ -54,7 +60,7 @@ public class RuneEntityRenderer extends EntityRenderer<RuneEntity> {
      * @param provider
      * @param light
      */
-    public void renderRing(boolean clockwise,int salt, double ticks, RuneEntity entity, MatrixStack matrices, VertexConsumerProvider provider, int light){
+    public void renderRing(boolean clockwise,int salt, double ticks,float tickDelta, RuneEntity entity, MatrixStack matrices, VertexConsumerProvider provider, int light){
         matrices.push();
         matrices.translate(0.5, 1.5, 0.5);
         matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion((float) Math.sin(ticks/100) * salt));
@@ -63,7 +69,7 @@ public class RuneEntityRenderer extends EntityRenderer<RuneEntity> {
             float v = 1F / 8F;
             final float modifier = 6F;
             final float rotationModifier = 0.25F;
-            final float radiusBase = 200.0F;//(float) Math.exp(Math.sin(ticks/200)) * 100;
+            final float radiusBase = 200.0F;
             final float radiusMod = 0.1F;
             int runes = (int) Math.floor(radiusBase/2);
             float offsetPerRune = 360.0F / runes;
@@ -74,8 +80,8 @@ public class RuneEntityRenderer extends EntityRenderer<RuneEntity> {
                 float offset = offsetPerRune * i;
                 float deg = (int) (ticks / rotationModifier % 360F + offset);
                 float rad = deg * (float) Math.PI / 180F;
-                float radiusX = (float) (radiusBase + radiusMod * Math.sin(ticks / modifier));
-                float radiusZ = (float) (radiusBase + radiusMod * Math.cos(ticks / modifier));
+                float radiusX = (float) (radiusBase + (entity.getExpansion() ? entity.getExpansionTick() : 0) + radiusMod * Math.sin(ticks / modifier));
+                float radiusZ = (float) (radiusBase + (entity.getExpansion() ? entity.getExpansionTick() : 0) + radiusMod * Math.cos(ticks / modifier));
                 float x = (float) (radiusX * Math.cos(rad));
                 float z = (float) (radiusZ * Math.sin(rad));
                 matrices.push();
