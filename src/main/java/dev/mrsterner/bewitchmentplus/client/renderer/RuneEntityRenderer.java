@@ -80,15 +80,15 @@ public class RuneEntityRenderer extends EntityRenderer<RuneEntity> {
                 float offset = offsetPerRune * i;
                 float deg = (int) (ticks / rotationModifier % 360F + offset);
                 float rad = deg * (float) Math.PI / 180F;
-                float radiusX = (float) (radiusBase + (entity.getExpansion() ? entity.getExpansionTick() : 0) + radiusMod * Math.sin(ticks / modifier));
-                float radiusZ = (float) (radiusBase + (entity.getExpansion() ? entity.getExpansionTick() : 0) + radiusMod * Math.cos(ticks / modifier));
+                float radiusX = (float) (radiusBase + (entity.getExpansion() ? entity.getExpansionTick()*10 : 0) + radiusMod * Math.sin(ticks / modifier));
+                float radiusZ = (float) (radiusBase + (entity.getExpansion() ? entity.getExpansionTick()*10 : 0) + radiusMod * Math.cos(ticks / modifier));
                 float x = (float) (radiusX * Math.cos(rad));
                 float z = (float) (radiusZ * Math.sin(rad));
                 matrices.push();
                 matrices.translate((clockwise ? x : -x), 0, (clockwise ? z : -z));
                 matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion((clockwise ? -deg : deg) + 100));
                 matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(90));
-                matrices.scale(20,20,20);
+                matrices.scale(!entity.getExpansion() ? 20 : 20 + (float)entity.getExpansionTick(), !entity.getExpansion() ? 20 : 20 + (float)entity.getExpansionTick(), !entity.getExpansion() ? 20 : 20 + (float)entity.getExpansionTick());
                 Matrix4f matrix4f = matrices.peek().getPositionMatrix();
                 renderLayer(getTexture(i % 5 + 1), matrix4f, provider, 1,1,light, OverlayTexture.DEFAULT_UV, new float[]{1F, 1F, 1F, 1F});
                 if(radiusBase % 80 >= 50){
