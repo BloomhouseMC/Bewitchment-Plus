@@ -1,0 +1,18 @@
+{
+  "type": "bewitchment:oil_recipe",
+  "ingredients": [
+    {
+      "item": "bewitchment:elder_bark"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "item": "bewitchment:aconite"
+    }
+  ],
+  "result": {
+    "item": "bwplus:moonlight_infusion"
+  },
+  "color": 15921634
+}

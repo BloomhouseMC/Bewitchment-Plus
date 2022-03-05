@@ -19,6 +19,8 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.color.world.BiomeColors;
+import net.minecraft.client.color.world.FoliageColors;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
@@ -34,9 +36,7 @@ public class BewitchmentPlusClient implements ClientModInitializer {
 	private final BuiltinItemRendererRegistry.DynamicItemRenderer renderer = new GobletBlockItemRenderer();
 	@Override
 	public void onInitializeClient() {
-		ClientSpriteRegistryCallback.event(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).register(((atlasTexture, registry) -> {
-			registry.register(new Identifier(BewitchmentPlus.MODID, "block/honey_fluid"));
-		}));
+		ClientSpriteRegistryCallback.event(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).register(((atlasTexture, registry) -> registry.register(new Identifier(BewitchmentPlus.MODID, "block/honey_fluid"))));
 
 		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.SILVER_GOBLET, renderer);
 		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.GOLD_GOBLET, renderer);
@@ -53,8 +53,11 @@ public class BewitchmentPlusClient implements ClientModInitializer {
 		EntityModelLayerRegistry.registerModelLayer(FEMALE_CAMBION_MODEL_LAYER, CambionEntityModel::getTexturedModelDataFemale);
 		EntityRendererRegistry.register(BWPEntityTypes.CAMBION, CambionEntityRenderer::new);
 		EntityRendererRegistry.register(BWPEntityTypes.RUNE, RuneEntityRenderer::new);
-		BlockRenderLayerMap.INSTANCE.putBlock(BWPObjects.PENTACLE, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), BWPObjects.PENTACLE,BWPObjects.BLOODROOT);
 		GeoItemRenderer.registerItemRenderer(BWPObjects.DRAGONBLOOD_STAFF, new DragonbloodStaffRenderer());
+		ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) ->
+		view != null && pos != null ? BiomeColors.getFoliageColor(view, pos) :
+		FoliageColors.getDefaultColor(), BWPObjects.BLOODROOT);
 
 		ClientTickEvents.END_CLIENT_TICK.register(ClientTickHandler::clientTickEnd);
 

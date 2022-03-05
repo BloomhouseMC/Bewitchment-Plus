@@ -27,6 +27,24 @@ public class BWPObjects {
 	private static final Map<Block, Identifier> BLOCKS = new LinkedHashMap<>();
 	private static final Map<Item, Identifier> ITEMS = new LinkedHashMap<>();
 
+	//ITEMS
+	public static final Item MOONLIGHT_INFUSION = register("moonlight_infusion", new Item(gen().recipeRemainder(Items.GLASS_BOTTLE)));
+	public static final Item ENDER_INFUSION = register("ender_vial", new Item(gen().recipeRemainder(Items.GLASS_BOTTLE)));//0x70922d
+
+	public static final Item DRAGONBLOOD_STAFF = register("dragonblood_staff", new DragonbloodStaffItem(200, gen().maxCount(1).rarity(Rarity.RARE)));
+
+	public static final Item BLOODROOT_ITEM = register("bloodroot_item", new Item(gen()));
+
+	public static final Item MUTANDIS = register("mutandis", new MutandisItem(gen()));
+	public static final Item MUTANDIS_BREW = register("mutandis_brew", new MutandisBrew(gen()));
+
+	public static final Item BLACK_DOG_SPAWN_EGG = register("black_dog_spawn_egg", new SpawnEggItem(BWPEntityTypes.BLACK_DOG, 0x000000, 0x343434, gen()));
+	public static final Item CAMBION_SPAWN_EGG = register("cambion_spawn_egg",new SpawnEggItem(BWPEntityTypes.CAMBION,  0xE34234, 0x343434, gen()));
+
+	public static final Item SPECTRAL_CRYSTAL = register("spectral_crystal", new Item(gen()));
+
+	public static final Item MUSIC_DISC_PETALS = register("music_disc_petals", new BWPMusicDisc(7, BWPSounds.MUSIC_DISC_PETALS, gen().maxCount(1).rarity(Rarity.RARE)));
+
 	//BLOCKS
 	public static final Block SILVER_GOBLET = registerGoblet("silver_goblet", new GobletBlock(FabricBlockSettings.copyOf(BWObjects.SILVER_BLOCK)));
 	public static final Block GOLD_GOBLET = registerGoblet("gold_goblet", new GobletBlock(FabricBlockSettings.copyOf(Blocks.GOLD_BLOCK)));
@@ -34,7 +52,7 @@ public class BWPObjects {
 
 	public static final Block PENTACLE = register("pentacle", new PentacleBlock(FabricBlockSettings.copyOf(BWObjects.SILVER_BLOCK)), true);
 
-	public static final Block BLOODROOT = register("bloodroot_block", new BWPPlantBlock(FabricBlockSettings.of(Material.PLANT).sounds(BlockSoundGroup.BAMBOO_SAPLING).strength(0.3F).nonOpaque().breakInstantly().dynamicBounds()), false);
+	public static final Block BLOODROOT = register("bloodroot", new BWPPlantBlock(FabricBlockSettings.of(Material.PLANT).sounds(BlockSoundGroup.BAMBOO_SAPLING).strength(0.3F).nonOpaque().breakInstantly().dynamicBounds()), false);
 
 
 	public static final Block MOONFLOWER = register("moonflower", new MoonflowerBlock(FabricBlockSettings.copyOf(Blocks.STONE)), true);
@@ -78,23 +96,7 @@ public class BWPObjects {
 
 
 
-	//ITEMS
-	public static final Item MOONLIGHT_INFUSION = register("moonlight_infusion", new Item(gen().recipeRemainder(Items.GLASS_BOTTLE)));
-	public static final Item ENDER_INFUSION = register("ender_vial", new Item(gen().recipeRemainder(Items.GLASS_BOTTLE)));//0x70922d
 
-	public static final Item DRAGONBLOOD_STAFF = register("dragonblood_staff", new DragonbloodStaffItem(200, gen().maxCount(1).rarity(Rarity.RARE)));
-
-	public static final Item BLOODROOT_ITEM = register("bloodroot_item", new Item(gen()));
-
-	public static final Item MUTANDIS = register("mutandis", new MutandisItem(gen()));
-	public static final Item MUTANDIS_BREW = register("mutandis_brew", new MutandisBrew(gen()));
-
-	public static final Item BLACK_DOG_SPAWN_EGG = register("black_dog_spawn_egg", new SpawnEggItem(BWPEntityTypes.BLACK_DOG, 0x000000, 0x343434, gen()));
-	public static final Item CAMBION_SPAWN_EGG = register("cambion_spawn_egg",new SpawnEggItem(BWPEntityTypes.CAMBION,  0xE34234, 0x343434, gen()));
-
-	public static final Item SPECTRAL_CRYSTAL = register("spectral_crystal", new Item(gen()));
-
-	public static final Item MUSIC_DISC_PETALS = register("music_disc_petals", new BWPMusicDisc(7, BWPSounds.MUSIC_DISC_PETALS, gen().maxCount(1).rarity(Rarity.RARE)));
 
 
 	public static FleeceBlock registerFleece(String id, DyeColor color, boolean carpet){

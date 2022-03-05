@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "bewitchedgarden:item/ender_vial"
+    "layer0": "bwplus:item/ender_vial"
   }
 }
