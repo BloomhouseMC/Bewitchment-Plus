@@ -4,6 +4,7 @@
   "package": "dev.mrsterner.bewitchmentplus.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "DefaultBiomeFeaturesMixin",
     "IronGolemTargetingMixin",
     "LootContextTypesAccessor",
     "MobEntityAccessor",
@@ -11,11 +12,11 @@
     "VillagerBreedTaskMixin"
   ],
   "client": [
-    "TexturedRenderLayersMixin",
-    "PlayerEntityRendererMixin",
-    "MinecraftClientMixin",
     "GameRendererMixin",
-    "RenderLayerAccessor"
+    "MinecraftClientMixin",
+    "PlayerEntityRendererMixin",
+    "RenderLayerAccessor",
+    "TexturedRenderLayersMixin"
   ],
   "injectors": {
     "defaultRequire": 1

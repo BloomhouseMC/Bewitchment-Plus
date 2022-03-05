@@ -44,7 +44,6 @@ public class RuneEntityRenderer extends EntityRenderer<RuneEntity> {
             if (shader != null) {
                 shader.getUniformOrDefault("Disfiguration").set((float) ((0.025F + cycle * ((1F - 0.15F) / 20F)) / 2F));
             }
-            System.out.println(entity.getProgress());
             renderRing(true,10, ticks, entity, matrices, provider, light);
         }
     }

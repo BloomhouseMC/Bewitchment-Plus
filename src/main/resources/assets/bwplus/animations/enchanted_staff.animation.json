@@ -1,0 +1,221 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.enchanted_staff.glyph_0": {
+			"loop": true,
+			"bones": {
+				"glyph_6": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"glyph_1": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"glyph_2": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"glyph_3": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"glyph_4": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"glyph_5": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.enchanted_staff.glyph_1": {
+			"loop": true,
+			"bones": {
+				"glyph_2": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"glyph_3": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"glyph_4": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"glyph_5": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"glyph_6": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.enchanted_staff.glyph_2": {
+			"loop": true,
+			"bones": {
+				"glyph_1": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"glyph_3": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"glyph_4": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"glyph_5": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"glyph_6": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.enchanted_staff.glyph_3": {
+			"loop": true,
+			"bones": {
+				"glyph_1": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"glyph_2": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"glyph_4": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"glyph_5": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"glyph_6": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.enchanted_staff.glyph_4": {
+			"loop": true,
+			"bones": {
+				"glyph_1": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"glyph_2": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"glyph_3": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"glyph_5": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"glyph_6": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.enchanted_staff.glyph_5": {
+			"loop": true,
+			"bones": {
+				"glyph_1": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"glyph_2": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"glyph_3": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"glyph_4": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"glyph_6": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.enchanted_staff.glyph_6": {
+			"loop": true,
+			"bones": {
+				"glyph_1": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"glyph_2": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"glyph_3": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"glyph_4": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"glyph_5": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

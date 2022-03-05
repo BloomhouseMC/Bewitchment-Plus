@@ -1,0 +1,6 @@
+{
+  "parent": "bwplus:block/bloodroot_parent",
+  "textures": {
+    "cross": "bwplus:block/bloodroot_base"
+  }
+}
