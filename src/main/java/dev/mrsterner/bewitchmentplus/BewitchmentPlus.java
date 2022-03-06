@@ -61,7 +61,7 @@ public class BewitchmentPlus implements ModInitializer {
 			BlockEntity blockEntity = world.getBlockEntity(hitResult.getBlockPos());
 			if(blockEntity instanceof ChestBlockEntity chestBlockEntity && !world.isClient()){
 				BWPWorldState worldState = BWPWorldState.get(world);
-				if(chestBlockEntity.getPos() == BWUtil.getClosestBlockPos(chestBlockEntity.getPos(), 8, currentPos -> worldState.mimicChests.contains(currentPos.asLong()))){//TODO change get to more precise
+				if(chestBlockEntity.getPos() == BWUtil.getClosestBlockPos(chestBlockEntity.getPos(), 8, currentPos -> worldState.mimicChestsPair.contains(currentPos.asLong()))){//TODO change get to more precise
 					System.out.println("ConvertChest");
 					DefaultedList<ItemStack> temporatyLeechInventory = DefaultedList.ofSize(27, ItemStack.EMPTY);
 					BlockPos blockPos = hitResult.getBlockPos();

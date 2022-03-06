@@ -1,9 +1,7 @@
 package dev.mrsterner.bewitchmentplus.common.block.blockentity;
 
-import dev.mrsterner.bewitchmentplus.common.block.MimicChestBlock;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPBlockEntityTypes;
 import moriyashiine.bewitchment.common.block.entity.interfaces.TaglockHolder;
-import moriyashiine.bewitchment.common.registry.BWBlockEntityTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.*;
@@ -25,7 +23,7 @@ public class MimicChestBlockEntity extends ChestBlockEntity implements TaglockHo
     private final DefaultedList<ItemStack> taglockInventory = DefaultedList.ofSize(3, ItemStack.EMPTY);
     public float partial;
     public boolean hasPlayer;
-    public float tabletRotation;
+    public float eyeRotation;
     public float flippity;
     public float floppity;
     private UUID owner = null;
@@ -60,7 +58,7 @@ public class MimicChestBlockEntity extends ChestBlockEntity implements TaglockHo
 
     public static void tick(World world, BlockPos pos, BlockState state, MimicChestBlockEntity blockEntity) {
         PlayerEntity playerEntity = world.getClosestPlayer((double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, 3.0D, false);
-        blockEntity.tabletRotation = blockEntity.floppity;
+        blockEntity.eyeRotation = blockEntity.floppity;
         if (playerEntity != null) {
             double d = playerEntity.getX() - ((double)pos.getX() + 0.5D);
             double e = playerEntity.getZ() - ((double)pos.getZ() + 0.5D);

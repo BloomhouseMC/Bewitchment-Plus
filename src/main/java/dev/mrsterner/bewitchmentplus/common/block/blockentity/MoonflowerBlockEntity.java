@@ -1,9 +1,7 @@
 package dev.mrsterner.bewitchmentplus.common.block.blockentity;
 
 import dev.mrsterner.bewitchmentplus.common.registry.BWPBlockEntityTypes;
-import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
 import moriyashiine.bewitchment.api.BewitchmentAPI;
-import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;

@@ -3,7 +3,6 @@ package dev.mrsterner.bewitchmentplus.client.model;
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import dev.mrsterner.bewitchmentplus.common.block.blockentity.MoonflowerBlockEntity;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
 public class MoonflowerModel extends AnimatedGeoModel<MoonflowerBlockEntity> {

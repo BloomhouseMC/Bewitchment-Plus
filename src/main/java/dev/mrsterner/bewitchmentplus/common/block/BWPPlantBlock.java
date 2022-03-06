@@ -1,12 +1,10 @@
 package dev.mrsterner.bewitchmentplus.common.block;
 
-import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.PlantBlock;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShape;

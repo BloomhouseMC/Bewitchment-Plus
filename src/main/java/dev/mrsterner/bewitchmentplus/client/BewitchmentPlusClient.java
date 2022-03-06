@@ -19,7 +19,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.color.world.FoliageColors;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.block.entity.ChestBlockEntityRenderer;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.screen.PlayerScreenHandler;

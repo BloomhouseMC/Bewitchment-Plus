@@ -2,28 +2,23 @@ package dev.mrsterner.bewitchmentplus.client.renderer;
 
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import dev.mrsterner.bewitchmentplus.common.block.MimicChestBlock;
-import dev.mrsterner.bewitchmentplus.common.block.blockentity.GobletBlockEntity;
 import dev.mrsterner.bewitchmentplus.common.block.blockentity.MimicChestBlockEntity;
 import it.unimi.dsi.fastutil.ints.Int2IntFunction;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.enums.ChestType;
 import net.minecraft.client.block.ChestAnimationProgress;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.*;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
-import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3f;
 import net.minecraft.world.World;
 
@@ -79,14 +74,14 @@ public class MimicBlockEntityRenderer<T extends BlockEntity> implements BlockEnt
         g = 1.0f - g;
         g = 1.0f - g * g * g;
         float h;
-        for(h = mimicChestBlockEntity.floppity - mimicChestBlockEntity.tabletRotation; h >= 3.1415927F; h -= 6.2831855F) {
+        for(h = mimicChestBlockEntity.floppity - mimicChestBlockEntity.eyeRotation; h >= 3.1415927F; h -= 6.2831855F) {
         }
 
         while(h < -3.1415927F) {
             h += 6.2831855F;
         }
 
-        float e = mimicChestBlockEntity.tabletRotation + h * mimicChestBlockEntity.partial;
+        float e = mimicChestBlockEntity.eyeRotation + h * mimicChestBlockEntity.partial;
         System.out.println(e);
         int i = ((Int2IntFunction)propertySource.apply(new LightmapCoordinatesRetriever())).applyAsInt(light);
         VertexConsumer vertexConsumer = MIMIC_SPRITE.getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
@@ -107,7 +102,8 @@ public class MimicBlockEntityRenderer<T extends BlockEntity> implements BlockEnt
         ModelPartData tounge2 = tounge.addChild("tounge2", ModelPartBuilder.create().uv(1, 67).cuboid(-2.0F, -4.0F, -1.0F, 4.0F, 4.0F, 1.0F, new Dilation(0.0F)), ModelTransform.of(-3.0F, -4.0F, 1.0F, 0.6981F, 0.0F, 0.0F));
         ModelPartData tounge3 = tounge2.addChild("tounge3", ModelPartBuilder.create().uv(1, 72).cuboid(-2.0F, -3.0F, -1.0F, 4.0F, 3.0F, 1.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -4.0F, 0.0F, 0.6981F, 0.0F, 0.0F));
         ModelPartData tounge4 = tounge3.addChild("tounge4", ModelPartBuilder.create().uv(1, 76).cuboid(-2.0F, -3.0F, -1.0F, 4.0F, 3.0F, 1.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -3.0F, 0.0F, 0.6981F, 0.0F, 0.0F));
-        ModelPartData tounge5 = tounge4.addChild("tounge5", ModelPartBuilder.create().uv(1, 79).cuboid(-0.5F, -3.0F, -1.0F, 3.0F, 3.0F, 1.0F, new Dilation(0.0F)), ModelTransform.of(-1.0F, -3.0F, 0.0F, 0.6981F, 0.0F, 0.0F)); return TexturedModelData.of(data, 128, 128);
+        ModelPartData tounge5 = tounge4.addChild("tounge5", ModelPartBuilder.create().uv(1, 79).cuboid(-0.5F, -3.0F, -1.0F, 3.0F, 3.0F, 1.0F, new Dilation(0.0F)), ModelTransform.of(-1.0F, -3.0F, 0.0F, 0.6981F, 0.0F, 0.0F));
+        return TexturedModelData.of(data, 128, 128);
     }
 
 
