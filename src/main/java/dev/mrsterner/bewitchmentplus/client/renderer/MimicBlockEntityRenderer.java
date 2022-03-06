@@ -16,10 +16,7 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
-import net.minecraft.client.render.block.entity.ChestBlockEntityRenderer;
-import net.minecraft.client.render.block.entity.LightmapCoordinatesRetriever;
+import net.minecraft.client.render.block.entity.*;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.util.SpriteIdentifier;
@@ -43,6 +40,7 @@ public class MimicBlockEntityRenderer<T extends BlockEntity> implements BlockEnt
     private final ModelPart tounge3;
     private final ModelPart tounge4;
     private final ModelPart tounge5;
+    private final ModelPart eye;
     public MimicBlockEntityRenderer(BlockEntityRendererFactory.Context ctx) {
         ModelPart modelPart = ctx.getLayerModelPart(MIMIC_LAYER);
         this.chest = modelPart.getChild("chest");
@@ -52,11 +50,13 @@ public class MimicBlockEntityRenderer<T extends BlockEntity> implements BlockEnt
         this.tounge3 = tounge2.getChild("tounge3");
         this.tounge4 = tounge3.getChild("tounge4");
         this.tounge5 = tounge4.getChild("tounge5");
+        this.eye = lid.getChild("eye");
 
     }
 
     @Override
     public void render(T entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+
         World world = entity.getWorld();
         boolean bl = world != null;
         BlockState blockState = bl ? entity.getCachedState() : Blocks.CHEST.getDefaultState().with(ChestBlock.FACING, Direction.SOUTH);
@@ -64,6 +64,7 @@ public class MimicBlockEntityRenderer<T extends BlockEntity> implements BlockEnt
         if (!(block instanceof AbstractChestBlock abstractChestBlock)) {
             return;
         }
+        MimicChestBlockEntity mimicChestBlockEntity = (MimicChestBlockEntity) world.getBlockEntity(entity.getPos());
         matrices.push();
         float f = blockState.get(ChestBlock.FACING).asRotation();
         matrices.translate(0.5, 0.5, 0.5);
@@ -74,12 +75,22 @@ public class MimicBlockEntityRenderer<T extends BlockEntity> implements BlockEnt
         matrices.translate(0.5,-1.5,-0.5);
         DoubleBlockProperties.PropertySource<Object> propertySource = bl ? abstractChestBlock.getBlockEntitySource(blockState, world, entity.getPos(), true) : DoubleBlockProperties.PropertyRetriever::getFallback;
         var g = MimicChestBlock.getAnimationProgressRetriever((ChestAnimationProgress)entity).getFallback().get(tickDelta);
-
+        if(!world.isClient())return;
         g = 1.0f - g;
         g = 1.0f - g * g * g;
+        float h;
+        for(h = mimicChestBlockEntity.floppity - mimicChestBlockEntity.tabletRotation; h >= 3.1415927F; h -= 6.2831855F) {
+        }
+
+        while(h < -3.1415927F) {
+            h += 6.2831855F;
+        }
+
+        float e = mimicChestBlockEntity.tabletRotation + h * mimicChestBlockEntity.partial;
+        System.out.println(e);
         int i = ((Int2IntFunction)propertySource.apply(new LightmapCoordinatesRetriever())).applyAsInt(light);
         VertexConsumer vertexConsumer = MIMIC_SPRITE.getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
-        this.render(matrices, vertexConsumer, this.chest, this.lid, this.tounge, this.tounge2, this.tounge3, this.tounge4, this.tounge5, g, i, overlay);
+        this.render(matrices, vertexConsumer, this.chest, this.lid, this.tounge, this.tounge2, this.tounge3, this.tounge4, this.tounge5, this.eye, e, g, i, overlay);
         matrices.pop();
     }
 
@@ -104,13 +115,16 @@ public class MimicBlockEntityRenderer<T extends BlockEntity> implements BlockEnt
         return f * (float) Math.PI / 180F;
     }
 
-    public void render(MatrixStack matrices, VertexConsumer vertices, ModelPart base,ModelPart lid, ModelPart tounge, ModelPart tounge2, ModelPart tounge3, ModelPart tounge4, ModelPart tounge5, float openFactor, int light, int overlay) {
+    public void render(MatrixStack matrices, VertexConsumer vertices, ModelPart base,ModelPart lid, ModelPart tounge, ModelPart tounge2, ModelPart tounge3, ModelPart tounge4, ModelPart tounge5, ModelPart eye, float eyeturn, float openFactor, int light, int overlay) {
         lid.pitch = -(openFactor);
         tounge.pitch = degToRad(62.5F) - openFactor / 2.5F;
         tounge2.pitch =  degToRad(40)- openFactor / 2.5F;
         tounge3.pitch = degToRad(40)- openFactor / 2.5F;
         tounge4.pitch = degToRad(40)- openFactor / 2.5F;
         tounge5.pitch = degToRad(40)- openFactor / 2.5F;
+        eye.pitch = degToRad(180 + 40);
+        eye.roll = degToRad(180);
+        eye.yaw = -eyeturn;
         lid.render(matrices, vertices, light, overlay);
         tounge.render(matrices, vertices, light, overlay);
         base.render(matrices, vertices, light, overlay);

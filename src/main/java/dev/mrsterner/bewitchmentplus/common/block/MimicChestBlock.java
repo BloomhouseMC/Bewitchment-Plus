@@ -9,6 +9,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.block.enums.ChestType;
 import net.minecraft.client.block.ChestAnimationProgress;
 import net.minecraft.entity.ai.pathing.NavigationType;
@@ -75,6 +76,18 @@ public class MimicChestBlock extends AbstractChestBlock<MimicChestBlockEntity> i
             }
         }
         return ActionResult.PASS;
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        return checkType(type, this.getExpectedEntityType(), MimicChestBlockEntity::clientTick);
+    }
+
+
+    @Nullable
+    public <T extends BlockEntity> BlockEntityTicker<T> getClientTicker(World world, BlockState state, BlockEntityType<T> type) {
+        return world.isClient ? checkType(type, this.getExpectedEntityType(), MimicChestBlockEntity::clientTick) : null;
     }
 
     public PlayerEntity getLeechedPlayer() {
@@ -162,10 +175,9 @@ public class MimicChestBlock extends AbstractChestBlock<MimicChestBlockEntity> i
         return this.entityTypeRetriever.get();
     }
 
-    @Nullable
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return world.isClient ? checkType(type, this.getExpectedEntityType(), MimicChestBlockEntity::clientTick) : null;
-    }
+
+
+
 
     static {
         FACING = HorizontalFacingBlock.FACING;
