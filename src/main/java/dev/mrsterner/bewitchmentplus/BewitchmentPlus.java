@@ -18,6 +18,7 @@ import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ChestBlock;
+import net.minecraft.block.FlowerPotBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.block.enums.ChestType;
@@ -56,6 +57,16 @@ public class BewitchmentPlus implements ModInitializer {
 		BWPEntitySpawns.init();
 		BWPCriterion.init();
 		BWPRitualFunctions.init();
+
+		UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
+			if(player.getStackInHand(hand).getItem().equals(BWPObjects.MOONLIGHT_INFUSION)){
+				if(world.getBlockState(hitResult.getBlockPos()).getBlock() instanceof FlowerPotBlock flowerPotBlock && flowerPotBlock.getContent() != null){
+					world.setBlockState(hitResult.getBlockPos(), BWPObjects.MOONFLOWER.getDefaultState());
+					world.playSound(null, hitResult.getBlockPos(),SoundEvents.BLOCK_FIRE_EXTINGUISH,SoundCategory.BLOCKS,1,1);
+				}
+			}
+			return ActionResult.PASS;
+		});
 
 		UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
 			BlockEntity blockEntity = world.getBlockEntity(hitResult.getBlockPos());
