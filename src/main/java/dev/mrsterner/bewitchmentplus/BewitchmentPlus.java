@@ -57,6 +57,7 @@ public class BewitchmentPlus implements ModInitializer {
 		BWPEntitySpawns.init();
 		BWPCriterion.init();
 		BWPRitualFunctions.init();
+		BWPStatusEffects.init();
 
 		UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
 			if(player.getStackInHand(hand).getItem().equals(BWPObjects.MOONLIGHT_INFUSION)){

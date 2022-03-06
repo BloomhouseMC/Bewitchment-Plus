@@ -1,10 +1,7 @@
 package dev.mrsterner.bewitchmentplus.common.registry;
 
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
-import dev.mrsterner.bewitchmentplus.common.block.blockentity.GobletBlockEntity;
-import dev.mrsterner.bewitchmentplus.common.block.blockentity.MimicChestBlockEntity;
-import dev.mrsterner.bewitchmentplus.common.block.blockentity.MoonflowerBlockEntity;
-import dev.mrsterner.bewitchmentplus.common.block.blockentity.PentacleBlockEntity;
+import dev.mrsterner.bewitchmentplus.common.block.blockentity.*;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -25,7 +22,6 @@ public class BWPBlockEntityTypes {
     public static final BlockEntityType<PentacleBlockEntity> PENTACLE = create("pentacle", FabricBlockEntityTypeBuilder.create(PentacleBlockEntity::new, BWPObjects.PENTACLE).build(null));
     public static final BlockEntityType<MoonflowerBlockEntity> MOONFLOWER_BLOCK_ENTITY = create("moonflower_block_entity", FabricBlockEntityTypeBuilder.create(MoonflowerBlockEntity::new, MOONFLOWER).build(null));
     public static final BlockEntityType<MimicChestBlockEntity> MIMIC_CHEST_BLOCK_ENTITY = create("mimic_chest_block_entity", FabricBlockEntityTypeBuilder.create(MimicChestBlockEntity::new, MIMIC_CHEST).build(null));
-
 
     private static <T extends BlockEntity> BlockEntityType<T> create(String name, BlockEntityType<T> type) {
         BLOCK_ENTITY_TYPES.put(type, new Identifier(BewitchmentPlus.MODID, name));

@@ -6,10 +6,21 @@ import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Matrix4f;
+import net.minecraft.util.math.Vector4f;
 
 import static dev.mrsterner.bewitchmentplus.client.renderlayer.BWPRenderLayers.RUNE_LAYER;
 
 public class RenderHelper {
+
+    public static Vector4f intToRGB(int i){
+        float r = ((i >> 16) & 0xff) / 255.0f;
+        float g = ((i >>  8) & 0xff) / 255.0f;
+        float b = ((i      ) & 0xff) / 255.0f;
+        float a = ((i >> 24) & 0xff) / 255.0f;
+
+        return new Vector4f(r,g,b,a);
+    }
+
     public static int getColor(int... colors) {
         int r = 0;
         int g = 0;
