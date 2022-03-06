@@ -1,5 +1,6 @@
 package dev.mrsterner.bewitchmentplus.common.block.blockentity;
 
+import dev.mrsterner.bewitchmentplus.common.registry.BWPBlockEntityTypes;
 import moriyashiine.bewitchment.common.block.entity.interfaces.TaglockHolder;
 import moriyashiine.bewitchment.common.registry.BWBlockEntityTypes;
 import net.minecraft.block.Block;
@@ -22,12 +23,10 @@ public class MimicChestBlockEntity extends ChestBlockEntity implements TaglockHo
     private UUID owner = null;
 
     public final BWPType type;
-    public final boolean trapped;
 
-    public MimicChestBlockEntity(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState, BWPType type, boolean trapped) {
+    public MimicChestBlockEntity(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState, BWPType type) {
         super(blockEntityType, blockPos, blockState);
         this.type = type;
-        this.trapped = trapped;
     }
 
     public DefaultedList<ItemStack> getInventoryChest(){
@@ -35,14 +34,12 @@ public class MimicChestBlockEntity extends ChestBlockEntity implements TaglockHo
     }
 
     public MimicChestBlockEntity(BlockPos blockPos, BlockState blockState) {
-        this(BWBlockEntityTypes.BW_CHEST, blockPos, blockState, BWPType.LEECH, false);
+        this(BWPBlockEntityTypes.MIMIC_CHEST_BLOCK_ENTITY, blockPos, blockState, BWPType.LEECH);
     }
 
     protected void onInvOpenOrClose(World world, BlockPos pos, BlockState state, int oldViewerCount, int newViewerCount) {
         super.onInvOpenOrClose(world, pos, state, oldViewerCount, newViewerCount);
-        if (this.trapped && world != null) {
-            world.updateNeighborsAlways(pos.down(), this.getCachedState().getBlock());
-        }
+
 
     }
     /*

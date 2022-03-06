@@ -60,8 +60,9 @@ public class BewitchmentPlus implements ModInitializer {
 		UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
 			BlockEntity blockEntity = world.getBlockEntity(hitResult.getBlockPos());
 			if(blockEntity instanceof ChestBlockEntity chestBlockEntity && !world.isClient()){
-				BWPWorldState worldState =BWPWorldState.get(world);
-				if(chestBlockEntity.getPos() == BWUtil.getClosestBlockPos(chestBlockEntity.getPos(), 8, currentPos -> worldState.mimicChests.contains(currentPos.asLong()))){
+				BWPWorldState worldState = BWPWorldState.get(world);
+				if(chestBlockEntity.getPos() == BWUtil.getClosestBlockPos(chestBlockEntity.getPos(), 8, currentPos -> worldState.mimicChests.contains(currentPos.asLong()))){//TODO change get to more precise
+					System.out.println("ConvertChest");
 					DefaultedList<ItemStack> temporatyLeechInventory = DefaultedList.ofSize(27, ItemStack.EMPTY);
 					BlockPos blockPos = hitResult.getBlockPos();
 					BlockState blockState = world.getBlockState(blockPos);
@@ -72,18 +73,21 @@ public class BewitchmentPlus implements ModInitializer {
 							temporatyLeechInventory.set(i, chestInventory.getStack(i));
 							chestInventory.setStack(i, ItemStack.EMPTY);
 						}
-						BlockState newLeechChestBlockState = BWPObjects.LEECH_CHEST.getDefaultState().with(Properties.HORIZONTAL_FACING, blockState.get(FACING));
+						BlockState newLeechChestBlockState = BWPObjects.MIMIC_CHEST.getDefaultState().with(Properties.HORIZONTAL_FACING, blockState.get(FACING));
 						world.setBlockState(blockPos, newLeechChestBlockState);
 						MimicChestBlockEntity leechChestBlockEntity = (MimicChestBlockEntity) world.getBlockEntity(blockPos);
 						leechChestBlockEntity.getInventoryChest();
 						for(int j = 0; j < temporatyLeechInventory.size(); j++){
 							leechChestBlockEntity.getInventoryChest().set(j, temporatyLeechInventory.get(j));
 						}
+						return ActionResult.SUCCESS;
 					}
 				}
 			}
 			return ActionResult.PASS;
 		});
+
+
 
 		UseItemCallback.EVENT.register((player, world, hand) -> {
 			if (!world.isClient() && player.getMainHandStack().getItem() instanceof AthameItem) {

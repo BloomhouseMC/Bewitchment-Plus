@@ -45,7 +45,7 @@ public class BWPObjects {
 	public static final Block PENTACLE = register("pentacle", new PentacleBlock(copyOf(BWObjects.SILVER_BLOCK)), true);
 	public static final Block BLOODROOT = register("bloodroot", new BWPPlantBlock(FabricBlockSettings.of(Material.PLANT).sounds(BlockSoundGroup.BAMBOO_SAPLING).strength(0.3F).nonOpaque().breakInstantly().dynamicBounds()), false);
 	public static final Block MOONFLOWER = register("moonflower", new MoonflowerBlock(copyOf(Blocks.STONE)), true);
-	public static final Block MIMIC_CHEST = register("mimic_chest", new MimicChestBlock(copyOf(Blocks.CHEST), () -> BWPBlockEntityTypes.MIMIC_CHEST_BLOCK_ENTITY, false), true);
+	public static final Block MIMIC_CHEST = register("mimic_chest", new MimicChestBlock(FabricBlockSettings.of(Material.PLANT).strength(2.5F).sounds(BlockSoundGroup.MOSS_BLOCK)), true);
 
 
 	public static final Block WHITE_FLEECE = registerFleece("white_witch_wool", DyeColor.WHITE, false);
