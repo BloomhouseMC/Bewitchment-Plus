@@ -1,16 +1,26 @@
 package dev.mrsterner.bewitchmentplus.common.block.blockentity;
 
 import dev.mrsterner.bewitchmentplus.common.registry.BWPBlockEntityTypes;
+import dev.mrsterner.bewitchmentplus.common.world.BWPWorldState;
 import moriyashiine.bewitchment.common.block.entity.interfaces.TaglockHolder;
+import moriyashiine.bewitchment.mixin.brew.PotionItemMixin;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.*;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.thrown.PotionEntity;
+import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.item.PotionItem;
+import net.minecraft.item.SplashPotionItem;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.potion.PotionUtil;
+import net.minecraft.potion.Potions;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -21,6 +31,7 @@ import java.util.UUID;
 
 public class MimicChestBlockEntity extends ChestBlockEntity implements TaglockHolder {
     private final DefaultedList<ItemStack> taglockInventory = DefaultedList.ofSize(3, ItemStack.EMPTY);
+    private final DefaultedList<ItemStack> splashPotionInventory = DefaultedList.ofSize(1, ItemStack.EMPTY);
     public float partial;
     public boolean hasPlayer;
     public float eyeRotation;
@@ -101,21 +112,32 @@ public class MimicChestBlockEntity extends ChestBlockEntity implements TaglockHo
         this(BWPBlockEntityTypes.MIMIC_CHEST_BLOCK_ENTITY, blockPos, blockState, BWPType.LEECH);
     }
 
+    @Override
+    public void onOpen(PlayerEntity player) {
+        super.onOpen(player);
+        BWPWorldState worldState = BWPWorldState.get(player.world);
+        for (int i = worldState.mimicChestsPair.size() - 1; i >= 0; i--) {
+            if(worldState.mimicChestsPair.get(i).getRight().equals(pos.asLong())){
+                if(!player.getUuid().equals(worldState.mimicChestsPair.get(i).getLeft())){
+
+                    if (!player.world.isClient && !splashPotionInventory.isEmpty()) {
+                        ItemStack itemStack = splashPotionInventory.get(0);
+                        PotionUtil.setPotion(itemStack, PotionUtil.getPotion(itemStack));
+                        PotionEntity potionEntity = new PotionEntity(world, pos.getX(), pos.getY(), pos.getZ());
+                        potionEntity.setItem(itemStack);
+                        potionEntity.setVelocity(player, -player.getMovementDirection().asRotation(), 45, -20.0f, 0.5f, 1.0f);//TODO Change source to worldstate player owner
+                        player.world.spawnEntity(potionEntity);
+                        splashPotionInventory.get(0).decrement(1);
+                    }
+                }
+            }
+        }
+    }
+
     protected void onInvOpenOrClose(World world, BlockPos pos, BlockState state, int oldViewerCount, int newViewerCount) {
         super.onInvOpenOrClose(world, pos, state, oldViewerCount, newViewerCount);
 
-
     }
-    /*
-    public LeechChestBlockEntity(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState, BWPType type, boolean trapped) {
-        super(blockEntityType, blockPos, blockState, type, trapped);
-    }
-
-    public LeechChestBlockEntity(BlockPos blockPos, BlockState blockState) {
-        this(BWPBlockEntityTypes.LEECH_CHEST_BLOCK_ENTITY, blockPos, blockState, BWPType.LEECH, false);
-    }
-
-     */
 
     @Override
     public DefaultedList<ItemStack> getTaglockInventory() {
@@ -149,12 +171,14 @@ public class MimicChestBlockEntity extends ChestBlockEntity implements TaglockHo
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
         fromNbtTaglock(nbt);
+        Inventories.readNbt(nbt.getCompound("SplashPotionInventory"), getSplashPotionInventory());
     }
 
     @Override
     protected void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
         toNbtTaglock(nbt);
+        nbt.put("SplashPotionInventory", Inventories.writeNbt(new NbtCompound(), getSplashPotionInventory()));
     }
 
     public void sync() {
@@ -162,10 +186,14 @@ public class MimicChestBlockEntity extends ChestBlockEntity implements TaglockHo
             world.updateListeners(pos, getCachedState(), getCachedState(), Block.NOTIFY_LISTENERS);
         }
     }
-    public static enum BWPType {
+
+    public DefaultedList<ItemStack> getSplashPotionInventory() {
+        return splashPotionInventory;
+    }
+    public enum BWPType {
         LEECH;
 
-        private BWPType() {
+        BWPType() {
         }
     }
 }
