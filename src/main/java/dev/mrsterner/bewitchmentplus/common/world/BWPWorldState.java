@@ -40,6 +40,6 @@ public class BWPWorldState extends PersistentState {
     }
 
     public static BWPWorldState get(World world) {
-        return ((ServerWorld) world).getPersistentStateManager().getOrCreate(BWPWorldState::readNbt, BWPWorldState::new, BewitchmentPlus.MODID + "_universal");
+        return world.getServer().getOverworld().getPersistentStateManager().getOrCreate(BWPWorldState::readNbt, BWPWorldState::new, BewitchmentPlus.MODID);
     }
 }
