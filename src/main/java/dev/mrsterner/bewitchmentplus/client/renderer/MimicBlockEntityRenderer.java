@@ -7,6 +7,7 @@ import dev.mrsterner.bewitchmentplus.common.block.blockentity.MimicChestBlockEnt
 import it.unimi.dsi.fastutil.ints.Int2IntFunction;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.block.ChestAnimationProgress;
@@ -16,8 +17,10 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.*;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
+import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3f;
@@ -37,6 +40,8 @@ public class MimicBlockEntityRenderer<T extends BlockEntity> implements BlockEnt
     private final ModelPart tounge4;
     private final ModelPart tounge5;
     private final ModelPart eye;
+
+
     public MimicBlockEntityRenderer(BlockEntityRendererFactory.Context ctx) {
         ModelPart modelPart = ctx.getLayerModelPart(MIMIC_LAYER);
         this.chest = modelPart.getChild("chest");

@@ -21,6 +21,7 @@ public class BWPEntityTypes {
 	public static final EntityType<BlackDogEntity> BLACK_DOG = create("black_dog", BlackDogEntity.createAttributes(), FabricEntityTypeBuilder.createMob().spawnGroup(SpawnGroup.MONSTER).entityFactory(BlackDogEntity::new).spawnRestriction(SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BlackDogEntity::spawnRestriction).dimensions(EntityDimensions.changing(0.75f, 0.75f)).build());
 	public static final EntityType<NifflerEntity> NIFFLER = create("niffler", NifflerEntity.createAttributes(), FabricEntityTypeBuilder.createMob().spawnGroup(SpawnGroup.CREATURE).entityFactory(NifflerEntity::new).dimensions(EntityDimensions.changing(0.5f, 0.5f)).build());
 	public static final EntityType<PhoenixEntity> PHOENIX = create("phoenix", PhoenixEntity.createAttributes(), FabricEntityTypeBuilder.createMob().spawnGroup(SpawnGroup.CREATURE).entityFactory(PhoenixEntity::new).dimensions(EntityDimensions.changing(0.5f, 0.5f)).build());
+	public static final EntityType<EffigyEntity> EFFIGY = create("effigy", EffigyEntity.createAttributes(), FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, EffigyEntity::new).dimensions(EntityDimensions.fixed(0.6F, 1.8F)).build());
 
 	public static final EntityType<RuneEntity> RUNE = create("rune", FabricEntityTypeBuilder.create(SpawnGroup.MISC, RuneEntity::new).dimensions(EntityDimensions.fixed(0F, 0F)).build());
 

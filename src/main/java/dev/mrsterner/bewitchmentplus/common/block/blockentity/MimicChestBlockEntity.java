@@ -41,6 +41,7 @@ public class MimicChestBlockEntity extends ChestBlockEntity implements TaglockHo
 
     public final BWPType type;
 
+
     public MimicChestBlockEntity(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState, BWPType type) {
         super(blockEntityType, blockPos, blockState);
         this.type = type;

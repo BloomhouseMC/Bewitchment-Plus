@@ -2,12 +2,14 @@ package dev.mrsterner.bewitchmentplus;
 
 import dev.mrsterner.bewitchmentplus.common.BWPConfig;
 import dev.mrsterner.bewitchmentplus.common.block.blockentity.MimicChestBlockEntity;
+import dev.mrsterner.bewitchmentplus.common.entity.EffigyEntity;
 import dev.mrsterner.bewitchmentplus.common.item.GobletBlockItem;
 import dev.mrsterner.bewitchmentplus.common.registry.*;
 import dev.mrsterner.bewitchmentplus.common.world.BWPWorldState;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import moriyashiine.bewitchment.common.item.AthameItem;
+import moriyashiine.bewitchment.common.item.TaglockItem;
 import moriyashiine.bewitchment.common.misc.BWUtil;
 import moriyashiine.bewitchment.common.registry.BWComponents;
 import moriyashiine.bewitchment.common.registry.BWObjects;
@@ -15,6 +17,7 @@ import moriyashiine.bewitchment.common.registry.BWTransformations;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ChestBlock;
@@ -23,6 +26,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.block.enums.ChestType;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemGroup;
@@ -36,6 +40,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
+
+import java.util.UUID;
 
 import static net.minecraft.block.ChestBlock.CHEST_TYPE;
 import static net.minecraft.block.ChestBlock.FACING;
@@ -128,6 +134,34 @@ public class BewitchmentPlus implements ModInitializer {
 				}
 			}
 			return TypedActionResult.pass(player.getMainHandStack());
+		});
+
+		/**
+		 * @author - MrSterner
+		 * If the player doesnt have a bound effigy, binds the player on the used entity.
+		 * Checks if the playerEntity from the taglock has a effigy already,
+		 * if not, binds the effigy to the player with EffigyComponent.
+		 * Proceeds to play a sound and decrement the held itemstack by 1.
+		 *
+		 * @param  player the player who is holding the taglock.
+		 * @param  world to make sure we execute on server side and so we can get any player based on UUID alone.
+		 * @param  hand to get the players left and right hand to get the taglock and decrement stack.
+		 * @param  entity to check if the target is an instance of EffigyEntity
+		 */
+		UseEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
+			if(!world.isClient && player.getStackInHand(hand).getItem() instanceof TaglockItem && entity instanceof EffigyEntity effigyEntity){
+				ItemStack tagLock = player.getStackInHand(hand);
+				UUID ownerUUID = TaglockItem.getTaglockUUID(tagLock);
+				PlayerEntity playerEntity = world.getPlayerByUuid(ownerUUID);
+				if(!BWPComponents.EFFIGY_COMPONENT.get(playerEntity).getHasEffigy()){
+					BWPComponents.EFFIGY_COMPONENT.get(playerEntity).setEffigy(effigyEntity.getUuid());
+					BWPComponents.EFFIGY_COMPONENT.get(playerEntity).setHasEffigy(true);
+					effigyEntity.playSound(SoundEvents.BLOCK_ROOTS_BREAK, 3F, 1);
+					player.getStackInHand(hand).decrement(1);
+					return ActionResult.SUCCESS;
+				}
+			}
+			return ActionResult.PASS;
 		});
 
 	}

@@ -35,7 +35,7 @@ public class BWPObjects {
 	public static final Item MUTANDIS_BREW = register("mutandis_brew", new MutandisBrew(gen()));
 	public static final Item BLACK_DOG_SPAWN_EGG = register("black_dog_spawn_egg", new SpawnEggItem(BWPEntityTypes.BLACK_DOG, 0x000000, 0x343434, new Item.Settings().group(ItemGroup.MISC)));
 	public static final Item CAMBION_SPAWN_EGG = register("cambion_spawn_egg",new SpawnEggItem(BWPEntityTypes.CAMBION,  0xE34234, 0x343434, new Item.Settings().group(ItemGroup.MISC)));
-	public static final Item SPECTRAL_CRYSTAL = register("spectral_crystal", new Item(gen()));
+	public static final Item SOUL = register("soul", new Item(gen()));
 	public static final Item MUSIC_DISC_PETALS = register("music_disc_petals", new BWPMusicDisc(7, BWPSounds.MUSIC_DISC_PETALS, gen().maxCount(1).rarity(Rarity.RARE)));
 
 	//BLOCKS
