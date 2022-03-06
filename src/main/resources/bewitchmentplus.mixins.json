@@ -16,7 +16,8 @@
     "MinecraftClientMixin",
     "PlayerEntityRendererMixin",
     "RenderLayerAccessor",
-    "TexturedRenderLayersMixin"
+    "TexturedRenderLayersMixin",
+    "LivingEntityRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
