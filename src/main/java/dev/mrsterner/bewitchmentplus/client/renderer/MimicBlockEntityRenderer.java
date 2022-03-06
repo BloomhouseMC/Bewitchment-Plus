@@ -122,11 +122,11 @@ public class MimicBlockEntityRenderer<T extends BlockEntity> implements BlockEnt
     public void render(MatrixStack matrices, VertexConsumer vertices, ModelPart base,ModelPart lid, ModelPart tounge, ModelPart tounge2, ModelPart tounge3, ModelPart tounge4, ModelPart tounge5, ModelPart eye, float eyeturn, float openFactor, int light, int overlay, BlockState blockState, float tickDelta) {
         double ticks = (BewitchmentPlusClient.ClientTickHandler.ticksInGame + tickDelta) * 0.5;
         lid.pitch = -(openFactor);
-        tounge.pitch = degToRad(62.5F) - openFactor / 2.5F;
-        tounge2.pitch =  degToRad(40)- openFactor / 2.5F;
-        tounge3.pitch = degToRad(40)- openFactor / 2.5F;
-        tounge4.pitch = degToRad(40)- openFactor / 2.5F;
-        tounge5.pitch = degToRad(40)- openFactor / 2.5F;
+        tounge.pitch = degToRad(62.5F) - openFactor / 3F;
+        tounge2.pitch =  degToRad(40) - openFactor / 3F;
+        tounge3.pitch = degToRad(40) - openFactor / 3F;
+        tounge4.pitch = degToRad(40) - openFactor / 3F;
+        tounge5.pitch = degToRad(40) - openFactor / 3F;
         eye.yaw = eyeturn;
 
         matrices.push();
