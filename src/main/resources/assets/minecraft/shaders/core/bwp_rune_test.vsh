@@ -3,8 +3,6 @@
 #moj_import <light.glsl>
 #moj_import <fog.glsl>
 
-// [VanillaCopy] rendertype_entity_translucent.vsh
-
 in vec3 Position;
 in vec4 Color;
 in vec2 UV0;

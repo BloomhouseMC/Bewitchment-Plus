@@ -2,8 +2,6 @@
 
 #moj_import <fog.glsl>
 
-// [VanillaCopy] rendertype_entity_translucent.fsh
-
 uniform sampler2D Sampler0;
 
 uniform vec4 ColorModulator;

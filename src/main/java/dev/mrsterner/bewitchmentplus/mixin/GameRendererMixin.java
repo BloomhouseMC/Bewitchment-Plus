@@ -23,6 +23,7 @@ import java.util.function.Consumer;
 public abstract class GameRendererMixin {
 
 
+
     @Inject(method = "loadShaders", at = @At(value = "INVOKE_ASSIGN", target = "Ljava/util/List;add(Ljava/lang/Object;)Z", remap = false), locals = LocalCapture.CAPTURE_FAILHARD)
     private void loadShaders(ResourceManager manager, CallbackInfo ci, List<Program> list, List<Pair<Shader, Consumer<Shader>>> list2)
     throws IOException {

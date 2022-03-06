@@ -1,7 +1,7 @@
 package dev.mrsterner.bewitchmentplus.client.renderer;
 
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
-import dev.mrsterner.bewitchmentplus.client.BewitchmentPlusClient;
+import dev.mrsterner.bewitchmentplus.BewitchmentPlusClient;
 import dev.mrsterner.bewitchmentplus.client.shader.BWPShader;
 import dev.mrsterner.bewitchmentplus.common.entity.RuneEntity;
 import net.minecraft.client.render.*;

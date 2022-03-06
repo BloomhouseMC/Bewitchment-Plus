@@ -1,4 +1,4 @@
-package dev.mrsterner.bewitchmentplus.client;
+package dev.mrsterner.bewitchmentplus.common.registry;
 
 import net.minecraft.client.util.SpriteIdentifier;
 

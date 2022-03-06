@@ -3,16 +3,16 @@
   "id": "bwplus",
   "version": "${version}",
   "name": "Bewitchment Plus",
-  "description": "Lots of canned content, given new life.",
+  "description": "The most sophisticated Bewitchment addon you will ever find!",
   "authors": [
-	"Sunconure11",
-	"CyberCat5555",
-	"DevArcana",
-	"Fireflyness"
+    "MrSterner",
+    "SafroDev",
+    "CyberCat5555",
+	"Sunconure11"
   ],
   "contact": {
-	"homepage": "https://fabricmc.net/",
-	"sources": "https://github.com/FabricMC/fabric-example-mod"
+	"homepage": "https://bloomhousemc.com/",
+	"sources": "https://github.com/BloomhouseMC/bewitchment-plus"
   },
   "license": "GPL-3.0",
   "icon": "assets/bwplus/icon.png",
@@ -22,7 +22,7 @@
       "dev.mrsterner.bewitchmentplus.BewitchmentPlus"
 	],
 	"client": [
-      "dev.mrsterner.bewitchmentplus.client.BewitchmentPlusClient"
+      "dev.mrsterner.bewitchmentplus.BewitchmentPlusClient"
 	],
 	"modmenu": [
       "dev.mrsterner.bewitchmentplus.client.compat.BWPlusModMenu"

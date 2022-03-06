@@ -1,6 +1,6 @@
 package dev.mrsterner.bewitchmentplus.mixin;
 
-import dev.mrsterner.bewitchmentplus.client.BewitchmentPlusClient;
+import dev.mrsterner.bewitchmentplus.BewitchmentPlusClient;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import org.jetbrains.annotations.Nullable;

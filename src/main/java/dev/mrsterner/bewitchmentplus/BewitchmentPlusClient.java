@@ -1,4 +1,4 @@
-package dev.mrsterner.bewitchmentplus.client;
+package dev.mrsterner.bewitchmentplus;
 
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import dev.mrsterner.bewitchmentplus.client.model.entity.BlackDogEntityModel;
@@ -10,6 +10,7 @@ import dev.mrsterner.bewitchmentplus.client.renderer.entity.NifflerEntityRendere
 import dev.mrsterner.bewitchmentplus.common.registry.BWPBlockEntityTypes;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPEntityTypes;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
+import dev.mrsterner.bewitchmentplus.common.registry.SpriteIdentifierRegistry;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -33,6 +34,7 @@ public class BewitchmentPlusClient implements ClientModInitializer {
 	public static final EntityModelLayer MALE_CAMBION_MODEL_LAYER = new EntityModelLayer(new Identifier(BewitchmentPlus.MODID, "male_cambion"), "male_cambion");
 	public static final EntityModelLayer FEMALE_CAMBION_MODEL_LAYER = new EntityModelLayer(new Identifier(BewitchmentPlus.MODID, "female_cambion"), "female_cambion");
 	private final BuiltinItemRendererRegistry.DynamicItemRenderer renderer = new GobletBlockItemRenderer();
+
 	@Override
 	public void onInitializeClient() {
 		ClientSpriteRegistryCallback.event(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).register(((atlasTexture, registry) -> registry.register(new Identifier(BewitchmentPlus.MODID, "block/honey_fluid"))));

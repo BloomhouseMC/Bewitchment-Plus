@@ -1,6 +1,7 @@
 package dev.mrsterner.bewitchmentplus.client.renderer;
 
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
+import dev.mrsterner.bewitchmentplus.BewitchmentPlusClient;
 import dev.mrsterner.bewitchmentplus.common.block.MimicChestBlock;
 import dev.mrsterner.bewitchmentplus.common.block.blockentity.MimicChestBlockEntity;
 import it.unimi.dsi.fastutil.ints.Int2IntFunction;
@@ -86,7 +87,7 @@ public class MimicBlockEntityRenderer<T extends BlockEntity> implements BlockEnt
         }
         int i = ((Int2IntFunction)propertySource.apply(new LightmapCoordinatesRetriever())).applyAsInt(light);
         VertexConsumer vertexConsumer = MIMIC_SPRITE.getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
-        this.render(matrices, vertexConsumer, this.chest, this.lid, this.tounge, this.tounge2, this.tounge3, this.tounge4, this.tounge5, this.eye, e, g, i, overlay, blockState);
+        this.render(matrices, vertexConsumer, this.chest, this.lid, this.tounge, this.tounge2, this.tounge3, this.tounge4, this.tounge5, this.eye, e, g, i, overlay, blockState, tickDelta);
         matrices.pop();
     }
 
@@ -113,7 +114,8 @@ public class MimicBlockEntityRenderer<T extends BlockEntity> implements BlockEnt
         return f * (float) Math.PI / 180F;
     }
 
-    public void render(MatrixStack matrices, VertexConsumer vertices, ModelPart base,ModelPart lid, ModelPart tounge, ModelPart tounge2, ModelPart tounge3, ModelPart tounge4, ModelPart tounge5, ModelPart eye, float eyeturn, float openFactor, int light, int overlay, BlockState blockState) {
+    public void render(MatrixStack matrices, VertexConsumer vertices, ModelPart base,ModelPart lid, ModelPart tounge, ModelPart tounge2, ModelPart tounge3, ModelPart tounge4, ModelPart tounge5, ModelPart eye, float eyeturn, float openFactor, int light, int overlay, BlockState blockState, float tickDelta) {
+        double ticks = (BewitchmentPlusClient.ClientTickHandler.ticksInGame + tickDelta) * 0.5;
         lid.pitch = -(openFactor);
         tounge.pitch = degToRad(62.5F) - openFactor / 2.5F;
         tounge2.pitch =  degToRad(40)- openFactor / 2.5F;
@@ -121,12 +123,14 @@ public class MimicBlockEntityRenderer<T extends BlockEntity> implements BlockEnt
         tounge4.pitch = degToRad(40)- openFactor / 2.5F;
         tounge5.pitch = degToRad(40)- openFactor / 2.5F;
         eye.yaw = eyeturn;
+
         matrices.push();
-        matrices.translate(0, -openFactor/2.5, 0);
+        matrices.translate(0, -openFactor/2.5 + Math.sin(ticks/20)/20, 0);
         float f = blockState.get(ChestBlock.FACING).asRotation();
         matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion( - 90 - f));
         eye.render(matrices, vertices, light, overlay);
         matrices.pop();
+
         lid.render(matrices, vertices, light, overlay);
         tounge.render(matrices, vertices, light, overlay);
         base.render(matrices, vertices, light, overlay);
