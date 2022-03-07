@@ -9,15 +9,16 @@
     "LootContextTypesAccessor",
     "MobEntityAccessor",
     "PlayerEntityMixin",
+    "ServerPlayerEntityMixin",
     "VillagerBreedTaskMixin"
   ],
   "client": [
     "GameRendererMixin",
+    "LivingEntityRendererMixin",
     "MinecraftClientMixin",
     "PlayerEntityRendererMixin",
     "RenderLayerAccessor",
-    "TexturedRenderLayersMixin",
-    "LivingEntityRendererMixin"
+    "TexturedRenderLayersMixin"
   ],
   "injectors": {
     "defaultRequire": 1

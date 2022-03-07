@@ -19,6 +19,7 @@ import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.block.FlowerPotBlock;
@@ -33,6 +34,7 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.property.Properties;
@@ -89,9 +91,17 @@ public class BewitchmentPlus implements ModInitializer {
 	 */
 	private ActionResult createMoonflower(PlayerEntity player, World world, Hand hand, BlockHitResult blockHitResult) {
 		if(player.getStackInHand(hand).getItem().equals(BWPObjects.MOONLIGHT_INFUSION)){
-			if(world.getBlockState(blockHitResult.getBlockPos()).getBlock() instanceof FlowerPotBlock flowerPotBlock && flowerPotBlock.getContent() != null){
+			if(world.getBlockState(blockHitResult.getBlockPos()).getBlock() instanceof FlowerPotBlock flowerPotBlock && flowerPotBlock.getContent().asItem() != ItemStack.EMPTY.getItem()){
 				world.setBlockState(blockHitResult.getBlockPos(), BWPObjects.MOONFLOWER.getDefaultState());
 				world.playSound(null, blockHitResult.getBlockPos(),SoundEvents.BLOCK_FIRE_EXTINGUISH,SoundCategory.BLOCKS,1,1);
+				for(int x = -1; x < 2; x++){
+					for(int y = -1; y < 2; y++){
+						for(int z = -1; z < 2; z++){
+							world.addParticle(ParticleTypes.END_ROD, blockHitResult.getBlockPos().getX() + 0.5 + x * 4/16F + world.getRandom().nextGaussian()/4,blockHitResult.getBlockPos().getY() + 0.5 + y * 4/16F + world.getRandom().nextGaussian()/4, blockHitResult.getBlockPos().getZ() + 0.5 + z * 4/16F + world.getRandom().nextGaussian()/4, 0, 0, 0);
+						}
+					}
+				}
+
 				return ActionResult.SUCCESS;
 			}
 		}

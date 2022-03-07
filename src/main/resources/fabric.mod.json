@@ -26,7 +26,10 @@
 	],
 	"modmenu": [
       "dev.mrsterner.bewitchmentplus.client.compat.BWPlusModMenu"
-	]
+	],
+    "cardinal-components-entity": [
+      "dev.mrsterner.bewitchmentplus.common.registry.BWPComponents"
+    ]
   },
   "custom": {
     "cardinal-components": [
