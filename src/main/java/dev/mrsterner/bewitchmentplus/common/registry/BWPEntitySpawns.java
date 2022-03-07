@@ -19,7 +19,7 @@ public class BWPEntitySpawns {
 
 	private static final FeatureSize EMPTY_SIZE = new TwoLayersFeatureSize(0, 0, 0);
 
-	private static <T extends FeatureConfig> ConfiguredFeature<T, ?> create(String name, ConfiguredFeature<T, ?> configuredFeature) {
+	private static <T extends FeatureConfig> ConfiguredFeature<T, ?> register(String name, ConfiguredFeature<T, ?> configuredFeature) {
 		CONFIGURED_FEATURES.put(configuredFeature, new Identifier(BewitchmentPlus.MODID, name));
 		return configuredFeature;
 	}

@@ -15,9 +15,9 @@ public class BWPRitualFunctions {
     private static final Map<RitualFunction, Identifier> RITUAL_FUNCTIONS = new LinkedHashMap<>();
 
 
-    public static final RitualFunction SUMMON_SPECTRAL_FAMILIAR = create("summon_spectral_familiar", new SpectralFamiliarRitualFunction(ParticleTypes.HAPPY_VILLAGER, livingEntity -> BWPTags.FAMILIAR.contains(livingEntity.getType())));
+    public static final RitualFunction SUMMON_SPECTRAL_FAMILIAR = register("summon_spectral_familiar", new SpectralFamiliarRitualFunction(ParticleTypes.HAPPY_VILLAGER, livingEntity -> BWPTags.FAMILIAR.contains(livingEntity.getType())));
 
-    private static <T extends RitualFunction> T create(String name, T ritualFunction) {
+    private static <T extends RitualFunction> T register(String name, T ritualFunction) {
         RITUAL_FUNCTIONS.put(ritualFunction, new Identifier(BewitchmentPlus.MODID, name));
         return ritualFunction;
     }
