@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:block/cross",
+  "parent": "bwplus:block/embergrass_parent",
   "textures": {
-    "cross": "bwplus:block/embergrass"
+    "cross": "bwplus:block/embergrass_base"
   }
 }
