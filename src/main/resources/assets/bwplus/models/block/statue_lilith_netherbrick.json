@@ -1,0 +1,7 @@
+{
+	"parent": "builtin/entity",
+	"texture_size": [128, 128],
+	"textures": {
+		"particle": "minecraft:block/gold_block"
+	}
+}

@@ -1,10 +1,10 @@
 package dev.mrsterner.bewitchmentplus;
 
-import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import dev.mrsterner.bewitchmentplus.client.model.entity.BlackDogEntityModel;
 import dev.mrsterner.bewitchmentplus.client.model.entity.CambionEntityModel;
 import dev.mrsterner.bewitchmentplus.client.renderer.*;
 import dev.mrsterner.bewitchmentplus.client.renderer.entity.*;
+import dev.mrsterner.bewitchmentplus.client.renderer.statue.StatueRenderer;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPBlockEntityTypes;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPEntityTypes;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
@@ -36,14 +36,14 @@ public class BewitchmentPlusClient implements ClientModInitializer {
 	public static final EntityModelLayer MALE_CAMBION_MODEL_LAYER = new EntityModelLayer(new Identifier(BewitchmentPlus.MODID, "male_cambion"), "male_cambion");
 	public static final EntityModelLayer FEMALE_CAMBION_MODEL_LAYER = new EntityModelLayer(new Identifier(BewitchmentPlus.MODID, "female_cambion"), "female_cambion");
 	private final BuiltinItemRendererRegistry.DynamicItemRenderer renderer = new GobletBlockItemRenderer();
-	private final BuiltinItemRendererRegistry.DynamicItemRenderer statueRenderer = new LilithStatueRenderer();
+	private final BuiltinItemRendererRegistry.DynamicItemRenderer statueRenderer = new StatueRenderer();
 
 	@Override
 	public void onInitializeClient() {
 		ClientSpriteRegistryCallback.event(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).register(((atlasTexture, registry) -> registry.register(new Identifier(BewitchmentPlus.MODID, "block/honey_fluid"))));
 		EntityRendererRegistry.register(BWPEntityTypes.MUTANDIS_ENTITY_ENTITY_TYPE, FlyingItemEntityRenderer::new);
 		BlockEntityRendererRegistry.register(BWPBlockEntityTypes.GOBLET, ctx -> new GobletBlockItemRenderer());
-		BlockEntityRendererRegistry.register(BWPBlockEntityTypes.STATUE_BLOCK_ENTITY, ctx -> new LilithStatueRenderer());
+		BlockEntityRendererRegistry.register(BWPBlockEntityTypes.STATUE_BLOCK_ENTITY, ctx -> new StatueRenderer());
 		BlockEntityRendererRegistry.register(BWPBlockEntityTypes.MOONFLOWER_BLOCK_ENTITY, ctx -> new MoonflowerBlockEntityRenderer());
 		BlockEntityRendererRegistry.register(BWPBlockEntityTypes.MIMIC_CHEST_BLOCK_ENTITY, MimicBlockEntityRenderer::new);
 		SpriteIdentifierRegistry.INSTANCE.addIdentifier(GobletBlockItemRenderer.BLOOD);
@@ -68,7 +68,22 @@ public class BewitchmentPlusClient implements ClientModInitializer {
 		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.GOLD_GOBLET, renderer);
 		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.NETHERITE_GOBLET, renderer);
 
-		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.LILITH_STATUE, statueRenderer);
+		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.LILITH_STATUE_BLACKSTONE, statueRenderer);
+		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.LILITH_STATUE_GOLD, statueRenderer);
+		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.LILITH_STATUE_NETHERBRICK, statueRenderer);
+
+		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.HERNE_STATUE_BLACKSTONE, statueRenderer);
+		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.HERNE_STATUE_GOLD, statueRenderer);
+		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.HERNE_STATUE_NETHERBRICK, statueRenderer);
+
+		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.BAPHOMET_STATUE_BLACKSTONE, statueRenderer);
+		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.BAPHOMET_STATUE_GOLD, statueRenderer);
+		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.BAPHOMET_STATUE_NETHERBRICK, statueRenderer);
+
+		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.LEONARD_STATUE_BLACKSTONE, statueRenderer);
+		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.LEONARD_STATUE_GOLD, statueRenderer);
+		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.LEONARD_STATUE_NETHERBRICK, statueRenderer);
+
 		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.MIMIC_CHEST, (stack, mode, matrices, vertexConsumers, light, overlay) -> MinecraftClient.getInstance().getBlockEntityRenderDispatcher().renderEntity(new BWChestBlockEntity(BlockEntityType.CHEST, BlockPos.ORIGIN, Blocks.CHEST.getDefaultState(), BWChestBlockEntity.Type.CYPRESS, false), matrices, vertexConsumers, light, overlay));
 
 		ClientTickEvents.END_CLIENT_TICK.register(ClientTickHandler::clientTickEnd);

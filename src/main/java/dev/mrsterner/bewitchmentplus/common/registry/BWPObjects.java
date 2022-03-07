@@ -50,7 +50,22 @@ public class BWPObjects {
 	public static final Block MIMIC_CHEST = register("mimic_chest", new MimicChestBlock(FabricBlockSettings.of(Material.WOOD).strength(2.5F).sounds(BlockSoundGroup.WOOD)), true, gen());
 	public static final Block EMBERGRASS = register("embergrass", new BWPPlantBlock(copyOf(Blocks.GRASS)), true, gen());
 
-	public static final Block LILITH_STATUE = registerStatue("lilith_statue", new LilithStatueBlock(FabricBlockSettings.of(Material.STONE).strength(2.5F).sounds(BlockSoundGroup.STONE)));
+	public static final Block LILITH_STATUE_BLACKSTONE = registerStatue("statue_lilith_blackstone", new StatueBlock(FabricBlockSettings.of(Material.STONE).strength(2.5F).sounds(BlockSoundGroup.STONE)));
+	public static final Block LILITH_STATUE_GOLD = registerStatue("statue_lilith_gold", new StatueBlock(FabricBlockSettings.of(Material.STONE).strength(2.5F).sounds(BlockSoundGroup.STONE)));
+	public static final Block LILITH_STATUE_NETHERBRICK = registerStatue("statue_lilith_netherbrick", new StatueBlock(FabricBlockSettings.of(Material.STONE).strength(2.5F).sounds(BlockSoundGroup.STONE)));
+
+
+	public static final Block HERNE_STATUE_BLACKSTONE = registerStatue("statue_herne_blackstone", new StatueBlock(FabricBlockSettings.of(Material.STONE).strength(2.5F).sounds(BlockSoundGroup.STONE)));
+	public static final Block HERNE_STATUE_GOLD = registerStatue("statue_herne_gold", new StatueBlock(FabricBlockSettings.of(Material.STONE).strength(2.5F).sounds(BlockSoundGroup.STONE)));
+	public static final Block HERNE_STATUE_NETHERBRICK = registerStatue("statue_herne_netherbrick", new StatueBlock(FabricBlockSettings.of(Material.STONE).strength(2.5F).sounds(BlockSoundGroup.STONE)));
+
+	public static final Block LEONARD_STATUE_BLACKSTONE = registerStatue("statue_leonard_blackstone", new StatueBlock(FabricBlockSettings.of(Material.STONE).strength(2.5F).sounds(BlockSoundGroup.STONE)));
+	public static final Block LEONARD_STATUE_GOLD = registerStatue("statue_leonard_gold", new StatueBlock(FabricBlockSettings.of(Material.STONE).strength(2.5F).sounds(BlockSoundGroup.STONE)));
+	public static final Block LEONARD_STATUE_NETHERBRICK = registerStatue("statue_leonard_netherbrick", new StatueBlock(FabricBlockSettings.of(Material.STONE).strength(2.5F).sounds(BlockSoundGroup.STONE)));
+
+	public static final Block BAPHOMET_STATUE_BLACKSTONE = registerStatue("statue_baphomet_blackstone", new StatueBlock(FabricBlockSettings.of(Material.STONE).strength(2.5F).sounds(BlockSoundGroup.STONE)));
+	public static final Block BAPHOMET_STATUE_GOLD = registerStatue("statue_baphomet_gold", new StatueBlock(FabricBlockSettings.of(Material.STONE).strength(2.5F).sounds(BlockSoundGroup.STONE)));
+	public static final Block BAPHOMET_STATUE_NETHERBRICK = registerStatue("statue_baphomet_netherbrick", new StatueBlock(FabricBlockSettings.of(Material.STONE).strength(2.5F).sounds(BlockSoundGroup.STONE)));
 
 	public static final Block WHITE_FLEECE = registerFleece("white_witch_wool", DyeColor.WHITE, false);
 	public static final Block ORANGE_FLEECE = registerFleece("orange_witch_wool", DyeColor.ORANGE, false);

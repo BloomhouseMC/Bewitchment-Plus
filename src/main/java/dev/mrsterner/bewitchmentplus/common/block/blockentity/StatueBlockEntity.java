@@ -13,7 +13,8 @@ public class StatueBlockEntity extends BlockEntity {
     public StatueBlockEntity(BlockPos pos, BlockState state) {
         super(BWPBlockEntityTypes.STATUE_BLOCK_ENTITY, pos, state);
     }
-    private StatueBlockItem statue = (StatueBlockItem) BWPObjects.LILITH_STATUE.asItem();
+    private StatueBlockItem statue = (StatueBlockItem) BWPObjects.LILITH_STATUE_BLACKSTONE.asItem();
+
     public StatueBlockItem getStatue() {
         return statue;
     }
