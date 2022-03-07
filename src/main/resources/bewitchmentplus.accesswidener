@@ -5,4 +5,3 @@ accessible  class net/minecraft/client/render/RenderPhase$Textures
 accessible class net/minecraft/client/render/RenderPhase$Shader
 accessible class net/minecraft/client/render/RenderPhase$Texture
 accessible class net/minecraft/client/render/RenderPhase$TextureBase
-accessible class net/minecraft/client/render/RenderPhase$TRANSLUCENT_TRANSPARENCY
