@@ -50,6 +50,8 @@ public class BWPObjects {
 	public static final Block MIMIC_CHEST = register("mimic_chest", new MimicChestBlock(FabricBlockSettings.of(Material.WOOD).strength(2.5F).sounds(BlockSoundGroup.WOOD)), true, gen());
 	public static final Block EMBERGRASS = register("embergrass", new BWPPlantBlock(copyOf(Blocks.GRASS)), true, gen());
 
+	public static final Block LILITH_STATUE = registerStatue("lilith_statue", new LilithStatueBlock(FabricBlockSettings.of(Material.STONE).strength(2.5F).sounds(BlockSoundGroup.STONE)));
+
 	public static final Block WHITE_FLEECE = registerFleece("white_witch_wool", DyeColor.WHITE, false);
 	public static final Block ORANGE_FLEECE = registerFleece("orange_witch_wool", DyeColor.ORANGE, false);
 	public static final Block MAGENTA_FLEECE = registerFleece("magenta_witch_wool", DyeColor.MAGENTA, false);
@@ -98,6 +100,12 @@ public class BWPObjects {
 	private static <T extends Block> T registerGoblet(String id, T block) {
 		BLOCKS.put(block, new Identifier(BewitchmentPlus.MODID, id));
 		ITEMS.put(new GobletBlockItem(block, gen()), BLOCKS.get(block));
+		return block;
+	}
+
+	private static <T extends Block> T registerStatue(String id, T block) {
+		BLOCKS.put(block, new Identifier(BewitchmentPlus.MODID, id));
+		ITEMS.put(new StatueBlockItem(block, gen()), BLOCKS.get(block));
 		return block;
 	}
 

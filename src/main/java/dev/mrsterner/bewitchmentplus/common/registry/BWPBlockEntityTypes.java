@@ -22,6 +22,8 @@ public class BWPBlockEntityTypes {
     public static final BlockEntityType<PentacleBlockEntity> PENTACLE = register("pentacle", FabricBlockEntityTypeBuilder.create(PentacleBlockEntity::new, BWPObjects.PENTACLE).build(null));
     public static final BlockEntityType<MoonflowerBlockEntity> MOONFLOWER_BLOCK_ENTITY = register("moonflower_block_entity", FabricBlockEntityTypeBuilder.create(MoonflowerBlockEntity::new, MOONFLOWER).build(null));
     public static final BlockEntityType<MimicChestBlockEntity> MIMIC_CHEST_BLOCK_ENTITY = register("mimic_chest_block_entity", FabricBlockEntityTypeBuilder.create(MimicChestBlockEntity::new, MIMIC_CHEST).build(null));
+    public static final BlockEntityType<StatueBlockEntity> STATUE_BLOCK_ENTITY = register("statue_block_entity", FabricBlockEntityTypeBuilder.create(StatueBlockEntity::new, LILITH_STATUE).build(null));
+
 
     private static <T extends BlockEntity> BlockEntityType<T> register(String name, BlockEntityType<T> type) {
         BLOCK_ENTITY_TYPES.put(type, new Identifier(BewitchmentPlus.MODID, name));

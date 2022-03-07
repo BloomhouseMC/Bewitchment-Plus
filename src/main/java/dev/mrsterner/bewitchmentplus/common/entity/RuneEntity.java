@@ -32,6 +32,7 @@ import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.tag.Tag;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
@@ -91,7 +92,7 @@ public class RuneEntity extends Entity {
                     boolean vampire = mob instanceof PlayerEntity player && (BewitchmentAPI.isVampire(player, true) || BewitchmentAPI.isVampire(player, false));
                     boolean isLich = bl && mob instanceof PlayerEntity player && (BSMTransformations.isLich(player, true) || BSMTransformations.isLich(player, false));//TODO test if this doesnt crash if besmirchment isnt loaded
                     boolean isWerepyre = bl && mob instanceof PlayerEntity player && (BSMTransformations.isWerepyre(player, true) || BSMTransformations.isWerepyre(player, false));
-                    if ((this.dataTracker.get(OWNER).isPresent() && this.dataTracker.get(OWNER).get() != mob.getUuid()) && (BWPTags.UNHOLY.contains(mob.getType()) || werewolf || vampire || isLich || isWerepyre)) {
+                    if ((BWPTags.UNHOLY.contains(mob.getType()) || werewolf || vampire || isLich || isWerepyre)) {
                         double distanceX = blockPos.getX() - mob.getX();
                         double distanceZ = blockPos.getZ() - mob.getZ();
                         double max = MathHelper.absMax(distanceX, distanceZ);
