@@ -14,5 +14,6 @@ public class BWPTags {
     public static final Tag<Item> NIFFLER = TagFactory.ITEM.create(new Identifier(BewitchmentPlus.MODID, "niffler"));
     public static final Tag<EntityType<?>> FAMILIAR = TagFactory.ENTITY_TYPE.create(new Identifier(BewitchmentPlus.MODID, "familiar"));
     public static final Tag<EntityType<?>> SPECTRAL_FAMILIAR = TagFactory.ENTITY_TYPE.create(new Identifier(BewitchmentPlus.MODID, "spectral_familiar"));
+    public static final Tag<EntityType<?>> UNHOLY = TagFactory.ENTITY_TYPE.create(new Identifier(BewitchmentPlus.MODID, "unholy"));
     public static final Tag<Block> MUTANDIS = TagRegistry.block(new Identifier(BewitchmentPlus.MODID, "mutandis"));
 }
