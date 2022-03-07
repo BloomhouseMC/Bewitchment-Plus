@@ -15,10 +15,13 @@ public class LeonardStatueModel<T extends Entity> extends EntityModel<T> {
     public static final EntityModelLayer LAYER_LOCATION = new EntityModelLayer(new Identifier(BewitchmentPlus.MODID, "statue_leonard"), "main");
     private final ModelPart body;
     private final ModelPart plith01;
+    private final ModelPart wandShaft;
 
     public LeonardStatueModel(ModelPart root) {
         this.body = root.getChild("body");
         this.plith01 = root.getChild("plith01");
+        this.wandShaft = root.getChild("wandShaft");
+
     }
 
     public static TexturedModelData create(){
@@ -282,7 +285,8 @@ public class LeonardStatueModel<T extends Entity> extends EntityModel<T> {
         .uv(68, 25).cuboid(-7.5F, -2.7F, -7.5F, 15.0F, 3.0F, 15.0F),
         ModelTransform.of(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F));
 
-        return TexturedModelData.of(data, 128,128);
+
+        return TexturedModelData.of(data, 128,64);
     }
 
     @Override
@@ -294,5 +298,6 @@ public class LeonardStatueModel<T extends Entity> extends EntityModel<T> {
     public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) {
         body.render(matrices, vertices, light, overlay);
         plith01.render(matrices, vertices, light, overlay);
+        wandShaft.render(matrices, vertices, light, overlay);
     }
 }

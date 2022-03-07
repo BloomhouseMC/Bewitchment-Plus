@@ -1,7 +1,19 @@
 {
-  "variants": {
-	"": {
-	  "model": "bwplus:block/statue_lilith_gold"
+	"variants": {
+		"facing=north": {
+			"model": "bwplus:block/statue_lilith_gold"
+		},
+		"facing=south": {
+			"model": "bwplus:block/statue_lilith_gold",
+			"y": 180
+		},
+		"facing=west": {
+			"model": "bwplus:block/statue_lilith_gold",
+			"y": 270
+		},
+		"facing=east": {
+			"model": "bwplus:block/statue_lilith_gold",
+			"y": 90
+		}
 	}
-  }
 }

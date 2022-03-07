@@ -1,7 +1,19 @@
 {
-  "variants": {
-	"": {
-	  "model": "bwplus:block/statue_leonard_blackstone"
+	"variants": {
+		"facing=north": {
+			"model": "bwplus:block/statue_leonard_blackstone"
+		},
+		"facing=south": {
+			"model": "bwplus:block/statue_leonard_blackstone",
+			"y": 180
+		},
+		"facing=west": {
+			"model": "bwplus:block/statue_leonard_blackstone",
+			"y": 270
+		},
+		"facing=east": {
+			"model": "bwplus:block/statue_leonard_blackstone",
+			"y": 90
+		}
 	}
-  }
 }

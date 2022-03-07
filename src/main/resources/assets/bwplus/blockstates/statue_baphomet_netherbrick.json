@@ -1,7 +1,19 @@
 {
-  "variants": {
-	"": {
-	  "model": "bwplus:block/statue_baphomet_netherbrick"
+	"variants": {
+		"facing=north": {
+			"model": "bwplus:block/statue_baphomet_netherbrick"
+		},
+		"facing=south": {
+			"model": "bwplus:block/statue_baphomet_netherbrick",
+			"y": 180
+		},
+		"facing=west": {
+			"model": "bwplus:block/statue_baphomet_netherbrick",
+			"y": 270
+		},
+		"facing=east": {
+			"model": "bwplus:block/statue_baphomet_netherbrick",
+			"y": 90
+		}
 	}
-  }
 }
