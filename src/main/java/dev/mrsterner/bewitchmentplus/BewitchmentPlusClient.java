@@ -61,7 +61,7 @@ public class BewitchmentPlusClient implements ClientModInitializer {
 		EntityModelLayerRegistry.registerModelLayer(MIMIC_LAYER, MimicBlockEntityRenderer::getTexturedModelData);
 		EntityRendererRegistry.register(BWPEntityTypes.CAMBION, CambionEntityRenderer::new);
 		EntityRendererRegistry.register(BWPEntityTypes.RUNE, RuneEntityRenderer::new);
-		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), BWPObjects.PENTACLE, BWPObjects.BLOODROOT);
+		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), BWPObjects.PENTACLE, BWPObjects.BLOODROOT, BWPObjects.EMBERGRASS);
 		GeoItemRenderer.registerItemRenderer(BWPObjects.DRAGONBLOOD_STAFF, new DragonbloodStaffRenderer());
 
 		ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> view != null && pos != null ? BiomeColors.getFoliageColor(view, pos) : FoliageColors.getDefaultColor(), BWPObjects.BLOODROOT);
