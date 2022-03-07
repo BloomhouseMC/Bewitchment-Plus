@@ -1,7 +1,6 @@
 package dev.mrsterner.bewitchmentplus.common.registry;
 
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
-import net.minecraft.item.Item;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;

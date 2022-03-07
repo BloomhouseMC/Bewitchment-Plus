@@ -1,4 +1,4 @@
-package dev.mrsterner.bewitchmentplus.mixin;
+package dev.mrsterner.bewitchmentplus.mixin.client;
 
 import com.mojang.datafixers.util.Pair;
 import dev.mrsterner.bewitchmentplus.client.shader.BWPShader;
@@ -29,4 +29,4 @@ public abstract class GameRendererMixin {
     throws IOException {
         BWPShader.init(manager, list2);
     }
-}//ResourceManager resourceManager, CallbackInfo ci, List<Program> _programsToClose, List<Pair<Shader, Consumer<Shader>>> shadersToLoad
+}

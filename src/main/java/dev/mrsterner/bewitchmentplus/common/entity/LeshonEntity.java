@@ -1,6 +1,5 @@
 package dev.mrsterner.bewitchmentplus.common.entity;
 
-import moriyashiine.bewitchment.common.entity.living.WerewolfEntity;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;

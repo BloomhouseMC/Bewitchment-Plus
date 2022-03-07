@@ -5,7 +5,7 @@ import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPEntityTypes;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPLootTables;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
-import dev.mrsterner.bewitchmentplus.mixin.MobEntityAccessor;
+import dev.mrsterner.bewitchmentplus.mixin.common.MobEntityAccessor;
 import moriyashiine.bewitchment.api.BewitchmentAPI;
 import moriyashiine.bewitchment.common.entity.living.LeonardEntity;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;

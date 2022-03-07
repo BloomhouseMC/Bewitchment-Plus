@@ -1,4 +1,4 @@
-package dev.mrsterner.bewitchmentplus.mixin;
+package dev.mrsterner.bewitchmentplus.mixin.common;
 
 
 import dev.mrsterner.bewitchmentplus.api.Magical;

@@ -1,4 +1,4 @@
-package dev.mrsterner.bewitchmentplus.mixin;
+package dev.mrsterner.bewitchmentplus.mixin.client;
 
 import dev.mrsterner.bewitchmentplus.common.registry.SpriteIdentifierRegistry;
 import net.fabricmc.api.EnvType;

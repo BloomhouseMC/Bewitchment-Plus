@@ -1,4 +1,4 @@
-package dev.mrsterner.bewitchmentplus.mixin;
+package dev.mrsterner.bewitchmentplus.mixin.common;
 
 import dev.mrsterner.bewitchmentplus.common.registry.BWPWorld;
 import net.minecraft.world.biome.GenerationSettings;

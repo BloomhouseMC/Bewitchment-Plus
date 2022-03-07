@@ -1,7 +1,7 @@
 package dev.mrsterner.bewitchmentplus.common.registry;
 
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
-import dev.mrsterner.bewitchmentplus.mixin.LootContextTypesAccessor;
+import dev.mrsterner.bewitchmentplus.mixin.common.LootContextTypesAccessor;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextType;
 import net.minecraft.util.Identifier;

@@ -1,4 +1,4 @@
-package dev.mrsterner.bewitchmentplus.mixin;
+package dev.mrsterner.bewitchmentplus.mixin.common;
 
 import net.minecraft.entity.ai.goal.GoalSelector;
 import net.minecraft.entity.mob.MobEntity;

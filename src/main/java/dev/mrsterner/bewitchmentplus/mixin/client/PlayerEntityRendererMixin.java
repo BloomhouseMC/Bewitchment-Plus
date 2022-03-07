@@ -1,16 +1,14 @@
-package dev.mrsterner.bewitchmentplus.mixin;
+package dev.mrsterner.bewitchmentplus.mixin.client;
 
 import dev.mrsterner.bewitchmentplus.api.BewitchmentPlusAPI;
 import dev.mrsterner.bewitchmentplus.common.entity.LeshonEntity;
 import dev.mrsterner.bewitchmentplus.common.item.GobletBlockItem;
-import moriyashiine.bewitchment.api.BewitchmentAPI;
 import moriyashiine.bewitchment.common.item.AthameItem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;

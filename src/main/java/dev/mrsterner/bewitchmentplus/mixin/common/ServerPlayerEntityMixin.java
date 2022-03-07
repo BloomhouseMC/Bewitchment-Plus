@@ -1,4 +1,4 @@
-package dev.mrsterner.bewitchmentplus.mixin;
+package dev.mrsterner.bewitchmentplus.mixin.common;
 
 import com.mojang.authlib.GameProfile;
 import dev.mrsterner.bewitchmentplus.common.entity.EffigyEntity;

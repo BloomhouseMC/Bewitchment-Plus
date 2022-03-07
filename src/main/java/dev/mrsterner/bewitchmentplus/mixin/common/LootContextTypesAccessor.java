@@ -1,4 +1,4 @@
-package dev.mrsterner.bewitchmentplus.mixin;
+package dev.mrsterner.bewitchmentplus.mixin.common;
 
 import net.minecraft.loot.context.LootContextType;
 import net.minecraft.loot.context.LootContextTypes;

@@ -3,7 +3,7 @@ package dev.mrsterner.bewitchmentplus.common.entity;
 import dev.mrsterner.bewitchmentplus.common.entity.ai.*;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPEntityTypes;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPTags;
-import dev.mrsterner.bewitchmentplus.mixin.MobEntityAccessor;
+import dev.mrsterner.bewitchmentplus.mixin.common.MobEntityAccessor;
 import moriyashiine.bewitchment.common.entity.living.util.BWTameableEntity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;

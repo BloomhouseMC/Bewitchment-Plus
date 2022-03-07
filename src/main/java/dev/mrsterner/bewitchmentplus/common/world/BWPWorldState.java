@@ -4,7 +4,6 @@ import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Pair;
 import net.minecraft.world.PersistentState;
 import net.minecraft.world.World;

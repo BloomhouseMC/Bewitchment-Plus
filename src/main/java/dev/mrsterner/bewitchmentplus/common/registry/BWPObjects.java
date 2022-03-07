@@ -27,26 +27,28 @@ public class BWPObjects {
 	private static final Map<Item, Identifier> ITEMS = new LinkedHashMap<>();
 
 	//ITEMS
-	public static final Item MOONLIGHT_INFUSION = register("moonlight_infusion", new Item(gen().recipeRemainder(Items.GLASS_BOTTLE)));
-	public static final Item ENDER_INFUSION = register("ender_vial", new Item(gen().recipeRemainder(Items.GLASS_BOTTLE)));//0x70922d
-	public static final Item DRAGONBLOOD_STAFF = register("dragonblood_staff", new DragonbloodStaffItem(200, gen().maxCount(1).rarity(Rarity.RARE)));
+
 	public static final Item BLOODROOT_ITEM = register("bloodroot_item", new Item(gen()));
 	public static final Item SOUL = register("soul", new Item(gen()));
 	public static final Item MUTANDIS = register("mutandis", new MutandisItem(gen()));
 	public static final Item MUTANDIS_BREW = register("mutandis_brew", new MutandisBrew(gen()));
+	public static final Item MOONLIGHT_INFUSION = register("moonlight_infusion", new Item(gen().recipeRemainder(Items.GLASS_BOTTLE)));
+	public static final Item ENDER_INFUSION = register("ender_vial", new Item(gen().recipeRemainder(Items.GLASS_BOTTLE)));//0x70922d
+	public static final Item DRAGONBLOOD_STAFF = register("dragonblood_staff", new DragonbloodStaffItem(200, gen().maxCount(1).rarity(Rarity.RARE)));
+
 	public static final Item BLACK_DOG_SPAWN_EGG = register("black_dog_spawn_egg", new SpawnEggItem(BWPEntityTypes.BLACK_DOG, 0x000000, 0x343434, new Item.Settings().group(ItemGroup.MISC)));
 	public static final Item CAMBION_SPAWN_EGG = register("cambion_spawn_egg",new SpawnEggItem(BWPEntityTypes.CAMBION,  0xE34234, 0x343434, new Item.Settings().group(ItemGroup.MISC)));
-	public static final Item MUSIC_DISC_PETALS = register("music_disc_petals", new BWPMusicDisc(7, BWPSounds.MUSIC_DISC_PETALS, gen().maxCount(1).rarity(Rarity.RARE)));
+	public static final Item MUSIC_DISC_PETALS = register("music_disc_petals", new BWPMusicDisc(7, BWPSounds.MUSIC_DISC_PETALS, new Item.Settings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.RARE)));
 
 	//BLOCKS
 	public static final Block SILVER_GOBLET = registerGoblet("silver_goblet", new GobletBlock(copyOf(BWObjects.SILVER_BLOCK)));
 	public static final Block GOLD_GOBLET = registerGoblet("gold_goblet", new GobletBlock(copyOf(Blocks.GOLD_BLOCK)));
 	public static final Block NETHERITE_GOBLET = registerGoblet("netherite_goblet", new GobletBlock(copyOf(Blocks.NETHERITE_BLOCK)));
-	public static final Block PENTACLE = register("pentacle", new PentacleBlock(copyOf(BWObjects.SILVER_BLOCK)), true);
-	public static final Block BLOODROOT = register("bloodroot", new BWPPlantBlock(FabricBlockSettings.of(Material.PLANT).sounds(BlockSoundGroup.BAMBOO_SAPLING).strength(0.3F).nonOpaque().breakInstantly().dynamicBounds()), false);
-	public static final Block MOONFLOWER = register("moonflower", new MoonflowerBlock(copyOf(Blocks.STONE)), false);
-	public static final Block MIMIC_CHEST = register("mimic_chest", new MimicChestBlock(FabricBlockSettings.of(Material.WOOD).strength(2.5F).sounds(BlockSoundGroup.WOOD)), true);
-	public static final Block EMBERGRASS = register("embergrass", new BWPPlantBlock(copyOf(Blocks.GRASS)), true);
+	public static final Block PENTACLE = register("pentacle", new PentacleBlock(copyOf(BWObjects.SILVER_BLOCK)), true, gen());
+	public static final Block BLOODROOT = register("bloodroot", new BWPPlantBlock(FabricBlockSettings.of(Material.PLANT).sounds(BlockSoundGroup.BAMBOO_SAPLING).strength(0.3F).nonOpaque().breakInstantly().dynamicBounds()),false, gen());
+	public static final Block MOONFLOWER = register("moonflower", new MoonflowerBlock(copyOf(Blocks.STONE)), false, gen());
+	public static final Block MIMIC_CHEST = register("mimic_chest", new MimicChestBlock(FabricBlockSettings.of(Material.WOOD).strength(2.5F).sounds(BlockSoundGroup.WOOD)), true, gen());
+	public static final Block EMBERGRASS = register("embergrass", new BWPPlantBlock(copyOf(Blocks.GRASS)), true, gen());
 
 	public static final Block WHITE_FLEECE = registerFleece("white_witch_wool", DyeColor.WHITE, false);
 	public static final Block ORANGE_FLEECE = registerFleece("orange_witch_wool", DyeColor.ORANGE, false);
@@ -107,10 +109,10 @@ public class BWPObjects {
 		return block;
 	}
 
-	private static <T extends Block> T register(String name, T block, boolean createItem) {
+	private static <T extends Block> T register(String name, T block, boolean createItem, Item.Settings settings) {
 		BLOCKS.put(block, new Identifier(BewitchmentPlus.MODID, name));
 		if (createItem) {
-			ITEMS.put(new BlockItem(block, gen()), BLOCKS.get(block));
+			ITEMS.put(new BlockItem(block, settings), BLOCKS.get(block));
 		}
 		return block;
 	}

@@ -79,6 +79,9 @@
     "bewitchment:fruiting_bramble",
     "bewitchment:scorched_bramble",
     "bewitchment:thick_bramble",
-    "bewitchment:fleeting_bramble"
+    "bewitchment:fleeting_bramble",
+
+    "bwplus:embergrass",
+    "bwplus:bloodroot"
   ]
 }

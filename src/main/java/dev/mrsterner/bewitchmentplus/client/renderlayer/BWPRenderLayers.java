@@ -2,7 +2,7 @@ package dev.mrsterner.bewitchmentplus.client.renderlayer;
 
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import dev.mrsterner.bewitchmentplus.client.shader.BWPShader;
-import dev.mrsterner.bewitchmentplus.mixin.RenderLayerAccessor;
+import dev.mrsterner.bewitchmentplus.mixin.client.RenderLayerAccessor;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderPhase;
 import net.minecraft.client.render.VertexFormat;

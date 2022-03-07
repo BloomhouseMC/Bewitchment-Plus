@@ -7,8 +7,6 @@ import dev.mrsterner.bewitchmentplus.common.registry.BWPTransformations;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
 public class BewitchmentPlusAPI {
     private static LeshonEntity entity;
 
