@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "bwplus:yew_log",
+    "bwplus:yew_wood",
+    "bwplus:stripped_yew_log",
+    "bwplus:stripped_yew_wood"
+  ]
+}

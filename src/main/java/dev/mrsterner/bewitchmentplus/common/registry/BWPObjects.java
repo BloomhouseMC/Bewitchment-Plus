@@ -2,13 +2,13 @@ package dev.mrsterner.bewitchmentplus.common.registry;
 
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import dev.mrsterner.bewitchmentplus.common.block.*;
+import dev.mrsterner.bewitchmentplus.common.block.yew.*;
 import dev.mrsterner.bewitchmentplus.common.item.*;
+import dev.mrsterner.bewitchmentplus.common.world.generator.tree.YewSaplingGenerator;
+import dev.mrsterner.bewitchmentplus.mixin.common.BlocksMixin;
 import moriyashiine.bewitchment.common.registry.BWObjects;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.CarpetBlock;
-import net.minecraft.block.Material;
+import net.minecraft.block.*;
 import net.minecraft.item.*;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.DyeColor;
@@ -40,6 +40,8 @@ public class BWPObjects {
 	public static final Item CAMBION_SPAWN_EGG = register("cambion_spawn_egg",new SpawnEggItem(BWPEntityTypes.CAMBION,  0xE34234, 0x343434, new Item.Settings().group(ItemGroup.MISC)));
 	public static final Item MUSIC_DISC_PETALS = register("music_disc_petals", new BWPMusicDisc(7, BWPSounds.MUSIC_DISC_PETALS, new Item.Settings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.RARE)));
 
+	
+	
 	//BLOCKS
 	public static final Block SILVER_GOBLET = registerGoblet("silver_goblet", new GobletBlock(copyOf(BWObjects.SILVER_BLOCK)));
 	public static final Block GOLD_GOBLET = registerGoblet("gold_goblet", new GobletBlock(copyOf(Blocks.GOLD_BLOCK)));
@@ -50,6 +52,30 @@ public class BWPObjects {
 	public static final Block MIMIC_CHEST = register("mimic_chest", new MimicChestBlock(FabricBlockSettings.of(Material.WOOD).strength(2.5F).sounds(BlockSoundGroup.WOOD)), true, gen());
 	public static final Block EMBERGRASS = register("embergrass", new BWPPlantBlock(copyOf(Blocks.GRASS)), true, gen());
 
+	public static final Block STRIPPED_YEW_LOG = register("stripped_yew_log", new PillarBlock(copyOf(Blocks.OAK_LOG)), true);
+	public static final Block STRIPPED_YEW_WOOD = register("stripped_yew_wood", new PillarBlock(copyOf(STRIPPED_YEW_LOG)), true);
+	public static final Block YEW_LOG = register("yew_log", new YewLogBlock(() -> STRIPPED_YEW_LOG, MapColor.BROWN, copyOf(STRIPPED_YEW_LOG)), true);
+	public static final Block YEW_WOOD = register("yew_wood", new YewLogBlock(() -> STRIPPED_YEW_WOOD, MapColor.BROWN, copyOf(STRIPPED_YEW_LOG)), true);
+	public static final Block YEW_PLANKS = register("yew_planks", new Block(copyOf(Blocks.OAK_PLANKS)), true);
+	public static final Block YEW_STAIRS = register("yew_stairs", new YewStairsBlock(YEW_PLANKS, copyOf(Blocks.OAK_STAIRS)), true);
+	public static final Block YEW_SLAB = register("yew_slab", new SlabBlock(copyOf(Blocks.OAK_SLAB)), true);
+	public static final Block YEW_FENCE = register("yew_fence", new FenceBlock(copyOf(Blocks.OAK_FENCE)), true);
+	public static final Block YEW_FENCE_GATE = register("yew_fence_gate", new FenceGateBlock(copyOf(Blocks.OAK_FENCE_GATE)), true);
+	public static final Block YEW_LEAVES = register("yew_leaves", BlocksMixin.callCreateLeavesBlock(BlockSoundGroup.GRASS), true);
+	public static final Block YEW_SAPLING = register("yew_sapling", new YewSaplingBlock(new YewSaplingGenerator(), copyOf(Blocks.OAK_SAPLING)), true);
+	public static final Block POTTED_YEW_SAPLING = register("potted_yew_sapling", new FlowerPotBlock(YEW_SAPLING, copyOf(Blocks.POTTED_OAK_SAPLING)), false);
+	public static final Block YEW_PRESSURE_PLATE = register("yew_pressure_plate", new YewPressurePlateBlock(copyOf(Blocks.OAK_PRESSURE_PLATE)), true);
+	public static final Block YEW_BUTTON = register("yew_button", new YewButtonBlock(copyOf(Blocks.OAK_BUTTON)), true);
+	public static final Block YEW_TRAPDOOR = register("yew_trapdoor", new YewTrapdoorBlock(copyOf(Blocks.OAK_TRAPDOOR)), true);
+	public static final Block YEW_DOOR = register("yew_door", new YewDoorBlock(copyOf(Blocks.OAK_DOOR)), false);
+	public static final Item YEW_DOOR_ITEM = register("yew_door", new TallBlockItem(YEW_DOOR, gen()));
+	public static final Block YEW_CHEST = register("yew_chest", new YewChestBlock(copyOf(Blocks.CHEST), () -> BWPBlockEntityTypes.YEW_CHEST_BLOCK_ENTITY, false), true);
+	public static final Block TRAPPED_YEW_CHEST = register("trapped_yew_chest", new YewChestBlock(copyOf(Blocks.CHEST), () -> BWPBlockEntityTypes.YEW_CHEST_BLOCK_ENTITY, true), true);
+	private static final Identifier YEW_SIGN_TEXTURE = new Identifier(BewitchmentPlus.MODID, "entity/sign/yew");
+	public static final YewSignBlock YEW_SIGN = register("yew_sign", new YewSignBlock(YEW_SIGN_TEXTURE, copyOf(Blocks.OAK_SIGN)), false);
+	public static final Block YEW_WALL_SIGN = register("yew_wall_sign", new YewWallSignBlock(YEW_SIGN_TEXTURE, copyOf(Blocks.OAK_WALL_SIGN)), false);
+	public static final Item YEW_SIGN_ITEM = register("yew_sign", new SignItem(gen().maxCount(16), YEW_SIGN, YEW_WALL_SIGN));
+	
 	public static final Block LILITH_STATUE_BLACKSTONE = registerStatue("statue_lilith_blackstone", new StatueBlock(FabricBlockSettings.of(Material.STONE).strength(2.5F).sounds(BlockSoundGroup.STONE)));
 	public static final Block LILITH_STATUE_GOLD = registerStatue("statue_lilith_gold", new StatueBlock(FabricBlockSettings.of(Material.STONE).strength(2.5F).sounds(BlockSoundGroup.STONE)));
 	public static final Block LILITH_STATUE_NETHERBRICK = registerStatue("statue_lilith_netherbrick", new StatueBlock(FabricBlockSettings.of(Material.STONE).strength(2.5F).sounds(BlockSoundGroup.STONE)));
@@ -136,6 +162,14 @@ public class BWPObjects {
 		BLOCKS.put(block, new Identifier(BewitchmentPlus.MODID, name));
 		if (createItem) {
 			ITEMS.put(new BlockItem(block, settings), BLOCKS.get(block));
+		}
+		return block;
+	}
+
+	public static <T extends Block> T register(String name, T block, boolean createItem) {
+		BLOCKS.put(block, new Identifier(BewitchmentPlus.MODID, name));
+		if (createItem) {
+			ITEMS.put(new BlockItem(block, gen()), BLOCKS.get(block));
 		}
 		return block;
 	}

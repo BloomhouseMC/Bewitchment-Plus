@@ -4,12 +4,17 @@
   "package": "dev.mrsterner.bewitchmentplus.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "common.BlockEntityTypeMixin",
+    "common.BlocksMixin",
     "common.DefaultBiomeFeaturesMixin",
     "common.IronGolemTargetingMixin",
     "common.LootContextTypesAccessor",
     "common.MobEntityAccessor",
     "common.PlayerEntityMixin",
     "common.ServerPlayerEntityMixin",
+    "common.SignBlockEntityRendererMixin",
+    "common.SimpleBlockStateProviderMixin",
+    "common.TexturedRenderLayersMixin",
     "common.VillagerBreedTaskMixin"
   ],
   "client": [
@@ -18,6 +23,7 @@
     "client.MinecraftClientMixin",
     "client.PlayerEntityRendererMixin",
     "client.RenderLayerAccessor",
+    "client.SignEditScreenMixin",
     "client.TexturedRenderLayersMixin"
   ],
   "injectors": {

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "bwplus:block/yew_slab"
+    },
+    "type=double": {
+      "model": "bwplus:block/yew_planks"
+    },
+    "type=top": {
+      "model": "bwplus:block/yew_slab_top"
+    }
+  }
+}

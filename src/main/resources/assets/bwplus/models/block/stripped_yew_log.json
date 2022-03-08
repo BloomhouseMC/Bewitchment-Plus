@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "bwplus:block/stripped_yew_log_top",
+    "side": "bwplus:block/stripped_yew_log"
+  }
+}

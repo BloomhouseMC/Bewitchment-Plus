@@ -5,6 +5,7 @@ import dev.mrsterner.bewitchmentplus.client.model.entity.CambionEntityModel;
 import dev.mrsterner.bewitchmentplus.client.renderer.*;
 import dev.mrsterner.bewitchmentplus.client.renderer.entity.*;
 import dev.mrsterner.bewitchmentplus.client.renderer.StatueRenderer;
+import dev.mrsterner.bewitchmentplus.common.block.yew.YewChestBlockEntity;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPBlockEntityTypes;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPEntityTypes;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
@@ -21,6 +22,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.color.world.FoliageColors;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.block.entity.ChestBlockEntityRenderer;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.screen.PlayerScreenHandler;
@@ -29,6 +31,8 @@ import net.minecraft.util.math.BlockPos;
 import software.bernie.geckolib3.renderers.geo.GeoItemRenderer;
 
 import static dev.mrsterner.bewitchmentplus.client.renderer.MimicBlockEntityRenderer.MIMIC_LAYER;
+import static dev.mrsterner.bewitchmentplus.common.registry.BWPObjects.TRAPPED_YEW_CHEST;
+import static dev.mrsterner.bewitchmentplus.common.registry.BWPObjects.YEW_CHEST;
 
 
 public class BewitchmentPlusClient implements ClientModInitializer {
@@ -46,6 +50,13 @@ public class BewitchmentPlusClient implements ClientModInitializer {
 		BlockEntityRendererRegistry.register(BWPBlockEntityTypes.STATUE_BLOCK_ENTITY, ctx -> new StatueRenderer());
 		BlockEntityRendererRegistry.register(BWPBlockEntityTypes.MOONFLOWER_BLOCK_ENTITY, ctx -> new MoonflowerBlockEntityRenderer());
 		BlockEntityRendererRegistry.register(BWPBlockEntityTypes.MIMIC_CHEST_BLOCK_ENTITY, MimicBlockEntityRenderer::new);
+		BlockEntityRendererRegistry.register(BWPBlockEntityTypes.YEW_CHEST_BLOCK_ENTITY, ChestBlockEntityRenderer::new);
+		SpriteIdentifierRegistry.INSTANCE.addIdentifier(SpriteIdentifierRegistry.YEW_CHEST);
+		SpriteIdentifierRegistry.INSTANCE.addIdentifier(SpriteIdentifierRegistry.TRAPPED_YEW_CHEST);
+		SpriteIdentifierRegistry.INSTANCE.addIdentifier(SpriteIdentifierRegistry.YEW_CHEST_LEFT);
+		SpriteIdentifierRegistry.INSTANCE.addIdentifier(SpriteIdentifierRegistry.TRAPPED_YEW_CHEST_LEFT);
+		SpriteIdentifierRegistry.INSTANCE.addIdentifier(SpriteIdentifierRegistry.YEW_CHEST_RIGHT);
+		SpriteIdentifierRegistry.INSTANCE.addIdentifier(SpriteIdentifierRegistry.TRAPPED_YEW_CHEST_RIGHT);
 		SpriteIdentifierRegistry.INSTANCE.addIdentifier(GobletBlockItemRenderer.BLOOD);
 		SpriteIdentifierRegistry.INSTANCE.addIdentifier(GobletBlockItemRenderer.HONEY);
 		SpriteIdentifierRegistry.INSTANCE.addIdentifier(MimicBlockEntityRenderer.MIMIC_SPRITE);
@@ -59,8 +70,10 @@ public class BewitchmentPlusClient implements ClientModInitializer {
 		EntityModelLayerRegistry.registerModelLayer(MIMIC_LAYER, MimicBlockEntityRenderer::getTexturedModelData);
 		EntityRendererRegistry.register(BWPEntityTypes.CAMBION, CambionEntityRenderer::new);
 		EntityRendererRegistry.register(BWPEntityTypes.RUNE, RuneEntityRenderer::new);
-		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), BWPObjects.PENTACLE, BWPObjects.BLOODROOT, BWPObjects.EMBERGRASS);
+		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), BWPObjects.PENTACLE, BWPObjects.BLOODROOT, BWPObjects.EMBERGRASS, BWPObjects.YEW_SAPLING, BWPObjects.YEW_DOOR, BWPObjects.YEW_TRAPDOOR);
 		GeoItemRenderer.registerItemRenderer(BWPObjects.DRAGONBLOOD_STAFF, new DragonbloodStaffRenderer());
+		BuiltinItemRendererRegistry.INSTANCE.register(YEW_CHEST, (stack, mode, matrices, vertexConsumers, light, overlay) -> MinecraftClient.getInstance().getBlockEntityRenderDispatcher().renderEntity(new YewChestBlockEntity(BWPBlockEntityTypes.YEW_CHEST_BLOCK_ENTITY, BlockPos.ORIGIN, YEW_CHEST.getDefaultState(), YewChestBlockEntity.Type.YEW, false), matrices, vertexConsumers, light, overlay));
+		BuiltinItemRendererRegistry.INSTANCE.register(TRAPPED_YEW_CHEST, (stack, mode, matrices, vertexConsumers, light, overlay) -> MinecraftClient.getInstance().getBlockEntityRenderDispatcher().renderEntity(new YewChestBlockEntity(BWPBlockEntityTypes.YEW_CHEST_BLOCK_ENTITY, BlockPos.ORIGIN, YEW_CHEST.getDefaultState(), YewChestBlockEntity.Type.YEW, true), matrices, vertexConsumers, light, overlay));
 
 		ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> view != null && pos != null ? BiomeColors.getFoliageColor(view, pos) : FoliageColors.getDefaultColor(), BWPObjects.BLOODROOT, BWPObjects.EMBERGRASS);
 
