@@ -1,5 +1,6 @@
 package dev.mrsterner.bewitchmentplus.mixin.client;
 
+import com.terraformersmc.terraform.sign.TerraformSign;
 import dev.mrsterner.bewitchmentplus.common.block.yew.YewSign;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -22,8 +23,8 @@ public class SignEditScreenMixin {
 
     @ModifyVariable(method = "render", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/client/render/TexturedRenderLayers;getSignTextureId(Lnet/minecraft/util/SignType;)Lnet/minecraft/client/util/SpriteIdentifier;"))
     private SpriteIdentifier getSignTextureId(SpriteIdentifier spriteIdentifier) {
-        if (sign.getCachedState().getBlock() instanceof YewSign) {
-            return new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, ((YewSign) sign.getCachedState().getBlock()).getTexture());
+        if (sign.getCachedState().getBlock() instanceof TerraformSign) {
+            return new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, ((TerraformSign) sign.getCachedState().getBlock()).getTexture());
         }
         return spriteIdentifier;
     }

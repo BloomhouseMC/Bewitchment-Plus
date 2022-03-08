@@ -1,7 +1,7 @@
 package dev.mrsterner.bewitchmentplus.mixin.common;
 
-import com.terraformersmc.terraform.sign.SpriteIdentifierRegistry;
 import dev.mrsterner.bewitchmentplus.common.block.yew.YewChestBlockEntity;
+import dev.mrsterner.bewitchmentplus.common.registry.SpriteIdentifierRegistry;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.enums.ChestType;
 import net.minecraft.client.render.TexturedRenderLayers;

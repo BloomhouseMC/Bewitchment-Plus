@@ -15,6 +15,7 @@
     "common.SignBlockEntityRendererMixin",
     "common.SimpleBlockStateProviderMixin",
     "common.TexturedRenderLayersMixin",
+    "common.TogglePressingForwardPacketMixin",
     "common.VillagerBreedTaskMixin"
   ],
   "client": [
