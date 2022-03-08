@@ -23,6 +23,9 @@ public class BWPEntityTypes {
 	public static final EntityType<PhoenixEntity> PHOENIX = register("phoenix", PhoenixEntity.createAttributes(), FabricEntityTypeBuilder.createMob().spawnGroup(SpawnGroup.CREATURE).entityFactory(PhoenixEntity::new).dimensions(EntityDimensions.changing(0.5f, 0.5f)).build());
 	public static final EntityType<EffigyEntity> EFFIGY = register("effigy", EffigyEntity.createAttributes(), FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, EffigyEntity::new).dimensions(EntityDimensions.fixed(0.6F, 1.8F)).build());
 	public static final EntityType<LeshonEntity> LESHON = register("leshon", LeshonEntity.createAttributes(), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, LeshonEntity::new).dimensions(EntityDimensions.fixed(1f, 3f)).build());
+	public static final EntityType<YewBroomEntity> YEW_BROOM = register("yew_broom", FabricEntityTypeBuilder.create(SpawnGroup.MISC, YewBroomEntity::new).dimensions(EntityType.ARROW.getDimensions()).build());
+
+
 
 	public static final EntityType<RuneEntity> RUNE = register("rune", FabricEntityTypeBuilder.create(SpawnGroup.MISC, RuneEntity::new).dimensions(EntityDimensions.fixed(0F, 0F)).build());
 

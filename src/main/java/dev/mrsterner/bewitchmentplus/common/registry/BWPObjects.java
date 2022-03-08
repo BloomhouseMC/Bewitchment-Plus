@@ -6,6 +6,7 @@ import dev.mrsterner.bewitchmentplus.common.block.yew.*;
 import dev.mrsterner.bewitchmentplus.common.item.*;
 import dev.mrsterner.bewitchmentplus.common.world.generator.tree.YewSaplingGenerator;
 import dev.mrsterner.bewitchmentplus.mixin.common.BlocksMixin;
+import moriyashiine.bewitchment.api.item.BroomItem;
 import moriyashiine.bewitchment.common.registry.BWObjects;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
@@ -39,7 +40,7 @@ public class BWPObjects {
 	public static final Item BLACK_DOG_SPAWN_EGG = register("black_dog_spawn_egg", new SpawnEggItem(BWPEntityTypes.BLACK_DOG, 0x000000, 0x343434, new Item.Settings().group(ItemGroup.MISC)));
 	public static final Item CAMBION_SPAWN_EGG = register("cambion_spawn_egg",new SpawnEggItem(BWPEntityTypes.CAMBION,  0xE34234, 0x343434, new Item.Settings().group(ItemGroup.MISC)));
 	public static final Item MUSIC_DISC_PETALS = register("music_disc_petals", new BWPMusicDisc(7, BWPSounds.MUSIC_DISC_PETALS, new Item.Settings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.RARE)));
-
+	public static final Item YEW_BROOM = register("yew_broom", new BroomItem(gen().maxCount(1), BWPEntityTypes.YEW_BROOM));
 	
 	
 	//BLOCKS
