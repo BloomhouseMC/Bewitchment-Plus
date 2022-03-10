@@ -25,7 +25,7 @@ public class BWPBlockEntityTypes {
     public static final BlockEntityType<MimicChestBlockEntity> MIMIC_CHEST_BLOCK_ENTITY = register("mimic_chest_block_entity", FabricBlockEntityTypeBuilder.create(MimicChestBlockEntity::new, MIMIC_CHEST).build(null));
     public static final BlockEntityType<StatueBlockEntity> STATUE_BLOCK_ENTITY = register("statue_block_entity", FabricBlockEntityTypeBuilder.create(StatueBlockEntity::new, LILITH_STATUE_BLACKSTONE, LILITH_STATUE_GOLD, LILITH_STATUE_NETHERBRICK, HERNE_STATUE_BLACKSTONE, HERNE_STATUE_GOLD, HERNE_STATUE_NETHERBRICK, LEONARD_STATUE_BLACKSTONE, LEONARD_STATUE_GOLD,LEONARD_STATUE_NETHERBRICK, BAPHOMET_STATUE_BLACKSTONE, BAPHOMET_STATUE_GOLD, BAPHOMET_STATUE_NETHERBRICK).build(null));
     public static final BlockEntityType<YewChestBlockEntity> YEW_CHEST_BLOCK_ENTITY = register("yew_chest", FabricBlockEntityTypeBuilder.create(YewChestBlockEntity::new, BWPObjects.YEW_CHEST, BWPObjects.TRAPPED_YEW_CHEST).build(null));
-
+    public static final BlockEntityType<LeechChestBlockEntity> LEECH_CHEST_BLOCK_ENTITY = register("leech_chest", FabricBlockEntityTypeBuilder.create(LeechChestBlockEntity::new, LEECH_CHEST).build(null));
 
     private static <T extends BlockEntity> BlockEntityType<T> register(String name, BlockEntityType<T> type) {
         BLOCK_ENTITY_TYPES.put(type, new Identifier(BewitchmentPlus.MODID, name));

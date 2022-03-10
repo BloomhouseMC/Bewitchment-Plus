@@ -26,7 +26,7 @@ public class SpriteIdentifierRegistry {
     public static final SpriteIdentifier TRAPPED_YEW_CHEST_LEFT = new SpriteIdentifier(CHEST_ATLAS_TEXTURE, new Identifier(BewitchmentPlus.MODID, "entity/chest/trapped_yew_left"));
     public static final SpriteIdentifier YEW_CHEST_RIGHT = new SpriteIdentifier(CHEST_ATLAS_TEXTURE, new Identifier(BewitchmentPlus.MODID, "entity/chest/yew_right"));
     public static final SpriteIdentifier TRAPPED_YEW_CHEST_RIGHT = new SpriteIdentifier(CHEST_ATLAS_TEXTURE, new Identifier(BewitchmentPlus.MODID, "entity/chest/trapped_yew_right"));
-
+    public static final SpriteIdentifier LEECH_CHEST = new SpriteIdentifier(CHEST_ATLAS_TEXTURE, new Identifier(BewitchmentPlus.MODID, "entity/chest/leech"));
 
     public static final SpriteIdentifierRegistry INSTANCE = new SpriteIdentifierRegistry();
     private final List<SpriteIdentifier> identifiers = new ArrayList<>();
