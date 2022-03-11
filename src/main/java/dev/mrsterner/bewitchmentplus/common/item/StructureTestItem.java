@@ -1,5 +1,6 @@
 package dev.mrsterner.bewitchmentplus.common.item;
 
+import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.StructureBlockBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -27,9 +28,9 @@ public class StructureTestItem extends Item {
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
         if((context.getWorld() instanceof ServerWorld serverWorld)){
-            Optional<Structure> structureOptional =  serverWorld.getStructureManager().getStructure(new Identifier("yew_tree1"));
+            Optional<Structure> structureOptional =  serverWorld.getStructureManager().getStructure(new Identifier(BewitchmentPlus.MODID, "features/trees/yew_tree1"));
             System.out.println(structureOptional);
-            System.out.println(new Identifier("yew_tree1"));
+            System.out.println(new Identifier(BewitchmentPlus.MODID, "features/trees/yew_tree1"));
             if(structureOptional.isPresent()) {
                 Structure structure = structureOptional.get();
                 StructurePlacementData spd = new StructurePlacementData().setMirror(BlockMirror.FRONT_BACK).setRotation(BlockRotation.NONE).setIgnoreEntities(false);
