@@ -14,6 +14,7 @@
   "block.bwplus.silver_goblet": "Silver Goblet",
   "block.bwplus.snetherite_goblet": "Netherite Goblet",
   "block.bwplus.gold_goblet": "Gold Goblet",
+  "block.bwplus.leech_chest": "Leech Chest",
 
   "block.bwplus.red_witch_wool": "Red Fleece",
   "block.bwplus.green_witch_wool": "Green Fleece",
@@ -49,5 +50,10 @@
   "block.bwplus.white_witch_wool_carpet": "White Fleece Carpet",
 
   "block.bwplus.rgb_witch_wool": "1337Fleece",
-  "block.bwplus.rgb_witch_wool_carpet": "1337Fleece Carpet"
+  "block.bwplus.rgb_witch_wool_carpet": "1337Fleece Carpet",
+
+  "container.bwplus.leech_chest": "Leech Chest",
+
+  "text.bwplus.no_taglock": "No Taglock Sample Found!",
+  "text.bwplus.whitelist": "Successfully Whitelisted Entity"
 }
