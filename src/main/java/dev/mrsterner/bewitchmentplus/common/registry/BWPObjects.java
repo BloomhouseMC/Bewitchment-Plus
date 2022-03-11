@@ -42,7 +42,8 @@ public class BWPObjects {
 	public static final Item MUSIC_DISC_PETALS = register("music_disc_petals", new BWPMusicDisc(7, BWPSounds.MUSIC_DISC_PETALS, new Item.Settings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.RARE)));
 	public static final Item YEW_BROOM = register("yew_broom", new BroomItem(gen().maxCount(1), BWPEntityTypes.YEW_BROOM));
 	public static final Item LESHON_SKULL = register("leshon_skull", new LeshonSkullItem(gen()));
-	
+
+	public static final Item TEST_ITEM = register("test_item", new StructureTestItem(gen()));
 	
 	//BLOCKS
 	public static final Block SILVER_GOBLET = registerGoblet("silver_goblet", new GobletBlock(copyOf(BWObjects.SILVER_BLOCK)));
