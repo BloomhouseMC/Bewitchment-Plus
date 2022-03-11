@@ -89,7 +89,7 @@ public class RuneEntityRenderer extends EntityRenderer<RuneEntity> {
                 matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(90));
                 matrices.scale(!entity.getExpansion() ? 20 : 20 + (float)entity.getExpansionTick(), !entity.getExpansion() ? 20 : 20 + (float)entity.getExpansionTick(), !entity.getExpansion() ? 20 : 20 + (float)entity.getExpansionTick());
                 Matrix4f matrix4f = matrices.peek().getPositionMatrix();
-                renderLayer(getTexture(i % 5 + 1), matrix4f, provider, 1,1,light, OverlayTexture.DEFAULT_UV, new float[]{1F, 1F, 1F, 1F});
+                renderLayer(getTexture(i % 15 + 1), matrix4f, provider, 1,1,light, OverlayTexture.DEFAULT_UV, new float[]{1F, 1F, 1F, 1F});
                 if(radiusBase % 80 >= 50){
                     //entity.world.addParticle(ParticleTypes.DRIPPING_HONEY, entity.getX()+(x/10),entity.getY(),entity.getZ()+(z/10),0,0,0);
                 }

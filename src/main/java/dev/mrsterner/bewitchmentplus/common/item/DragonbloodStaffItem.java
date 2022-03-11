@@ -18,10 +18,10 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.network.GeckoLibNetwork;
 import software.bernie.geckolib3.network.ISyncable;
 import software.bernie.geckolib3.util.GeckoLibUtil;
-public class DragonbloodStaffItem extends Item  implements IAnimatable, ISyncable {
+public class DragonbloodStaffItem extends Item implements IAnimatable, ISyncable {
     public AnimationFactory factory = new AnimationFactory(this);
     private final int maxStorage;
-    private int storedPower;
+    private int storedPower = 0;
     public DragonbloodStaffItem(int maxStorage, Settings settings) {
         super(settings);
         this.maxStorage = maxStorage;
@@ -35,9 +35,8 @@ public class DragonbloodStaffItem extends Item  implements IAnimatable, ISyncabl
             if(itemStack.getItem() instanceof DragonbloodStaffItem){
                 AnimationController controller = GeckoLibUtil.getControllerForStack(this.factory, user.getStackInHand(hand), "controller");
                 String animationName = controller.getCurrentAnimation().animationName;
-                int mode = Integer.parseInt(animationName.substring(animationName.length()-1));
-                if(mode>=6)mode=1;
-                mode++;
+                int mode = Integer.parseInt(animationName.substring(animationName.length() - 1));
+                mode = mode >= 6 ? 1 : mode + 1;
                 itemStack.getOrCreateNbt().putInt("mode", mode);
                 final int id = GeckoLibUtil.guaranteeIDForStack(user.getStackInHand(hand), (ServerWorld) world);
                 GeckoLibNetwork.syncAnimation(user, this, id, mode);
@@ -48,6 +47,8 @@ public class DragonbloodStaffItem extends Item  implements IAnimatable, ISyncabl
         }
         return super.use(world, user, hand);
     }
+
+
 
     private <P extends Item & IAnimatable> PlayState predicate(AnimationEvent<P> event) {
         if(event.getController().getCurrentAnimation() == null){
