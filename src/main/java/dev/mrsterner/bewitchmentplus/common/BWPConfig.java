@@ -46,9 +46,9 @@ public class BWPConfig implements ConfigData {
 		@ConfigEntry.Gui.RequiresRestart
 		public final boolean cambionNetherFortressStructureSpawn = true;
 
-		@ConfigEntry.Gui.RequiresRestart
-		@ConfigEntry.BoundedDiscrete(max = 10, min = 1)
-		public final int yewTreeWeight = 1;
+		@ConfigEntry.Gui.Tooltip
+		@ConfigEntry.BoundedDiscrete(max = 100, min = 1)
+		public final int yewTreeWeight = 25;
 	}
 
 }

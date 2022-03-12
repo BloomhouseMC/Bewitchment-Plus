@@ -73,5 +73,9 @@
   "text.autoconfig.bwplus.option.world.blackDogStructureSpawn": "Black dog spawn in structures",
   "text.autoconfig.bwplus.option.world.cambionVillageStructureSpawn": "Cambion spawn in villages",
   "text.autoconfig.bwplus.option.world.cambionBastionStructureSpawn": "Cambion spawn in bastions",
-  "text.autoconfig.bwplus.option.world.cambionNetherFortressStructureSpawn": "Cambion spawn in nether fortress"
+  "text.autoconfig.bwplus.option.world.cambionNetherFortressStructureSpawn": "Cambion spawn in nether fortress",
+
+  "text.autoconfig.bwplus.option.world.yewTreeWeight": "Yew tree spawn weight",
+  "text.autoconfig.bwplus.option.world.yewTreeWeight.@Tooltip": "Higher value decreases amount of trees"
+
 }
