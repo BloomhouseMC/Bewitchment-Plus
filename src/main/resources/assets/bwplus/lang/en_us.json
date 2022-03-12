@@ -55,5 +55,23 @@
   "container.bwplus.leech_chest": "Leech Chest",
 
   "text.bwplus.no_taglock": "No Taglock Sample Found!",
-  "text.bwplus.whitelist": "Successfully Whitelisted Entity"
+  "text.bwplus.whitelist": "Successfully Whitelisted Entity",
+
+  "text.autoconfig.bwplus.option.entities": "Entities",
+  "text.autoconfig.bwplus.option.world": "World",
+
+  "text.autoconfig.bwplus.option.entities.blackDogBiomeCategories": "Black dog Biome Categories",
+  "text.autoconfig.bwplus.option.entities.blackDogWeight": "Black dog spawn weight",
+  "text.autoconfig.bwplus.option.entities.blackDogMinGroupCount": "Black dog min group count",
+  "text.autoconfig.bwplus.option.entities.blackDogMaxGroupCount": "Black dog max group count",
+
+  "text.autoconfig.bwplus.option.entities.cambionBiomeCategories": "Cambion Biome Categories",
+  "text.autoconfig.bwplus.option.entities.cambionWeight": "Cambion spawn weight",
+  "text.autoconfig.bwplus.option.entities.cambionMinGroupCount": "Cambion min group count",
+  "text.autoconfig.bwplus.option.entities.cambionMaxGroupCount": "Cambion max group count",
+
+  "text.autoconfig.bwplus.option.world.blackDogStructureSpawn": "Black dog spawn in structures",
+  "text.autoconfig.bwplus.option.world.cambionVillageStructureSpawn": "Cambion spawn in villages",
+  "text.autoconfig.bwplus.option.world.cambionBastionStructureSpawn": "Cambion spawn in bastions",
+  "text.autoconfig.bwplus.option.world.cambionNetherFortressStructureSpawn": "Cambion spawn in nether fortress"
 }

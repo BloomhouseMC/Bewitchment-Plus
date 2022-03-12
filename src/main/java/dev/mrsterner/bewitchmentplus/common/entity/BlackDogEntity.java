@@ -62,11 +62,11 @@ public class BlackDogEntity extends BWHostileEntity {
 	public static boolean spawnRestriction(EntityType<BlackDogEntity> type, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos pos, Random random) {
 		ServerWorld world = serverWorldAccess.toServerWorld();
 
-		if (BewitchmentPlus.config.blackDogBiomeCategories.contains(world.getBiome(pos).getCategory().getName())) {
+		if (BewitchmentPlus.config.entities.blackDogBiomeCategories.contains(world.getBiome(pos).getCategory().getName())) {
 			return true;
 		}
 
-		if (BewitchmentPlus.config.blackDogStructureSpawn) {
+		if (BewitchmentPlus.config.world.blackDogStructureSpawn) {
 			int maxDistanceToStructure = 16;
 
 			BlockPos outpost = world.locateStructure(StructureFeature.PILLAGER_OUTPOST, pos, 1, false);

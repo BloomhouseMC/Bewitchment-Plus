@@ -27,7 +27,7 @@ public class BWPEntitySpawns {
 	public static void init() {
 		CONFIGURED_FEATURES.keySet().forEach(configuredFeature -> Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, CONFIGURED_FEATURES.get(configuredFeature), configuredFeature));
 
-		BiomeModifications.addSpawn(BiomeSelectors.foundInOverworld().and(context -> BewitchmentPlus.config.cambionBiomeCategories.contains(context.getBiome().getCategory().getName())), BWPEntityTypes.CAMBION.getSpawnGroup(), BWPEntityTypes.CAMBION, BewitchmentPlus.config.cambionWeight, BewitchmentPlus.config.cambionMinGroupCount, BewitchmentPlus.config.cambionMaxGroupCount);
-		BiomeModifications.addSpawn(BiomeSelectors.foundInOverworld(), BWPEntityTypes.BLACK_DOG.getSpawnGroup(), BWPEntityTypes.BLACK_DOG, BewitchmentPlus.config.blackDogWeight, BewitchmentPlus.config.blackDogMinGroupCount, BewitchmentPlus.config.blackDogMaxGroupCount);
+		BiomeModifications.addSpawn(BiomeSelectors.foundInOverworld().and(context -> BewitchmentPlus.config.entities.cambionBiomeCategories.contains(context.getBiome().getCategory().getName())), BWPEntityTypes.CAMBION.getSpawnGroup(), BWPEntityTypes.CAMBION, BewitchmentPlus.config.entities.cambionWeight, BewitchmentPlus.config.entities.cambionMinGroupCount, BewitchmentPlus.config.entities.cambionMaxGroupCount);
+		BiomeModifications.addSpawn(BiomeSelectors.foundInOverworld(), BWPEntityTypes.BLACK_DOG.getSpawnGroup(), BWPEntityTypes.BLACK_DOG, BewitchmentPlus.config.entities.blackDogWeight, BewitchmentPlus.config.entities.blackDogMinGroupCount, BewitchmentPlus.config.entities.blackDogMaxGroupCount);
 	}
 }
