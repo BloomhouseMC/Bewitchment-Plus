@@ -10,13 +10,14 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.trunk.TrunkPlacer;
 
 public class BWPWorldGenerators extends ConfiguredFeatures{
 
     private static final Feature<DefaultFeatureConfig> FEATURE_BIG_YEW_TREE = new YewTreeFeature(DefaultFeatureConfig.CODEC);
     public static final ConfiguredFeature<?, ?> CONFIGURED_FEATURE_BIG_YEW_TREE = FEATURE_BIG_YEW_TREE.configure(DefaultFeatureConfig.INSTANCE);
     public static final RegistryKey<ConfiguredFeature<?, ?>> KEY_CONFIGURED_FEATURE_BIG_YEW_TREE = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, new Identifier(BewitchmentPlus.MODID, "trees_big_yew"));
-    public static final PlacedFeature PLACED_BIG_YEW_TREE = CONFIGURED_FEATURE_BIG_YEW_TREE.withPlacement(VegetationPlacedFeatures.modifiers(PlacedFeatures.createCountExtraModifier(6, 0.1f, 1)));
+    public static final PlacedFeature PLACED_BIG_YEW_TREE = CONFIGURED_FEATURE_BIG_YEW_TREE.withPlacement(VegetationPlacedFeatures.modifiers(PlacedFeatures.createCountExtraModifier(1, 0.01f, 1)));
     public static final RegistryKey<PlacedFeature> KEY_PLACED_BIG_YEW_TREE = RegistryKey.of(Registry.PLACED_FEATURE_KEY, new Identifier(BewitchmentPlus.MODID, "trees_big_yew"));
 
     public static void init() {
