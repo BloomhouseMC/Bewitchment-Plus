@@ -19,7 +19,6 @@ public class BWPWorldGenerators extends ConfiguredFeatures{
     public static final PlacedFeature PLACED_BIG_YEW_TREE = CONFIGURED_FEATURE_BIG_YEW_TREE.withPlacement(VegetationPlacedFeatures.modifiers(PlacedFeatures.createCountExtraModifier(6, 0.1f, 1)));
     public static final RegistryKey<PlacedFeature> KEY_PLACED_BIG_YEW_TREE = RegistryKey.of(Registry.PLACED_FEATURE_KEY, new Identifier(BewitchmentPlus.MODID, "trees_big_yew"));
 
-
     public static void init() {
         Registry.register(Registry.FEATURE, new Identifier(BewitchmentPlus.MODID, "big_yew_tree"), FEATURE_BIG_YEW_TREE);
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, KEY_CONFIGURED_FEATURE_BIG_YEW_TREE.getValue(), CONFIGURED_FEATURE_BIG_YEW_TREE);
