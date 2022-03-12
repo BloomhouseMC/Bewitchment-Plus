@@ -38,7 +38,7 @@ public class YewTreeFeature extends Feature<DefaultFeatureConfig> {
         //Change the origin from the corner of the structure to the middle of the structure
         BlockPos normalizeOrigin = context.getOrigin().subtract(new Vec3i(Math.floor((double) structure.getSize().getX() / 2),0,Math.floor((double) structure.getSize().getX() / 2)));
         //Check if the normalizedOrigin is in fact on top of a grass block
-        if (context.getWorld().getBlockState(normalizeOrigin.down()).getBlock() == Blocks.GRASS_BLOCK) {
+        if (context.getWorld().getBlockState(normalizeOrigin.down()).getBlock() == Blocks.GRASS_BLOCK) {//TODO maybe check if the area is actually clear for placement
             //Get basic placementData
             var placementData = (new StructurePlacementData()).setMirror(BlockMirror.NONE).setRotation(BlockRotation.NONE).setIgnoreEntities(false);
             //Place the structure at the normalized origin
