@@ -11,7 +11,7 @@ import java.util.Random;
 public class YewSaplingGenerator extends SaplingGenerator {
     @Nullable
     @Override
-    protected ConfiguredFeature<TreeFeatureConfig, ?> getTreeFeature(Random random, boolean bees) {
-        return BWPWorldGenerators.YEW_TREE;
+    protected ConfiguredFeature<?, ?> getTreeFeature(Random random, boolean bees) {
+        return BWPWorldGenerators.CONFIGURED_FEATURE_BIG_YEW_TREE;
     }
 }

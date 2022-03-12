@@ -1,38 +1,29 @@
 package dev.mrsterner.bewitchmentplus.common.registry;
 
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
-import dev.mrsterner.bewitchmentplus.mixin.common.SimpleBlockStateProviderMixin;
-import net.fabricmc.fabric.api.biome.v1.BiomeModification;
+import dev.mrsterner.bewitchmentplus.common.world.generator.tree.YewTreeFeature;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.biome.Biome;
+import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.decorator.RarityFilterPlacementModifier;
 import net.minecraft.world.gen.feature.*;
-import net.minecraft.world.gen.feature.size.FeatureSize;
-import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
-import net.minecraft.world.gen.foliage.SpruceFoliagePlacer;
-import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 
-public class BWPWorldGenerators {
-    private static final FeatureSize EMPTY_SIZE = new TwoLayersFeatureSize(0, 0, 0);
+public class BWPWorldGenerators extends ConfiguredFeatures{
 
-    public static final ConfiguredFeature<TreeFeatureConfig, ?> YEW_TREE = Feature.TREE.configure(new TreeFeatureConfig.Builder(SimpleBlockStateProviderMixin.callInit(BWPObjects.YEW_LOG.getDefaultState()), new StraightTrunkPlacer(12, 0, 1),
-    SimpleBlockStateProviderMixin.callInit(BWPObjects.YEW_LEAVES.getDefaultState()), new SpruceFoliagePlacer(ConstantIntProvider.create(3), ConstantIntProvider.create(0), ConstantIntProvider.create(1)), EMPTY_SIZE).ignoreVines().build());
-
-    public static final PlacedFeature YEW_TREE_WITH_CHANCE = YEW_TREE.withPlacement(VegetationPlacedFeatures.modifiersWithWouldSurvive(RarityFilterPlacementModifier.of(10), BWPObjects.YEW_SAPLING));
+    private static final Feature<DefaultFeatureConfig> FEATURE_BIG_YEW_TREE = new YewTreeFeature(DefaultFeatureConfig.CODEC);
+    public static final ConfiguredFeature<?, ?> CONFIGURED_FEATURE_BIG_YEW_TREE = FEATURE_BIG_YEW_TREE.configure(DefaultFeatureConfig.INSTANCE);
+    public static final RegistryKey<ConfiguredFeature<?, ?>> KEY_CONFIGURED_FEATURE_BIG_YEW_TREE = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, new Identifier(BewitchmentPlus.MODID, "trees_big_yew"));
+    public static final PlacedFeature PLACED_BIG_YEW_TREE = CONFIGURED_FEATURE_BIG_YEW_TREE.withPlacement(VegetationPlacedFeatures.modifiers(PlacedFeatures.createCountExtraModifier(6, 0.1f, 1)));
+    public static final RegistryKey<PlacedFeature> KEY_PLACED_BIG_YEW_TREE = RegistryKey.of(Registry.PLACED_FEATURE_KEY, new Identifier(BewitchmentPlus.MODID, "trees_big_yew"));
 
 
     public static void init() {
-        Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(BewitchmentPlus.MODID, "yew_tree"), YEW_TREE);
-        Registry.register(BuiltinRegistries.PLACED_FEATURE, new Identifier(BewitchmentPlus.MODID, "yew_tree"), YEW_TREE_WITH_CHANCE);
-        BiomeModification worldGen = BiomeModifications.create(new Identifier(BewitchmentPlus.MODID, "world_features"));
-        worldGen.add(ModificationPhase.ADDITIONS, BiomeSelectors.categories(Biome.Category.FOREST), context -> context.getGenerationSettings().addBuiltInFeature(GenerationStep.Feature.VEGETAL_DECORATION, YEW_TREE_WITH_CHANCE));
-
+        Registry.register(Registry.FEATURE, new Identifier(BewitchmentPlus.MODID, "big_yew_tree"), FEATURE_BIG_YEW_TREE);
+        Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, KEY_CONFIGURED_FEATURE_BIG_YEW_TREE.getValue(), CONFIGURED_FEATURE_BIG_YEW_TREE);
+        Registry.register(BuiltinRegistries.PLACED_FEATURE, KEY_PLACED_BIG_YEW_TREE.getValue(), PLACED_BIG_YEW_TREE);
+        BiomeModifications.addFeature(BiomeSelectors.all(), GenerationStep.Feature.VEGETAL_DECORATION, KEY_PLACED_BIG_YEW_TREE);
     }
 }
