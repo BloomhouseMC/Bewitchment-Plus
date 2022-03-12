@@ -34,6 +34,6 @@ public class YewTreeFeature extends Feature<DefaultFeatureConfig> {
 
         var placementsettings = (new StructurePlacementData()).setMirror(BlockMirror.NONE).setRotation(BlockRotation.NONE).setIgnoreEntities(false);
         template.place( context.getWorld(), context.getOrigin(), context.getOrigin(), placementsettings, context.getRandom(), 2);
-        return true;
+        return true; //TODO not generate without conditions
     }
 }
