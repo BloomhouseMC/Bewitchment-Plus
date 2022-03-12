@@ -30,14 +30,13 @@ public class YewTreeFeature extends Feature<DefaultFeatureConfig> {
     public boolean generate(FeatureContext<DefaultFeatureConfig> context) {
         //Get structure manager from World, the world we want to place the structure in
         StructureManager structureManager = context.getWorld().toServerWorld().getStructureManager();
-        //Try fetch the nbt with the structure manager
         Identifier nbtLocation = new Identifier(BewitchmentPlus.MODID, "features/trees/yew_tree1");
+        //Try fetch the nbt with the structure manager
         Optional<Structure> structureOptional = structureManager.getStructure(nbtLocation);
         if (structureOptional.isEmpty()) {
             BewitchmentPlus.LOGGER.info("NBT " + nbtLocation + " does not exist!");
             return false;
         }
-        //Check if the normalizedOrigin is in fact on top of a grass block
         if (canGenerate(context.getWorld(), context.getOrigin(), context.getRandom())) {
             //Unless structureOptional.isEmpty() not catches, get the structure from the optional
             Structure structure = structureOptional.get();
