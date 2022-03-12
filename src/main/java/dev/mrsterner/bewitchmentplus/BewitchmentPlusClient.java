@@ -4,7 +4,6 @@ import dev.mrsterner.bewitchmentplus.client.model.entity.BlackDogEntityModel;
 import dev.mrsterner.bewitchmentplus.client.model.entity.CambionEntityModel;
 import dev.mrsterner.bewitchmentplus.client.renderer.*;
 import dev.mrsterner.bewitchmentplus.client.renderer.entity.*;
-import dev.mrsterner.bewitchmentplus.client.renderer.StatueRenderer;
 import dev.mrsterner.bewitchmentplus.common.block.yew.YewChestBlockEntity;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPBlockEntityTypes;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPEntityTypes;

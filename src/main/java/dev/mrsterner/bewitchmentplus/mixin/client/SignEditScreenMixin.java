@@ -1,7 +1,6 @@
 package dev.mrsterner.bewitchmentplus.mixin.client;
 
 import com.terraformersmc.terraform.sign.TerraformSign;
-import dev.mrsterner.bewitchmentplus.common.block.yew.YewSign;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.entity.SignBlockEntity;

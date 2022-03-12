@@ -2,9 +2,6 @@ package dev.mrsterner.bewitchmentplus.client.renderer;
 
 import dev.mrsterner.bewitchmentplus.client.model.DragonbloodStaffModel;
 import dev.mrsterner.bewitchmentplus.common.item.DragonbloodStaffItem;
-import net.minecraft.block.StructureBlock;
-import net.minecraft.block.entity.StructureBlockBlockEntity;
-import net.minecraft.client.gui.screen.ingame.StructureBlockScreen;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;

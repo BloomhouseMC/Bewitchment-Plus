@@ -1,6 +1,5 @@
 package dev.mrsterner.bewitchmentplus.common.item;
 
-import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 

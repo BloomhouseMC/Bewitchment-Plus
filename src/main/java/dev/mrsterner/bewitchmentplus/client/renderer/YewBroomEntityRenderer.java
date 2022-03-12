@@ -6,7 +6,6 @@ import moriyashiine.bewitchment.api.client.renderer.BroomEntityRenderer;
 import moriyashiine.bewitchment.api.entity.BroomEntity;
 import moriyashiine.bewitchment.client.BewitchmentClient;
 import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.entity.Entity;
 import net.minecraft.util.Identifier;
 
 public class YewBroomEntityRenderer extends BroomEntityRenderer<BroomEntity> {

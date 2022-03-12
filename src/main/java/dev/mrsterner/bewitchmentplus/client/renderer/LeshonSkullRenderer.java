@@ -1,9 +1,7 @@
 package dev.mrsterner.bewitchmentplus.client.renderer;
 
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
-import dev.mrsterner.bewitchmentplus.client.model.GobletItemModel;
 import dev.mrsterner.bewitchmentplus.client.model.LeshonSkullModel;
-import dev.mrsterner.bewitchmentplus.common.item.GobletBlockItem;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
