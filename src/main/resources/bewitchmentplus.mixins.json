@@ -10,6 +10,7 @@
     "common.IronGolemTargetingMixin",
     "common.LootContextTypesAccessor",
     "common.MobEntityAccessor",
+    "common.NoiseChunkGeneratorMixin",
     "common.PlayerEntityMixin",
     "common.ServerPlayerEntityMixin",
     "common.SignBlockEntityRendererMixin",

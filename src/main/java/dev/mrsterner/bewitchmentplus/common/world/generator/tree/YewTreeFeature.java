@@ -55,8 +55,13 @@ public class YewTreeFeature extends Feature<DefaultFeatureConfig> {
 
     }
 
-    // Returns if the area is a valid generation point for the tree
-    // NOTE: Yew Tree has a max trunk width of 4x4, height of 9, and foliage width of ~13
+    /**
+     * Yew Tree has a max trunk width of 4x4, height of 9, and foliage width of ~13
+     * @param world
+     * @param pos
+     * @param random
+     * @return if the area is a valid generation point for the tree
+     */
     public boolean canGenerate(StructureWorldAccess world, BlockPos pos, Random random) {
         // Random check to see if the tree should place (used to control spawn weight)
         if (random.nextFloat() < 1.0F / (float) BewitchmentPlus.config.world.yewTreeWeight) {
@@ -68,7 +73,14 @@ public class YewTreeFeature extends Feature<DefaultFeatureConfig> {
         return false;
     }
 
-    // Checks the blocks around the area for other trees (prevents trees generating very close)
+    /**
+     * Checks the blocks around the area for other trees (prevents trees generating very close)
+     * @param world
+     * @param pos
+     * @param treeHeight
+     * @param distance
+     * @return
+     */
     public boolean treeNearby(StructureWorldAccess world, BlockPos pos, int treeHeight, int distance) {
         int x = pos.getX();
         int y = pos.getY();
@@ -88,6 +100,11 @@ public class YewTreeFeature extends Feature<DefaultFeatureConfig> {
         return true;
     }
 
+    /**
+     *
+     * @param world
+     * @param center
+     */
     public void checkAir(StructureWorldAccess world, BlockPos center) {
         for (BlockPos pos : BlockPos.iterateOutwards(center.down(), 4, 0, 4)) {
             if (world.getBlockState(pos).isAir() && world.getBlockState(pos.up()).isOf(BWPObjects.YEW_LOG)) {
