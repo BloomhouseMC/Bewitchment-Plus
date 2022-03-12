@@ -1,6 +1,6 @@
 package dev.mrsterner.bewitchmentplus.mixin.common;
 
-import dev.mrsterner.bewitchmentplus.common.registry.BWPWorld;
+import dev.mrsterner.bewitchmentplus.common.registry.BWPWorldGenerators;
 import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
@@ -13,6 +13,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class DefaultBiomeFeaturesMixin {
     @Inject(method = "addDesertVegetation(Lnet/minecraft/world/biome/GenerationSettings$Builder;)V", at = @At("TAIL"))
     private static void addDesertVegetation(GenerationSettings.Builder builder, CallbackInfo ci) {
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, BWPWorld.BLOODROOT_FEATURE);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, BWPWorldGenerators.BLOODROOT_FEATURE);
     }
 }

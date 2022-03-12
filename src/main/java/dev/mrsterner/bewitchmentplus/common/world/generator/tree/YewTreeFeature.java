@@ -64,7 +64,7 @@ public class YewTreeFeature extends Feature<DefaultFeatureConfig> {
      */
     public boolean canGenerate(StructureWorldAccess world, BlockPos pos, Random random) {
         // Random check to see if the tree should place (used to control spawn weight)
-        if (random.nextFloat() < 1.0F / (float) BewitchmentPlus.config.world.yewTreeWeight) {
+        if (random.nextFloat() < (1.0F / (float) BewitchmentPlus.config.world.yewTreeWeight)) {
             // Checks if there is valid dirt and if the tree isn't too high up
             if (world.getBlockState(pos.down()).isIn(BlockTags.DIRT) && pos.getY() + 10 < world.getTopY()) {
                 return treeNearby(world, pos, 13, 0);

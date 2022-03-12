@@ -14,14 +14,21 @@ import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.chunk.StructureConfig;
+import net.minecraft.world.gen.decorator.BiomePlacementModifier;
+import net.minecraft.world.gen.decorator.RarityFilterPlacementModifier;
+import net.minecraft.world.gen.decorator.SquarePlacementModifier;
 import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 
 public class BWPWorldGenerators extends ConfiguredFeatures{
+    public static final ConfiguredFeature<?,?> CONFIGURED_WOLFSBANE = Feature.FLOWER.configure(new RandomPatchFeatureConfig(64, 6, 2, () -> Feature.SIMPLE_BLOCK.configure(new SimpleBlockFeatureConfig(BlockStateProvider.of(BWPObjects.BLOODROOT))).withInAirFilter()));
+    public static final PlacedFeature BLOODROOT_FEATURE = PlacedFeatures.register("bloodroot_feature", CONFIGURED_WOLFSBANE.withPlacement(RarityFilterPlacementModifier.of(32), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of()));
+
 
     private static final Feature<DefaultFeatureConfig> FEATURE_BIG_YEW_TREE = new YewTreeFeature(DefaultFeatureConfig.CODEC);
     public static final ConfiguredFeature<?, ?> CONFIGURED_FEATURE_BIG_YEW_TREE = FEATURE_BIG_YEW_TREE.configure(DefaultFeatureConfig.INSTANCE);
     public static final RegistryKey<ConfiguredFeature<?, ?>> KEY_CONFIGURED_FEATURE_BIG_YEW_TREE = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, new Identifier(BewitchmentPlus.MODID, "trees_big_yew"));
-    public static final PlacedFeature PLACED_BIG_YEW_TREE = CONFIGURED_FEATURE_BIG_YEW_TREE.withPlacement(VegetationPlacedFeatures.modifiers(PlacedFeatures.createCountExtraModifier(1, 0.01f, 1)));
+    public static final PlacedFeature PLACED_BIG_YEW_TREE = CONFIGURED_FEATURE_BIG_YEW_TREE.withPlacement(VegetationPlacedFeatures.modifiers(PlacedFeatures.createCountExtraModifier(1, 0.1f, 1)));
     public static final RegistryKey<PlacedFeature> KEY_PLACED_BIG_YEW_TREE = RegistryKey.of(Registry.PLACED_FEATURE_KEY, new Identifier(BewitchmentPlus.MODID, "trees_big_yew"));
 
 
