@@ -10,6 +10,8 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3i;
 
 import java.util.Optional;
 import java.util.Random;
@@ -26,7 +28,8 @@ public class StructureTestItem extends Item {
             if(structureOptional.isPresent()) {
                 Structure structure = structureOptional.get();
                 StructurePlacementData structurePlacementData = new StructurePlacementData().setMirror(BlockMirror.FRONT_BACK).setRotation(BlockRotation.NONE).setIgnoreEntities(false);
-                structure.place(serverWorld, context.getPlayer().getBlockPos(), context.getPlayer().getBlockPos(), structurePlacementData, new Random(), 2);
+                BlockPos normalizeOrigin = context.getBlockPos().subtract(new Vec3i(-Math.floor((double) structure.getSize().getX() / 2),0,Math.floor((double) structure.getSize().getX() / 2)));
+                structure.place(serverWorld, normalizeOrigin, normalizeOrigin, structurePlacementData, new Random(), 2);
             }
         }
         return super.useOnBlock(context);
