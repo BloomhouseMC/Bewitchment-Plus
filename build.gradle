@@ -105,13 +105,9 @@ dependencies {
     modImplementation "io.github.ladysnake:PlayerAbilityLib:${pal_version}"
     include "io.github.ladysnake:PlayerAbilityLib:${pal_version}"
 
-    //modImplementation "io.github.ladysnake:satin:${project.satin_version}"
-    //include "io.github.ladysnake:satin:${project.satin_version}"
-
     modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
-    //modImplementation "top.theillusivec4.somnus:somnus-fabric:${project.somnus_version}"
     modImplementation("com.github.virtuoel:pehkui:${project.pehkui_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
@@ -124,20 +120,12 @@ dependencies {
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${rei_version}"
     modRuntimeOnly  "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
 
-    //modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${cca_version}"
-    // Adds a dependency on a specific module
-    //modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${cca_version}"
-    // Includes Cardinal Components API as a Jar-in-Jar dependency (optional)
-    //include "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${cca_version}"
-    //include "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${cca_version}"
 
     modImplementation "curse.maven:bewitchment-394915:${project.bewitchment_version}"
     modImplementation "curse.maven:besmirchment-2-542196:${project.besmirchment_version}"
-    //include(modImplementation("io.github.ytg1234:fabric-recipe-conditions:${project.conditional_recipes_version}"))
     modCompileOnly("squeek.appleskin:appleskin-fabric:${appleskin_version}:api") {
         transitive = false
     }
-    //modRuntime "squeek.appleskin:appleskin-fabric:${appleskin_version}"
 }
 
 processResources {

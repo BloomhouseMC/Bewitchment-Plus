@@ -1,13 +1,13 @@
 {
   "category": "bewitchment:rituals",
   "name": "Spectral Familiar",
-  "icon": "bwplus:spectral_crystal",
+  "icon": "bwplus:soul",
   "entry_color": "3EA9ff",
   "advancement": "bwplus:hidden_unlocks/ectoplasm",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "How about familiars from another universe"
+      "text": "How about familiars from another universe, drops souls"
     }
   ]
 }

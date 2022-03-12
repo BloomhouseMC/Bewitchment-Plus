@@ -5,6 +5,7 @@ import dev.mrsterner.bewitchmentplus.common.world.generator.tree.YewTreeFeature;
 import dev.mrsterner.bewitchmentplus.common.world.structure.YewTreeHouseStructure;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.fabricmc.fabric.api.structure.v1.FabricStructureBuilder;
 import net.minecraft.structure.PlainsVillageData;
 import net.minecraft.util.Identifier;
@@ -45,7 +46,10 @@ public class BWPWorldGenerators extends ConfiguredFeatures{
         //Yew Treehouse
         Registry<ConfiguredStructureFeature<?, ?>> registry = BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE;
         Registry.register(registry, new Identifier(BewitchmentPlus.MODID, "configured_yew_tree_house"), CONFIGURED_YEW_TREE_HOUSE);
-        BiomeModifications.addStructure(BiomeSelectors.all(), RegistryKey.of(Registry.CONFIGURED_STRUCTURE_FEATURE_KEY, BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE.getId(CONFIGURED_YEW_TREE_HOUSE)));
+        //BiomeModifications.addStructure(BiomeSelectors.all(), RegistryKey.of(Registry.CONFIGURED_STRUCTURE_FEATURE_KEY, BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE.getId(CONFIGURED_YEW_TREE_HOUSE)));
+        BiomeModifications.create(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE.getId(CONFIGURED_YEW_TREE_HOUSE)).add(ModificationPhase.ADDITIONS, BiomeSelectors.all(), biomeModificationContext -> {
+
+        });
         FabricStructureBuilder.create(new Identifier(BewitchmentPlus.MODID, "yew_tree_house"), YEW_TREE_HOUSE).step(GenerationStep.Feature.SURFACE_STRUCTURES).defaultConfig(new StructureConfig(10, 5, 399117345)).adjustsSurface().register();
     }
 }
