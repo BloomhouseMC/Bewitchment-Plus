@@ -50,12 +50,14 @@ import java.util.UUID;
 
 import static net.minecraft.block.ChestBlock.CHEST_TYPE;
 import static net.minecraft.block.ChestBlock.FACING;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BewitchmentPlus implements ModInitializer {
 	public static final String MODID = "bwplus";
 	public static final ItemGroup BEWITCHMENT_PLUS_GROUP = FabricItemGroupBuilder.build(new Identifier(MODID, MODID), () -> new ItemStack(BWPObjects.SILVER_GOBLET));
 	public static BWPConfig config;
+	public static final Logger LOGGER = LoggerFactory.getLogger("Bewitchment Plus");
 
 	@Override
 	public void onInitialize() {

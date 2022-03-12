@@ -28,17 +28,18 @@ public class YewTreeFeature extends Feature<DefaultFeatureConfig> {
         //Get structure manager from World, the world we want to place the structure in
         StructureManager structureManager = context.getWorld().toServerWorld().getStructureManager();
         //Try fetch the nbt with the structure manager
-        Optional<Structure> structureOptional = structureManager.getStructure(new Identifier(BewitchmentPlus.MODID, "features/trees/yew_tree1"));
+        Identifier nbtLocation = new Identifier(BewitchmentPlus.MODID, "features/trees/yew_tree1");
+        Optional<Structure> structureOptional = structureManager.getStructure(nbtLocation);
         if (structureOptional.isEmpty()) {
-            System.out.println("NBT does not exist!");
+            BewitchmentPlus.LOGGER.info("NBT " + nbtLocation + " does not exist!");
             return false;
         }
-        //Unless structureOptional.isEmpty() not catches, get the structure from the optional
-        Structure structure = structureOptional.get();
-        //Change the origin from the corner of the structure to the middle of the structure
-        BlockPos normalizeOrigin = context.getOrigin().subtract(new Vec3i(Math.floor((double) structure.getSize().getX() / 2),0,Math.floor((double) structure.getSize().getX() / 2)));
         //Check if the normalizedOrigin is in fact on top of a grass block
         if (context.getWorld().getBlockState(context.getOrigin().down()).getBlock() == Blocks.GRASS_BLOCK) {//TODO maybe check if the area is actually clear for placement
+            //Unless structureOptional.isEmpty() not catches, get the structure from the optional
+            Structure structure = structureOptional.get();
+            //Change the origin from the corner of the structure to the middle of the structure
+            BlockPos normalizeOrigin = context.getOrigin().subtract(new Vec3i(Math.floor((double) structure.getSize().getX() / 2),0,Math.floor((double) structure.getSize().getX() / 2)));
             //Get basic placementData
             var placementData = (new StructurePlacementData()).setMirror(BlockMirror.NONE).setRotation(BlockRotation.NONE).setIgnoreEntities(false);
             //Place the structure at the normalized origin

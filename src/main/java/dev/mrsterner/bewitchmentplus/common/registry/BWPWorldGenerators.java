@@ -8,6 +8,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
 
@@ -23,6 +24,6 @@ public class BWPWorldGenerators extends ConfiguredFeatures{
         Registry.register(Registry.FEATURE, new Identifier(BewitchmentPlus.MODID, "big_yew_tree"), FEATURE_BIG_YEW_TREE);
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, KEY_CONFIGURED_FEATURE_BIG_YEW_TREE.getValue(), CONFIGURED_FEATURE_BIG_YEW_TREE);
         Registry.register(BuiltinRegistries.PLACED_FEATURE, KEY_PLACED_BIG_YEW_TREE.getValue(), PLACED_BIG_YEW_TREE);
-        BiomeModifications.addFeature(BiomeSelectors.all(), GenerationStep.Feature.VEGETAL_DECORATION, KEY_PLACED_BIG_YEW_TREE);
+        BiomeModifications.addFeature(BiomeSelectors.categories(Biome.Category.MOUNTAIN, Biome.Category.EXTREME_HILLS), GenerationStep.Feature.VEGETAL_DECORATION, KEY_PLACED_BIG_YEW_TREE);
     }
 }
