@@ -17,7 +17,8 @@
     "common.SimpleBlockStateProviderMixin",
     "common.TexturedRenderLayersMixin",
     "common.TogglePressingForwardPacketMixin",
-    "common.VillagerBreedTaskMixin"
+    "common.VillagerBreedTaskMixin",
+    "common.MilkBucketMixin"
   ],
   "client": [
     "client.GameRendererMixin",
