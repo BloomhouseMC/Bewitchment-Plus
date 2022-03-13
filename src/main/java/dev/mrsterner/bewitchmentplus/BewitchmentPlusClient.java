@@ -1,5 +1,6 @@
 package dev.mrsterner.bewitchmentplus;
 
+import dev.mrsterner.bewitchmentplus.client.model.UnicornEntityModel;
 import dev.mrsterner.bewitchmentplus.client.model.entity.BlackDogEntityModel;
 import dev.mrsterner.bewitchmentplus.client.model.entity.CambionEntityModel;
 import dev.mrsterner.bewitchmentplus.client.renderer.*;
@@ -36,6 +37,7 @@ import static dev.mrsterner.bewitchmentplus.common.registry.BWPObjects.YEW_CHEST
 
 public class BewitchmentPlusClient implements ClientModInitializer {
 	public static final EntityModelLayer BLACKDOG_MODEL_LAYER = new EntityModelLayer(new Identifier(BewitchmentPlus.MODID, "blackdog"), "blackdog");
+	public static final EntityModelLayer UNICORN_MODEL_LAYER = new EntityModelLayer(new Identifier(BewitchmentPlus.MODID, "unicorn"), "unicorn");
 	public static final EntityModelLayer MALE_CAMBION_MODEL_LAYER = new EntityModelLayer(new Identifier(BewitchmentPlus.MODID, "male_cambion"), "male_cambion");
 	public static final EntityModelLayer FEMALE_CAMBION_MODEL_LAYER = new EntityModelLayer(new Identifier(BewitchmentPlus.MODID, "female_cambion"), "female_cambion");
 	private final BuiltinItemRendererRegistry.DynamicItemRenderer renderer = new GobletBlockItemRenderer();
@@ -64,7 +66,9 @@ public class BewitchmentPlusClient implements ClientModInitializer {
 		EntityRendererRegistry.register(BWPEntityTypes.NIFFLER, NifflerEntityRenderer::new);
 		EntityRendererRegistry.register(BWPEntityTypes.LESHON, LeshonEntityRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(BLACKDOG_MODEL_LAYER, BlackDogEntityModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(UNICORN_MODEL_LAYER, UnicornEntityModel::getTexturedModelData);
 		EntityRendererRegistry.register(BWPEntityTypes.BLACK_DOG, BlackDogEntityRenderer::new);
+		EntityRendererRegistry.register(BWPEntityTypes.UNICORN, UnicornEntityRenderer::new);
 		EntityRendererRegistry.register(BWPEntityTypes.EFFIGY, EffigyEntityRenderer::new);
 		EntityRendererRegistry.register(BWPEntityTypes.YEW_BROOM, YewBroomEntityRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(MALE_CAMBION_MODEL_LAYER, CambionEntityModel::getTexturedModelDataMale);

@@ -21,7 +21,8 @@ public class YewLogBlockEntity extends BlockEntity {
     }
 
     public static void tick(World world, BlockPos pos, BlockState state, YewLogBlockEntity blockEntity) {
-        if(state.get(BWProperties.CUT) && world.getBlockEntity(pos) instanceof YewLogBlockEntity){
+        if(state.get(BWProperties.CUT)){
+            System.out.println("Tick");
             Box box = new Box(pos).expand(10);
             List<PlayerEntity> list = world.getNonSpectatingEntities(PlayerEntity.class, box);
             Iterator<PlayerEntity> var11 = list.iterator();
@@ -29,6 +30,7 @@ public class YewLogBlockEntity extends BlockEntity {
             while(var11.hasNext()) {
                 playerEntity = var11.next();
                 if(BewitchmentPlusAPI.isLeshon(playerEntity, true)){
+                    System.out.println("Found");
                     playerEntity.addStatusEffect(new StatusEffectInstance(BWPStatusEffects.HOMESTEAD, 20*2, 1, true, true));
                 }
             }

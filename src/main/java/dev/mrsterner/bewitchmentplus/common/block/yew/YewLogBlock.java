@@ -1,5 +1,6 @@
 package dev.mrsterner.bewitchmentplus.common.block.yew;
 
+import dev.mrsterner.bewitchmentplus.common.block.blockentity.PentacleBlockEntity;
 import dev.mrsterner.bewitchmentplus.common.block.blockentity.YewLogBlockEntity;
 import moriyashiine.bewitchment.common.registry.BWProperties;
 import net.minecraft.block.*;
@@ -34,15 +35,10 @@ public class YewLogBlock extends PillarBlock implements BlockEntityProvider {
         this.stripped = stripped;
     }
 
+    @Nullable
     @Override
-    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        //TODO maybe make a block entity instead
-        if (state.get(BWProperties.CUT)) {
-            if (random.nextInt(50) == 0) {
-                world.setBlockState(pos, state.with(BWProperties.CUT, false));
-            }
-        }
-
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        return (tickerWorld, pos, tickerState, blockEntity) -> YewLogBlockEntity.tick(tickerWorld, pos, tickerState, (YewLogBlockEntity) blockEntity);
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {

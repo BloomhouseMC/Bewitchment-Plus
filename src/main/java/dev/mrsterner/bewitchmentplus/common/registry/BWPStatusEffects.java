@@ -13,6 +13,7 @@ public class BWPStatusEffects {
     private static final Map<StatusEffect, Identifier> STATUS_EFFECTS = new LinkedHashMap<>();
 
     public static final StatusEffect HOMESTEAD = register("homestead", new BWPStatusEffect(StatusEffectCategory.BENEFICIAL, 0x9a9ebf));
+    public static final StatusEffect HALF_LIFE = register("half_life", new BWPStatusEffect(StatusEffectCategory.BENEFICIAL, 0x9a9ebf));
 
     private static <T extends StatusEffect> T register(String name, T effect) {
         STATUS_EFFECTS.put(effect, new Identifier(BewitchmentPlus.MODID, name));
