@@ -33,6 +33,7 @@ public class BWPObjects {
 	public static final Item SOUL = register("soul", new Item(gen()));
 	public static final Item MUTANDIS = register("mutandis", new MutandisItem(gen()));
 	public static final Item MUTANDIS_BREW = register("mutandis_brew", new MutandisBrew(gen()));
+	public static final Item UNICORN_BLOOD = register("unicorn_blood", new Item(gen()));
 	public static final Item MOONLIGHT_INFUSION = register("moonlight_infusion", new Item(gen().recipeRemainder(Items.GLASS_BOTTLE)));
 	public static final Item ENDER_INFUSION = register("ender_vial", new Item(gen().recipeRemainder(Items.GLASS_BOTTLE)));//0x70922d
 	public static final Item DRAGONBLOOD_STAFF = register("dragonblood_staff", new DragonbloodStaffItem(200, gen().maxCount(1).rarity(Rarity.RARE)));

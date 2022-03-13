@@ -3,6 +3,7 @@ package dev.mrsterner.bewitchmentplus.common.block;
 import dev.mrsterner.bewitchmentplus.common.block.blockentity.GobletBlockEntity;
 import dev.mrsterner.bewitchmentplus.common.item.GobletBlockItem;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPBlockEntityTypes;
+import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
 import moriyashiine.bewitchment.common.registry.BWObjects;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -31,7 +32,7 @@ import java.util.List;
 import static net.minecraft.block.ShulkerBoxBlock.CONTENTS;
 
 public class GobletBlock extends Block implements BlockEntityProvider, Waterloggable {
-    public static final IntProperty LIQUID_STATE = IntProperty.of("liquid_state", 0,3);
+    public static final IntProperty LIQUID_STATE = IntProperty.of("liquid_state", 0,4);
     private static final VoxelShape SHAPE;
     public Item dropItem;
 
@@ -102,8 +103,8 @@ public class GobletBlock extends Block implements BlockEntityProvider, Waterlogg
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         if(world.getBlockEntity(pos) instanceof GobletBlockEntity gobletBlock){
             gobletBlock.setGoblet((GobletBlockItem) itemStack.getItem());
-            world.setBlockState(pos, state.with(LIQUID_STATE, (gobletBlock.getStack(0).getItem()) == Items.HONEY_BOTTLE ? 2 : (gobletBlock.getStack(0).getItem()) == BWObjects.BOTTLE_OF_BLOOD ? 3 : (gobletBlock.getStack(0).getItem()) == Items.POTION ? 1 :0));
-            gobletBlock.setColor((gobletBlock.getStack(0).getItem()) == Items.HONEY_BOTTLE ? 0xff9500 : (gobletBlock.getStack(0).getItem()) == BWObjects.BOTTLE_OF_BLOOD ? 0xff0000 : (gobletBlock.getStack(0).getItem()) == Items.POTION ? 0x3f76e4 : 0);
+            world.setBlockState(pos, state.with(LIQUID_STATE, (gobletBlock.getStack(0).getItem()) == Items.HONEY_BOTTLE ? 2 : (gobletBlock.getStack(0).getItem()) == BWObjects.BOTTLE_OF_BLOOD ? 3 : (gobletBlock.getStack(0).getItem()) == Items.POTION ? 1 : (gobletBlock.getStack(0).getItem()) == BWPObjects.UNICORN_BLOOD ? 4 : 0));
+            gobletBlock.setColor((gobletBlock.getStack(0).getItem()) == Items.HONEY_BOTTLE ? 0xff9500 : (gobletBlock.getStack(0).getItem()) == BWObjects.BOTTLE_OF_BLOOD ? 0xff0000 : (gobletBlock.getStack(0).getItem()) == Items.POTION ? 0x3f76e4 : (gobletBlock.getStack(0).getItem()) == BWPObjects.UNICORN_BLOOD ? 0x9cb7b8 : 0);
         }
         super.onPlaced(world, pos, state, placer, itemStack);
     }

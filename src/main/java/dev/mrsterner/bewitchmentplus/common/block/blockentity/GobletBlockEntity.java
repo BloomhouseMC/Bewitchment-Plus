@@ -153,8 +153,7 @@ public class GobletBlockEntity extends BlockEntity implements Inventory {
                 player.setStackInHand(hand, pickup);
                 world.breakBlock(pos, false, player);
 
-            }else
-            if(BWPTags.GOBLET_LIQUIDS.contains(stack.getItem())) {
+            }else if(BWPTags.GOBLET_LIQUIDS.contains(stack.getItem())) {
                 if(!world.isClient()){
                     if(stack.getItem().equals(Items.HONEY_BOTTLE)){
                         setColor(0xff9500);
@@ -165,6 +164,9 @@ public class GobletBlockEntity extends BlockEntity implements Inventory {
                     }else if(PotionUtil.getPotion(stack) == Potions.WATER){
                         setColor(0x3f76e4);
                         world.setBlockState(pos, state.with(LIQUID_STATE, 1));
+                    }else if(stack.getItem().equals(BWPObjects.UNICORN_BLOOD)){
+                        setColor(0x9cb7b8);
+                        world.setBlockState(pos, state.with(LIQUID_STATE, 4));
                     }
                     this.setStack(0, stack);
                     this.sync();

@@ -42,6 +42,7 @@ import static net.minecraft.screen.PlayerScreenHandler.BLOCK_ATLAS_TEXTURE;
 public class GobletBlockItemRenderer implements BlockEntityRenderer<GobletBlockEntity>, BuiltinItemRendererRegistry.DynamicItemRenderer {
     public static final SpriteIdentifier BLOOD = new SpriteIdentifier(BLOCK_ATLAS_TEXTURE, new Identifier(BewitchmentPlus.MODID, "block/goblet_fluid"));
     public static final SpriteIdentifier HONEY = new SpriteIdentifier(BLOCK_ATLAS_TEXTURE, new Identifier(BewitchmentPlus.MODID, "block/honey_fluid"));
+    public static final SpriteIdentifier UNICORN = new SpriteIdentifier(BLOCK_ATLAS_TEXTURE, new Identifier(BewitchmentPlus.MODID, "block/goblet_fluid_unicorn"));
     private static final float EDGE_SIZE = 1f / 16f;
     private static final float INNER_SIZE = 1f - (EDGE_SIZE * 2f);
     public GobletItemModel gobletItemModel;
@@ -105,14 +106,14 @@ public class GobletBlockItemRenderer implements BlockEntityRenderer<GobletBlockE
         var newColor = ColorHelper.swapRedBlueIfNeeded(0x3f76e4);
         if (entity != null) {
             newColor = ColorHelper.swapRedBlueIfNeeded(entity.color);
-            sprite = entity.color == 0xff0000 ? BLOOD.getSprite() : entity.color == 0xff9500 ? HONEY.getSprite() : handler.getSprites(variant)[0];
+            sprite = entity.color == 0xff0000 ? BLOOD.getSprite() : entity.color == 0xff9500 ? HONEY.getSprite() : entity.color == 0x9cb7b8 ? UNICORN.getSprite() : handler.getSprites(variant)[0];
         } else if (itemStack != null && itemStack.hasNbt()) {
             var nbt = itemStack.getNbt();
             if (nbt.contains("BlockEntityTag")) {
                 var slots = DefaultedList.ofSize(1, ItemStack.EMPTY);
                 Inventories.readNbt(nbt.getCompound("BlockEntityTag"), slots);
-                newColor = ColorHelper.swapRedBlueIfNeeded(slots.get(0).getItem() == BWObjects.BOTTLE_OF_BLOOD ? 0xff0000 : slots.get(0).getItem() == Items.HONEY_BOTTLE ? 0xff9500 : 0x3f76e4);
-                sprite = slots.get(0).getItem() == BWObjects.BOTTLE_OF_BLOOD ? BLOOD.getSprite() : slots.get(0).getItem() == Items.HONEY_BOTTLE ? HONEY.getSprite() : handler.getSprites(variant)[0];
+                newColor = ColorHelper.swapRedBlueIfNeeded(slots.get(0).getItem() == BWObjects.BOTTLE_OF_BLOOD ? 0xff0000 : slots.get(0).getItem() == Items.HONEY_BOTTLE ? 0xff9500 : slots.get(0).getItem() == BWPObjects.UNICORN_BLOOD ? 0x9cb7b8 : 0x3f76e4);
+                sprite = slots.get(0).getItem() == BWObjects.BOTTLE_OF_BLOOD ? BLOOD.getSprite() : slots.get(0).getItem() == Items.HONEY_BOTTLE ? HONEY.getSprite() : slots.get(0).getItem() == BWPObjects.UNICORN_BLOOD ? UNICORN.getSprite() : handler.getSprites(variant)[0];
             }
         }
 

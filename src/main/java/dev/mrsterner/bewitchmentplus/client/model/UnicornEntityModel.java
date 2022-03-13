@@ -5,7 +5,10 @@ import dev.mrsterner.bewitchmentplus.common.entity.UnicornEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.*;
+import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.HorseEntityModel;
+import net.minecraft.client.util.math.MatrixStack;
+
 @Environment(EnvType.CLIENT)
 public class UnicornEntityModel<T extends UnicornEntity> extends HorseEntityModel<T> {
 

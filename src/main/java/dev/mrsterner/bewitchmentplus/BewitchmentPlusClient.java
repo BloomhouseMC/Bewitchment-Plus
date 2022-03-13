@@ -60,6 +60,7 @@ public class BewitchmentPlusClient implements ClientModInitializer {
 		SpriteIdentifierRegistry.INSTANCE.addIdentifier(SpriteIdentifierRegistry.YEW_CHEST_RIGHT);
 		SpriteIdentifierRegistry.INSTANCE.addIdentifier(SpriteIdentifierRegistry.TRAPPED_YEW_CHEST_RIGHT);
 		SpriteIdentifierRegistry.INSTANCE.addIdentifier(GobletBlockItemRenderer.BLOOD);
+		SpriteIdentifierRegistry.INSTANCE.addIdentifier(GobletBlockItemRenderer.UNICORN);
 		SpriteIdentifierRegistry.INSTANCE.addIdentifier(GobletBlockItemRenderer.HONEY);
 		SpriteIdentifierRegistry.INSTANCE.addIdentifier(MimicBlockEntityRenderer.MIMIC_SPRITE);
 		SpriteIdentifierRegistry.INSTANCE.addIdentifier(SpriteIdentifierRegistry.LEECH_CHEST);

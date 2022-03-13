@@ -7,6 +7,9 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.HorseBaseEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
 public class UnicornEntity extends HorseBaseEntity {
@@ -33,5 +36,25 @@ public class UnicornEntity extends HorseBaseEntity {
         .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D)
         .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.35D)
         .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 24.0D);
+    }
+
+    @Override
+    public boolean canBeSaddled() {
+        return false;
+    }
+
+    @Override
+    public void openInventory(PlayerEntity player) {
+
+    }
+
+    @Override
+    public ActionResult interactMob(PlayerEntity player, Hand hand) {
+        return ActionResult.PASS;
+    }
+
+    @Override
+    public ActionResult interactHorse(PlayerEntity player, ItemStack stack) {
+        return ActionResult.PASS;
     }
 }

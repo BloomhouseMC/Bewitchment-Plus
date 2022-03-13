@@ -1,5 +1,9 @@
 package dev.mrsterner.bewitchmentplus.common.item;
 
+import dev.mrsterner.bewitchmentplus.common.registry.BWPCurses;
+import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
+import dev.mrsterner.bewitchmentplus.common.registry.BWPStatusEffects;
+import moriyashiine.bewitchment.api.registry.Curse;
 import moriyashiine.bewitchment.common.Bewitchment;
 import moriyashiine.bewitchment.common.registry.BWComponents;
 import moriyashiine.bewitchment.common.registry.BWCurses;
@@ -11,6 +15,7 @@ import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.Block;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
@@ -67,18 +72,20 @@ public class GobletBlockItem extends BlockItem {
                     });
                 }
             }
-
             if (goblet != null && !goblet.isEmpty()) {
                 itemStack = ItemStack.fromNbt(goblet);
             }
             var slots = DefaultedList.ofSize(1, ItemStack.EMPTY);
             Inventories.readNbt(nbt.getCompound("BlockEntityTag"), slots);
-            var slos = slots.get(0);
-            if (!world.isClient && slos.getItem() == Items.HONEY_BOTTLE) {
-                user.removeStatusEffect(StatusEffects.POISON);
+            var slot = slots.get(0);
+            if(!world.isClient()){
+                if (slot.getItem() == Items.HONEY_BOTTLE) {
+                    user.removeStatusEffect(StatusEffects.POISON);
+                }else if (slot.getItem() == BWPObjects.UNICORN_BLOOD) {
+                    BWComponents.CURSES_COMPONENT.get(user).addCurse(new Curse.Instance(BWPCurses.HALF_LIFE, 168000));
+                }
             }
             stack.decrement(1);
-
         }
         if (!stack.isEmpty()) {
             if (user instanceof PlayerEntity && !((PlayerEntity) user).getAbilities().creativeMode) {
