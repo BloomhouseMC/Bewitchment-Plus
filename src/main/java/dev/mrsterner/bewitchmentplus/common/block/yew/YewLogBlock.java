@@ -1,10 +1,11 @@
 package dev.mrsterner.bewitchmentplus.common.block.yew;
 
+import dev.mrsterner.bewitchmentplus.common.block.blockentity.YewLogBlockEntity;
 import moriyashiine.bewitchment.common.registry.BWProperties;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.MapColor;
-import net.minecraft.block.PillarBlock;
+import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -19,11 +20,12 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 import java.util.function.Supplier;
 
-public class YewLogBlock extends PillarBlock {
+public class YewLogBlock extends PillarBlock implements BlockEntityProvider {
     private Supplier<Block> stripped;
 
     public YewLogBlock(Supplier<Block> stripped, MapColor top, Settings settings) {
@@ -69,5 +71,11 @@ public class YewLogBlock extends PillarBlock {
             return ActionResult.SUCCESS;
         }
         return ActionResult.FAIL;
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return state.get(BWProperties.CUT) ? new YewLogBlockEntity(pos, state) : null;
     }
 }

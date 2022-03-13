@@ -34,16 +34,9 @@ public class BWPConfig implements ConfigData {
 
 
 	public static class World {
-		@ConfigEntry.Gui.RequiresRestart
 		public final boolean blackDogStructureSpawn = true;
-
-		@ConfigEntry.Gui.RequiresRestart
 		public final boolean cambionVillageStructureSpawn = true;
-
-		@ConfigEntry.Gui.RequiresRestart
 		public final boolean cambionBastionStructureSpawn = true;
-
-		@ConfigEntry.Gui.RequiresRestart
 		public final boolean cambionNetherFortressStructureSpawn = true;
 
 		@ConfigEntry.Gui.Tooltip

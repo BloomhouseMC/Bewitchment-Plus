@@ -12,6 +12,8 @@ import java.util.Map;
 public class BWPStatusEffects {
     private static final Map<StatusEffect, Identifier> STATUS_EFFECTS = new LinkedHashMap<>();
 
+    public static final StatusEffect HOMESTEAD = register("homestead", new BWPStatusEffect(StatusEffectCategory.BENEFICIAL, 0x9a9ebf));
+
     private static <T extends StatusEffect> T register(String name, T effect) {
         STATUS_EFFECTS.put(effect, new Identifier(BewitchmentPlus.MODID, name));
         return effect;
@@ -21,8 +23,8 @@ public class BWPStatusEffects {
         STATUS_EFFECTS.keySet().forEach(effect -> Registry.register(Registry.STATUS_EFFECT, STATUS_EFFECTS.get(effect), effect));
     }
 
-    public static class BWStatusEffect extends StatusEffect {
-        public BWStatusEffect(StatusEffectCategory category, int color) {
+    public static class BWPStatusEffect extends StatusEffect {
+        public BWPStatusEffect(StatusEffectCategory category, int color) {
             super(category, color);
         }
     }

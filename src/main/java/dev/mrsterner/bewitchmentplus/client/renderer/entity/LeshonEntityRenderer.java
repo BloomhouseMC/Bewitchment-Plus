@@ -48,7 +48,7 @@ public class LeshonEntityRenderer extends GeoEntityRenderer<LeshonEntity> {
                 stack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180));
                 stack.translate(0.4D, -1.2D, -0.2D);
                 stack.scale(1.0f, 1.0f, 1.0f);
-                MinecraftClient.getInstance().getItemRenderer().renderItem(offHand, ModelTransformation.Mode.THIRD_PERSON_LEFT_HAND, packedLightIn, packedOverlayIn, stack, rtb, 0);
+                MinecraftClient.getInstance().getItemRenderer().renderItem(offHand, ModelTransformation.Mode.THIRD_PERSON_LEFT_HAND, packedLightIn, packedOverlayIn, stack, rtb,0);
                 stack.pop();
                 bufferIn = rtb.getBuffer(RenderLayer.getEntityTranslucent(whTexture));
             }

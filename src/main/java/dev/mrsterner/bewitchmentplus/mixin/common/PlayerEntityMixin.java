@@ -24,14 +24,14 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Magical 
     private boolean magical = false;
 
     @Inject(method = "writeCustomDataToNbt", at = @At("TAIL"))
-    private void writeMiskData(NbtCompound compoundTag, CallbackInfo info) {
+    private void writeBWPData(NbtCompound compoundTag, CallbackInfo info) {
         NbtCompound tag = new NbtCompound();
         tag.putBoolean("Magical", magical);
         compoundTag.put("MagicalCompound", tag);
     }
 
     @Inject(method = "readCustomDataFromNbt", at = @At("TAIL"))
-    public void readMiskData(NbtCompound compoundTag, CallbackInfo info) {
+    public void readBWPData(NbtCompound compoundTag, CallbackInfo info) {
         NbtCompound tag = (NbtCompound) compoundTag.get("MagicalCompound");
         if (tag != null) {
             this.magical = tag.getBoolean("Magical");

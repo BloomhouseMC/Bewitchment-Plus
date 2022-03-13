@@ -26,7 +26,9 @@
     "client.PlayerEntityRendererMixin",
     "client.RenderLayerAccessor",
     "client.SignEditScreenMixin",
-    "client.TexturedRenderLayersMixin"
+    "client.TexturedRenderLayersMixin",
+    "client.AbstractInventoryScreenMixin",
+    "client.InGameHudMixin"
   ],
   "injectors": {
     "defaultRequire": 1
