@@ -24,7 +24,6 @@ public class NifflerEntityRenderer extends GeoEntityRenderer<NifflerEntity> {
     }
 
 
-
     @Override
     public RenderLayer getRenderType(NifflerEntity animatable, float partialTicks, MatrixStack stack, @Nullable VertexConsumerProvider renderTypeBuffer, @Nullable VertexConsumer vertexBuilder, int packedLightIn, Identifier textureLocation) {
         return RenderLayer.getEntityTranslucent(this.getTextureLocation(animatable));

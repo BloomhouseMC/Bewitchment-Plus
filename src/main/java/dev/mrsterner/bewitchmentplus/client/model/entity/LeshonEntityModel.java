@@ -9,11 +9,6 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 import software.bernie.geckolib3.model.provider.data.EntityModelData;
 
 public class LeshonEntityModel extends AnimatedGeoModel<LeshonEntity> {
-    private Identifier currentTexture = new Identifier(BewitchmentPlus.MODID, "textures/entity/leshon/leshon.png");
-
-    public void setCurrentTexture(Identifier currentTexture) {
-        this.currentTexture = currentTexture;
-    }
 
     @Override
     public Identifier getModelLocation(LeshonEntity object) {
@@ -22,7 +17,7 @@ public class LeshonEntityModel extends AnimatedGeoModel<LeshonEntity> {
 
     @Override
     public Identifier getTextureLocation(LeshonEntity object) {
-        return currentTexture;
+        return new Identifier(BewitchmentPlus.MODID, "textures/entity/leshon/leshon.png");
     }
 
     @Override

@@ -11,11 +11,6 @@ import software.bernie.geckolib3.model.provider.data.EntityModelData;
 import static dev.mrsterner.bewitchmentplus.common.entity.NifflerEntity.SLEEPING;
 
 public class NifflerEntityModel extends AnimatedGeoModel<NifflerEntity> {
-    private Identifier currentTexture = new Identifier(BewitchmentPlus.MODID, "textures/entity/niffler/niffler_1.png");
-
-    public void setCurrentTexture(Identifier currentTexture) {
-        this.currentTexture = currentTexture;
-    }
 
     @Override
     public Identifier getModelLocation(NifflerEntity object) {
@@ -24,7 +19,7 @@ public class NifflerEntityModel extends AnimatedGeoModel<NifflerEntity> {
 
     @Override
     public Identifier getTextureLocation(NifflerEntity object) {
-        return currentTexture;
+        return new Identifier(BewitchmentPlus.MODID, "textures/entity/niffler/niffler_1.png");
     }
 
     @Override

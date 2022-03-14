@@ -3,7 +3,6 @@ package dev.mrsterner.bewitchmentplus.client.renderer;
 import dev.mrsterner.bewitchmentplus.common.block.LeechChestBlock;
 import dev.mrsterner.bewitchmentplus.common.block.blockentity.LeechChestBlockEntity;
 import dev.mrsterner.bewitchmentplus.common.registry.SpriteIdentifierRegistry;
-import it.unimi.dsi.fastutil.floats.Float2FloatFunction;
 import it.unimi.dsi.fastutil.ints.Int2IntFunction;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -44,40 +43,31 @@ public class LeechChestBlockEntityRenderer<T extends BlockEntity & ChestAnimatio
     @Override
     public void render(T entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         World world = entity.getWorld();
-
-        BlockState blockState = world != null ? entity.getCachedState() : (BlockState) Blocks.CHEST.getDefaultState().with(ChestBlock.FACING, Direction.SOUTH);
+        BlockState blockState = world != null ? entity.getCachedState() : Blocks.CHEST.getDefaultState().with(ChestBlock.FACING, Direction.SOUTH);
         Block block = blockState.getBlock();
-
         if (block instanceof LeechChestBlock) {
             LeechChestBlock chest = (LeechChestBlock) block;
-
             matrices.push();
-            float rotation = ((Direction)blockState.get(ChestBlock.FACING)).asRotation();
+            float rotation = blockState.get(ChestBlock.FACING).asRotation();
             matrices.translate(0.5D, 0.5D, 0.5D);
             matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(-rotation));
             matrices.translate(-0.5D, -0.5D, -0.5D);
-
             DoubleBlockProperties.PropertySource<? extends LeechChestBlockEntity> properties;
             if (world == null) {
                 properties = DoubleBlockProperties.PropertyRetriever::getFallback;
             } else {
                 properties = chest.getBlockEntitySource(blockState, world, entity.getPos(), true);
             }
-
-            float g = ((Float2FloatFunction)properties.apply(LeechChestBlock.getAnimationProgressRetriever((ChestAnimationProgress)entity))).get(tickDelta);
+            float g = properties.apply(LeechChestBlock.getAnimationProgressRetriever(entity)).get(tickDelta);
             g = 1.0F - g;
             g = 1.0F - g * g * g;
             int i = ((Int2IntFunction)properties.apply(new LightmapCoordinatesRetriever())).applyAsInt(light);
-
             SpriteIdentifier spriteIdentifier = SpriteIdentifierRegistry.LEECH_CHEST;
             VertexConsumer vertexConsumer = spriteIdentifier.getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
-
             renderMatrices(matrices, vertexConsumer, this.chestLid, this.chestLock, this.chestBottom, g, i, overlay);
-
             matrices.pop();
         }
     }
-
 
     private static void renderMatrices(MatrixStack matrices, VertexConsumer vertices, ModelPart lid, ModelPart latch, ModelPart base, float openFactor, int light, int overlay) {
         lid.pitch = -openFactor * 1.5707964F;

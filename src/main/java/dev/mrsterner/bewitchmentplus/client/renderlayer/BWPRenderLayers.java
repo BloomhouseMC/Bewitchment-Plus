@@ -32,7 +32,6 @@ public class BWPRenderLayers extends RenderLayer {
         return RenderLayerAccessor.of(name, format, mode, bufSize, hasCrumbling, sortOnUpload, glState);
     }
 
-
     public static final Function<Identifier, RenderLayer> RUNE_LAYER = Util.memoize(texture -> {
         RenderLayer.MultiPhaseParameters glState = RenderLayer.MultiPhaseParameters.builder()
         .shader(new RenderPhase.Shader(BWPShader::rune))

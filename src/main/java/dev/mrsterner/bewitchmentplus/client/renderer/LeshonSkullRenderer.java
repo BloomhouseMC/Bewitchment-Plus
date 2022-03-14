@@ -13,7 +13,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3f;
 
 public class LeshonSkullRenderer implements  BuiltinItemRendererRegistry.DynamicItemRenderer {
-
     public LeshonSkullModel leshonSkullModel;
 
     public LeshonSkullRenderer() {

@@ -1,6 +1,5 @@
 package dev.mrsterner.bewitchmentplus.client.renderer.entity;
 
-import dev.mrsterner.bewitchmentplus.BewitchmentPlusClient;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import dev.mrsterner.bewitchmentplus.client.model.entity.CambionEntityModel;
@@ -29,10 +28,10 @@ public class CambionEntityRenderer extends BipedEntityRenderer<CambionEntity, Bi
 	private final BipedEntityModel MALE_MODEL, FEMALE_MODEL;
 
 	public CambionEntityRenderer(EntityRendererFactory.Context context) {
-		super(context, new CambionEntityModel(context.getPart(BewitchmentPlusClient.MALE_CAMBION_MODEL_LAYER)), 0.5f);
+		super(context, new CambionEntityModel(context.getPart(CambionEntityModel.MALE_CAMBION_MODEL_LAYER)), 0.5f);
 		this.addFeature(new ArmorFeatureRenderer<>(this, new BipedEntityModel(context.getPart(EntityModelLayers.PLAYER_INNER_ARMOR)), new BipedEntityModel(context.getPart(EntityModelLayers.PLAYER_OUTER_ARMOR))));
 		MALE_MODEL = model;
-		FEMALE_MODEL = new CambionEntityModel(context.getPart(BewitchmentPlusClient.FEMALE_CAMBION_MODEL_LAYER));
+		FEMALE_MODEL = new CambionEntityModel(context.getPart(CambionEntityModel.FEMALE_CAMBION_MODEL_LAYER));
 	}
 
 	@Override

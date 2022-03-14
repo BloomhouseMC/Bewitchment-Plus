@@ -25,7 +25,6 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.state.property.Property;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.*;
 import net.minecraft.util.hit.BlockHitResult;
@@ -42,15 +41,13 @@ import java.util.Random;
 import java.util.UUID;
 
 public class LeechChestBlock extends AbstractChestBlock<LeechChestBlockEntity> implements Waterloggable {
-    public static final DirectionProperty FACING;
-    public static final BooleanProperty WATERLOGGED;
-    protected static final VoxelShape SHAPE;
+    public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
+    public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
+    protected static final VoxelShape SHAPE = Block.createCuboidShape(1.0D, 0.0D, 1.0D, 15.0D, 14.0D, 15.0D);
 
     public LeechChestBlock(Settings settings) {
-        super(settings, () -> {
-            return BWPBlockEntityTypes.LEECH_CHEST_BLOCK_ENTITY;
-        });
-        this.setDefaultState((BlockState)((BlockState)((BlockState)this.stateManager.getDefaultState()).with(FACING, Direction.NORTH)).with(WATERLOGGED, false));
+        super(settings, () -> BWPBlockEntityTypes.LEECH_CHEST_BLOCK_ENTITY);
+        this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH).with(WATERLOGGED, false));
     }
 
     public DoubleBlockProperties.PropertySource<? extends LeechChestBlockEntity> getBlockEntitySource(BlockState state, World world, BlockPos pos, boolean ignoreBlocked) {
@@ -140,31 +137,30 @@ public class LeechChestBlock extends AbstractChestBlock<LeechChestBlockEntity> i
 
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
-        return (BlockState)((BlockState)this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite())).with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
+        return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite()).with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
     }
 
     public BlockState rotate(BlockState state, BlockRotation rotation) {
-        return (BlockState)state.with(FACING, rotation.rotate((Direction)state.get(FACING)));
+        return state.with(FACING, rotation.rotate(state.get(FACING)));
     }
 
     public BlockState mirror(BlockState state, BlockMirror mirror) {
-        return state.rotate(mirror.getRotation((Direction)state.get(FACING)));
+        return state.rotate(mirror.getRotation(state.get(FACING)));
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(new Property[]{FACING, WATERLOGGED});
+        builder.add(FACING, WATERLOGGED);
         super.appendProperties(builder);
     }
 
     public FluidState getFluidState(BlockState state) {
-        return (Boolean)state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
+        return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
     }
 
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        if ((Boolean)state.get(WATERLOGGED)) {
+        if (state.get(WATERLOGGED)) {
             world.createAndScheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         }
-
         return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
     }
 
@@ -181,38 +177,27 @@ public class LeechChestBlock extends AbstractChestBlock<LeechChestBlockEntity> i
     }
 
     public static DoubleBlockProperties.PropertyRetriever<LeechChestBlockEntity, Float2FloatFunction> getAnimationProgressRetriever(ChestAnimationProgress chestAnimationProgress) {
-        return new DoubleBlockProperties.PropertyRetriever<LeechChestBlockEntity, Float2FloatFunction>() {
+        return new DoubleBlockProperties.PropertyRetriever<>() {
             public Float2FloatFunction getFromBoth(LeechChestBlockEntity chestBlockEntity, LeechChestBlockEntity chestBlockEntity2) {
-                return (f) -> {
-                    return Math.max(chestBlockEntity.getAnimationProgress(f), chestBlockEntity2.getAnimationProgress(f));
-                };
+                return (f) -> Math.max(chestBlockEntity.getAnimationProgress(f), chestBlockEntity2.getAnimationProgress(f));
             }
-
             public Float2FloatFunction getFrom(LeechChestBlockEntity chestBlockEntity) {
                 Objects.requireNonNull(chestBlockEntity);
                 return chestBlockEntity::getAnimationProgress;
             }
-
             public Float2FloatFunction getFallback() {
-                ChestAnimationProgress var10000 = chestAnimationProgress;
-                Objects.requireNonNull(var10000);
-                return var10000::getAnimationProgress;
+                Objects.requireNonNull(chestAnimationProgress);
+                return chestAnimationProgress::getAnimationProgress;
             }
         };
     }
 
     public BlockEntityType<? extends LeechChestBlockEntity> getExpectedEntityType() {
-        return (BlockEntityType)this.entityTypeRetriever.get();
+        return this.entityTypeRetriever.get();
     }
 
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
         return world.isClient ? checkType(type, this.getExpectedEntityType(), LeechChestBlockEntity::clientTick) : null;
-    }
-
-    static {
-        FACING = HorizontalFacingBlock.FACING;
-        WATERLOGGED = Properties.WATERLOGGED;
-        SHAPE = Block.createCuboidShape(1.0D, 0.0D, 1.0D, 15.0D, 14.0D, 15.0D);
     }
 }

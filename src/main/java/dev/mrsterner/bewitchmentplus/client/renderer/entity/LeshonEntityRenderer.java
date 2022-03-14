@@ -26,9 +26,6 @@ public class LeshonEntityRenderer extends GeoEntityRenderer<LeshonEntity> {
         return RenderLayer.getEntityTranslucent(this.getTextureLocation(animatable));
     }
 
-
-
-
     @Override
     public void renderRecursively(GeoBone bone, MatrixStack stack, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
         if (bone.getName().equals("rightItem") && !mainHand.isEmpty()) {

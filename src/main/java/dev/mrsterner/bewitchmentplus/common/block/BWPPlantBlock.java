@@ -48,6 +48,4 @@ public class BWPPlantBlock extends PlantBlock {
 
         }
     }
-
-
 }

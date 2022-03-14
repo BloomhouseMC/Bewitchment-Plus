@@ -5,7 +5,6 @@ import dev.mrsterner.bewitchmentplus.BewitchmentPlusClient;
 import dev.mrsterner.bewitchmentplus.client.shader.BWPShader;
 import dev.mrsterner.bewitchmentplus.common.entity.RuneEntity;
 import net.minecraft.client.render.*;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
@@ -17,10 +16,8 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import static dev.mrsterner.bewitchmentplus.common.utils.RenderHelper.renderLayer;
 
 public class RuneEntityRenderer extends EntityRenderer<RuneEntity> {
-    private final EntityRenderDispatcher dispatcher;
     public RuneEntityRenderer(EntityRendererFactory.Context ctx) {
         super(ctx);
-        this.dispatcher = ctx.getRenderDispatcher();
     }
 
     /** This method is calling the method which renders the circle of runes. Additionally, provides the shader with

@@ -1,6 +1,5 @@
 package dev.mrsterner.bewitchmentplus.client.renderer.entity;
 
-import dev.mrsterner.bewitchmentplus.BewitchmentPlusClient;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import dev.mrsterner.bewitchmentplus.client.model.entity.BlackDogEntityModel;
@@ -13,7 +12,7 @@ public class BlackDogEntityRenderer extends MobEntityRenderer<BlackDogEntity, Bl
 	private static Identifier[] TEXTURES;
 
 	public BlackDogEntityRenderer(EntityRendererFactory.Context context) {
-		super(context, new BlackDogEntityModel<>(context.getPart(BewitchmentPlusClient.BLACKDOG_MODEL_LAYER)), 0.5f);
+		super(context, new BlackDogEntityModel<>(context.getPart(BlackDogEntityModel.BLACKDOG_MODEL_LAYER)), 0.5f);
 	}
 
 	@Override

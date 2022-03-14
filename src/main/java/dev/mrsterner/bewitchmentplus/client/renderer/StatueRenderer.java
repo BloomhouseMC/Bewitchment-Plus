@@ -38,13 +38,10 @@ public class StatueRenderer implements BlockEntityRenderer<StatueBlockEntity>, B
         baphometStatueModel = new BaphometStatueModel(BaphometStatueModel.create().createModel());
     }
 
-
-
     public Identifier getStatueTexture(StatueBlockItem itemStack) {
         String string = Registry.ITEM.getKey(itemStack.asItem()).get().getValue().getPath();
         return new Identifier(BewitchmentPlus.MODID,  "textures/block/statues/"+ string +".png");
     }
-
 
     @Override
     public void render(ItemStack stack, ModelTransformation.Mode mode, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
@@ -73,7 +70,6 @@ public class StatueRenderer implements BlockEntityRenderer<StatueBlockEntity>, B
         boolean bl = world != null;
         BlockState blockState = bl ? entity.getCachedState() : BWPObjects.LILITH_STATUE_BLACKSTONE.getDefaultState().with(Properties.HORIZONTAL_FACING, Direction.SOUTH);
         matrices.push();
-
         matrices.translate(0.5, 1.5, 0.5);
         matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(180));
         float f = blockState.get(Properties.HORIZONTAL_FACING).asRotation();

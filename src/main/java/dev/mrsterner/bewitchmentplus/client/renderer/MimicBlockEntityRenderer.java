@@ -49,12 +49,10 @@ public class MimicBlockEntityRenderer<T extends BlockEntity> implements BlockEnt
         this.tounge4 = tounge3.getChild("tounge4");
         this.tounge5 = tounge4.getChild("tounge5");
         this.eye = modelPart.getChild("eye");
-
     }
 
     @Override
     public void render(T entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-
         World world = entity.getWorld();
         boolean bl = world != null;
         BlockState blockState = bl ? entity.getCachedState() : Blocks.CHEST.getDefaultState().with(ChestBlock.FACING, Direction.SOUTH);
@@ -62,7 +60,6 @@ public class MimicBlockEntityRenderer<T extends BlockEntity> implements BlockEnt
         if (!(block instanceof AbstractChestBlock abstractChestBlock) || !bl) {
             return;
         }
-
         matrices.push();
         float f = blockState.get(ChestBlock.FACING).asRotation();
         matrices.translate(0.5, 0.5, 0.5);
@@ -96,17 +93,16 @@ public class MimicBlockEntityRenderer<T extends BlockEntity> implements BlockEnt
     public static TexturedModelData getTexturedModelData() {
         ModelData data = new ModelData();
         ModelPartData root = data.getRoot();
-
         ModelPartData chest = root.addChild("chest", ModelPartBuilder.create().uv(0, 0).cuboid(-7.0F, -10.0F, -7.0F, 14.0F, 10.0F, 14.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
-        ModelPartData teethLower = chest.addChild("teethLower", ModelPartBuilder.create().uv(42, 24).cuboid(-5.4F, -12.0F, -6.0F, 11.0F, 3.0F, 0.0F, new Dilation(0.0F)).uv(24, 31).cuboid(6.0F, -12.0F, -6.0F, 0.0F, 2.0F, 12.0F, new Dilation(0.0F)).uv(0, 31).cuboid(-6.0F, -12.0F, -6.0F, 0.0F, 2.0F, 12.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        chest.addChild("teethLower", ModelPartBuilder.create().uv(42, 24).cuboid(-5.4F, -12.0F, -6.0F, 11.0F, 3.0F, 0.0F, new Dilation(0.0F)).uv(24, 31).cuboid(6.0F, -12.0F, -6.0F, 0.0F, 2.0F, 12.0F, new Dilation(0.0F)).uv(0, 31).cuboid(-6.0F, -12.0F, -6.0F, 0.0F, 2.0F, 12.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
         ModelPartData lid = root.addChild("lid", ModelPartBuilder.create().uv(0, 24).cuboid(-7.0F, -4.0F, -14.0F, 14.0F, 5.0F, 14.0F, new Dilation(-0.001F)).uv(8, 28).cuboid(-1.0F, -1.0F, -15.0F, 2.0F, 4.0F, 1.0F, new Dilation(-0.001F)), ModelTransform.pivot(0.0F, 14.0F, 7.0F));
-        ModelPartData teethUpper = lid.addChild("teethUpper", ModelPartBuilder.create().uv(22, 34).cuboid(6.1F, 1.0F, -13.0F, 0.0F, 2.0F, 11.0F, new Dilation(-0.001F)).uv(0, 34).cuboid(-6.1F, 1.0F, -13.0F, 0.0F, 2.0F, 11.0F, new Dilation(-0.001F)).uv(42, 10).cuboid(-5.4F, 1.0F, -13.1F, 11.0F, 3.0F, 0.0F, new Dilation(-0.001F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        lid.addChild("teethUpper", ModelPartBuilder.create().uv(22, 34).cuboid(6.1F, 1.0F, -13.0F, 0.0F, 2.0F, 11.0F, new Dilation(-0.001F)).uv(0, 34).cuboid(-6.1F, 1.0F, -13.0F, 0.0F, 2.0F, 11.0F, new Dilation(-0.001F)).uv(42, 10).cuboid(-5.4F, 1.0F, -13.1F, 11.0F, 3.0F, 0.0F, new Dilation(-0.001F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
         ModelPartData tounge = root.addChild("tounge", ModelPartBuilder.create().uv(0, 5).cuboid(-5.0F, -4.0F, 0.0F, 4.0F, 4.0F, 1.0F, new Dilation(0.0F)), ModelTransform.of(3.0F, 15.0F, 2.0F, 1.0908F, 0.0F, 0.0F));
         ModelPartData tounge2 = tounge.addChild("tounge2", ModelPartBuilder.create().uv(0, 0).cuboid(-2.0F, -4.0F, -1.0F, 4.0F, 4.0F, 1.0F, new Dilation(0.0F)), ModelTransform.of(-3.0F, -4.0F, 1.0F, 0.6981F, 0.0F, 0.0F));
         ModelPartData tounge3 = tounge2.addChild("tounge3", ModelPartBuilder.create().uv(0, 24).cuboid(-2.0F, -3.0F, -1.0F, 4.0F, 3.0F, 1.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -4.0F, 0.0F, 0.6981F, 0.0F, 0.0F));
         ModelPartData tounge4 = tounge3.addChild("tounge4", ModelPartBuilder.create().uv(0, 10).cuboid(-2.0F, -3.0F, -1.0F, 4.0F, 3.0F, 1.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -3.0F, 0.0F, 0.6981F, 0.0F, 0.0F));
-        ModelPartData tounge5 = tounge4.addChild("tounge5", ModelPartBuilder.create().uv(0, 28).cuboid(-0.5F, -3.0F, -1.0F, 3.0F, 3.0F, 1.0F, new Dilation(0.0F)), ModelTransform.of(-1.0F, -3.0F, 0.0F, 0.6981F, 0.0F, 0.0F));
-        ModelPartData eye = root.addChild("eye", ModelPartBuilder.create().uv(42, 0).cuboid(-2.5F, -1.25F, -2.5F, 5.0F, 5.0F, 5.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 13.25F, 0.0F, 0.0F, 0.0F, 0.0F));
+        tounge4.addChild("tounge5", ModelPartBuilder.create().uv(0, 28).cuboid(-0.5F, -3.0F, -1.0F, 3.0F, 3.0F, 1.0F, new Dilation(0.0F)), ModelTransform.of(-1.0F, -3.0F, 0.0F, 0.6981F, 0.0F, 0.0F));
+        root.addChild("eye", ModelPartBuilder.create().uv(42, 0).cuboid(-2.5F, -1.25F, -2.5F, 5.0F, 5.0F, 5.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 13.25F, 0.0F, 0.0F, 0.0F, 0.0F));
 
         return TexturedModelData.of(data, 64, 64);
     }

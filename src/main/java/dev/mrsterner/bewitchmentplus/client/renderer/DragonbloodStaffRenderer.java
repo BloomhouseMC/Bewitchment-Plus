@@ -14,7 +14,6 @@ public class DragonbloodStaffRenderer extends GeoItemRenderer<DragonbloodStaffIt
         super(new DragonbloodStaffModel());
     }
 
-
     @Override
     public RenderLayer getRenderType(DragonbloodStaffItem animatable, float partialTicks, MatrixStack stack, VertexConsumerProvider renderTypeBuffer, VertexConsumer vertexBuilder, int packedLightIn, Identifier textureLocation) {
         return RenderLayer.getEntityTranslucent(getTextureLocation(animatable));

@@ -35,11 +35,11 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 import java.util.Random;
 
-
 public class MimicChestBlock extends AbstractChestBlock<MimicChestBlockEntity> implements Waterloggable {
-    public static final DirectionProperty FACING;
-    public static final BooleanProperty WATERLOGGED;
-    protected static final VoxelShape SHAPE;
+    public static final DirectionProperty  FACING = HorizontalFacingBlock.FACING;
+    public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
+    protected static final VoxelShape SHAPE = Block.createCuboidShape(1.0D, 0.0D, 1.0D, 15.0D, 14.0D, 15.0D);
+
     public static final EnumProperty<ChestType> CHEST_TYPE = Properties.CHEST_TYPE;
     private PlayerEntity leechedPlayer;
 
@@ -172,15 +172,5 @@ public class MimicChestBlock extends AbstractChestBlock<MimicChestBlockEntity> i
 
     public BlockEntityType<? extends MimicChestBlockEntity> getExpectedEntityType() {
         return this.entityTypeRetriever.get();
-    }
-
-
-
-
-
-    static {
-        FACING = HorizontalFacingBlock.FACING;
-        WATERLOGGED = Properties.WATERLOGGED;
-        SHAPE = Block.createCuboidShape(1.0D, 0.0D, 1.0D, 15.0D, 14.0D, 15.0D);
     }
 }

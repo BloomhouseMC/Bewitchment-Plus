@@ -1,16 +1,18 @@
-package dev.mrsterner.bewitchmentplus.client.model;
+package dev.mrsterner.bewitchmentplus.client.model.entity;
 
 
+import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import dev.mrsterner.bewitchmentplus.common.entity.UnicornEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.entity.model.HorseEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
 public class UnicornEntityModel<T extends UnicornEntity> extends HorseEntityModel<T> {
+	public static final EntityModelLayer UNICORN_MODEL_LAYER = new EntityModelLayer(new Identifier(BewitchmentPlus.MODID, "unicorn"), "main");
 
 	public UnicornEntityModel(ModelPart modelPart) {
 		super(modelPart);
