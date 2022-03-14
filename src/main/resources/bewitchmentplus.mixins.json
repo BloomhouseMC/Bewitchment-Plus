@@ -18,7 +18,7 @@
     "common.TexturedRenderLayersMixin",
     "common.TogglePressingForwardPacketMixin",
     "common.VillagerBreedTaskMixin",
-    "common.MilkBucketMixin"
+    "common.MilkBucketItemMixin"
   ],
   "client": [
     "client.GameRendererMixin",

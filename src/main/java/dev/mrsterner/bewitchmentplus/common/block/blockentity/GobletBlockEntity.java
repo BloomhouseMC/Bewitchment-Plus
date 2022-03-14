@@ -4,6 +4,7 @@ import dev.mrsterner.bewitchmentplus.common.item.GobletBlockItem;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPBlockEntityTypes;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPTags;
+import dev.mrsterner.bewitchmentplus.common.utils.RenderHelper;
 import moriyashiine.bewitchment.common.misc.BWUtil;
 import moriyashiine.bewitchment.common.registry.BWObjects;
 import net.minecraft.block.Block;
@@ -156,19 +157,19 @@ public class GobletBlockEntity extends BlockEntity implements Inventory {
             }else if(BWPTags.GOBLET_LIQUIDS.contains(stack.getItem())) {
                 if(!world.isClient()){
                     if(stack.getItem().equals(Items.HONEY_BOTTLE)){
-                        setColor(0xff9500);
+                        setColor(RenderHelper.HONEY_COLOR);
                         world.setBlockState(pos, state.with(LIQUID_STATE, 2));
                     }else if(stack.getItem().equals(BWObjects.BOTTLE_OF_BLOOD)){
-                        setColor(0xff0000);
+                        setColor(RenderHelper.BLOOD_COLOR);
                         world.setBlockState(pos, state.with(LIQUID_STATE, 3));
                     }else if(PotionUtil.getPotion(stack) == Potions.WATER){
-                        setColor(0x3f76e4);
+                        setColor(RenderHelper.WATER_COLOR);
                         world.setBlockState(pos, state.with(LIQUID_STATE, 1));
                     }else if(stack.getItem().equals(BWPObjects.UNICORN_BLOOD)){
-                        setColor(0x9cb7b8);
+                        setColor(RenderHelper.UNICORN_BLOOD_COLOR);
                         world.setBlockState(pos, state.with(LIQUID_STATE, 4));
                     }
-                    this.setStack(0, stack);
+                    this.setStack(0, stack.split(1));
                     this.sync();
                 }
                 world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1,1);

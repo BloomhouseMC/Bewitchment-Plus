@@ -6,6 +6,7 @@ import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -32,9 +33,10 @@ public class BWPStatusEffects {
         public BWPStatusEffect(StatusEffectCategory category, int color) {
             super(category, color);
         }
+
     }
 
-    public static class HalfLifeStatueEffect extends StatusEffect {
+    public static class HalfLifeStatueEffect extends BWPStatusEffect {
         public HalfLifeStatueEffect(StatusEffectCategory category, int color) {
             super(category, color);
         }
@@ -49,9 +51,13 @@ public class BWPStatusEffects {
             super.onApplied(entity, attributes, amplifier);
         }
 
+
+
         @Override
         public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier) {
-            entity.damage(DamageSource.MAGIC, Float.MAX_VALUE);
+            if(!entity.hasStatusEffect(BWPStatusEffects.HALF_LIFE)){
+                entity.damage(DamageSource.MAGIC, Float.MAX_VALUE);
+            }
             super.onRemoved(entity, attributes, amplifier);
         }
     }

@@ -3,6 +3,8 @@ package dev.mrsterner.bewitchmentplus.mixin.common;
 import com.mojang.authlib.GameProfile;
 import dev.mrsterner.bewitchmentplus.common.entity.EffigyEntity;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPComponents;
+import dev.mrsterner.bewitchmentplus.common.registry.BWPCurses;
+import moriyashiine.bewitchment.common.registry.BWComponents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -25,7 +27,10 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity  {
 
 
     @Inject(method = "onDeath", at = @At("HEAD"), cancellable = true)
-    private void transferItems(CallbackInfo ci) {
+    private void effigySavesTheDay(CallbackInfo ci) {
+        if(BWComponents.CURSES_COMPONENT.get(this).hasCurse(BWPCurses.HALF_LIFE)){
+            BWComponents.CURSES_COMPONENT.get(this).removeCurse(BWPCurses.HALF_LIFE);
+        }
         if (!this.world.isClient && BWPComponents.EFFIGY_COMPONENT.maybeGet(this).isPresent()) {
             Entity entity = ((ServerWorld) this.world).getEntity(BWPComponents.EFFIGY_COMPONENT.get(this).getEffigy());
             if(entity instanceof EffigyEntity effigyEntity){

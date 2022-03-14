@@ -4,6 +4,7 @@ import dev.mrsterner.bewitchmentplus.common.block.blockentity.GobletBlockEntity;
 import dev.mrsterner.bewitchmentplus.common.item.GobletBlockItem;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPBlockEntityTypes;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
+import dev.mrsterner.bewitchmentplus.common.utils.RenderHelper;
 import moriyashiine.bewitchment.common.registry.BWObjects;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -104,7 +105,7 @@ public class GobletBlock extends Block implements BlockEntityProvider, Waterlogg
         if(world.getBlockEntity(pos) instanceof GobletBlockEntity gobletBlock){
             gobletBlock.setGoblet((GobletBlockItem) itemStack.getItem());
             world.setBlockState(pos, state.with(LIQUID_STATE, (gobletBlock.getStack(0).getItem()) == Items.HONEY_BOTTLE ? 2 : (gobletBlock.getStack(0).getItem()) == BWObjects.BOTTLE_OF_BLOOD ? 3 : (gobletBlock.getStack(0).getItem()) == Items.POTION ? 1 : (gobletBlock.getStack(0).getItem()) == BWPObjects.UNICORN_BLOOD ? 4 : 0));
-            gobletBlock.setColor((gobletBlock.getStack(0).getItem()) == Items.HONEY_BOTTLE ? 0xff9500 : (gobletBlock.getStack(0).getItem()) == BWObjects.BOTTLE_OF_BLOOD ? 0xff0000 : (gobletBlock.getStack(0).getItem()) == Items.POTION ? 0x3f76e4 : (gobletBlock.getStack(0).getItem()) == BWPObjects.UNICORN_BLOOD ? 0x9cb7b8 : 0);
+            gobletBlock.setColor((gobletBlock.getStack(0).getItem()) == Items.HONEY_BOTTLE ? RenderHelper.HONEY_COLOR : (gobletBlock.getStack(0).getItem()) == BWObjects.BOTTLE_OF_BLOOD ? RenderHelper.BLOOD_COLOR : (gobletBlock.getStack(0).getItem()) == Items.POTION ? RenderHelper.WATER_COLOR : (gobletBlock.getStack(0).getItem()) == BWPObjects.UNICORN_BLOOD ? RenderHelper.UNICORN_BLOOD_COLOR : 0);
         }
         super.onPlaced(world, pos, state, placer, itemStack);
     }

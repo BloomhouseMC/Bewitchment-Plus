@@ -72,6 +72,7 @@ public class BewitchmentPlus implements ModInitializer {
 		BWPRitualFunctions.init();
 		BWPStatusEffects.init();
 		BWPTransformations.init();
+		BWPCurses.init();
 		BWPSounds.init();
 		BWPWorldGenerators.init();
 

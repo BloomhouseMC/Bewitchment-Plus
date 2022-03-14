@@ -5,6 +5,7 @@ import dev.mrsterner.bewitchmentplus.client.model.GobletItemModel;
 import dev.mrsterner.bewitchmentplus.common.block.blockentity.GobletBlockEntity;
 import dev.mrsterner.bewitchmentplus.common.item.GobletBlockItem;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
+import dev.mrsterner.bewitchmentplus.common.utils.RenderHelper;
 import moriyashiine.bewitchment.common.registry.BWObjects;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.fabric.api.renderer.v1.mesh.Mesh;
@@ -106,13 +107,13 @@ public class GobletBlockItemRenderer implements BlockEntityRenderer<GobletBlockE
         var newColor = ColorHelper.swapRedBlueIfNeeded(0x3f76e4);
         if (entity != null) {
             newColor = ColorHelper.swapRedBlueIfNeeded(entity.color);
-            sprite = entity.color == 0xff0000 ? BLOOD.getSprite() : entity.color == 0xff9500 ? HONEY.getSprite() : entity.color == 0x9cb7b8 ? UNICORN.getSprite() : handler.getSprites(variant)[0];
+            sprite = entity.color == RenderHelper.BLOOD_COLOR ? BLOOD.getSprite() : entity.color == RenderHelper.HONEY_COLOR ? HONEY.getSprite() : entity.color == RenderHelper.UNICORN_BLOOD_COLOR ? UNICORN.getSprite() : handler.getSprites(variant)[0];
         } else if (itemStack != null && itemStack.hasNbt()) {
             var nbt = itemStack.getNbt();
             if (nbt.contains("BlockEntityTag")) {
                 var slots = DefaultedList.ofSize(1, ItemStack.EMPTY);
                 Inventories.readNbt(nbt.getCompound("BlockEntityTag"), slots);
-                newColor = ColorHelper.swapRedBlueIfNeeded(slots.get(0).getItem() == BWObjects.BOTTLE_OF_BLOOD ? 0xff0000 : slots.get(0).getItem() == Items.HONEY_BOTTLE ? 0xff9500 : slots.get(0).getItem() == BWPObjects.UNICORN_BLOOD ? 0x9cb7b8 : 0x3f76e4);
+                newColor = ColorHelper.swapRedBlueIfNeeded(slots.get(0).getItem() == BWObjects.BOTTLE_OF_BLOOD ? RenderHelper.BLOOD_COLOR : slots.get(0).getItem() == Items.HONEY_BOTTLE ? RenderHelper.HONEY_COLOR : slots.get(0).getItem() == BWPObjects.UNICORN_BLOOD ? RenderHelper.UNICORN_BLOOD_COLOR : RenderHelper.WATER_COLOR);
                 sprite = slots.get(0).getItem() == BWObjects.BOTTLE_OF_BLOOD ? BLOOD.getSprite() : slots.get(0).getItem() == Items.HONEY_BOTTLE ? HONEY.getSprite() : slots.get(0).getItem() == BWPObjects.UNICORN_BLOOD ? UNICORN.getSprite() : handler.getSprites(variant)[0];
             }
         }

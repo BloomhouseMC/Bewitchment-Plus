@@ -11,6 +11,10 @@ import net.minecraft.util.math.Vector4f;
 import static dev.mrsterner.bewitchmentplus.client.renderlayer.BWPRenderLayers.RUNE_LAYER;
 
 public class RenderHelper {
+    public static final int HONEY_COLOR = 0xff9500;
+    public static final int BLOOD_COLOR = 0xff0000;
+    public static final int UNICORN_BLOOD_COLOR = 0x9cb7b8;
+    public static final int WATER_COLOR = 0x3f76e4;
 
     public static Vector4f intToRGB(int i){
         float r = ((i >> 16) & 0xff) / 255.0f;
