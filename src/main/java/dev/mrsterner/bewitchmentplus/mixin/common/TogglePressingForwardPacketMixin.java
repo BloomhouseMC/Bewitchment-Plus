@@ -2,7 +2,6 @@ package dev.mrsterner.bewitchmentplus.mixin.common;
 
 import dev.mrsterner.bewitchmentplus.common.entity.YewBroomEntity;
 import moriyashiine.bewitchment.api.BewitchmentAPI;
-import moriyashiine.bewitchment.common.component.entity.BroomUserComponent;
 import moriyashiine.bewitchment.common.network.packet.TogglePressingForwardPacket;
 import moriyashiine.bewitchment.common.registry.BWComponents;
 import moriyashiine.bewitchment.common.registry.BWEntityTypes;

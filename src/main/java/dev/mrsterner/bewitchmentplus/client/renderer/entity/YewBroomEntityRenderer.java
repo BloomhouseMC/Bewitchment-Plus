@@ -1,4 +1,4 @@
-package dev.mrsterner.bewitchmentplus.client.renderer;
+package dev.mrsterner.bewitchmentplus.client.renderer.entity;
 
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import moriyashiine.bewitchment.api.client.renderer.BroomEntityRenderer;

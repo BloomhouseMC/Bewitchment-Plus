@@ -8,10 +8,7 @@ import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
 import dev.mrsterner.bewitchmentplus.common.utils.RenderHelper;
 import moriyashiine.bewitchment.common.registry.BWObjects;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
-import net.fabricmc.fabric.api.renderer.v1.mesh.Mesh;
-import net.fabricmc.fabric.api.renderer.v1.mesh.MutableQuadView;
-import net.fabricmc.fabric.api.renderer.v1.mesh.QuadEmitter;
-import net.fabricmc.fabric.api.renderer.v1.model.ModelHelper;
+import net.fabricmc.fabric.api.renderer.v1.mesh.MeshBuilder;
 import net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.impl.client.indigo.renderer.helper.ColorHelper;
@@ -21,7 +18,6 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.item.ItemRenderer;
-import net.minecraft.client.render.model.BakedQuad;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.SpriteIdentifier;
@@ -30,13 +26,12 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3f;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
 
 import static net.minecraft.screen.PlayerScreenHandler.BLOCK_ATLAS_TEXTURE;
 
@@ -61,8 +56,8 @@ public class GobletBlockItemRenderer implements BlockEntityRenderer<GobletBlockE
         matrices.push();
         matrices.translate(0F, 1.2F, 0F);
         matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(180));
-        VertexConsumer ivertexbuilder1 = ItemRenderer.getItemGlintConsumer(vertexConsumers, this.gobletItemModel.getLayer(getGobletTexture((GobletBlockItem) stack.getItem())), false, stack.hasGlint());
-        gobletItemModel.render(matrices, ivertexbuilder1, light, overlay, 1, 1, 1, 1);
+        VertexConsumer vertexConsumer = ItemRenderer.getItemGlintConsumer(vertexConsumers, this.gobletItemModel.getLayer(getGobletTexture((GobletBlockItem) stack.getItem())), false, stack.hasGlint());
+        gobletItemModel.render(matrices, vertexConsumer, light, overlay, 1, 1, 1, 1);
         matrices.pop();
         if (stack.hasNbt()) {
             var nbt = stack.getNbt();
@@ -86,81 +81,37 @@ public class GobletBlockItemRenderer implements BlockEntityRenderer<GobletBlockE
             renderFluid(matrices, vertexConsumers, light, overlay, entity, null);
             matrices.pop();
         }
-        VertexConsumer ivertexbuilder1 = ItemRenderer.getItemGlintConsumer(vertexConsumers, this.gobletItemModel.getLayer(getGobletTexture(entity.getGoblet())), false, false);
+        VertexConsumer vertexConsumer = ItemRenderer.getItemGlintConsumer(vertexConsumers, this.gobletItemModel.getLayer(getGobletTexture(entity.getGoblet())), false, false);
         matrices.translate(0.5, 1.5, 0.5);
         matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(180));
-        gobletItemModel.render(matrices, ivertexbuilder1, light, overlay, 1, 1, 1, 1);
+        gobletItemModel.render(matrices, vertexConsumer, light, overlay, 1, 1, 1, 1);
     }
 
-
+    @SuppressWarnings("ALL")
     private void renderFluid(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, @Nullable GobletBlockEntity entity, @Nullable ItemStack itemStack) {
         matrices.push();
-        var variant = FluidVariant.of(Fluids.WATER);
-        var handler = FluidVariantRendering.getHandlerOrDefault(variant.getFluid());
-        var sprite = handler.getSprites(variant)[0];
-        var flipped = handler.fillsFromTop(variant);
-        var luminance = variant.getFluid().getDefaultState().getBlockState().getLuminance();
-        var renderer = RendererAccessImpl.INSTANCE.getRenderer();
-        var consumer = vertexConsumers.getBuffer(RenderLayer.getTranslucent());
-        var builder = renderer.meshBuilder();
-        var emitter = builder.getEmitter();
-        var newColor = ColorHelper.swapRedBlueIfNeeded(0x3f76e4);
+        FluidVariant variant = FluidVariant.of(Fluids.WATER);
+        Sprite sprite = FluidVariantRendering.getHandlerOrDefault(variant.getFluid()).getSprites(variant)[0];
+        MeshBuilder builder = RendererAccessImpl.INSTANCE.getRenderer().meshBuilder();
+        int newColor = ColorHelper.swapRedBlueIfNeeded(0x3f76e4);
         if (entity != null) {
             newColor = ColorHelper.swapRedBlueIfNeeded(entity.color);
-            sprite = entity.color == RenderHelper.BLOOD_COLOR ? BLOOD.getSprite() : entity.color == RenderHelper.HONEY_COLOR ? HONEY.getSprite() : entity.color == RenderHelper.UNICORN_BLOOD_COLOR ? UNICORN.getSprite() : handler.getSprites(variant)[0];
+            sprite = entity.color == RenderHelper.BLOOD_COLOR ? BLOOD.getSprite() : entity.color == RenderHelper.HONEY_COLOR ? HONEY.getSprite() : entity.color == RenderHelper.UNICORN_BLOOD_COLOR ? UNICORN.getSprite() : sprite;
         } else if (itemStack != null && itemStack.hasNbt()) {
             var nbt = itemStack.getNbt();
             if (nbt.contains("BlockEntityTag")) {
                 var slots = DefaultedList.ofSize(1, ItemStack.EMPTY);
                 Inventories.readNbt(nbt.getCompound("BlockEntityTag"), slots);
-                newColor = ColorHelper.swapRedBlueIfNeeded(slots.get(0).getItem() == BWObjects.BOTTLE_OF_BLOOD ? RenderHelper.BLOOD_COLOR : slots.get(0).getItem() == Items.HONEY_BOTTLE ? RenderHelper.HONEY_COLOR : slots.get(0).getItem() == BWPObjects.UNICORN_BLOOD ? RenderHelper.UNICORN_BLOOD_COLOR : RenderHelper.WATER_COLOR);
-                sprite = slots.get(0).getItem() == BWObjects.BOTTLE_OF_BLOOD ? BLOOD.getSprite() : slots.get(0).getItem() == Items.HONEY_BOTTLE ? HONEY.getSprite() : slots.get(0).getItem() == BWPObjects.UNICORN_BLOOD ? UNICORN.getSprite() : handler.getSprites(variant)[0];
+                NbtCompound nbtCompound = nbt.getCompound("BlockEntityTag");
+                newColor = ColorHelper.swapRedBlueIfNeeded(nbtCompound.getInt("Color"));
+                sprite = slots.get(0).getItem() == BWObjects.BOTTLE_OF_BLOOD ? BLOOD.getSprite() : slots.get(0).getItem() == Items.HONEY_BOTTLE ? HONEY.getSprite() : slots.get(0).getItem() == BWPObjects.UNICORN_BLOOD ? UNICORN.getSprite() : sprite;
             }
         }
-
-        emitFluidFace(emitter, sprite, newColor, flipped, Direction.UP, 1f, 0f);
-        emitFluidFace(emitter, sprite, newColor, flipped, Direction.DOWN, 1f, 0f);
-        emitFluidFace(emitter, sprite, newColor, flipped, Direction.NORTH, 1f, 0f);
-        emitFluidFace(emitter, sprite, newColor, flipped, Direction.EAST, 1f, 0f);
-        emitFluidFace(emitter, sprite, newColor, flipped, Direction.SOUTH, 1f, 0f);
-        emitFluidFace(emitter, sprite, newColor, flipped, Direction.WEST, 1f, 0f);
-
-        var mesh = builder.build();
-        var newLight = (light & 0xFFFF_0000) | (Math.max((light >> 4) & 0xF, luminance) << 4);
-        renderMesh(mesh, matrices, consumer, newLight, overlay);
+        for(var direction :Direction.values()){
+            RenderHelper.emitFluidFace(builder.getEmitter(), sprite, newColor, false, direction, 1f, 0f, EDGE_SIZE, INNER_SIZE);
+        }
+        int newLight = (light & 0xFFFF_0000) | (Math.max((light >> 4) & 0xF, variant.getFluid().getDefaultState().getBlockState().getLuminance()) << 4);
+        RenderHelper.renderMesh(builder.build(), matrices, vertexConsumers.getBuffer(RenderLayer.getTranslucent()), newLight, overlay);
         matrices.pop();
-    }
-
-    private void emitFluidFace(QuadEmitter emitter, Sprite sprite, int color, boolean flipped, Direction direction, float height, float depth) {
-        var minU = sprite.getMinU();
-        var minV = sprite.getMinV();
-
-        var uMult = sprite.getMaxU() - minU;
-        var vMult = sprite.getMaxV() - minV;
-
-        var bottomleft = flipped ? (1f - EDGE_SIZE - (height * INNER_SIZE)) : EDGE_SIZE;
-        var right = 1f - EDGE_SIZE;
-        var top = flipped ? (1f - EDGE_SIZE) : (EDGE_SIZE + (height * INNER_SIZE));
-        var deep = EDGE_SIZE + (depth * INNER_SIZE);
-
-        emitter.square(direction, bottomleft, bottomleft, right, top, deep);
-        emitter.spriteBake(0, sprite, MutableQuadView.BAKE_ROTATE_NONE);
-        emitter.spriteColor(0, color, color, color, color);
-        emitter.sprite(0, 0, minU + bottomleft * uMult, minV + (1f - top) * vMult);
-        emitter.sprite(1, 0, minU + bottomleft * uMult, minV + (1f - bottomleft) * vMult);
-        emitter.sprite(2, 0, minU + right * uMult, minV + (1f - bottomleft) * vMult);
-        emitter.sprite(3, 0, minU + right * uMult, minV + (1f - top) * vMult);
-        emitter.emit();
-    }
-
-    private void renderMesh(Mesh mesh, MatrixStack matrices, VertexConsumer consumer, int light, int overlay) {
-        var quadList = ModelHelper.toQuadLists(mesh);
-        for (List<BakedQuad> bakedQuads : quadList) {
-            for (BakedQuad bq : bakedQuads) {
-                float[] brightness = new float[]{1f, 1f, 1f, 1f};
-                int[] lights = new int[]{light, light, light, light};
-                consumer.quad(matrices.peek(), bq, brightness, 1f, 1f, 1f, lights, overlay, true);
-            }
-        }
     }
 }

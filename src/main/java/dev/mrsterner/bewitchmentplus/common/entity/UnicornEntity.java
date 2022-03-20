@@ -45,7 +45,7 @@ public class UnicornEntity extends HorseBaseEntity {
 
     @Override
     public void openInventory(PlayerEntity player) {
-
+        //NO-OP
     }
 
     @Override

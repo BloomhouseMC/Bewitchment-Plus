@@ -1,12 +1,20 @@
 package dev.mrsterner.bewitchmentplus.common.utils;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.fabricmc.fabric.api.renderer.v1.mesh.Mesh;
+import net.fabricmc.fabric.api.renderer.v1.mesh.MutableQuadView;
+import net.fabricmc.fabric.api.renderer.v1.mesh.QuadEmitter;
+import net.fabricmc.fabric.api.renderer.v1.model.ModelHelper;
 import net.minecraft.client.render.*;
+import net.minecraft.client.render.model.BakedQuad;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.math.Vector4f;
+
+import java.util.List;
 
 import static dev.mrsterner.bewitchmentplus.client.renderlayer.BWPRenderLayers.RUNE_LAYER;
 
@@ -54,6 +62,38 @@ public class RenderHelper {
         color = (color << 8) + g;
         color = (color << 8) + b;
         return color;
+    }
+
+    public static void emitFluidFace(QuadEmitter emitter, Sprite sprite, int color, boolean flipped, Direction direction, float height, float depth, float EDGE_SIZE, float INNER_SIZE) {
+        var minU = sprite.getMinU();
+        var minV = sprite.getMinV();
+
+        var uMult = sprite.getMaxU() - minU;
+        var vMult = sprite.getMaxV() - minV;
+
+        var bottomleft = flipped ? (1f - EDGE_SIZE - (height * INNER_SIZE)) : EDGE_SIZE;
+        var right = 1f - EDGE_SIZE;
+        var top = flipped ? (1f - EDGE_SIZE) : (EDGE_SIZE + (height * INNER_SIZE));
+
+        emitter.square(direction, bottomleft, bottomleft, right, top, EDGE_SIZE + (depth * INNER_SIZE));
+        emitter.spriteBake(0, sprite, MutableQuadView.BAKE_ROTATE_NONE);
+        emitter.spriteColor(0, color, color, color, color);
+        emitter.sprite(0, 0, minU + bottomleft * uMult, minV + (1f - top) * vMult);
+        emitter.sprite(1, 0, minU + bottomleft * uMult, minV + (1f - bottomleft) * vMult);
+        emitter.sprite(2, 0, minU + right * uMult, minV + (1f - bottomleft) * vMult);
+        emitter.sprite(3, 0, minU + right * uMult, minV + (1f - top) * vMult);
+        emitter.emit();
+    }
+
+    public static void renderMesh(Mesh mesh, MatrixStack matrices, VertexConsumer consumer, int light, int overlay) {
+        var quadList = ModelHelper.toQuadLists(mesh);
+        for (List<BakedQuad> bakedQuads : quadList) {
+            for (BakedQuad bq : bakedQuads) {
+                float[] brightness = new float[]{1f, 1f, 1f, 1f};
+                int[] lights = new int[]{light, light, light, light};
+                consumer.quad(matrices.peek(), bq, brightness, 1f, 1f, 1f, lights, overlay, true);
+            }
+        }
     }
 
     private static void add(VertexConsumer renderer, MatrixStack stack, float x, float y, float z, float u, float v, int color, int light, int overlay, float alpha) {
