@@ -30,7 +30,7 @@ public abstract class TogglePressingForwardPacketMixin {
                 BewitchmentAPI.drainMagic(player, 1, false);
             }
         }
-        ((BroomUserComponent) BWComponents.BROOM_USER_COMPONENT.get(player)).setPressingForward(pressingForward);
+        BWComponents.BROOM_USER_COMPONENT.get(player).setPressingForward(pressingForward);
         ci.cancel();
     }
 }

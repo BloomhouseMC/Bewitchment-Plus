@@ -1,5 +1,6 @@
 plugins {
     id 'fabric-loom' version '0.11-SNAPSHOT'
+    id 'io.github.juuxel.loom-quiltflower' version '1.6.1'
     id 'maven-publish'
 }
 
@@ -61,11 +62,6 @@ repositories {
         url = "https://maven.dblsaiko.net/"
     }
     maven {
-        name = "Cotton"
-        url = "http://server.bbkr.space:8081/artifactory/libs-release/"
-        allowInsecureProtocol = true
-    }
-    maven {
         name = "CurseForge"
         url = "https://minecraft.curseforge.com/api/maven"
     }
@@ -87,6 +83,11 @@ repositories {
     maven {
         name = "jitpack"
         url = "https://jitpack.io"
+    }
+
+    maven {
+        name = 'Cotton'
+        url = 'https://server.bbkr.space/artifactory/libs-release/'
     }
 }
 
@@ -127,6 +128,7 @@ dependencies {
         transitive = false
     }
 }
+
 
 processResources {
     inputs.property "version", project.version

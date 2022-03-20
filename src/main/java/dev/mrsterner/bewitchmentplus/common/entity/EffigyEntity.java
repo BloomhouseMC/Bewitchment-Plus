@@ -19,7 +19,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 public class EffigyEntity extends LivingEntity implements IAnimatable {
-    AnimationFactory factory = new AnimationFactory(this);
+    private final AnimationFactory factory = new AnimationFactory(this);
     private final DefaultedList<ItemStack> handItems;
     private final DefaultedList<ItemStack> armorItems;
     public EffigyEntity(EntityType<? extends LivingEntity> entityType, World world) {

@@ -46,7 +46,7 @@ public class UnicornEntityRenderer extends MobEntityRenderer<UnicornEntity, Unic
         if (renderLayer != null) {
             VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(renderLayer);
             int p = getOverlay(livingEntity, this.getAnimationCounter(livingEntity, g));
-            this.model.render(matrixStack, vertexConsumer, i, p, 1.0F, 1.0F, 1.0F, 0.15F);
+            this.model.render(matrixStack, vertexConsumer, i, p, 1.0F, 1.0F, 1.0F, 1/*0.15F*/);
         }
         matrixStack.pop();
     }

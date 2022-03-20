@@ -23,8 +23,6 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3f;
 import net.minecraft.world.World;
 
-;
-
 @Environment(EnvType.CLIENT)
 public class LeechChestBlockEntityRenderer<T extends BlockEntity & ChestAnimationProgress> extends ChestBlockEntityRenderer<T> {
     private final ModelPart chestLid;

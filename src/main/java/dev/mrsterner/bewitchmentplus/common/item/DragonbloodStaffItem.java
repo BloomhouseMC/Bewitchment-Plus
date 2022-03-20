@@ -21,7 +21,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 public class DragonbloodStaffItem extends Item implements IAnimatable, ISyncable {
     public AnimationFactory factory = new AnimationFactory(this);
     private final int maxStorage;
-    private int storedPower = 0;
+    private final int storedPower = 0;
     public DragonbloodStaffItem(int maxStorage, Settings settings) {
         super(settings);
         this.maxStorage = maxStorage;

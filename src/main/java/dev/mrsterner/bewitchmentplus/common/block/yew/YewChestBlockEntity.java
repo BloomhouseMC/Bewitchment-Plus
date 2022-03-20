@@ -30,6 +30,6 @@ public class YewChestBlockEntity extends ChestBlockEntity {
     }
 
     public enum Type {
-        YEW;
+        YEW
     }
 }

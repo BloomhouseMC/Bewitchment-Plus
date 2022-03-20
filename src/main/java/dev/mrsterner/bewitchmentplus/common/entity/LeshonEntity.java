@@ -20,7 +20,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 @SuppressWarnings("ALL")
 public class LeshonEntity extends HostileEntity implements IAnimatable {
-    AnimationFactory factory = new AnimationFactory(this);
+    private final AnimationFactory factory = new AnimationFactory(this);
     public Vec3d motionCalc = new Vec3d(0,0,0);
     public boolean isAttacking = false;
 

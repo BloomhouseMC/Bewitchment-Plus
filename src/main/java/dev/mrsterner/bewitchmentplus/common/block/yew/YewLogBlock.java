@@ -24,7 +24,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.Supplier;
 
 public class YewLogBlock extends PillarBlock implements BlockEntityProvider {
-    private Supplier<Block> stripped;
+    private final Supplier<Block> stripped;
 
     public YewLogBlock(Supplier<Block> stripped, MapColor top, Settings settings) {
         super(settings);

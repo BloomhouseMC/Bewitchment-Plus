@@ -46,7 +46,7 @@ public class NifflerEntity extends BWTameableEntity implements IAnimatable, Inve
     private static final TrackedData<Boolean> NIFFLING = DataTracker.registerData(NifflerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> SITTING = DataTracker.registerData(NifflerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public static final TrackedData<Boolean> SLEEPING = DataTracker.registerData(NifflerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-    final AnimationFactory factory = new AnimationFactory(this);
+    private final AnimationFactory factory = new AnimationFactory(this);
     public NifflerEntity(EntityType<? extends TameableEntity> type, World world) {
         super(type, world);
         this.getNavigation().setCanSwim(true);
