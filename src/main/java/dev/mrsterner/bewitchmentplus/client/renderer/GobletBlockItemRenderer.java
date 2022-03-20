@@ -87,31 +87,31 @@ public class GobletBlockItemRenderer implements BlockEntityRenderer<GobletBlockE
         gobletItemModel.render(matrices, vertexConsumer, light, overlay, 1, 1, 1, 1);
     }
 
-    @SuppressWarnings("ALL")
+    @SuppressWarnings("UnstableApiUsage")
     private void renderFluid(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, @Nullable GobletBlockEntity entity, @Nullable ItemStack itemStack) {
-        matrices.push();
-        FluidVariant variant = FluidVariant.of(Fluids.WATER);
-        Sprite sprite = FluidVariantRendering.getHandlerOrDefault(variant.getFluid()).getSprites(variant)[0];
-        MeshBuilder builder = RendererAccessImpl.INSTANCE.getRenderer().meshBuilder();
-        int newColor = ColorHelper.swapRedBlueIfNeeded(0x3f76e4);
-        if (entity != null) {
-            newColor = ColorHelper.swapRedBlueIfNeeded(entity.color);
-            sprite = entity.color == RenderHelper.BLOOD_COLOR ? BLOOD.getSprite() : entity.color == RenderHelper.HONEY_COLOR ? HONEY.getSprite() : entity.color == RenderHelper.UNICORN_BLOOD_COLOR ? UNICORN.getSprite() : sprite;
-        } else if (itemStack != null && itemStack.hasNbt()) {
-            NbtCompound nbt = itemStack.getNbt();
-            if (nbt.contains("BlockEntityTag")) {
-                DefaultedList<ItemStack> slots = DefaultedList.ofSize(1, ItemStack.EMPTY);
-                Inventories.readNbt(nbt.getCompound("BlockEntityTag"), slots);
-                NbtCompound nbtCompound = nbt.getCompound("BlockEntityTag");
-                newColor = ColorHelper.swapRedBlueIfNeeded(nbtCompound.getInt("Color"));
-                sprite = slots.get(0).getItem() == BWObjects.BOTTLE_OF_BLOOD ? BLOOD.getSprite() : slots.get(0).getItem() == Items.HONEY_BOTTLE ? HONEY.getSprite() : slots.get(0).getItem() == BWPObjects.UNICORN_BLOOD ? UNICORN.getSprite() : sprite;
+        if (RendererAccessImpl.INSTANCE.getRenderer() != null) {
+            matrices.push();
+            FluidVariant variant = FluidVariant.of(Fluids.WATER);
+            Sprite sprite = FluidVariantRendering.getHandlerOrDefault(variant.getFluid()).getSprites(variant)[0];
+            MeshBuilder builder = RendererAccessImpl.INSTANCE.getRenderer().meshBuilder();
+            int newColor = ColorHelper.swapRedBlueIfNeeded(0x3f76e4);
+            if (entity != null) {
+                newColor = ColorHelper.swapRedBlueIfNeeded(entity.color);
+                sprite = entity.color == RenderHelper.BLOOD_COLOR ? BLOOD.getSprite() : entity.color == RenderHelper.HONEY_COLOR ? HONEY.getSprite() : entity.color == RenderHelper.UNICORN_BLOOD_COLOR ? UNICORN.getSprite() : sprite;
+            } else if (itemStack != null) {
+                if (itemStack.getNbt() != null && itemStack.getNbt().contains("BlockEntityTag")) {
+                    NbtCompound nbtCompound = itemStack.getNbt().getCompound("BlockEntityTag");
+                    int color = nbtCompound.getInt("Color");
+                    newColor = ColorHelper.swapRedBlueIfNeeded(color);
+                    sprite = color == RenderHelper.BLOOD_COLOR ? BLOOD.getSprite() : color == RenderHelper.HONEY_COLOR ? HONEY.getSprite() : color == RenderHelper.UNICORN_BLOOD_COLOR ? UNICORN.getSprite() : sprite;
+                }
             }
+            for(var direction :Direction.values()){
+                RenderHelper.emitFluidFace(builder.getEmitter(), sprite, newColor, direction, 1f, 0f, EDGE_SIZE, INNER_SIZE);
+            }
+            int newLight = (light & 0xFFFF_0000) | (Math.max((light >> 4) & 0xF, variant.getFluid().getDefaultState().getBlockState().getLuminance()) << 4);
+            RenderHelper.renderMesh(builder.build(), matrices, vertexConsumers.getBuffer(RenderLayer.getTranslucent()), newLight, overlay);
+            matrices.pop();
         }
-        for(var direction :Direction.values()){
-            RenderHelper.emitFluidFace(builder.getEmitter(), sprite, newColor, direction, 1f, 0f, EDGE_SIZE, INNER_SIZE);
-        }
-        int newLight = (light & 0xFFFF_0000) | (Math.max((light >> 4) & 0xF, variant.getFluid().getDefaultState().getBlockState().getLuminance()) << 4);
-        RenderHelper.renderMesh(builder.build(), matrices, vertexConsumers.getBuffer(RenderLayer.getTranslucent()), newLight, overlay);
-        matrices.pop();
     }
 }
