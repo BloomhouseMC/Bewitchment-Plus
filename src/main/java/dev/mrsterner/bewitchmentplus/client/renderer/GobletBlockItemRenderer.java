@@ -60,8 +60,8 @@ public class GobletBlockItemRenderer implements BlockEntityRenderer<GobletBlockE
         gobletItemModel.render(matrices, vertexConsumer, light, overlay, 1, 1, 1, 1);
         matrices.pop();
         if (stack.hasNbt()) {
-            var nbt = stack.getNbt();
-            if (nbt.contains("BlockEntityTag")) {
+            NbtCompound nbt = stack.getNbt();
+            if (nbt != null && nbt.contains("BlockEntityTag")) {
                 matrices.push();
                 matrices.scale(0.25f, 0.25f, 0.25f);
                 matrices.translate(-0.5F, 0.75F, 0.5F);
@@ -98,9 +98,9 @@ public class GobletBlockItemRenderer implements BlockEntityRenderer<GobletBlockE
             newColor = ColorHelper.swapRedBlueIfNeeded(entity.color);
             sprite = entity.color == RenderHelper.BLOOD_COLOR ? BLOOD.getSprite() : entity.color == RenderHelper.HONEY_COLOR ? HONEY.getSprite() : entity.color == RenderHelper.UNICORN_BLOOD_COLOR ? UNICORN.getSprite() : sprite;
         } else if (itemStack != null && itemStack.hasNbt()) {
-            var nbt = itemStack.getNbt();
+            NbtCompound nbt = itemStack.getNbt();
             if (nbt.contains("BlockEntityTag")) {
-                var slots = DefaultedList.ofSize(1, ItemStack.EMPTY);
+                DefaultedList<ItemStack> slots = DefaultedList.ofSize(1, ItemStack.EMPTY);
                 Inventories.readNbt(nbt.getCompound("BlockEntityTag"), slots);
                 NbtCompound nbtCompound = nbt.getCompound("BlockEntityTag");
                 newColor = ColorHelper.swapRedBlueIfNeeded(nbtCompound.getInt("Color"));
@@ -108,7 +108,7 @@ public class GobletBlockItemRenderer implements BlockEntityRenderer<GobletBlockE
             }
         }
         for(var direction :Direction.values()){
-            RenderHelper.emitFluidFace(builder.getEmitter(), sprite, newColor, false, direction, 1f, 0f, EDGE_SIZE, INNER_SIZE);
+            RenderHelper.emitFluidFace(builder.getEmitter(), sprite, newColor, direction, 1f, 0f, EDGE_SIZE, INNER_SIZE);
         }
         int newLight = (light & 0xFFFF_0000) | (Math.max((light >> 4) & 0xF, variant.getFluid().getDefaultState().getBlockState().getLuminance()) << 4);
         RenderHelper.renderMesh(builder.build(), matrices, vertexConsumers.getBuffer(RenderLayer.getTranslucent()), newLight, overlay);

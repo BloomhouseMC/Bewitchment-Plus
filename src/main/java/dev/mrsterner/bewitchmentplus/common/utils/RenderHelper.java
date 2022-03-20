@@ -64,34 +64,21 @@ public class RenderHelper {
         return color;
     }
 
-    public static void emitFluidFace(QuadEmitter emitter, Sprite sprite, int color, boolean flipped, Direction direction, float height, float depth, float EDGE_SIZE, float INNER_SIZE) {
-        var minU = sprite.getMinU();
-        var minV = sprite.getMinV();
-
-        var uMult = sprite.getMaxU() - minU;
-        var vMult = sprite.getMaxV() - minV;
-
-        var bottomleft = flipped ? (1f - EDGE_SIZE - (height * INNER_SIZE)) : EDGE_SIZE;
-        var right = 1f - EDGE_SIZE;
-        var top = flipped ? (1f - EDGE_SIZE) : (EDGE_SIZE + (height * INNER_SIZE));
-
-        emitter.square(direction, bottomleft, bottomleft, right, top, EDGE_SIZE + (depth * INNER_SIZE));
+    public static void emitFluidFace(QuadEmitter emitter, Sprite sprite, int color, Direction direction, float height, float depth, float EDGE_SIZE, float INNER_SIZE) {
+        emitter.square(direction, EDGE_SIZE, EDGE_SIZE, (1f - EDGE_SIZE), (EDGE_SIZE + (height * INNER_SIZE)), EDGE_SIZE + (depth * INNER_SIZE));
         emitter.spriteBake(0, sprite, MutableQuadView.BAKE_ROTATE_NONE);
         emitter.spriteColor(0, color, color, color, color);
-        emitter.sprite(0, 0, minU + bottomleft * uMult, minV + (1f - top) * vMult);
-        emitter.sprite(1, 0, minU + bottomleft * uMult, minV + (1f - bottomleft) * vMult);
-        emitter.sprite(2, 0, minU + right * uMult, minV + (1f - bottomleft) * vMult);
-        emitter.sprite(3, 0, minU + right * uMult, minV + (1f - top) * vMult);
+        emitter.sprite(0, 0, sprite.getMinU() + EDGE_SIZE * (sprite.getMaxU() - sprite.getMinU()), sprite.getMinV() + (1f - (EDGE_SIZE + (height * INNER_SIZE))) * (sprite.getMaxV() - sprite.getMinV()));
+        emitter.sprite(1, 0, sprite.getMinU() + EDGE_SIZE * (sprite.getMaxU() - sprite.getMinU()), sprite.getMinV() + (1f - EDGE_SIZE) * (sprite.getMaxV() - sprite.getMinV()));
+        emitter.sprite(2, 0, sprite.getMinU() + (1f - EDGE_SIZE) * (sprite.getMaxU() - sprite.getMinU()), sprite.getMinV() + (1f - EDGE_SIZE) * (sprite.getMaxV() - sprite.getMinV()));
+        emitter.sprite(3, 0, sprite.getMinU() + (1f - EDGE_SIZE) * (sprite.getMaxU() - sprite.getMinU()), sprite.getMinV() + (1f - (EDGE_SIZE + (height * INNER_SIZE))) * (sprite.getMaxV() - sprite.getMinV()));
         emitter.emit();
     }
 
     public static void renderMesh(Mesh mesh, MatrixStack matrices, VertexConsumer consumer, int light, int overlay) {
-        var quadList = ModelHelper.toQuadLists(mesh);
-        for (List<BakedQuad> bakedQuads : quadList) {
+        for (List<BakedQuad> bakedQuads : ModelHelper.toQuadLists(mesh)) {
             for (BakedQuad bq : bakedQuads) {
-                float[] brightness = new float[]{1f, 1f, 1f, 1f};
-                int[] lights = new int[]{light, light, light, light};
-                consumer.quad(matrices.peek(), bq, brightness, 1f, 1f, 1f, lights, overlay, true);
+                consumer.quad(matrices.peek(), bq, new float[]{1f, 1f, 1f, 1f}, 1f, 1f, 1f, new int[]{light, light, light, light}, overlay, true);
             }
         }
     }
