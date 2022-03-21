@@ -62,19 +62,23 @@ public class GobletBlockItemRenderer implements BlockEntityRenderer<GobletBlockE
         if (stack.hasNbt()) {
             NbtCompound nbt = stack.getNbt();
             if (nbt != null && nbt.contains("BlockEntityTag")) {
-                matrices.push();
-                matrices.scale(0.25f, 0.25f, 0.25f);
-                matrices.translate(-0.5F, 0.75F, 0.5F);
-                matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(180));
-                renderFluid(matrices, vertexConsumers, light, overlay, null, stack);
-                matrices.pop();
+                DefaultedList<ItemStack> slots = DefaultedList.ofSize(1, ItemStack.EMPTY);
+                Inventories.readNbt(nbt.getCompound("BlockEntityTag"), slots);
+                if(!slots.get(0).isEmpty() && !slots.get(0).getItem().equals(Items.AIR)){
+                    matrices.push();
+                    matrices.scale(0.25f, 0.25f, 0.25f);
+                    matrices.translate(-0.5F, 0.75F, 0.5F);
+                    matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(180));
+                    renderFluid(matrices, vertexConsumers, light, overlay, null, stack);
+                    matrices.pop();
+                }
             }
         }
     }
 
     @Override
     public void render(GobletBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-        if (!entity.getStack(0).isEmpty()) {
+        if (entity.getColor() != 0) {
             matrices.push();
             matrices.scale(0.25f, 0.25f, 0.25f);
             matrices.translate(1.5, 0.9, 1.5);

@@ -14,11 +14,14 @@ import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.Block;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionUtil;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -81,6 +84,9 @@ public class GobletBlockItem extends BlockItem {
                     user.removeStatusEffect(StatusEffects.POISON);
                 }else if (slot.getItem() == BWPObjects.UNICORN_BLOOD) {
                     BWComponents.CURSES_COMPONENT.get(user).addCurse(new Curse.Instance(BWPCurses.HALF_LIFE, 168000));
+                }else if(slot.getItem() == Items.POTION){
+                    Potion potion = PotionUtil.getPotion(slot);
+                    user.addStatusEffect(new StatusEffectInstance(potion.getEffects().get(0)));
                 }
             }
             stack.decrement(1);
@@ -121,9 +127,15 @@ public class GobletBlockItem extends BlockItem {
                 var slots = DefaultedList.ofSize(1, ItemStack.EMPTY);
                 Inventories.readNbt(stack.getNbt().getCompound("BlockEntityTag"), slots);
                 boolean vamp = stack.getNbt().getCompound("BlockEntityTag").getBoolean("VampireBlood");
-                tooltip.add(new TranslatableText("liquid." + slots.get(0).toString().replace("1 ", ""))
-                .formatted(vamp ? Formatting.ITALIC : Formatting.DARK_RED)
-                .formatted(slots.get(0).getItem() == BWObjects.BOTTLE_OF_BLOOD ? Formatting.DARK_RED : slots.get(0).getItem() == Items.HONEY_BOTTLE ? Formatting.GOLD : Formatting.AQUA));
+                String string = slots.get(0).toString();
+                if(slots.get(0).getItem().equals(Items.POTION)){
+                    PotionUtil.buildTooltip(slots.get(0), tooltip, 1.0F);
+                }else{
+                    tooltip.add(new TranslatableText("liquid." + string.replace("1 ", ""))
+                    .formatted(vamp ? Formatting.ITALIC : Formatting.DARK_RED)
+                    .formatted(slots.get(0).getItem() == BWObjects.BOTTLE_OF_BLOOD ? Formatting.DARK_RED : slots.get(0).getItem() == Items.HONEY_BOTTLE ? Formatting.GOLD : Formatting.AQUA));
+                }
+
             }
         }
     }
