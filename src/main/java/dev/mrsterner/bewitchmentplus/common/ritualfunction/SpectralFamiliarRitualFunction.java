@@ -28,9 +28,10 @@ public class SpectralFamiliarRitualFunction extends RitualFunction {
     @Override
     public void start(ServerWorld world, BlockPos glyphPos, BlockPos effectivePos, Inventory inventory, boolean catFamiliar) {
         int rand = world.random.nextInt(BWPTags.SPECTRAL_FAMILIAR.values().size());
-        BWTameableEntity entity = switch (rand) {
+        var entity = switch (rand) {
             case 1 -> BWPEntityTypes.NIFFLER.create(world);
             case 2 -> BWPEntityTypes.PHOENIX.create(world);
+            case 3 -> BWPEntityTypes.UNICORN.create(world);
             default -> null;
         };
         if (entity != null) {

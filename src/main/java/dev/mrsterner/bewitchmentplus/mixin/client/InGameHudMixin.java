@@ -42,7 +42,7 @@ public abstract class InGameHudMixin extends DrawableHelper {
     private MinecraftClient client;
 
     @ModifyVariable(method = "renderStatusEffectOverlay", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIII)V"))
-    private StatusEffectInstance customizeDrawnBackground(StatusEffectInstance effect) {
+    private StatusEffectInstance drawCustomBackground(StatusEffectInstance effect) {
         if (effect.getEffectType() instanceof BWPStatusEffects.BWPStatusEffect) {
             assert this.client != null;
             RenderSystem.setShaderTexture(0, BWPLUS_BACKGROUND_TEXTURE);
