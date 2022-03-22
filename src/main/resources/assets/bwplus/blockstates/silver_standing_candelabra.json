@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "bwplus:block/silver_standing_candelabra_bottom"
+    },
+    "half=upper": {
+      "model": "bwplus:block/silver_standing_candelabra_top"
+    }
+  }
+}

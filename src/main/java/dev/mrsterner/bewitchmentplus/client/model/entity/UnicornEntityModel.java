@@ -16,23 +16,6 @@ import net.minecraft.util.math.MathHelper;
 @Environment(EnvType.CLIENT)
 public class UnicornEntityModel<T extends UnicornEntity> extends AnimalModel<T> {
 	public static final EntityModelLayer UNICORN_MODEL_LAYER = new EntityModelLayer(new Identifier(BewitchmentPlus.MODID, "unicorn"), "main");
-	private static final float EATING_GRASS_ANIMATION_HEAD_BASE_PITCH = 2.1816616F;
-	private static final float ANGRY_ANIMATION_FRONT_LEG_PITCH_MULTIPLIER = 1.0471976F;
-	private static final float ANGRY_ANIMATION_BODY_PITCH_MULTIPLIER = 0.7853982F;
-	private static final float HEAD_TAIL_BASE_PITCH = 0.5235988F;
-	private static final float ANGRY_ANIMATION_HIND_LEG_PITCH_MULTIPLIER = 0.2617994F;
-	protected static final String HEAD_PARTS = "head_parts";
-	private static final String LEFT_HIND_BABY_LEG = "left_hind_baby_leg";
-	private static final String RIGHT_HIND_BABY_LEG = "right_hind_baby_leg";
-	private static final String LEFT_FRONT_BABY_LEG = "left_front_baby_leg";
-	private static final String RIGHT_FRONT_BABY_LEG = "right_front_baby_leg";
-	private static final String SADDLE = "saddle";
-	private static final String LEFT_SADDLE_MOUTH = "left_saddle_mouth";
-	private static final String LEFT_SADDLE_LINE = "left_saddle_line";
-	private static final String RIGHT_SADDLE_MOUTH = "right_saddle_mouth";
-	private static final String RIGHT_SADDLE_LINE = "right_saddle_line";
-	private static final String HEAD_SADDLE = "head_saddle";
-	private static final String MOUTH_SADDLE_WRAP = "mouth_saddle_wrap";
 	protected final ModelPart body;
 	protected final ModelPart head;
 	private final ModelPart rightHindLeg;
@@ -44,8 +27,6 @@ public class UnicornEntityModel<T extends UnicornEntity> extends AnimalModel<T> 
 	private final ModelPart rightFrontBabyLeg;
 	private final ModelPart leftFrontBabyLeg;
 	private final ModelPart tail;
-	private final ModelPart[] saddle;
-	private final ModelPart[] straps;
 
 	public UnicornEntityModel(ModelPart root) {
 		super(true, 16.2F, 1.36F, 2.7272F, 2.0F, 20.0F);
@@ -60,15 +41,6 @@ public class UnicornEntityModel<T extends UnicornEntity> extends AnimalModel<T> 
 		this.rightFrontBabyLeg = root.getChild("right_front_baby_leg");
 		this.leftFrontBabyLeg = root.getChild("left_front_baby_leg");
 		this.tail = this.body.getChild("tail");
-		ModelPart modelPart = this.body.getChild("saddle");
-		ModelPart modelPart2 = this.head.getChild("left_saddle_mouth");
-		ModelPart modelPart3 = this.head.getChild("right_saddle_mouth");
-		ModelPart modelPart4 = this.head.getChild("left_saddle_line");
-		ModelPart modelPart5 = this.head.getChild("right_saddle_line");
-		ModelPart modelPart6 = this.head.getChild("head_saddle");
-		ModelPart modelPart7 = this.head.getChild("mouth_saddle_wrap");
-		this.saddle = new ModelPart[]{modelPart, modelPart2, modelPart3, modelPart6, modelPart7};
-		this.straps = new ModelPart[]{modelPart4, modelPart5};
 	}
 
 	public static TexturedModelData getTexturedModelData() {
@@ -89,18 +61,8 @@ public class UnicornEntityModel<T extends UnicornEntity> extends AnimalModel<T> 
 		modelPartData.addChild("left_front_baby_leg", ModelPartBuilder.create().uv(48, 21).mirrored().cuboid(-3.0F, -1.01F, -1.9F, 4.0F, 11.0F, 4.0F, dilation2), ModelTransform.pivot(4.0F, 14.0F, -12.0F));
 		modelPartData.addChild("right_front_baby_leg", ModelPartBuilder.create().uv(48, 21).cuboid(-1.0F, -1.01F, -1.9F, 4.0F, 11.0F, 4.0F, dilation2), ModelTransform.pivot(-4.0F, 14.0F, -12.0F));
 		modelPartData2.addChild("tail", ModelPartBuilder.create().uv(42, 36).cuboid(-1.5F, 0.0F, 0.0F, 3.0F, 14.0F, 4.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -5.0F, 2.0F, 0.5235988F, 0.0F, 0.0F));
-		modelPartData2.addChild("saddle", ModelPartBuilder.create().uv(26, 0).cuboid(-5.0F, -8.0F, -9.0F, 10.0F, 9.0F, 9.0F, new Dilation(0.5F)), ModelTransform.NONE);
-		modelPartData3.addChild("left_saddle_mouth", ModelPartBuilder.create().uv(29, 5).cuboid(2.0F, -9.0F, -6.0F, 1.0F, 2.0F, 2.0F, new Dilation(0.0F)), ModelTransform.NONE);
-		modelPartData3.addChild("right_saddle_mouth", ModelPartBuilder.create().uv(29, 5).cuboid(-3.0F, -9.0F, -6.0F, 1.0F, 2.0F, 2.0F, new Dilation(0.0F)), ModelTransform.NONE);
-		modelPartData3.addChild("left_saddle_line", ModelPartBuilder.create().uv(32, 2).cuboid(3.1F, -6.0F, -8.0F, 0.0F, 3.0F, 16.0F, new Dilation(0.0F)), ModelTransform.rotation(-0.5235988F, 0.0F, 0.0F));
-		modelPartData3.addChild("right_saddle_line", ModelPartBuilder.create().uv(32, 2).cuboid(-3.1F, -6.0F, -8.0F, 0.0F, 3.0F, 16.0F, new Dilation(0.0F)), ModelTransform.rotation(-0.5235988F, 0.0F, 0.0F));
-		modelPartData3.addChild("head_saddle", ModelPartBuilder.create().uv(1, 1).cuboid(-3.0F, -11.0F, -1.9F, 6.0F, 5.0F, 6.0F, new Dilation(0.2F)), ModelTransform.NONE);
-		modelPartData3.addChild("mouth_saddle_wrap", ModelPartBuilder.create().uv(19, 0).cuboid(-2.0F, -11.0F, -4.0F, 4.0F, 5.0F, 2.0F, new Dilation(0.2F)), ModelTransform.NONE);
 		modelPartData4.addChild("left_ear", ModelPartBuilder.create().uv(19, 16).cuboid(0.55F, -13.0F, 4.0F, 2.0F, 3.0F, 1.0F, new Dilation(-0.001F)), ModelTransform.NONE);
 		modelPartData4.addChild("right_ear", ModelPartBuilder.create().uv(19, 16).cuboid(-2.55F, -13.0F, 4.0F, 2.0F, 3.0F, 1.0F, new Dilation(-0.001F)), ModelTransform.NONE);
-
-
-
 
 
 		ModelPartData head = modelData.getRoot().getChild("head_parts").getChild("head");
@@ -206,24 +168,6 @@ public class UnicornEntityModel<T extends UnicornEntity> extends AnimalModel<T> 
 
 	@Override
 	public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-		boolean bl2 = entity.hasPassengers();
-		ModelPart[] var9 = this.saddle;
-		int var10 = var9.length;
-
-		int var11;
-		ModelPart modelPart;
-		for(var11 = 0; var11 < var10; ++var11) {
-			modelPart = var9[var11];
-		}
-
-		var9 = this.straps;
-		var10 = var9.length;
-
-		for(var11 = 0; var11 < var10; ++var11) {
-			modelPart = var9[var11];
-			modelPart.visible = bl2;
-		}
-
 		this.body.pivotY = 11.0F;
 	}
 }

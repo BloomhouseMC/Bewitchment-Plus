@@ -57,6 +57,8 @@ public class BWPObjects {
 	public static final Block EMBERGRASS = register("embergrass", new BWPPlantBlock(copyOf(Blocks.GRASS)), true, gen());
 	public static final Block LEECH_CHEST = register("leech_chest", new LeechChestBlock(FabricBlockSettings.of(Material.PLANT).strength(2.5F, 3.0F).sounds(BlockSoundGroup.MOSS_BLOCK)), true, gen());
 
+	public static final Block SILVER_STANDING_CANDELABRA = register("silver_standing_candelabra", new StandingCandelabraBlock(FabricBlockSettings.of(Material.METAL)), true);
+
 	public static final Block UNICORN_BLOOD_PUDDLE = register("unicorn_blood_puddle", new UnicornPuddleBlock(FabricBlockSettings.of(Material.WATER)), false);
 
 
