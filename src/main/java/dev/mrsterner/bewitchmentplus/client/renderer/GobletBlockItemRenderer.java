@@ -6,7 +6,6 @@ import dev.mrsterner.bewitchmentplus.common.block.blockentity.GobletBlockEntity;
 import dev.mrsterner.bewitchmentplus.common.item.GobletBlockItem;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
 import dev.mrsterner.bewitchmentplus.common.utils.RenderHelper;
-import moriyashiine.bewitchment.common.registry.BWObjects;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.fabric.api.renderer.v1.mesh.MeshBuilder;
 import net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering;

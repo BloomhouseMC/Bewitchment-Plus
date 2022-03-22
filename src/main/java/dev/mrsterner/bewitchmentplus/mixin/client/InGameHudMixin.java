@@ -61,7 +61,7 @@ public abstract class InGameHudMixin extends DrawableHelper {
     }
 
     @Inject(method = "drawHeart", at = @At("HEAD"), cancellable = true)
-    private void pickyourpoison$drawCustomHeart(MatrixStack matrices, InGameHud.HeartType type, int x, int y, int v, boolean blinking, boolean halfHeart, CallbackInfo ci) {
+    private void drawCustomHeart(MatrixStack matrices, InGameHud.HeartType type, int x, int y, int v, boolean blinking, boolean halfHeart, CallbackInfo ci) {
         if (type == InGameHud.HeartType.NORMAL && MinecraftClient.getInstance().cameraEntity instanceof PlayerEntity player && player.hasStatusEffect(BWPStatusEffects.HALF_LIFE)) {
             RenderSystem.setShaderTexture(0, HALF_LIFE_HEARTS);
             drawTexture(matrices, x, y, halfHeart ? 9 : 0, v, 9, 9);
