@@ -4,6 +4,7 @@ package dev.mrsterner.bewitchmentplus.mixin.common;
 import dev.mrsterner.bewitchmentplus.api.Magical;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.world.World;
@@ -31,7 +32,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Magical 
     }
 
     @Inject(method = "readCustomDataFromNbt", at = @At("TAIL"))
-    public void readBWPData(NbtCompound compoundTag, CallbackInfo info) {
+    private void readBWPData(NbtCompound compoundTag, CallbackInfo info) {
         NbtCompound tag = (NbtCompound) compoundTag.get("MagicalCompound");
         if (tag != null) {
             this.magical = tag.getBoolean("Magical");

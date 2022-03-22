@@ -148,7 +148,7 @@ public class RenderHelper {
     }
 
     public static void renderLayer(Identifier base, Matrix4f matrix4f, VertexConsumerProvider vertexConsumers, float sizeX, float sizeY, int light, int overlay, float[] rgba) {
-        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(getPortalEffect(base));
+        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(getRuneEffect(base));
 
         vertexConsumer.vertex(matrix4f, 0, 0, sizeY).color(rgba[0], rgba[1], rgba[2], rgba[3])
         .texture(0, 1).light(light).overlay(overlay).normal(0, 1, 0).next();
@@ -160,7 +160,7 @@ public class RenderHelper {
         .texture(0, 0).light(light).overlay(overlay).normal(0, 1, 0).next();
     }
 
-    public static RenderLayer getPortalEffect(Identifier texture) {
+    public static RenderLayer getRuneEffect(Identifier texture) {
         return RUNE_LAYER.apply(texture);
     }
 }

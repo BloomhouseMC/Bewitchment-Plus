@@ -37,7 +37,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity  {
                 this.teleport(effigyEntity.getX(),effigyEntity.getY(),effigyEntity.getZ());
                 this.setHealth(effigyEntity.getHealth());
                 if(effigyEntity.isOnFire()){
-                    this.setOnFireFor(5);
+                    this.setOnFireFor(effigyEntity.getFireTicks());
                 }
                 effigyEntity.playSound(SoundEvents.ITEM_TOTEM_USE, 1F,1F);
                 effigyEntity.teleport(0,-256,0);

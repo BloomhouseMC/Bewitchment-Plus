@@ -9,7 +9,9 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -25,6 +27,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class InGameHudMixin extends DrawableHelper {
     @Unique
     private static final Identifier BWPLUS_BACKGROUND_TEXTURE = new Identifier(BewitchmentPlus.MODID, "textures/gui/inventory.png");
+
+    @Unique
+    private static final Identifier HALF_LIFE_HEARTS = new Identifier(BewitchmentPlus.MODID, "textures/gui/half_life_hearts.png");
 
     @Unique
     private boolean boundSpecialBackground;
@@ -52,6 +57,16 @@ public abstract class InGameHudMixin extends DrawableHelper {
         if (boundSpecialBackground) {
             RenderSystem.setShaderTexture(0, HandledScreen.BACKGROUND_TEXTURE);
             boundSpecialBackground = false;
+        }
+    }
+
+    @Inject(method = "drawHeart", at = @At("HEAD"), cancellable = true)
+    private void pickyourpoison$drawCustomHeart(MatrixStack matrices, InGameHud.HeartType type, int x, int y, int v, boolean blinking, boolean halfHeart, CallbackInfo ci) {
+        if (type == InGameHud.HeartType.NORMAL && MinecraftClient.getInstance().cameraEntity instanceof PlayerEntity player && player.hasStatusEffect(BWPStatusEffects.HALF_LIFE)) {
+            RenderSystem.setShaderTexture(0, HALF_LIFE_HEARTS);
+            drawTexture(matrices, x, y, halfHeart ? 9 : 0, v, 9, 9);
+            RenderSystem.setShaderTexture(0, GUI_ICONS_TEXTURE);
+            ci.cancel();
         }
     }
 }

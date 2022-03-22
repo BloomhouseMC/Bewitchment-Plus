@@ -12,6 +12,6 @@ public class HalfLifeCurse extends Curse {
 
     @Override
     public void tick(LivingEntity target) {
-        target.addStatusEffect(new StatusEffectInstance(BWPStatusEffects.HALF_LIFE, 20 * 20, 0, false, false, true));
+        target.addStatusEffect(new StatusEffectInstance(BWPStatusEffects.HALF_LIFE, 20 * 12, 0, false, false, true));
     }
 }

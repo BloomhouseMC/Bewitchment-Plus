@@ -8,7 +8,9 @@
     "common.BlocksMixin",
     "common.DefaultBiomeFeaturesMixin",
     "common.IronGolemTargetingMixin",
+    "common.LivingEntityMixin",
     "common.LootContextTypesAccessor",
+    "common.MilkBucketItemMixin",
     "common.MobEntityAccessor",
     "common.NoiseChunkGeneratorMixin",
     "common.PlayerEntityMixin",
@@ -17,19 +19,18 @@
     "common.SimpleBlockStateProviderMixin",
     "common.TexturedRenderLayersMixin",
     "common.TogglePressingForwardPacketMixin",
-    "common.VillagerBreedTaskMixin",
-    "common.MilkBucketItemMixin"
+    "common.VillagerBreedTaskMixin"
   ],
   "client": [
+    "client.AbstractInventoryScreenMixin",
     "client.GameRendererMixin",
+    "client.InGameHudMixin",
     "client.LivingEntityRendererMixin",
     "client.MinecraftClientMixin",
     "client.PlayerEntityRendererMixin",
     "client.RenderLayerAccessor",
     "client.SignEditScreenMixin",
-    "client.TexturedRenderLayersMixin",
-    "client.AbstractInventoryScreenMixin",
-    "client.InGameHudMixin"
+    "client.TexturedRenderLayersMixin"
   ],
   "injectors": {
     "defaultRequire": 1

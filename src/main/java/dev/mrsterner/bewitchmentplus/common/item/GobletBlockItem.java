@@ -1,8 +1,7 @@
 package dev.mrsterner.bewitchmentplus.common.item;
 
-import dev.mrsterner.bewitchmentplus.common.registry.BWPCurses;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
-import moriyashiine.bewitchment.api.registry.Curse;
+import dev.mrsterner.bewitchmentplus.common.registry.BWPStatusEffects;
 import moriyashiine.bewitchment.common.Bewitchment;
 import moriyashiine.bewitchment.common.registry.BWComponents;
 import moriyashiine.bewitchment.common.registry.BWCurses;
@@ -76,14 +75,14 @@ public class GobletBlockItem extends BlockItem {
             if (goblet != null && !goblet.isEmpty()) {
                 itemStack = ItemStack.fromNbt(goblet);
             }
-            var slots = DefaultedList.ofSize(1, ItemStack.EMPTY);
+            DefaultedList<ItemStack> slots = DefaultedList.ofSize(1, ItemStack.EMPTY);
             Inventories.readNbt(nbt.getCompound("BlockEntityTag"), slots);
-            var slot = slots.get(0);
+            ItemStack slot = slots.get(0);
             if(!world.isClient()){
                 if (slot.getItem() == Items.HONEY_BOTTLE) {
                     user.removeStatusEffect(StatusEffects.POISON);
                 }else if (slot.getItem() == BWPObjects.UNICORN_BLOOD) {
-                    BWComponents.CURSES_COMPONENT.get(user).addCurse(new Curse.Instance(BWPCurses.HALF_LIFE, 168000));
+                    user.addStatusEffect(new StatusEffectInstance(BWPStatusEffects.HALF_LIFE, 20 * 10, 1, false, false, true));
                 }else if(slot.getItem() == Items.POTION){
                     Potion potion = PotionUtil.getPotion(slot);
                     user.addStatusEffect(new StatusEffectInstance(potion.getEffects().get(0)));
@@ -127,11 +126,10 @@ public class GobletBlockItem extends BlockItem {
                 var slots = DefaultedList.ofSize(1, ItemStack.EMPTY);
                 Inventories.readNbt(stack.getNbt().getCompound("BlockEntityTag"), slots);
                 boolean vamp = stack.getNbt().getCompound("BlockEntityTag").getBoolean("VampireBlood");
-                String string = slots.get(0).toString();
                 if(slots.get(0).getItem().equals(Items.POTION)){
                     PotionUtil.buildTooltip(slots.get(0), tooltip, 1.0F);
                 }else{
-                    tooltip.add(new TranslatableText("liquid." + string.replace("1 ", ""))
+                    tooltip.add(new TranslatableText("liquid." + slots.get(0).toString().replace("1 ", ""))
                     .formatted(vamp ? Formatting.ITALIC : Formatting.DARK_RED)
                     .formatted(slots.get(0).getItem() == BWObjects.BOTTLE_OF_BLOOD ? Formatting.DARK_RED : slots.get(0).getItem() == Items.HONEY_BOTTLE ? Formatting.GOLD : Formatting.AQUA));
                 }
