@@ -34,6 +34,7 @@ public class PhoenixRebirthGoal extends Goal {
         newPhoenix.refreshPositionAndAngles(phoenixEntity.getX(), phoenixEntity.getY(), phoenixEntity.getZ(), phoenixEntity.getYaw(), phoenixEntity.getPitch());
         newPhoenix.setPersistent();
         phoenixEntity.getWorld().spawnEntity(newPhoenix);
+        phoenixEntity.discard();
         super.stop();
     }
 

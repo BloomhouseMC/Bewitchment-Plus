@@ -34,7 +34,7 @@ import java.util.Random;
 public class StandingCandelabraBlock extends Block implements Waterloggable {
     public static final EnumProperty<DoubleBlockHalf> HALF = Properties.DOUBLE_BLOCK_HALF;
     public StandingCandelabraBlock(Settings settings) {
-        super(settings.nonOpaque());
+        super(settings.nonOpaque().luminance(((blockState) -> (Boolean)blockState.get(Properties.LIT) ? 15 : 0)));
         this.setDefaultState(this.stateManager.getDefaultState().with(HALF, DoubleBlockHalf.LOWER).with(Properties.WATERLOGGED, false).with(Properties.LIT, true));
 
     }

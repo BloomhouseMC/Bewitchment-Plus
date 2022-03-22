@@ -1,5 +1,6 @@
 package dev.mrsterner.bewitchmentplus.common.entity;
 
+import dev.mrsterner.bewitchmentplus.common.entity.ai.PhoenixRebirthGoal;
 import moriyashiine.bewitchment.common.entity.living.util.BWTameableEntity;
 import moriyashiine.bewitchment.common.registry.BWSoundEvents;
 import net.minecraft.block.BlockState;
@@ -36,6 +37,7 @@ public class PhoenixEntity extends BWTameableEntity {
 
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));
+        this.goalSelector.add(1, new PhoenixRebirthGoal(this));
         this.goalSelector.add(1, new SitGoal(this));
         this.goalSelector.add(2, new MeleeAttackGoal(this, 1.0D, true));
         this.goalSelector.add(3, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
@@ -45,7 +47,7 @@ public class PhoenixEntity extends BWTameableEntity {
         this.goalSelector.add(6, new LookAroundGoal(this));
         this.targetSelector.add(0, new TrackOwnerAttackerGoal(this));
         this.targetSelector.add(1, new AttackWithOwnerGoal(this));
-        this.targetSelector.add(2, new RevengeGoal(this, new Class[0]));
+        this.targetSelector.add(2, new RevengeGoal(this));
         this.targetSelector.add(3, new UntamedActiveTargetGoal<>(this, AnimalEntity.class, false, (entity) -> entity instanceof ChickenEntity || entity instanceof RabbitEntity));
     }
 
