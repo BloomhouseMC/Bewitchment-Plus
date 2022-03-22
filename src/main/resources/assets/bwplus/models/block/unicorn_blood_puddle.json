@@ -1,0 +1,6 @@
+{
+  "parent": "block/carpet",
+  "textures": {
+    "wool": "bwplus:block/unicorn_blood_puddle"
+  }
+}

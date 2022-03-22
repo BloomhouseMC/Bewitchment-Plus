@@ -2,7 +2,13 @@ package dev.mrsterner.bewitchmentplus.mixin.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
+import dev.mrsterner.bewitchmentplus.common.entity.UnicornEntity;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPStatusEffects;
+import moriyashiine.bewitchment.api.BewitchmentAPI;
+import moriyashiine.bewitchment.api.component.BloodComponent;
+import moriyashiine.bewitchment.common.Bewitchment;
+import moriyashiine.bewitchment.common.registry.BWComponents;
+import moriyashiine.bewitchment.common.registry.BWTags;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -10,7 +16,9 @@ import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Final;
@@ -32,6 +40,9 @@ public abstract class InGameHudMixin extends DrawableHelper {
     private static final Identifier HALF_LIFE_HEARTS = new Identifier(BewitchmentPlus.MODID, "textures/gui/half_life_hearts.png");
 
     @Unique
+    private static final Identifier EMPTY_TEXTURE = new Identifier(Bewitchment.MODID, "textures/gui/empty.png");
+
+    @Unique
     private boolean boundSpecialBackground;
 
     @Unique
@@ -40,6 +51,32 @@ public abstract class InGameHudMixin extends DrawableHelper {
     @Shadow
     @Final
     private MinecraftClient client;
+
+    @Shadow
+    private int scaledHeight;
+
+    @Shadow
+    private int scaledWidth;
+
+    @Shadow protected abstract PlayerEntity getCameraPlayer();
+
+    @Inject(method = "renderStatusBars", at = @At(value = "INVOKE", shift = At.Shift.AFTER, ordinal = 3, target = "Lnet/minecraft/client/MinecraftClient;getProfiler()Lnet/minecraft/util/profiler/Profiler;"))
+    private void renderPre(MatrixStack matrices, CallbackInfo callbackInfo) {
+        PlayerEntity player = getCameraPlayer();
+        if (BewitchmentAPI.isVampire(player, true)) {
+            RenderSystem.setShaderTexture(0, HALF_LIFE_HEARTS);
+            if (player.isInSneakingPose() && client.targetedEntity instanceof UnicornEntity livingEntity) {
+                drawHalfLife(matrices, livingEntity, scaledWidth / 2 + 13, scaledHeight / 2 + 9);
+            }
+            RenderSystem.setShaderTexture(0, GUI_ICONS_TEXTURE);
+        }
+    }
+
+    private void drawHalfLife(MatrixStack matrices, LivingEntity entity, int x, int y) {
+        for(int i = 0; i < (int)entity.getHealth()/4; i++) {
+            drawTexture(matrices, (x - i * 8), y, 0,  0, 9, 9);
+        }
+    }
 
     @ModifyVariable(method = "renderStatusEffectOverlay", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIII)V"))
     private StatusEffectInstance drawCustomBackground(StatusEffectInstance effect) {

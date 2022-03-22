@@ -3,17 +3,19 @@ package dev.mrsterner.bewitchmentplus;
 import dev.mrsterner.bewitchmentplus.common.BWPConfig;
 import dev.mrsterner.bewitchmentplus.common.block.blockentity.MimicChestBlockEntity;
 import dev.mrsterner.bewitchmentplus.common.entity.EffigyEntity;
+import dev.mrsterner.bewitchmentplus.common.entity.UnicornEntity;
 import dev.mrsterner.bewitchmentplus.common.item.GobletBlockItem;
 import dev.mrsterner.bewitchmentplus.common.registry.*;
 import dev.mrsterner.bewitchmentplus.common.utils.RenderHelper;
 import dev.mrsterner.bewitchmentplus.common.world.BWPWorldState;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
+import moriyashiine.bewitchment.api.BewitchmentAPI;
+import moriyashiine.bewitchment.api.component.BloodComponent;
+import moriyashiine.bewitchment.api.event.BloodSuckEvents;
 import moriyashiine.bewitchment.common.item.AthameItem;
 import moriyashiine.bewitchment.common.item.TaglockItem;
-import moriyashiine.bewitchment.common.registry.BWComponents;
-import moriyashiine.bewitchment.common.registry.BWObjects;
-import moriyashiine.bewitchment.common.registry.BWTransformations;
+import moriyashiine.bewitchment.common.registry.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
@@ -26,7 +28,10 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.block.enums.ChestType;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
@@ -78,7 +83,28 @@ public class BewitchmentPlus implements ModInitializer {
 		UseBlockCallback.EVENT.register(this::createMimic);
 		UseItemCallback.EVENT.register(this::gobletFillWithAthame);
 		UseEntityCallback.EVENT.register(this::bindEffigy);
+		UseEntityCallback.EVENT.register(this::succUnicorn);
 
+	}
+	private ActionResult succUnicorn(PlayerEntity player, World world, Hand hand, Entity entity, HitResult hitResult) {
+		if (entity instanceof UnicornEntity livingEntity && hand == Hand.MAIN_HAND && player.isSneaking() && entity.isAlive() && BewitchmentAPI.isVampire(player, true) && player.getStackInHand(hand).isEmpty()) {
+			int toGive = (int) livingEntity.getHealth() / 4;
+			toGive = BloodSuckEvents.BLOOD_AMOUNT.invoker().onBloodSuck(player, livingEntity, toGive);
+			if (toGive > 0) {
+				BloodComponent playerBloodComponent = BWComponents.BLOOD_COMPONENT.get(player);
+				if (playerBloodComponent.fillBlood(toGive, true)) {
+					if (!world.isClient && livingEntity.hurtTime == 0) {
+						BloodSuckEvents.ON_BLOOD_SUCK.invoker().onBloodSuck(player, livingEntity, toGive);
+						world.playSound(null, player.getBlockPos(), SoundEvents.ITEM_HONEY_BOTTLE_DRINK, player.getSoundCategory(), 1, 0.5f);
+						playerBloodComponent.fillBlood(toGive, false);
+						player.addStatusEffect(new StatusEffectInstance(BWPStatusEffects.HALF_LIFE, 20 * 10, 1, false, false, true));
+						entity.damage(BWDamageSources.VAMPIRE, 2);
+					}
+					return ActionResult.PASS;
+				}
+			}
+		}
+		return ActionResult.PASS;
 	}
 
 	/**
@@ -207,4 +233,6 @@ public class BewitchmentPlus implements ModInitializer {
 		}
 		return ActionResult.PASS;
 	}
+
+
 }
