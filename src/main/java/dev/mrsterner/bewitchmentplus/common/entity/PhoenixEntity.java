@@ -77,6 +77,8 @@ public class PhoenixEntity extends BWTameableEntity {
         return birdNavigation;
     }
 
+
+
     @Override
     public int getVariants() {
         return 0;
