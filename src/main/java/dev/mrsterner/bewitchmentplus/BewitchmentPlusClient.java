@@ -36,7 +36,7 @@ public class BewitchmentPlusClient implements ClientModInitializer {
 	public void onInitializeClient() {
 		ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> view != null && pos != null ? BiomeColors.getFoliageColor(view, pos) : FoliageColors.getDefaultColor(), BWPObjects.BLOODROOT, BWPObjects.EMBERGRASS);
 		GeoItemRenderer.registerItemRenderer(BWPObjects.DRAGONBLOOD_STAFF, new DragonbloodStaffRenderer());
-		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), BWPObjects.SILVER_STANDING_CANDELABRA, BWPObjects.PENTACLE, BWPObjects.BLOODROOT, BWPObjects.EMBERGRASS, BWPObjects.YEW_SAPLING, BWPObjects.YEW_DOOR, BWPObjects.YEW_TRAPDOOR, BWPObjects.YEW_LOG, BWPObjects.YEW_WOOD);
+		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), BWPObjects.GOLD_STANDING_CANDELABRA,BWPObjects.NETHERITE_STANDING_CANDELABRA, BWPObjects.SILVER_STANDING_CANDELABRA, BWPObjects.PENTACLE, BWPObjects.BLOODROOT, BWPObjects.EMBERGRASS, BWPObjects.YEW_SAPLING, BWPObjects.YEW_DOOR, BWPObjects.YEW_TRAPDOOR, BWPObjects.YEW_LOG, BWPObjects.YEW_WOOD);
 		ClientTickEvents.END_CLIENT_TICK.register(ClientTickHandler::clientTickEnd);
 
 		BlockEntityRendererRegistry.register(BWPBlockEntityTypes.GOBLET, ctx -> new GobletBlockItemRenderer());

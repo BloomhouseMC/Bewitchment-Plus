@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "bewitchment:gui/empty",
+    "particle": "block/gold_block"
+  }
+}
