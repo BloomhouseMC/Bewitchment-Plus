@@ -1,0 +1,8 @@
+{
+  "parent": "block/slab",
+  "textures": {
+    "bottom": "bwplus:block/cut_silver_block",
+    "top": "bwplus:block/cut_silver_block",
+    "side": "bwplus:block/cut_silver_block"
+  }
+}

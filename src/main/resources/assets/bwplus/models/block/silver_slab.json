@@ -1,0 +1,8 @@
+{
+  "parent": "block/slab",
+  "textures": {
+    "bottom": "bewitchment:block/silver_block",
+    "top": "bewitchment:block/silver_block",
+    "side": "bewitchment:block/silver_block"
+  }
+}
