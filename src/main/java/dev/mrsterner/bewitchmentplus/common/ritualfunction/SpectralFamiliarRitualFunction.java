@@ -1,12 +1,9 @@
 package dev.mrsterner.bewitchmentplus.common.ritualfunction;
 
 import dev.mrsterner.bewitchmentplus.common.registry.BWPEntityTypes;
-import dev.mrsterner.bewitchmentplus.common.registry.BWPTags;
 import moriyashiine.bewitchment.api.registry.RitualFunction;
-import moriyashiine.bewitchment.common.entity.living.util.BWTameableEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.particle.ParticleType;
 import net.minecraft.server.world.ServerWorld;

@@ -6,7 +6,7 @@
         {
           "input_predicate": {
             "block": "bwplus:yew_leaves",
-            "probability": 0.5,
+            "probability": 0,
             "predicate_type": "minecraft:random_block_match"
           },
           "location_predicate": {

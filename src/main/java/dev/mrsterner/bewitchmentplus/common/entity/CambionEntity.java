@@ -41,13 +41,12 @@ import net.minecraft.util.Util;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.*;
-import net.minecraft.world.gen.feature.StructureFeature;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
 public class CambionEntity extends BWHostileEntity implements InventoryChangedListener, InventoryOwner {
-	private static final TrackedData<Boolean> BABY = DataTracker.registerData(PiglinEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+	private static final TrackedData<Boolean> BABY = DataTracker.registerData(CambionEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 	public static final TrackedData<Boolean> MALE = DataTracker.registerData(CambionEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 	private static final UUID BABY_SPEED_ID = UUID.fromString("B9766B59-9566-4402-BC1F-2EE2A276D836");
 	private static final EntityAttributeModifier BABY_SPEED_BONUS = new EntityAttributeModifier(BABY_SPEED_ID, "Baby speed boost", 0.5, EntityAttributeModifier.Operation.MULTIPLY_BASE);
@@ -331,7 +330,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 	protected void initDataTracker() {
 		super.initDataTracker();
 		dataTracker.startTracking(MALE, true);
-		this.dataTracker.startTracking(BABY, false);
+		dataTracker.startTracking(BABY, false);
 	}
 
 	public List<ItemStack> getItemsFromLootTable(EquipmentSlot slot) {

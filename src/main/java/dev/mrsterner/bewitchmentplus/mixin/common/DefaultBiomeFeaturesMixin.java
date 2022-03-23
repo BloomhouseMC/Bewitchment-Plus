@@ -11,8 +11,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(DefaultBiomeFeatures.class)
 public class DefaultBiomeFeaturesMixin {
-    @Inject(method = "addDesertVegetation(Lnet/minecraft/world/biome/GenerationSettings$Builder;)V", at = @At("TAIL"))
+    @Inject(method = "addDesertVegetation", at = @At("HEAD"))
     private static void addDesertVegetation(GenerationSettings.Builder builder, CallbackInfo ci) {
-        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, BWPWorldGenerators.BLOODROOT_FEATURE);
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, BWPWorldGenerators.PATCH_BLOODROOT_DESERT);
+    }
+
+    @Inject(method = "addBadlandsVegetation", at = @At("HEAD"))
+    private static void addBadlandsVegetation(GenerationSettings.Builder builder, CallbackInfo ci) {
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, BWPWorldGenerators.PATCH_BLOODROOT_DESERT);
     }
 }

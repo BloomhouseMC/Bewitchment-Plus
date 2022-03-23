@@ -2,16 +2,13 @@ package dev.mrsterner.bewitchmentplus.common.item;
 
 import dev.mrsterner.bewitchmentplus.common.registry.BWPTags;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Waterloggable;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.tag.TagKey;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.registry.Registry;
 
-import java.util.Locale;
 import java.util.stream.Stream;
 
 public class MutandisItem extends Item {
