@@ -25,8 +25,8 @@ public class YewTreeStructure extends StructureFeature<StructurePoolFeatureConfi
         BlockPos blockpos = context.chunkPos().getCenterAtY(0);
         Optional<StructurePiecesGenerator<StructurePoolFeatureConfig>> structurePiecesGenerator =
         StructurePoolBasedGenerator.generate(context, PoolStructurePiece::new, new BlockPos(blockpos), false, true);
-        if(structurePiecesGenerator.isPresent()) {
-            BewitchmentPlus.LOGGER.info("Yew at {}", blockpos);
+        if(structurePiecesGenerator.isEmpty()) {
+            BewitchmentPlus.LOGGER.info("Empty Yew Tree Gen at {}", blockpos);
         }
         return structurePiecesGenerator;
     }
