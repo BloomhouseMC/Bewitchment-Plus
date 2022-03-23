@@ -17,10 +17,12 @@ import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class MutandisItemEntity extends ThrownItemEntity implements FlyingItemEntity {
     public static final BooleanProperty WATERLOGGED = BooleanProperty.of("waterlogged");
@@ -71,12 +73,13 @@ public class MutandisItemEntity extends ThrownItemEntity implements FlyingItemEn
             }
         }
         listPos.forEach(blockPos1 -> {
-            if(BWPTags.MUTANDIS.contains(this.world.getBlockState(blockPos1).getBlock())){
-                BlockState mutating = BWPTags.MUTANDIS.getRandom(this.world.random).getDefaultState();
-                if(mutating.getBlock() instanceof Waterloggable){
-                    this.world.setBlockState(blockPos1, mutating.with(WATERLOGGED, false));
+            if(this.world.getBlockState(blockPos1).isIn(BWPTags.MUTANDIS)){
+                Stream<Block> blockState = Registry.BLOCK.stream().filter(block -> block.getDefaultState().isIn(BWPTags.MUTANDIS));
+                Block mutandisBlock = blockState.skip(this.getWorld().random.nextInt((int)blockState.count())).findFirst().get();
+                if(mutandisBlock instanceof Waterloggable){
+                    this.world.setBlockState(blockPos1, mutandisBlock.getDefaultState().with(WATERLOGGED, false));
                 }else{
-                    this.world.setBlockState(blockPos1,mutating);
+                    this.world.setBlockState(blockPos1,mutandisBlock.getDefaultState());
                 }
             }
         });

@@ -1,0 +1,15 @@
+{
+  "name": "bwplus:yew_tree/side_pool",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "bwplus:yew_tree",
+        "processors": "bwplus:randomize_leaves",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

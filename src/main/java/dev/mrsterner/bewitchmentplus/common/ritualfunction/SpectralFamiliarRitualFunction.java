@@ -6,6 +6,7 @@ import moriyashiine.bewitchment.api.registry.RitualFunction;
 import moriyashiine.bewitchment.common.entity.living.util.BWTameableEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.particle.ParticleType;
 import net.minecraft.server.world.ServerWorld;
@@ -27,8 +28,8 @@ public class SpectralFamiliarRitualFunction extends RitualFunction {
 
     @Override
     public void start(ServerWorld world, BlockPos glyphPos, BlockPos effectivePos, Inventory inventory, boolean catFamiliar) {
-        int rand = world.random.nextInt(BWPTags.SPECTRAL_FAMILIAR.values().size());
-        var entity = switch (rand) {
+        int rand = world.random.nextInt(3);
+        var entity = switch (rand + 1) {
             case 1 -> BWPEntityTypes.NIFFLER.create(world);
             case 2 -> BWPEntityTypes.PHOENIX.create(world);
             case 3 -> BWPEntityTypes.UNICORN.create(world);

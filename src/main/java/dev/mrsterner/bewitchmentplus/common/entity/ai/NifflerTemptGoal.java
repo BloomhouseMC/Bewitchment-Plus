@@ -45,7 +45,7 @@ public class NifflerTemptGoal extends Goal {
     }
 
     private boolean isTemptedBy(LivingEntity entity) {
-        return BWPTags.NIFFLER.contains(entity.getMainHandStack().getItem()) || BWPTags.NIFFLER.contains(entity.getOffHandStack().getItem());
+        return entity.getMainHandStack().isIn(BWPTags.NIFFLER) || entity.getOffHandStack().isIn(BWPTags.NIFFLER);
     }
 
     @Override

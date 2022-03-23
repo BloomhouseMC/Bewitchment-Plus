@@ -1,19 +1,22 @@
 package dev.mrsterner.bewitchmentplus.common.registry;
 
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
-import net.fabricmc.fabric.api.tag.TagFactory;
-import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.tag.Tag;
+import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
 public class BWPTags {
-    public static final Tag<Item> GOBLET_LIQUIDS = TagFactory.ITEM.create(new Identifier(BewitchmentPlus.MODID, "goblet_liquids"));
-    public static final Tag<Item> NIFFLER = TagFactory.ITEM.create(new Identifier(BewitchmentPlus.MODID, "niffler"));
-    public static final Tag<EntityType<?>> FAMILIAR = TagFactory.ENTITY_TYPE.create(new Identifier(BewitchmentPlus.MODID, "familiar"));
-    public static final Tag<EntityType<?>> SPECTRAL_FAMILIAR = TagFactory.ENTITY_TYPE.create(new Identifier(BewitchmentPlus.MODID, "spectral_familiar"));
-    public static final Tag<EntityType<?>> UNHOLY = TagFactory.ENTITY_TYPE.create(new Identifier(BewitchmentPlus.MODID, "unholy"));
-    public static final Tag<Block> MUTANDIS = TagRegistry.block(new Identifier(BewitchmentPlus.MODID, "mutandis"));
+    public static final TagKey<Item> GOBLET_LIQUIDS = TagKey.of(Registry.ITEM_KEY, new Identifier(BewitchmentPlus.MODID, "goblet_liquids"));
+    public static final TagKey<Item> NIFFLER = TagKey.of(Registry.ITEM_KEY, new Identifier(BewitchmentPlus.MODID, "niffler"));
+    public static final TagKey<EntityType<?>> FAMILIAR = TagKey.of(Registry.ENTITY_TYPE_KEY, new Identifier(BewitchmentPlus.MODID, "familiar"));
+    public static final TagKey<EntityType<?>> SPECTRAL_FAMILIAR = TagKey.of(Registry.ENTITY_TYPE_KEY, new Identifier(BewitchmentPlus.MODID, "spectral_familiar"));
+    public static final TagKey<EntityType<?>> UNHOLY = TagKey.of(Registry.ENTITY_TYPE_KEY, new Identifier(BewitchmentPlus.MODID, "unholy"));
+
+    public static final TagKey<Block> MUTANDIS = TagKey.of(Registry.BLOCK_KEY, new Identifier(BewitchmentPlus.MODID, "mutandis"));
+
+
 }

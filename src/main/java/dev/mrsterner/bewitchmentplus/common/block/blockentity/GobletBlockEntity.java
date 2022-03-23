@@ -152,7 +152,7 @@ public class GobletBlockEntity extends BlockEntity implements Inventory {
                 player.setStackInHand(hand, pickup);
                 world.breakBlock(pos, false, player);
 
-            }else if(BWPTags.GOBLET_LIQUIDS.contains(stack.getItem())) {
+            }else if(stack.isIn(BWPTags.GOBLET_LIQUIDS)) {
                 if(!world.isClient() && this.getStack(0).isEmpty()){
                     if(stack.getItem().equals(Items.HONEY_BOTTLE)){
                         setColor(RenderHelper.HONEY_COLOR);

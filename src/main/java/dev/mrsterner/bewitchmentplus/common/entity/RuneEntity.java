@@ -24,7 +24,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -76,7 +76,7 @@ public class RuneEntity extends Entity {
                     boolean vampire = mob instanceof PlayerEntity player && (BewitchmentAPI.isVampire(player, true) || BewitchmentAPI.isVampire(player, false));
                     boolean isLich = bl && mob instanceof PlayerEntity player && (BSMTransformations.isLich(player, true) || BSMTransformations.isLich(player, false));//TODO test if this doesnt crash if besmirchment isnt loaded
                     boolean isWerepyre = bl && mob instanceof PlayerEntity player && (BSMTransformations.isWerepyre(player, true) || BSMTransformations.isWerepyre(player, false));
-                    if ((BWPTags.UNHOLY.contains(mob.getType()) || werewolf || vampire || isLich || isWerepyre)) {
+                    if (mob.getType().isIn(BWPTags.UNHOLY) || werewolf || vampire || isLich || isWerepyre) {
                         double distanceX = blockPos.getX() - mob.getX();
                         double distanceZ = blockPos.getZ() - mob.getZ();
                         double max = MathHelper.absMax(distanceX, distanceZ);

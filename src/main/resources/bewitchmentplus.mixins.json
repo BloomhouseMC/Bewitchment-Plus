@@ -12,11 +12,11 @@
     "common.LootContextTypesAccessor",
     "common.MilkBucketItemMixin",
     "common.MobEntityAccessor",
-    "common.NoiseChunkGeneratorMixin",
     "common.PlayerEntityMixin",
     "common.ServerPlayerEntityMixin",
     "common.SignBlockEntityRendererMixin",
     "common.SimpleBlockStateProviderMixin",
+    "common.StructureFeatureAccessor",
     "common.TexturedRenderLayersMixin",
     "common.TogglePressingForwardPacketMixin",
     "common.VillagerBreedTaskMixin"

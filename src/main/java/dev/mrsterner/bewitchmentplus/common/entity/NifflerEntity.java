@@ -246,7 +246,7 @@ public class NifflerEntity extends BWTameableEntity implements IAnimatable, Inve
 
     @Override
     protected boolean isTamingItem(ItemStack itemStack) {
-        return BWPTags.NIFFLER.contains(itemStack.getItem());
+        return itemStack.isIn(BWPTags.NIFFLER);
     }
 
     @Nullable

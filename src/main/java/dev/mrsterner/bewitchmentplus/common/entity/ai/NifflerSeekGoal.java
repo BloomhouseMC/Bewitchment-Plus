@@ -41,7 +41,7 @@ public class NifflerSeekGoal extends Goal {
                 Inventory inventory = getInventoryAt(niffler.world, chestPos.getX(), chestPos.getY(), chestPos.getZ());
                 List<Pair<ItemStack, Integer>> itemStacks = new ArrayList<>();
                 for(int i = 0; i < inventory.size(); i++){
-                    if(BWPTags.NIFFLER.contains(inventory.getStack(i).getItem())){
+                    if(inventory.getStack(i).isIn(BWPTags.NIFFLER)){
                         itemStacks.add(new Pair<>(inventory.getStack(i), i));
                     }
                 }

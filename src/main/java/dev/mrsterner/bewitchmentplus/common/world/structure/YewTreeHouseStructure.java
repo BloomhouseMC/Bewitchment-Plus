@@ -20,7 +20,7 @@ import net.minecraft.world.gen.feature.StructureFeature;
 import net.minecraft.world.gen.feature.StructurePoolFeatureConfig;
 
 import java.util.Optional;
-
+/*
 public class YewTreeHouseStructure extends StructureFeature<StructurePoolFeatureConfig> {
 
     public YewTreeHouseStructure(Codec<StructurePoolFeatureConfig> codec) {
@@ -60,4 +60,6 @@ public class YewTreeHouseStructure extends StructureFeature<StructurePoolFeature
         BlockPos blockpos = context.chunkPos().getCenterAtY(0);
         return StructurePoolBasedGenerator.generate(newContext, PoolStructurePiece::new, blockpos, false, true);
     }
+
 }
+ */

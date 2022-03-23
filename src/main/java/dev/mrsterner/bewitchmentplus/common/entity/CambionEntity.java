@@ -33,6 +33,7 @@ import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.tag.ConfiguredStructureFeatureTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
@@ -103,16 +104,8 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 			return true;
 		}//Todo maybe remove natural spawn
 		if (world instanceof ServerWorld && BewitchmentPlus.config.world.cambionVillageStructureSpawn) {
-			BlockPos nearestVillage = ((ServerWorld) world).locateStructure(StructureFeature.VILLAGE, getBlockPos(), 3, false);
+			BlockPos nearestVillage = ((ServerWorld) world).locateStructure(ConfiguredStructureFeatureTags.VILLAGE, getBlockPos(), 3, false);
 			return (nearestVillage != null && Math.sqrt(nearestVillage.getSquaredDistance(getBlockPos())) < 128);
-		}
-		if (world instanceof ServerWorld && BewitchmentPlus.config.world.cambionNetherFortressStructureSpawn) {
-			BlockPos nearestFortress = ((ServerWorld) world).locateStructure(StructureFeature.FORTRESS, getBlockPos(), 3, false);
-			return (nearestFortress != null && Math.sqrt(nearestFortress.getSquaredDistance(getBlockPos())) < 128);
-		}
-		if (world instanceof ServerWorld && BewitchmentPlus.config.world.cambionBastionStructureSpawn) {
-			BlockPos nearestBastion = ((ServerWorld) world).locateStructure(StructureFeature.BASTION_REMNANT, getBlockPos(), 3, false);
-			return (nearestBastion != null && Math.sqrt(nearestBastion.getSquaredDistance(getBlockPos())) < 128);
 		}
 		return false;
 	}

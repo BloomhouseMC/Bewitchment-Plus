@@ -27,10 +27,14 @@ import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.tag.ConfiguredStructureFeatureTags;
+import net.minecraft.tag.TagKey;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.RegistryEntryList;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.StructureFeature;
 
 import java.util.Random;
@@ -61,28 +65,15 @@ public class BlackDogEntity extends BWHostileEntity {
 
 	public static boolean spawnRestriction(EntityType<BlackDogEntity> type, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos pos, Random random) {
 		ServerWorld world = serverWorldAccess.toServerWorld();
-
-		if (BewitchmentPlus.config.entities.blackDogBiomeCategories.contains(world.getBiome(pos).getCategory().getName())) {
+		Biome.Category category = Biome.getCategory(world.getBiome(new BlockPos(pos)));
+		if (BewitchmentPlus.config.entities.blackDogBiomeCategories.contains(category.getName())) {
 			return true;
 		}
-
 		if (BewitchmentPlus.config.world.blackDogStructureSpawn) {
 			int maxDistanceToStructure = 16;
-
-			BlockPos outpost = world.locateStructure(StructureFeature.PILLAGER_OUTPOST, pos, 1, false);
-			if (outpost != null && withinDistance(outpost, pos, maxDistanceToStructure)) {
-				return true;
-			}
-
-			BlockPos mansion = world.locateStructure(StructureFeature.MANSION, pos, 1, false);
-			if (mansion != null && withinDistance(mansion, pos, maxDistanceToStructure)) {
-				return true;
-			}
-
-			BlockPos village = world.locateStructure(StructureFeature.VILLAGE, pos, 1, false);
+			BlockPos village = world.locateStructure(ConfiguredStructureFeatureTags.VILLAGE, pos, 1, false);
 			return village != null && withinDistance(village, pos, maxDistanceToStructure);
 		}
-
 		return false;
 	}
 
