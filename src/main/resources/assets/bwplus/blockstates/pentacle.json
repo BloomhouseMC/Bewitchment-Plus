@@ -23,16 +23,6 @@
         "y": 90
       }
     ],
-    "facing=up,in_wall=false": [
-      {
-        "model": "bwplus:block/pentacle"
-      }
-    ],
-    "facing=down,in_wall=false": [
-      {
-        "model": "bwplus:block/pentacle"
-      }
-    ],
     "facing=north,in_wall=true": [
       {
         "model": "bwplus:block/pentacle",
@@ -58,16 +48,6 @@
         "model": "bwplus:block/pentacle",
         "y": 90,
         "x": 90
-      }
-    ],
-    "facing=up,in_wall=true": [
-      {
-        "model": "bwplus:block/pentacle"
-      }
-    ],
-    "facing=down,in_wall=true": [
-      {
-        "model": "bwplus:block/pentacle"
       }
     ]
   }

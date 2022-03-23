@@ -3,7 +3,6 @@ package dev.mrsterner.bewitchmentplus.common.block.blockentity;
 import dev.mrsterner.bewitchmentplus.api.BewitchmentPlusAPI;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPBlockEntityTypes;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPStatusEffects;
-import moriyashiine.bewitchment.common.registry.BWProperties;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -21,8 +20,7 @@ public class YewLogBlockEntity extends BlockEntity {
     }
 
     public static void tick(World world, BlockPos pos, BlockState state, YewLogBlockEntity blockEntity) {
-        if(state.get(BWProperties.CUT)){
-            System.out.println("Tick");
+        if(true){
             Box box = new Box(pos).expand(10);
             List<PlayerEntity> list = world.getNonSpectatingEntities(PlayerEntity.class, box);
             Iterator<PlayerEntity> var11 = list.iterator();
@@ -30,8 +28,7 @@ public class YewLogBlockEntity extends BlockEntity {
             while(var11.hasNext()) {
                 playerEntity = var11.next();
                 if(BewitchmentPlusAPI.isLeshon(playerEntity, true)){
-                    System.out.println("Found");
-                    playerEntity.addStatusEffect(new StatusEffectInstance(BWPStatusEffects.HOMESTEAD, 20*2, 1, true, true));
+                    playerEntity.addStatusEffect(new StatusEffectInstance(BWPStatusEffects.HOMESTEAD, 20 * 2, 1, true, true));
                 }
             }
         }

@@ -5,7 +5,7 @@
     "start_pool": "bwplus:yew_tree",
     "size": 1
   },
-  "biomes": "#bwplus:has_structure/code_structure_yew_tree_biomes",
+  "biomes": "#bwplus:has_structure/structure_yew_tree_biomes",
   "adapt_noise": false,
   "spawn_overrides": {
     "monster": {
@@ -14,7 +14,7 @@
         {
           "type": "bwplus:leshon",
           "weight": 5,
-          "minCount": 1,
+          "minCount": 0,
           "maxCount": 2
         }
       ]

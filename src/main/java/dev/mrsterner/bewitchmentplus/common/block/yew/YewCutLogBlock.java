@@ -1,7 +1,10 @@
 package dev.mrsterner.bewitchmentplus.common.block.yew;
 
-import moriyashiine.bewitchment.common.registry.BWProperties;
+import dev.mrsterner.bewitchmentplus.common.block.blockentity.YewLogBlockEntity;
 import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -9,27 +12,29 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.MiningToolItem;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.StateManager;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
-public class YewLogBlock extends PillarBlock {
+public class YewCutLogBlock extends PillarBlock implements BlockEntityProvider {
     private final Supplier<Block> stripped;
 
-    public YewLogBlock(Supplier<Block> stripped, MapColor top, Settings settings) {
+    public YewCutLogBlock(Supplier<Block> stripped, MapColor top, Settings settings) {
         super(settings);
-        setDefaultState(getDefaultState().with(BWProperties.NATURAL, false));
         this.stripped = stripped;
     }
 
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        super.appendProperties(builder.add(BWProperties.NATURAL));
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        return (tickerWorld, pos, tickerState, blockEntity) -> YewLogBlockEntity.tick(tickerWorld, pos, tickerState, (YewLogBlockEntity) blockEntity);
     }
+
 
     @Override
     @SuppressWarnings("deprecation")
@@ -53,5 +58,11 @@ public class YewLogBlock extends PillarBlock {
             return ActionResult.SUCCESS;
         }
         return ActionResult.FAIL;
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new YewLogBlockEntity(pos, state);
     }
 }

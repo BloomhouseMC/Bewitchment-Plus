@@ -1,27 +1,15 @@
 {
   "variants": {
-    "axis=x,cut=false": {
+    "axis=x": {
       "model": "bwplus:block/yew_wood",
       "x": 90,
       "y": 90
     },
-    "axis=y,cut=false": {
+    "axis=y": {
       "model": "bwplus:block/yew_wood"
     },
-    "axis=z,cut=false": {
+    "axis=z": {
       "model": "bwplus:block/yew_wood",
-      "x": 90
-    },
-    "axis=x,cut=true": {
-      "model": "bwplus:block/yew_wood_cut",
-      "x": 90,
-      "y": 90
-    },
-    "axis=y,cut=true": {
-      "model": "bwplus:block/yew_wood_cut"
-    },
-    "axis=z,cut=true": {
-      "model": "bwplus:block/yew_wood_cut",
       "x": 90
     }
   }

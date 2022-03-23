@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "bwplus:block/yew_log_horizontal_cut",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "bwplus:block/yew_log_cut"
+    },
+    "axis=z": {
+      "model": "bwplus:block/yew_log_horizontal_cut",
+      "x": 90
+    }
+  }
+}
