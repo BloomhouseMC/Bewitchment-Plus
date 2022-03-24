@@ -1,7 +1,7 @@
 package dev.mrsterner.bewitchmentplus.mixin.common;
 
 import dev.mrsterner.bewitchmentplus.common.block.yew.YewChestBlockEntity;
-import dev.mrsterner.bewitchmentplus.common.registry.SpriteIdentifierRegistry;
+import dev.mrsterner.bewitchmentplus.common.utils.SpriteIdentifierRegistry;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.enums.ChestType;
 import net.minecraft.client.render.TexturedRenderLayers;
@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.function.Consumer;
 
-import static dev.mrsterner.bewitchmentplus.common.registry.SpriteIdentifierRegistry.*;
+import static dev.mrsterner.bewitchmentplus.common.utils.SpriteIdentifierRegistry.*;
 
 @Mixin(TexturedRenderLayers.class)
 public class TexturedRenderLayersMixin {

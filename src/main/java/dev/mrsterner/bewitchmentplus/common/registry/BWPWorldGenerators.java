@@ -1,10 +1,14 @@
 package dev.mrsterner.bewitchmentplus.common.registry;
 
+import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import dev.mrsterner.bewitchmentplus.common.world.feature.YewTreeFeature;
+import dev.mrsterner.bewitchmentplus.common.world.structure.YewTreeHouseStructure;
+import dev.mrsterner.bewitchmentplus.mixin.common.StructureFeatureAccessor;
 import net.minecraft.util.math.intprovider.ClampedIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryEntry;
+import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.ProbabilityConfig;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.placementmodifier.*;
@@ -43,5 +47,11 @@ public class BWPWorldGenerators extends ConfiguredFeatures{
 
     private static <C extends FeatureConfig, F extends Feature<C>> F registerFeature(String name, F feature) {
         return Registry.register(Registry.FEATURE, name, feature);
+    }
+
+    public static StructureFeature<?> YEW_TREE_HOUSE = new YewTreeHouseStructure();
+
+    public static void init() {
+        StructureFeatureAccessor.callRegister(BewitchmentPlus.MODID + ":yew_tree_house", YEW_TREE_HOUSE, GenerationStep.Feature.SURFACE_STRUCTURES);
     }
 }

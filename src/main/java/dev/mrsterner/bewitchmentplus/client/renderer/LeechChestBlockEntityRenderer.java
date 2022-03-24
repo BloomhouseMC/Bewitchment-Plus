@@ -2,7 +2,7 @@ package dev.mrsterner.bewitchmentplus.client.renderer;
 
 import dev.mrsterner.bewitchmentplus.common.block.LeechChestBlock;
 import dev.mrsterner.bewitchmentplus.common.block.blockentity.LeechChestBlockEntity;
-import dev.mrsterner.bewitchmentplus.common.registry.SpriteIdentifierRegistry;
+import dev.mrsterner.bewitchmentplus.common.utils.SpriteIdentifierRegistry;
 import it.unimi.dsi.fastutil.ints.Int2IntFunction;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

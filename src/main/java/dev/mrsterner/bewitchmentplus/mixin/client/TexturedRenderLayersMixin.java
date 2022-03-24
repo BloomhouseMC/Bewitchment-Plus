@@ -1,6 +1,6 @@
 package dev.mrsterner.bewitchmentplus.mixin.client;
 
-import dev.mrsterner.bewitchmentplus.common.registry.SpriteIdentifierRegistry;
+import dev.mrsterner.bewitchmentplus.common.utils.SpriteIdentifierRegistry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.TexturedRenderLayers;

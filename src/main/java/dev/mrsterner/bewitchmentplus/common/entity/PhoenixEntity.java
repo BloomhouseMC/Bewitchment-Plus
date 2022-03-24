@@ -20,8 +20,16 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.PlayState;
+import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-public class PhoenixEntity extends BWTameableEntity {
+public class PhoenixEntity extends BWTameableEntity implements IAnimatable {
+    private final AnimationFactory factory = new AnimationFactory(this);
     public PhoenixEntity(EntityType<? extends TameableEntity> type, World world) {
         super(type, world);
         this.moveControl = new FlightMoveControl(this, 180, false);
@@ -95,5 +103,20 @@ public class PhoenixEntity extends BWTameableEntity {
     @Override
     public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
         return null;
+    }
+
+    private <E extends IAnimatable> PlayState basicMovement(AnimationEvent<E> event) {
+        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.phoenix.idle", true));
+        return PlayState.CONTINUE;
+    }
+
+    @Override
+    public void registerControllers(AnimationData animationData) {
+        animationData.addAnimationController(new AnimationController<>(this, "BasicMovement", 0, this::basicMovement));
+    }
+
+    @Override
+    public AnimationFactory getFactory() {
+        return factory;
     }
 }

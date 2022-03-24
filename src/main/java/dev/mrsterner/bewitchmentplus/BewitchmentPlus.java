@@ -75,6 +75,7 @@ public class BewitchmentPlus implements ModInitializer {
 		BWPTransformations.init();
 		BWPCurses.init();
 		BWPSounds.init();
+		BWPWorldGenerators.init();
 
 		UseBlockCallback.EVENT.register(this::createMoonflower);
 		UseBlockCallback.EVENT.register(this::createMimic);

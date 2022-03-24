@@ -1,4 +1,4 @@
-package dev.mrsterner.bewitchmentplus.common.registry;
+package dev.mrsterner.bewitchmentplus.common.utils;
 
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import net.fabricmc.api.EnvType;
