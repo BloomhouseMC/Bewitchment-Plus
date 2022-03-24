@@ -67,4 +67,19 @@ public class WorldgenHelper {
             }
         }
     }
+
+    public static boolean touchGrass(StructureWorldAccess world, BlockPos normalizeOrigin) {
+        BlockPos.Mutable mutable = new BlockPos.Mutable();
+        for (int yOffset = 0; yOffset <= 1; ++yOffset) {
+            for (int xOffset = -1; xOffset <= 1; ++xOffset) {
+                for (int zOffset = -1; zOffset <= 1; ++zOffset) {
+                    BlockPos test = mutable.set(normalizeOrigin.getX() + xOffset, normalizeOrigin.getY() + yOffset, normalizeOrigin.getZ() + zOffset);
+                    if (world.getBlockState(test).isIn(BlockTags.BASE_STONE_OVERWORLD)) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
 }

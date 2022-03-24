@@ -20,4 +20,14 @@ public class DefaultBiomeFeaturesMixin {
     private static void addBadlandsVegetation(GenerationSettings.Builder builder, CallbackInfo ci) {
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, BWPWorldGenerators.PATCH_BLOODROOT_DESERT);
     }
+
+    @Inject(method = "addWindsweptHillsTrees", at = @At("HEAD"))
+    private static void addHillsVegetation(GenerationSettings.Builder builder, CallbackInfo ci) {
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, BWPWorldGenerators.YEW_LIGHT);
+    }
+
+    @Inject(method = "addMeadowFlowers", at = @At("HEAD"))
+    private static void addMeadowVegetation(GenerationSettings.Builder builder, CallbackInfo ci) {
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, BWPWorldGenerators.YEW_LIGHT);
+    }
 }
