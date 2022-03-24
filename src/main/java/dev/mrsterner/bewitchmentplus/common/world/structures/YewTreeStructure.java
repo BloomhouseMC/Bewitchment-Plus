@@ -1,6 +1,5 @@
 package dev.mrsterner.bewitchmentplus.common.world.structures;
 
-import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import net.minecraft.structure.*;
 import net.minecraft.structure.pool.StructurePoolBasedGenerator;
 import net.minecraft.util.math.BlockPos;
@@ -23,11 +22,6 @@ public class YewTreeStructure extends StructureFeature<StructurePoolFeatureConfi
             return Optional.empty();
         }
         BlockPos blockpos = context.chunkPos().getCenterAtY(0);
-        Optional<StructurePiecesGenerator<StructurePoolFeatureConfig>> structurePiecesGenerator =
-        StructurePoolBasedGenerator.generate(context, PoolStructurePiece::new, new BlockPos(blockpos), false, true);
-        if(structurePiecesGenerator.isEmpty()) {
-            BewitchmentPlus.LOGGER.info("Empty Yew Tree Gen at {}", blockpos);
-        }
-        return structurePiecesGenerator;
+        return StructurePoolBasedGenerator.generate(context, PoolStructurePiece::new, new BlockPos(blockpos), false, true);
     }
 }

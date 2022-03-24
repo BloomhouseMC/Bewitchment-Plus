@@ -108,7 +108,7 @@ public class BWPObjects {
 	public static final Block YEW_FENCE = register("yew_fence", new FenceBlock(copyOf(Blocks.OAK_FENCE)), true);
 	public static final Block YEW_FENCE_GATE = register("yew_fence_gate", new FenceGateBlock(copyOf(Blocks.OAK_FENCE_GATE)), true);
 	public static final Block YEW_LEAVES = register("yew_leaves", BlocksMixin.callCreateLeavesBlock(BlockSoundGroup.GRASS), true);
-	public static final Block YEW_SAPLING = register("yew_sapling", new YewSaplingBlock(copyOf(Blocks.OAK_SAPLING)), true);
+	public static final Block YEW_SAPLING = register("yew_sapling", new YewSaplingBlock(1, copyOf(Blocks.OAK_SAPLING)), true);
 	public static final Block POTTED_YEW_SAPLING = register("potted_yew_sapling", new FlowerPotBlock(YEW_SAPLING, copyOf(Blocks.POTTED_OAK_SAPLING)), false);
 	public static final Block YEW_PRESSURE_PLATE = register("yew_pressure_plate", new YewPressurePlateBlock(copyOf(Blocks.OAK_PRESSURE_PLATE)), true);
 	public static final Block YEW_BUTTON = register("yew_button", new YewButtonBlock(copyOf(Blocks.OAK_BUTTON)), true);

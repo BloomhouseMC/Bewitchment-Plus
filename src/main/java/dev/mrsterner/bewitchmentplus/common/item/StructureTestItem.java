@@ -24,7 +24,7 @@ public class StructureTestItem extends Item {
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
         if((context.getWorld() instanceof ServerWorld serverWorld)){
-            Optional<Structure> structureOptional =  serverWorld.getStructureManager().getStructure(new Identifier(BewitchmentPlus.MODID, "features/trees/yew_tree1"));
+            Optional<Structure> structureOptional =  serverWorld.getStructureManager().getStructure(new Identifier(BewitchmentPlus.MODID, "yew_tree"));
             if(structureOptional.isPresent()) {
                 Structure structure = structureOptional.get();
                 StructurePlacementData structurePlacementData = new StructurePlacementData().setMirror(BlockMirror.FRONT_BACK).setRotation(BlockRotation.NONE).setIgnoreEntities(false);
