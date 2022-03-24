@@ -49,9 +49,7 @@ public class BWPWorldGenerators extends ConfiguredFeatures{
         return Registry.register(Registry.FEATURE, name, feature);
     }
 
-    public static StructureFeature<?> YEW_TREE_HOUSE = new YewTreeHouseStructure();
-
     public static void init() {
-        StructureFeatureAccessor.callRegister(BewitchmentPlus.MODID + ":yew_tree_house", YEW_TREE_HOUSE, GenerationStep.Feature.SURFACE_STRUCTURES);
+        StructureFeatureAccessor.callRegister(BewitchmentPlus.MODID + ":yew_tree_house", new YewTreeHouseStructure(), GenerationStep.Feature.SURFACE_STRUCTURES);
     }
 }
