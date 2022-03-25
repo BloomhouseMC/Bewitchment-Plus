@@ -74,7 +74,6 @@ public class MutandisItemEntity extends ThrownItemEntity implements FlyingItemEn
         }
         listPos.forEach(blockPos1 -> {
             if(this.world.getBlockState(blockPos1).isIn(BWPTags.MUTANDIS)){
-
                 BlockState blockState = world.getBlockState(blockPos1);
                 blockState = Registry.BLOCK.getEntryList(BWPTags.MUTANDIS).flatMap((blocks) -> blocks.getRandom(world.random)).map((blockEntry) -> (blockEntry.value()).getDefaultState()).orElse(blockState);
                 if(blockState.getBlock() instanceof Waterloggable){
