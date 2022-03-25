@@ -17,8 +17,8 @@ import java.util.Random;
 
 @SuppressWarnings("deprecation")
 public class BWPPlantBlock extends PlantBlock {
-    public BWPPlantBlock(Settings settings) {
-        super(settings.noCollision());
+    public BWPPlantBlock(Settings settings, int light) {
+        super(settings.noCollision().luminance((blockState) -> light ));
     }
     protected static final VoxelShape SHAPE = Block.createCuboidShape(5.0D, 0.0D, 5.0D, 11.0D, 10.0D, 11.0D);
 
