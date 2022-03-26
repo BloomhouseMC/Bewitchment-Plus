@@ -6,6 +6,7 @@ import dev.mrsterner.bewitchmentplus.common.block.yew.*;
 import dev.mrsterner.bewitchmentplus.common.item.*;
 import dev.mrsterner.bewitchmentplus.mixin.common.BlocksMixin;
 import moriyashiine.bewitchment.api.item.BroomItem;
+import moriyashiine.bewitchment.common.block.CoffinBlock;
 import moriyashiine.bewitchment.common.registry.BWObjects;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
@@ -131,6 +132,23 @@ public class BWPObjects {
 	public static final YewSignBlock YEW_SIGN = register("yew_sign", new YewSignBlock(YEW_SIGN_TEXTURE, copyOf(Blocks.OAK_SIGN)), false);
 	public static final Block YEW_WALL_SIGN = register("yew_wall_sign", new YewWallSignBlock(YEW_SIGN_TEXTURE, copyOf(Blocks.OAK_WALL_SIGN)), false);
 	public static final Item YEW_SIGN_ITEM = register("yew_sign", new SignItem(gen().maxCount(16), YEW_SIGN, YEW_WALL_SIGN));
+
+	public static final Block WHITE_COFFIN = register("white_blackstone_coffin", new CoffinBlock(DyeColor.WHITE, copyOf(Blocks.BLACKSTONE).nonOpaque()), true);
+	public static final Block ORANGE_COFFIN = register("orange_blackstone_coffin", new CoffinBlock(DyeColor.ORANGE, copyOf(Blocks.BLACKSTONE).nonOpaque()), true);
+	public static final Block MAGENTA_COFFIN = register("magenta_blackstone_coffin", new CoffinBlock(DyeColor.MAGENTA, copyOf(Blocks.BLACKSTONE).nonOpaque()), true);
+	public static final Block LIGHT_BLUE_COFFIN = register("light_blue_blackstone_coffin", new CoffinBlock(DyeColor.LIGHT_BLUE, copyOf(Blocks.BLACKSTONE).nonOpaque()), true);
+	public static final Block YELLOW_COFFIN = register("yellow_blackstone_coffin", new CoffinBlock(DyeColor.YELLOW, copyOf(Blocks.BLACKSTONE).nonOpaque()), true);
+	public static final Block LIME_COFFIN = register("lime_blackstone_coffin", new CoffinBlock(DyeColor.LIME, copyOf(Blocks.BLACKSTONE).nonOpaque()), true);
+	public static final Block PINK_COFFIN = register("pink_blackstone_coffin", new CoffinBlock(DyeColor.PINK, copyOf(Blocks.BLACKSTONE).nonOpaque()), true);
+	public static final Block GRAY_COFFIN = register("gray_blackstone_coffin", new CoffinBlock(DyeColor.GRAY, copyOf(Blocks.BLACKSTONE).nonOpaque()), true);
+	public static final Block LIGHT_GRAY_COFFIN = register("light_gray_blackstone_coffin", new CoffinBlock(DyeColor.LIGHT_GRAY, copyOf(Blocks.BLACKSTONE).nonOpaque()), true);
+	public static final Block CYAN_COFFIN = register("cyan_blackstone_coffin", new CoffinBlock(DyeColor.CYAN, copyOf(Blocks.BLACKSTONE).nonOpaque()), true);
+	public static final Block PURPLE_COFFIN = register("purple_blackstone_coffin", new CoffinBlock(DyeColor.PURPLE, copyOf(Blocks.BLACKSTONE).nonOpaque()), true);
+	public static final Block BLUE_COFFIN = register("blue_blackstone_coffin", new CoffinBlock(DyeColor.BLUE, copyOf(Blocks.BLACKSTONE).nonOpaque()), true);
+	public static final Block BROWN_COFFIN = register("brown_blackstone_coffin", new CoffinBlock(DyeColor.BROWN, copyOf(Blocks.BLACKSTONE).nonOpaque()), true);
+	public static final Block GREEN_COFFIN = register("green_blackstone_coffin", new CoffinBlock(DyeColor.GREEN, copyOf(Blocks.BLACKSTONE).nonOpaque()), true);
+	public static final Block RED_COFFIN = register("red_blackstone_coffin", new CoffinBlock(DyeColor.RED, copyOf(Blocks.BLACKSTONE).nonOpaque()), true);
+	public static final Block BLACK_COFFIN = register("black_blackstone_coffin", new CoffinBlock(DyeColor.BLACK, copyOf(Blocks.BLACKSTONE).nonOpaque()), true);
 
 	public static final Block LILITH_STATUE_BLACKSTONE = registerStatue("statue_lilith_blackstone", new StatueBlock(FabricBlockSettings.of(Material.STONE).strength(2.5F).sounds(BlockSoundGroup.STONE)));
 	public static final Block LILITH_STATUE_GOLD = registerStatue("statue_lilith_gold", new StatueBlock(FabricBlockSettings.of(Material.STONE).strength(2.5F).sounds(BlockSoundGroup.STONE)));
