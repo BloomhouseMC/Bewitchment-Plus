@@ -74,7 +74,7 @@ public class PentacleBlock extends HorizontalFacingBlock implements BlockEntityP
     }
 
     public boolean isPlacementValid(WorldView world, BlockPos pos, Direction direction) {
-        return world.getBlockState(pos.offset(direction.getOpposite())).isSideSolidFullSquare(world, pos, direction);
+        return direction != Direction.DOWN && world.getBlockState(pos.offset(direction.getOpposite())).isSideSolidFullSquare(world, pos, direction);
     }
 
     @Override

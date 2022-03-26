@@ -150,23 +150,23 @@ public class BewitchmentPlus implements ModInitializer {
 					if(player.getUuid().equals(worldState.mimicChestsPair.get(i).getLeft())){
 						return ActionResult.PASS;
 					}else{
-						DefaultedList<ItemStack> temporatyMimicInventory = DefaultedList.ofSize(27, ItemStack.EMPTY);
+						DefaultedList<ItemStack> temporaryMimicInventory = DefaultedList.ofSize(27, ItemStack.EMPTY);
 						BlockState blockState = world.getBlockState(blockPos);
 						boolean single = blockState.get(CHEST_TYPE) == ChestType.SINGLE;
 						if(single){
 							Inventory chestInventory = ChestBlock.getInventory((ChestBlock)blockState.getBlock(), blockState, world, blockPos, true);
 							for(int j = 0; j < chestInventory.size(); j++){
-								temporatyMimicInventory.set(j, chestInventory.getStack(j));
+								temporaryMimicInventory.set(j, chestInventory.getStack(j));
 								chestInventory.setStack(j, ItemStack.EMPTY);
 							}
 							BlockState newLeechChestBlockState = BWPObjects.MIMIC_CHEST.getDefaultState().with(Properties.HORIZONTAL_FACING, blockState.get(FACING));
 							world.setBlockState(blockPos, newLeechChestBlockState);
 							MimicChestBlockEntity leechChestBlockEntity = (MimicChestBlockEntity) world.getBlockEntity(blockPos);
 							leechChestBlockEntity.getInventoryChest();
-							for(int k = 0; k < temporatyMimicInventory.size(); k++){
-								leechChestBlockEntity.getInventoryChest().set(k, temporatyMimicInventory.get(k));
+							for(int k = 0; k < temporaryMimicInventory.size(); k++){
+								leechChestBlockEntity.getInventoryChest().set(k, temporaryMimicInventory.get(k));
 							}
-							temporatyMimicInventory.clear();
+							temporaryMimicInventory.clear();
 							return ActionResult.SUCCESS;
 						}
 					}
