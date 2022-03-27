@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=north": [
+      {
+        "model": "bwplus:block/locacaca_branch"
+      }
+    ],
+    "facing=south": [
+      {
+        "model": "bwplus:block/locacaca_branch",
+        "y": 180
+      }
+    ],
+    "facing=west": [
+      {
+        "model": "bwplus:block/locacaca_branch",
+        "y": 270
+      }
+    ],
+    "facing=east": [
+      {
+        "model": "bwplus:block/locacaca_branch",
+        "y": 90
+      }
+    ]
+  }
+}

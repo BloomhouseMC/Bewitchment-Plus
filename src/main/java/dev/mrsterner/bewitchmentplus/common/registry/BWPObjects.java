@@ -5,14 +5,19 @@ import dev.mrsterner.bewitchmentplus.common.block.*;
 import dev.mrsterner.bewitchmentplus.common.block.yew.*;
 import dev.mrsterner.bewitchmentplus.common.item.*;
 import dev.mrsterner.bewitchmentplus.mixin.common.BlocksMixin;
+import moriyashiine.bewitchment.api.block.WitchAltarBlock;
 import moriyashiine.bewitchment.api.item.BroomItem;
 import moriyashiine.bewitchment.common.block.CoffinBlock;
 import moriyashiine.bewitchment.common.registry.BWObjects;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
+import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
+import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.*;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
@@ -71,7 +76,7 @@ public class BWPObjects {
 	public static final Block DRAGONFRUIT_BLOCK = register("dragonfruit_block", new Block(copyOf(Blocks.MELON).nonOpaque().breakInstantly()){
 		@Override
 		public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-			return VoxelShapes.union(createCuboidShape(5, 12, 5, 11, 16, 11), createCuboidShape(6, 9, 6, 10, 12, 10));
+			return VoxelShapes.union(createCuboidShape(5, 0, 5, 11, 4, 11), createCuboidShape(6, 4, 6, 10, 7, 10));
 		}
 	}, true);
 
@@ -107,6 +112,9 @@ public class BWPObjects {
 			RAW_SILVER_BLOCK.onSteppedOn(world, pos, state, entity);
 		}
 	}, true);
+
+	public static final Block LOCACACA_LOG = register("locacaca_log", new PillarBlock(copyOf(Blocks.OAK_LOG)), true);
+	public static final Block LOCACACA_BRANCH = register("locacaca_branch", new LotusBranchBlock(FabricBlockSettings.of(Material.WOOD)), false);
 
 	public static final Block STRIPPED_YEW_LOG = register("stripped_yew_log", new PillarBlock(copyOf(Blocks.OAK_LOG)), true);
 	public static final Block STRIPPED_YEW_WOOD = register("stripped_yew_wood", new PillarBlock(copyOf(STRIPPED_YEW_LOG)), true);
@@ -260,5 +268,22 @@ public class BWPObjects {
 	public static void init() {
 		BLOCKS.keySet().forEach(block -> Registry.register(Registry.BLOCK, BLOCKS.get(block), block));
 		ITEMS.keySet().forEach(item -> Registry.register(Registry.ITEM, ITEMS.get(item), item));
+		FuelRegistry fuelRegistry = FuelRegistry.INSTANCE;
+		fuelRegistry.add(YEW_FENCE, 300);
+		fuelRegistry.add(YEW_FENCE_GATE, 300);
+		FlammableBlockRegistry flammableRegistry = FlammableBlockRegistry.getDefaultInstance();
+		flammableRegistry.add(STRIPPED_YEW_LOG, 5, 5);
+		flammableRegistry.add(STRIPPED_YEW_WOOD, 5, 5);
+		flammableRegistry.add(YEW_LOG, 5, 5);
+		flammableRegistry.add(YEW_WOOD, 5, 5);
+		flammableRegistry.add(YEW_LEAVES, 30, 60);
+		flammableRegistry.add(YEW_PLANKS, 5, 20);
+		flammableRegistry.add(YEW_STAIRS, 5, 20);
+		flammableRegistry.add(YEW_SLAB, 5, 20);
+		flammableRegistry.add(YEW_FENCE, 5, 20);
+		flammableRegistry.add(YEW_FENCE_GATE, 5, 20);
+		CompostingChanceRegistry compostRegistry = CompostingChanceRegistry.INSTANCE;
+		compostRegistry.add(YEW_LEAVES, 0.3f);
+		compostRegistry.add(YEW_SAPLING, 0.3f);
 	}
 }

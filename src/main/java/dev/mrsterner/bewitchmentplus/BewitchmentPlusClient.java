@@ -44,7 +44,8 @@ public class BewitchmentPlusClient implements ClientModInitializer {
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 1 ? ((BedBlock) Block.getBlockFromItem(stack.getItem())).getColor().getFireworkColor() : 0xffffff, BWPObjects.WHITE_COFFIN, BWPObjects.ORANGE_COFFIN, BWPObjects.MAGENTA_COFFIN, BWPObjects.LIGHT_BLUE_COFFIN, BWPObjects.YELLOW_COFFIN, BWPObjects.LIME_COFFIN, BWPObjects.PINK_COFFIN, BWPObjects.GRAY_COFFIN, BWPObjects.LIGHT_GRAY_COFFIN, BWPObjects.CYAN_COFFIN, BWPObjects.PURPLE_COFFIN, BWPObjects.BLUE_COFFIN, BWPObjects.BROWN_COFFIN, BWPObjects.GREEN_COFFIN, BWPObjects.RED_COFFIN, BWPObjects.BLACK_COFFIN);
 
 		GeoItemRenderer.registerItemRenderer(BWPObjects.DRAGONBLOOD_STAFF, new DragonbloodStaffRenderer());
-		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(),BWPObjects.DRAGONFRUIT_BLOCK, BWPObjects.GOLD_STANDING_CANDELABRA,BWPObjects.NETHERITE_STANDING_CANDELABRA, BWPObjects.SILVER_STANDING_CANDELABRA, BWPObjects.PENTACLE, BWPObjects.BLOODROOT, BWPObjects.EMBERGRASS, BWPObjects.YEW_SAPLING, BWPObjects.YEW_DOOR, BWPObjects.YEW_TRAPDOOR, BWPObjects.YEW_CUT_LOG);
+		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(),BWPObjects.LOCACACA_BRANCH, BWPObjects.DRAGONFRUIT_BLOCK, BWPObjects.GOLD_STANDING_CANDELABRA,BWPObjects.NETHERITE_STANDING_CANDELABRA, BWPObjects.SILVER_STANDING_CANDELABRA, BWPObjects.PENTACLE, BWPObjects.BLOODROOT, BWPObjects.EMBERGRASS, BWPObjects.YEW_SAPLING, BWPObjects.YEW_DOOR, BWPObjects.YEW_TRAPDOOR, BWPObjects.YEW_CUT_LOG);
+
 		ClientTickEvents.END_CLIENT_TICK.register(ClientTickHandler::clientTickEnd);
 
 		BlockEntityRendererRegistry.register(BWPBlockEntityTypes.GOBLET, ctx -> new GobletBlockItemRenderer());
