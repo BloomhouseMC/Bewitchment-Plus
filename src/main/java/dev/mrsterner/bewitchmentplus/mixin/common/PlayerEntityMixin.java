@@ -57,9 +57,12 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Magical 
             if(BWComponents.TRANSFORMATION_COMPONENT.get(player).getTransformation() == BWTransformations.HUMAN){
                 BWComponents.TRANSFORMATION_COMPONENT.get(player).setTransformation(BWPTransformations.LESHON);
                 TransformationLeshonPacket.useAbility((PlayerEntity)(Object)this, true);
+                LeshonLogic.handleAttributes(player);
             }
         }else if(BWComponents.TRANSFORMATION_COMPONENT.get(player).getTransformation() == BWPTransformations.LESHON){
+            TransformationLeshonPacket.useAbility((PlayerEntity)(Object)this, true);
             BWComponents.TRANSFORMATION_COMPONENT.get(player).setTransformation(BWTransformations.HUMAN);
+            LeshonLogic.handleAttributes(player);
         }
     }
 

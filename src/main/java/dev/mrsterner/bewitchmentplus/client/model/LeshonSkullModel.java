@@ -1,25 +1,35 @@
 package dev.mrsterner.bewitchmentplus.client.model;
 
+import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import net.minecraft.client.model.*;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.model.EntityModel;
+import net.minecraft.client.render.entity.model.BipedEntityModel;
+import net.minecraft.client.render.entity.model.EntityModelLayer;
+import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.util.Identifier;
 
-public class LeshonSkullModel<T extends Entity> extends EntityModel<T> {
+public class LeshonSkullModel<T extends LivingEntity> extends BipedEntityModel<T> {
+    public static final EntityModelLayer LAYER_LOCATION = new EntityModelLayer(new Identifier(BewitchmentPlus.MODID, "leshon_skull"), "main");
 
     private final ModelPart headroot;
 
     public LeshonSkullModel(ModelPart root) {
-        this.headroot = root.getChild("headroot");
+        super(root, RenderLayer::getArmorCutoutNoCull);
+        this.headroot = head.getChild("armorHead").getChild("headroot");
     }
 
 
     public static TexturedModelData getTexturedModelData() {
-        ModelData data = new ModelData();
-        ModelPartData root = data.getRoot();
+        ModelData meshdefinition = BipedEntityModel.getModelData(Dilation.NONE, 0);
+        //ModelData data = new ModelData();
+        ModelPartData head = meshdefinition.getRoot().getChild(EntityModelPartNames.HEAD);
 
-        ModelPartData headroot = root.addChild("headroot", ModelPartBuilder.create(), ModelTransform.of(0.0F, 24.0F, -2.0F, -0.3927F, 0.0F, 0.0F));
+        ModelPartData armorHead = head.addChild("armorHead", ModelPartBuilder.create(), ModelTransform.of(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F));
+
+        ModelPartData headroot = armorHead.addChild("headroot", ModelPartBuilder.create(), ModelTransform.of(0.0F, 24.0F, -2.0F, -0.3927F, 0.0F, 0.0F));
         ModelPartData body = headroot.addChild("body", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 5.0F, 19.0F));
         ModelPartData coreBody = body.addChild("coreBody", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 11.5F, 2.0F));
         coreBody.addChild("core", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, -9.5F, -2.5F));
@@ -31,15 +41,15 @@ public class LeshonSkullModel<T extends Entity> extends EntityModel<T> {
         ModelPartData neck = chest.addChild("neck", ModelPartBuilder.create(), ModelTransform.of(0.0F, -4.0F, 6.0F, 0.3054F, 0.0F, 0.0F));
         ModelPartData mane = neck.addChild("mane", ModelPartBuilder.create(), ModelTransform.of(0.0F, -4.0F, 1.0F, 0.4363F, 0.0F, 0.0F));
         ModelPartData headrot = mane.addChild("headrot", ModelPartBuilder.create(), ModelTransform.of(0.0F, -6.0F, 0.0F, 0.48F, 0.0F, 0.0F));
-        ModelPartData head = headrot.addChild("head", ModelPartBuilder.create().uv(0, 0).cuboid(-3.5F, -7.0F, -3.0F, 7.0F, 7.0F, 7.0F, new Dilation(0.0F)).uv(0, 14).cuboid(-2.0F, -14.0F, -2.0F, 4.0F, 7.0F, 5.0F, new Dilation(0.0F)).uv(0, 26).cuboid(-2.0F, -13.0F, -3.0F, 4.0F, 6.0F, 1.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
-        head.addChild("cube_r1", ModelPartBuilder.create().uv(21, 0).cuboid(-0.5F, -34.5F, 6.5F, 4.0F, 4.0F, 2.0F, new Dilation(0.0F)), ModelTransform.of(-1.5F, 18.0F, -3.0F, 0.1745F, 0.0F, 0.0F));
-        ModelPartData leftEar = head.addChild("leftEar", ModelPartBuilder.create(), ModelTransform.of(3.5F, -5.1F, 0.0F, -0.2618F, 0.1309F, 0.0F));
+        ModelPartData head2 = headrot.addChild("head", ModelPartBuilder.create().uv(0, 0).cuboid(-3.5F, -7.0F, -3.0F, 7.0F, 7.0F, 7.0F, new Dilation(0.0F)).uv(0, 14).cuboid(-2.0F, -14.0F, -2.0F, 4.0F, 7.0F, 5.0F, new Dilation(0.0F)).uv(0, 26).cuboid(-2.0F, -13.0F, -3.0F, 4.0F, 6.0F, 1.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+        head2.addChild("cube_r1", ModelPartBuilder.create().uv(21, 0).cuboid(-0.5F, -34.5F, 6.5F, 4.0F, 4.0F, 2.0F, new Dilation(0.0F)), ModelTransform.of(-1.5F, 18.0F, -3.0F, 0.1745F, 0.0F, 0.0F));
+        ModelPartData leftEar = head2.addChild("leftEar", ModelPartBuilder.create(), ModelTransform.of(3.5F, -5.1F, 0.0F, -0.2618F, 0.1309F, 0.0F));
         leftEar.addChild("bone21", ModelPartBuilder.create(), ModelTransform.pivot(-1.0F, -0.5F, 3.0F));
-        ModelPartData rightEar = head.addChild("rightEar", ModelPartBuilder.create(), ModelTransform.of(-3.5F, -5.1F, 0.0F, -0.2618F, -0.1309F, 0.0F));
+        ModelPartData rightEar = head2.addChild("rightEar", ModelPartBuilder.create(), ModelTransform.of(-3.5F, -5.1F, 0.0F, -0.2618F, -0.1309F, 0.0F));
         rightEar.addChild("bone3", ModelPartBuilder.create(), ModelTransform.pivot(1.0F, -0.5F, 3.0F));
-        ModelPartData jawUnder = head.addChild("jawUnder", ModelPartBuilder.create(), ModelTransform.of(0.0F, -3.0F, -3.0F, -1.1345F, 0.0F, 0.0F));
+        ModelPartData jawUnder = head2.addChild("jawUnder", ModelPartBuilder.create(), ModelTransform.of(0.0F, -3.0F, -3.0F, -1.1345F, 0.0F, 0.0F));
         jawUnder.addChild("cube_r2", ModelPartBuilder.create().uv(18, 14).cuboid(-0.5F, -15.0F, 19.5F, 4.0F, 11.0F, 2.0F, new Dilation(-0.01F)).uv(10, 27).cuboid(-0.5F, -13.0F, 21.5F, 4.0F, 6.0F, 1.0F, new Dilation(-0.01F)), ModelTransform.of(-1.5F, 21.0F, 0.0F, 1.309F, 0.0F, 0.0F));
-        ModelPartData lAntler01 = head.addChild("lAntler01", ModelPartBuilder.create().uv(32, 20).cuboid(-1.0F, -2.0F, -1.0F, 2.0F, 2.0F, 2.0F, new Dilation(0.0F)), ModelTransform.of(1.9F, -1.8F, 3.5F, -1.6111F, 0.5232F, -0.3692F));
+        ModelPartData lAntler01 = head2.addChild("lAntler01", ModelPartBuilder.create().uv(32, 20).cuboid(-1.0F, -2.0F, -1.0F, 2.0F, 2.0F, 2.0F, new Dilation(0.0F)), ModelTransform.of(1.9F, -1.8F, 3.5F, -1.6111F, 0.5232F, -0.3692F));
         ModelPartData lAntler02 = lAntler01.addChild("lAntler02", ModelPartBuilder.create(), ModelTransform.of(0.0F, -1.6F, 0.0F, -0.2094F, 0.0F, 0.6109F));
         lAntler02.addChild("Box_r1", ModelPartBuilder.create().uv(0, 33).cuboid(-0.6F, -2.9F, -1.0F, 1.0F, 4.0F, 1.0F, new Dilation(0.2F)), ModelTransform.of(0.1F, -0.6F, 0.5F, -0.0873F, 0.0F, -0.0436F));
         ModelPartData rightAntler02 = lAntler02.addChild("rightAntler02", ModelPartBuilder.create().uv(33, 0).cuboid(-0.5F, -4.0F, -0.5F, 1.0F, 4.0F, 1.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -3.1F, 0.0F, -0.6981F, 0.0F, -0.3142F));
@@ -54,7 +64,7 @@ public class LeshonSkullModel<T extends Entity> extends EntityModel<T> {
         lAntler06a.addChild("lAntler06b", ModelPartBuilder.create().uv(32, 32).cuboid(-0.5F, -0.6F, -3.0F, 1.0F, 1.0F, 3.0F, new Dilation(0.0F)), ModelTransform.of(0.1F, 0.0F, -3.4F, 0.0F, 0.576F, 0.0F));
         ModelPartData lAntler07a = lAntler01.addChild("lAntler07a", ModelPartBuilder.create().uv(28, 6).cuboid(-0.5F, -0.5F, -3.8F, 1.0F, 1.0F, 4.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -2.0F, -0.4F, -0.9076F, 0.5236F, 0.0F));
         lAntler07a.addChild("lAntler07b", ModelPartBuilder.create().uv(32, 28).cuboid(-0.5F, -0.5F, -3.0F, 1.0F, 1.0F, 3.0F, new Dilation(0.0F)), ModelTransform.of(0.1F, 0.0F, -3.4F, 0.0F, 0.576F, 0.0F));
-        ModelPartData rAntler01 = head.addChild("rAntler01", ModelPartBuilder.create().uv(30, 16).cuboid(2.4981F, -13.9078F, 8.7963F, 2.0F, 2.0F, 2.0F, new Dilation(0.0F)), ModelTransform.of(4.1F, -10.55F, -8.5F, -1.6057F, -0.5236F, 0.3491F));
+        ModelPartData rAntler01 = head2.addChild("rAntler01", ModelPartBuilder.create().uv(30, 16).cuboid(2.4981F, -13.9078F, 8.7963F, 2.0F, 2.0F, 2.0F, new Dilation(0.0F)), ModelTransform.of(4.1F, -10.55F, -8.5F, -1.6057F, -0.5236F, 0.3491F));
         ModelPartData rAntler02 = rAntler01.addChild("rAntler02", ModelPartBuilder.create(), ModelTransform.of(0.0F, -1.6F, 0.0F, -0.2094F, 0.0F, -0.6109F));
         rAntler02.addChild("Box_r2", ModelPartBuilder.create().uv(0, 0).cuboid(8.8669F, -13.5857F, 6.0669F, 1.0F, 4.0F, 1.0F, new Dilation(0.2F)), ModelTransform.of(-0.1F, -0.6F, 0.5F, -0.0873F, 0.0F, 0.0436F));
         ModelPartData rAntler03a = rAntler02.addChild("rAntler03a", ModelPartBuilder.create().uv(0, 14).cuboid(5.7497F, -18.4243F, -2.1976F, 1.0F, 4.0F, 1.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -3.1F, 0.0F, -0.6981F, 0.0F, 0.3142F));
@@ -70,7 +80,7 @@ public class LeshonSkullModel<T extends Entity> extends EntityModel<T> {
         ModelPartData rAntler07a = rAntler01.addChild("rAntler07a", ModelPartBuilder.create().uv(26, 23).cuboid(7.4276F, -13.1383F, -9.0372F, 1.0F, 1.0F, 4.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -2.0F, -0.4F, -0.9076F, -0.5236F, 0.0F));
         rAntler07a.addChild("rAntler07b", ModelPartBuilder.create().uv(27, 29).cuboid(3.2962F, -13.1383F, -11.7099F, 1.0F, 1.0F, 3.0F, new Dilation(0.0F)), ModelTransform.of(-0.1F, 0.0F, -3.4F, 0.0F, -0.576F, 0.0F));
 
-        return TexturedModelData.of(data, 64, 64);
+        return TexturedModelData.of(meshdefinition, 64, 64);
     }
 
     @Override

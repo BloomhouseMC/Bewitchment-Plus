@@ -51,20 +51,22 @@ public class TransformationLeshonPacket {
     public static void useAbility(PlayerEntity player, boolean forced) {
         BWComponents.TRANSFORMATION_COMPONENT.maybeGet(player).ifPresent(transformationComponent -> {
             World world = player.world;
-            boolean isAlternateForm = transformationComponent.isAlternateForm();
-            ScaleData width = BWScaleTypes.MODIFY_WIDTH_TYPE.getScaleData(player);
-            ScaleData height = BWScaleTypes.MODIFY_HEIGHT_TYPE.getScaleData(player);
-            if (transformationComponent.getTransformation() == BWPTransformations.LESHON && forced) {
-                PlayerLookup.tracking(player).forEach(trackingPlayer -> SpawnSmokeParticlesPacket.send(trackingPlayer, player));
-                SpawnSmokeParticlesPacket.send(player, player);
-                world.playSound(null, player.getBlockPos(), BWSoundEvents.ENTITY_GENERIC_TRANSFORM, player.getSoundCategory(), 1, 1);
-                transformationComponent.setAlternateForm(!isAlternateForm);
-                if (isAlternateForm) {
-                    width.setScale(width.getBaseScale() / WEREWOLF_WIDTH);
-                    height.setScale(height.getBaseScale() / WEREWOLF_HEIGHT);
-                } else {
-                    width.setScale(width.getBaseScale() * WEREWOLF_WIDTH);
-                    height.setScale(height.getBaseScale() * WEREWOLF_HEIGHT);
+            if(!world.isClient()){
+                boolean isAlternateForm = transformationComponent.isAlternateForm();
+                ScaleData width = BWScaleTypes.MODIFY_WIDTH_TYPE.getScaleData(player);
+                ScaleData height = BWScaleTypes.MODIFY_HEIGHT_TYPE.getScaleData(player);
+                if (transformationComponent.getTransformation() == BWPTransformations.LESHON && forced) {
+                    PlayerLookup.tracking(player).forEach(trackingPlayer -> SpawnSmokeParticlesPacket.send(trackingPlayer, player));
+                    SpawnSmokeParticlesPacket.send(player, player);
+                    world.playSound(null, player.getBlockPos(), BWSoundEvents.ENTITY_GENERIC_TRANSFORM, player.getSoundCategory(), 1, 1);
+                    transformationComponent.setAlternateForm(!isAlternateForm);
+                    if (isAlternateForm) {
+                        width.setScale(width.getBaseScale() / WEREWOLF_WIDTH);
+                        height.setScale(height.getBaseScale() / WEREWOLF_HEIGHT);
+                    } else {
+                        width.setScale(width.getBaseScale() * WEREWOLF_WIDTH);
+                        height.setScale(height.getBaseScale() * WEREWOLF_HEIGHT);
+                    }
                 }
             }
         });

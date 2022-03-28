@@ -50,7 +50,8 @@ public class LeshonEntity extends HostileEntity implements IAnimatable {
             builder.addAnimation("animation.leshon.quad.sleep", true);
         }else if (entity.getPose() == EntityPose.SWIMMING) {
             builder.addAnimation("animation.leshon.swim", true);
-        }else if (!entity.isOnGround() && motionCalc.getY() < 0) {
+        }else if (!entity.isOnGround() && motionCalc.getY() < -0.6) {
+            System.out.println(motionCalc.y);
             if (!entity.isClimbing()) {
                 builder.addAnimation("animation.leshon.standing.fall", false);
             }
