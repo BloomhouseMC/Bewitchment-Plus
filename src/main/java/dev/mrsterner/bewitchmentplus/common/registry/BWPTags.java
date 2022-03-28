@@ -11,7 +11,6 @@ import net.minecraft.util.registry.Registry;
 public class BWPTags {
     public static final TagKey<Item> GOBLET_LIQUIDS = TagKey.of(Registry.ITEM_KEY, new Identifier(BewitchmentPlus.MODID, "goblet_liquids"));
     public static final TagKey<Item> NIFFLER = TagKey.of(Registry.ITEM_KEY, new Identifier(BewitchmentPlus.MODID, "niffler"));
-    public static final TagKey<EntityType<?>> FAMILIAR = TagKey.of(Registry.ENTITY_TYPE_KEY, new Identifier(BewitchmentPlus.MODID, "familiar"));
     public static final TagKey<EntityType<?>> SPECTRAL_FAMILIAR = TagKey.of(Registry.ENTITY_TYPE_KEY, new Identifier(BewitchmentPlus.MODID, "spectral_familiar"));
     public static final TagKey<EntityType<?>> UNHOLY = TagKey.of(Registry.ENTITY_TYPE_KEY, new Identifier(BewitchmentPlus.MODID, "unholy"));
 

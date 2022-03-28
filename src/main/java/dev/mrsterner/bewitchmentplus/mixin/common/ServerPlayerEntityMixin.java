@@ -24,13 +24,16 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity  {
         super(world, pos, yaw, profile);
     }
 
-
-
-    @Inject(method = "onDeath", at = @At("HEAD"), cancellable = true)
-    private void effigySavesTheDay(CallbackInfo ci) {
+    @Inject(method = "onDeath", at = @At("HEAD"))
+    private void removeHalfLife(CallbackInfo ci){
         if(BWComponents.CURSES_COMPONENT.get(this).hasCurse(BWPCurses.HALF_LIFE)){
             BWComponents.CURSES_COMPONENT.get(this).removeCurse(BWPCurses.HALF_LIFE);
         }
+    }
+
+
+    @Inject(method = "onDeath", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/ServerPlayerEntity;dropShoulderEntities()V"), cancellable = true)
+    private void effigySavesTheDay(CallbackInfo ci) {
         if (!this.world.isClient && BWPComponents.EFFIGY_COMPONENT.maybeGet(this).isPresent()) {
             Entity entity = ((ServerWorld) this.world).getEntity(BWPComponents.EFFIGY_COMPONENT.get(this).getEffigy());
             if(entity instanceof EffigyEntity effigyEntity){
