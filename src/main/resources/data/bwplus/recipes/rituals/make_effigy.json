@@ -12,6 +12,9 @@
     },
     {
       "item": "bewitchment:demon_heart"
+    },
+    {
+      "item": "bewitchment:taglock"
     }
   ],
   "inner": "normal",

@@ -64,7 +64,7 @@ public class EffigyEntity extends LivingEntity implements IAnimatable {
 
     public static DefaultAttributeContainer.Builder createAttributes() {
         return HostileEntity.createHostileAttributes()
-        .add(EntityAttributes.GENERIC_MAX_HEALTH, 20.0D)
+        .add(EntityAttributes.GENERIC_MAX_HEALTH, 100.0D)
         .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0)
         .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, Double.MAX_VALUE);
     }

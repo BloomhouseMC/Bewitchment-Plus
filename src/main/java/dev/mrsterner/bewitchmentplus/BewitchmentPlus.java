@@ -80,7 +80,6 @@ public class BewitchmentPlus implements ModInitializer {
 		UseBlockCallback.EVENT.register(this::createMoonflower);
 		UseBlockCallback.EVENT.register(this::createMimic);
 		UseItemCallback.EVENT.register(this::gobletFillWithAthame);
-		UseEntityCallback.EVENT.register(this::bindEffigy);
 		UseEntityCallback.EVENT.register(this::succUnicorn);
 
 	}
@@ -203,34 +202,4 @@ public class BewitchmentPlus implements ModInitializer {
 		}
 		return TypedActionResult.pass(player.getMainHandStack());
 	}
-
-	/**
-	 * @author - MrSterner
-	 * If the player doesnt have a bound effigy, binds the player on the used entity.
-	 * Checks if the playerEntity from the taglock has a effigy already,
-	 * if not, binds the effigy to the player with EffigyComponent.
-	 * Proceeds to play a sound and decrement the held itemstack by 1.
-	 *
-	 * @param  player the player who is holding the taglock.
-	 * @param  world to make sure we execute on server side and so we can get any player based on UUID alone.
-	 * @param  hand to get the players left and right hand to get the taglock and decrement stack.
-	 * @param  entity to check if the target is an instance of EffigyEntity
-	 */
-	public ActionResult bindEffigy(PlayerEntity player, World world, Hand hand, Entity entity, HitResult hitResult){
-		if(!world.isClient && player.getStackInHand(hand).getItem() instanceof TaglockItem && entity instanceof EffigyEntity effigyEntity){
-			ItemStack tagLock = player.getStackInHand(hand);
-			UUID ownerUUID = TaglockItem.getTaglockUUID(tagLock);
-			PlayerEntity playerEntity = world.getPlayerByUuid(ownerUUID);
-			if(!BWPComponents.EFFIGY_COMPONENT.get(playerEntity).getHasEffigy()){
-				BWPComponents.EFFIGY_COMPONENT.get(playerEntity).setEffigy(effigyEntity.getUuid());
-				BWPComponents.EFFIGY_COMPONENT.get(playerEntity).setHasEffigy(true);
-				effigyEntity.playSound(SoundEvents.BLOCK_ROOTS_BREAK, 3F, 1);
-				player.getStackInHand(hand).decrement(1);
-				return ActionResult.SUCCESS;
-			}
-		}
-		return ActionResult.PASS;
-	}
-
-
 }
