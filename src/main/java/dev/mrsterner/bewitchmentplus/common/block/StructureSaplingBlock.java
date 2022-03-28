@@ -51,7 +51,7 @@ public class StructureSaplingBlock extends PlantBlock implements Fertilizable {
     }
 
     private void generateStructureTree(ServerWorld world, BlockPos pos) {
-        WorldgenHelper.generateNbtFeature(new Identifier(BewitchmentPlus.MODID, variants > 1 ? nbtLocation+"_"+world.getRandom().nextInt(variants) : nbtLocation), world, pos, BewitchmentPlus.config.world.yewTreeWeight);
+        WorldgenHelper.generateNbtFeature(new Identifier(BewitchmentPlus.MODID, nbtLocation+"_"+world.getRandom().nextInt(variants)), world, pos, BewitchmentPlus.config.world.yewTreeWeight);
     }
 
 

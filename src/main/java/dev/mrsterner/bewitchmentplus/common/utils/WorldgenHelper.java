@@ -42,7 +42,7 @@ public class WorldgenHelper {
             StructurePlacementData placementData = (new StructurePlacementData()).setMirror(BlockMirror.NONE).setRotation(BlockRotation.NONE).setIgnoreEntities(false);
             //Place the structure at the normalized origin
             BewitchmentPlus.LOGGER.info("NBT " + normalizeOrigin + " generated");
-            structure.place(world, normalizeOrigin.down(), normalizeOrigin, placementData, world.getRandom(), 2);
+            structure.place(world, normalizeOrigin, normalizeOrigin, placementData, world.getRandom(), 2);
             WorldgenHelper.checkAir(world, normalizeOrigin);
             return true;
         }
