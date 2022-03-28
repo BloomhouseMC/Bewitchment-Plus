@@ -72,13 +72,12 @@ public class LeshonEntity extends HostileEntity implements IAnimatable {
                 }
             }else if(entity.forwardSpeed < 0){
                 builder.addAnimation("animation.leshon.standing.walk_back", true);
-
-            } else if (isMovingHorizontal || animationEvent.isMoving()) {
+            }else if (isMovingHorizontal || animationEvent.isMoving()) {
                 builder.addAnimation("animation.leshon.standing.walk", true);
-            }else if(isAttacking || entity.handSwinging){//TODO fix this not working as intended
-                builder.addAnimation("animation.leshon.standing.attack", false);
             }
-
+        }
+        if(isAttacking || entity.handSwinging){
+            builder.addAnimation("animation.leshon.standing.attack", false);
         }
         if(animationEvent.getController().getCurrentAnimation() == null || builder.getRawAnimationList().size() <= 0){
             builder.addAnimation( "animation.leshon.standing.idle", true);

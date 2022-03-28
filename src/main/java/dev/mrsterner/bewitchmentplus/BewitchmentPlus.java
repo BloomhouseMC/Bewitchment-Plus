@@ -5,6 +5,7 @@ import dev.mrsterner.bewitchmentplus.common.block.blockentity.MimicChestBlockEnt
 import dev.mrsterner.bewitchmentplus.common.entity.EffigyEntity;
 import dev.mrsterner.bewitchmentplus.common.entity.UnicornEntity;
 import dev.mrsterner.bewitchmentplus.common.item.GobletBlockItem;
+import dev.mrsterner.bewitchmentplus.common.network.packet.TransformationLeshonPacket;
 import dev.mrsterner.bewitchmentplus.common.registry.*;
 import dev.mrsterner.bewitchmentplus.common.utils.RenderHelper;
 import dev.mrsterner.bewitchmentplus.common.world.BWPWorldState;
@@ -14,13 +15,13 @@ import moriyashiine.bewitchment.api.BewitchmentAPI;
 import moriyashiine.bewitchment.api.component.BloodComponent;
 import moriyashiine.bewitchment.api.event.BloodSuckEvents;
 import moriyashiine.bewitchment.common.item.AthameItem;
-import moriyashiine.bewitchment.common.item.TaglockItem;
 import moriyashiine.bewitchment.common.registry.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.block.FlowerPotBlock;
@@ -64,6 +65,7 @@ public class BewitchmentPlus implements ModInitializer {
 	public void onInitialize() {
 		AutoConfig.register(BWPConfig.class, GsonConfigSerializer::new);
 		config = AutoConfig.getConfigHolder(BWPConfig.class).getConfig();
+		ServerPlayNetworking.registerGlobalReceiver(TransformationLeshonPacket.ID, TransformationLeshonPacket::handle);
 
 		BWPEntityTypes.init();
 		BWPObjects.init();
