@@ -12,7 +12,6 @@ import net.minecraft.util.registry.Registry;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.function.Predicate;
 
 public class BWPRitualFunctions {
     private static final Map<RitualFunction, Identifier> RITUAL_FUNCTIONS = new LinkedHashMap<>();

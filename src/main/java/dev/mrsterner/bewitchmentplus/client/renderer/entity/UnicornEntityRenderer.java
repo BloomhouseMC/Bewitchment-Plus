@@ -1,9 +1,8 @@
 package dev.mrsterner.bewitchmentplus.client.renderer.entity;
 
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
-import dev.mrsterner.bewitchmentplus.api.Magical;
+import dev.mrsterner.bewitchmentplus.common.interfaces.Magical;
 import dev.mrsterner.bewitchmentplus.client.model.entity.UnicornEntityModel;
-import dev.mrsterner.bewitchmentplus.common.entity.PhoenixEntity;
 import dev.mrsterner.bewitchmentplus.common.entity.UnicornEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
@@ -15,7 +14,6 @@ import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
-import software.bernie.geckolib3.core.util.Color;
 
 public class UnicornEntityRenderer extends MobEntityRenderer<UnicornEntity, UnicornEntityModel<UnicornEntity>> {
     public UnicornEntityRenderer(EntityRendererFactory.Context context) {

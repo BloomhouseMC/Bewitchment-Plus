@@ -1,6 +1,7 @@
-package dev.mrsterner.bewitchmentplus.api;
+package dev.mrsterner.bewitchmentplus.common.utils;
 
 import dev.mrsterner.bewitchmentplus.common.entity.LeshonEntity;
+import dev.mrsterner.bewitchmentplus.common.interfaces.Magical;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPCriterion;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPEntityTypes;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPTransformations;
@@ -10,7 +11,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 
-public class BewitchmentPlusAPI {
+public class BWPUtil {
     private static LeshonEntity entity;
 
     public static boolean grantMagical(PlayerEntity player) {
@@ -43,6 +44,4 @@ public class BewitchmentPlusAPI {
         }
         return null;
     }
-
-
 }

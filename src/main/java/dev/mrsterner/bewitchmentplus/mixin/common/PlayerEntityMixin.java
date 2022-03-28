@@ -1,13 +1,12 @@
 package dev.mrsterner.bewitchmentplus.mixin.common;
 
 
-import dev.mrsterner.bewitchmentplus.api.BewitchmentPlusAPI;
-import dev.mrsterner.bewitchmentplus.api.Magical;
+import dev.mrsterner.bewitchmentplus.common.interfaces.Magical;
 import dev.mrsterner.bewitchmentplus.common.network.packet.TransformationLeshonPacket;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPTransformations;
 import dev.mrsterner.bewitchmentplus.common.transformation.LeshonLogic;
-import moriyashiine.bewitchment.api.component.TransformationComponent;
+import dev.mrsterner.bewitchmentplus.common.utils.BWPUtil;
 import moriyashiine.bewitchment.common.registry.BWComponents;
 import moriyashiine.bewitchment.common.registry.BWTransformations;
 import net.minecraft.entity.EntityType;
@@ -26,8 +25,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.Objects;
-
 import static dev.mrsterner.bewitchmentplus.common.transformation.LeshonLogic.LESHON_MOVEMENT_SPEED_MODIFIER;
 
 
@@ -43,7 +40,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Magical 
     private void lechonAttribute(CallbackInfo ci){
         PlayerEntity player = (PlayerEntity)(Object)this;
         EntityAttributeInstance movementSpeedAttribute = player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
-        if(BewitchmentPlusAPI.isLeshon(player, true)){
+        if(BWPUtil.isLeshon(player, true)){
             LeshonLogic.sprintHandler(player);
         }else if(movementSpeedAttribute != null && movementSpeedAttribute.hasModifier(LESHON_MOVEMENT_SPEED_MODIFIER)){
             movementSpeedAttribute.removeModifier(LESHON_MOVEMENT_SPEED_MODIFIER);

@@ -1,8 +1,8 @@
 package dev.mrsterner.bewitchmentplus.common.block.blockentity;
 
-import dev.mrsterner.bewitchmentplus.api.BewitchmentPlusAPI;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPBlockEntityTypes;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPStatusEffects;
+import dev.mrsterner.bewitchmentplus.common.utils.BWPUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -27,7 +27,7 @@ public class YewLogBlockEntity extends BlockEntity {
             PlayerEntity playerEntity;
             while(var11.hasNext()) {
                 playerEntity = var11.next();
-                if(BewitchmentPlusAPI.isLeshon(playerEntity, true)){
+                if(BWPUtil.isLeshon(playerEntity, true)){
                     playerEntity.addStatusEffect(new StatusEffectInstance(BWPStatusEffects.HOMESTEAD, 20 * 2, 1, true, true));
                 }
             }

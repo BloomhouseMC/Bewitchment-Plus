@@ -1,4 +1,4 @@
-package dev.mrsterner.bewitchmentplus.api;
+package dev.mrsterner.bewitchmentplus.common.block;
 
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import dev.mrsterner.bewitchmentplus.common.utils.WorldgenHelper;

@@ -1,11 +1,8 @@
 package dev.mrsterner.bewitchmentplus.client.renderer.entity;
 
-import dev.mrsterner.bewitchmentplus.api.Magical;
+import dev.mrsterner.bewitchmentplus.common.interfaces.Magical;
 import dev.mrsterner.bewitchmentplus.client.model.entity.DragonEntityModel;
-import dev.mrsterner.bewitchmentplus.client.model.entity.EffigyEntityModel;
 import dev.mrsterner.bewitchmentplus.common.entity.DragonEntity;
-import dev.mrsterner.bewitchmentplus.common.entity.EffigyEntity;
-import dev.mrsterner.bewitchmentplus.common.entity.NifflerEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.RenderLayer;

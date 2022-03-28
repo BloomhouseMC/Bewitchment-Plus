@@ -1,6 +1,6 @@
 package dev.mrsterner.bewitchmentplus.common.block.yew;
 
-import dev.mrsterner.bewitchmentplus.api.StructureSaplingBlock;
+import dev.mrsterner.bewitchmentplus.common.block.StructureSaplingBlock;
 
 public class YewSaplingBlock extends StructureSaplingBlock {
     public YewSaplingBlock(int variants, Settings settings) {

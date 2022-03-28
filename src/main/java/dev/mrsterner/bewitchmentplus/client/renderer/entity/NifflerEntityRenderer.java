@@ -1,6 +1,6 @@
 package dev.mrsterner.bewitchmentplus.client.renderer.entity;
 
-import dev.mrsterner.bewitchmentplus.api.Magical;
+import dev.mrsterner.bewitchmentplus.common.interfaces.Magical;
 import dev.mrsterner.bewitchmentplus.client.model.entity.NifflerEntityModel;
 import dev.mrsterner.bewitchmentplus.common.entity.NifflerEntity;
 import net.minecraft.client.MinecraftClient;

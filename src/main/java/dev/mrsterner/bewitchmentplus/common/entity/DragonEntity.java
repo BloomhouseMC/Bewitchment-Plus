@@ -2,10 +2,7 @@ package dev.mrsterner.bewitchmentplus.common.entity;
 
 import dev.mrsterner.bewitchmentplus.common.registry.BWPEntityTypes;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
-import moriyashiine.bewitchment.common.entity.living.OwlEntity;
 import moriyashiine.bewitchment.common.entity.living.util.BWTameableEntity;
-import moriyashiine.bewitchment.common.registry.BWEntityTypes;
-import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -14,7 +11,6 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;

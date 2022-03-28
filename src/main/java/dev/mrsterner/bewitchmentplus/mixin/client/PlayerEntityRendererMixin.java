@@ -1,8 +1,8 @@
 package dev.mrsterner.bewitchmentplus.mixin.client;
 
-import dev.mrsterner.bewitchmentplus.api.BewitchmentPlusAPI;
 import dev.mrsterner.bewitchmentplus.common.entity.LeshonEntity;
 import dev.mrsterner.bewitchmentplus.common.item.GobletBlockItem;
+import dev.mrsterner.bewitchmentplus.common.utils.BWPUtil;
 import moriyashiine.bewitchment.common.item.AthameItem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -42,7 +42,7 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
      */
     @Inject(method = "render(Lnet/minecraft/client/network/AbstractClientPlayerEntity;FFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V", at = @At("HEAD"), cancellable = true)
     private void render(AbstractClientPlayerEntity player, float yaw, float tickDelta, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light, CallbackInfo callbackInfo) {
-        LeshonEntity leshonEntity = BewitchmentPlusAPI.getLeshon(player);
+        LeshonEntity leshonEntity = BWPUtil.getLeshon(player);
         if(leshonEntity!=null){
             leshonEntity.age = player.age;
             leshonEntity.hurtTime = player.hurtTime;

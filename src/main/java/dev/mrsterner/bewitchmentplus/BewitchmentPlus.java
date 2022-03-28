@@ -2,7 +2,6 @@ package dev.mrsterner.bewitchmentplus;
 
 import dev.mrsterner.bewitchmentplus.common.BWPConfig;
 import dev.mrsterner.bewitchmentplus.common.block.blockentity.MimicChestBlockEntity;
-import dev.mrsterner.bewitchmentplus.common.entity.EffigyEntity;
 import dev.mrsterner.bewitchmentplus.common.entity.UnicornEntity;
 import dev.mrsterner.bewitchmentplus.common.item.GobletBlockItem;
 import dev.mrsterner.bewitchmentplus.common.network.packet.TransformationLeshonPacket;
@@ -47,8 +46,6 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
-import java.util.UUID;
 
 import static net.minecraft.block.ChestBlock.CHEST_TYPE;
 import static net.minecraft.block.ChestBlock.FACING;

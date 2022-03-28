@@ -2,19 +2,11 @@ package dev.mrsterner.bewitchmentplus.common.transformation;
 
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
 import dev.emi.stepheightentityattribute.StepHeightEntityAttributeMain;
-import dev.mrsterner.bewitchmentplus.api.BewitchmentPlusAPI;
-import moriyashiine.bewitchment.common.registry.BWComponents;
-import moriyashiine.bewitchment.common.registry.BWEntityTypes;
-import moriyashiine.bewitchment.common.registry.BWScaleTypes;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
+import dev.mrsterner.bewitchmentplus.common.utils.BWPUtil;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
-import virtuoel.pehkui.api.ScaleData;
-
-import java.util.Objects;
 import java.util.UUID;
 
 
@@ -30,7 +22,7 @@ public class LeshonLogic {
 
 
     public static void handleAttributes(PlayerEntity player){
-        boolean isLeshon = BewitchmentPlusAPI.isLeshon(player, false);
+        boolean isLeshon = BWPUtil.isLeshon(player, false);
         EntityAttributeInstance attackDamageAttribute = player.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE);
         EntityAttributeInstance attackSpeedAttribute = player.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_SPEED);
         EntityAttributeInstance armorAttribute = player.getAttributeInstance(EntityAttributes.GENERIC_ARMOR);

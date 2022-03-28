@@ -1,4 +1,4 @@
-package dev.mrsterner.bewitchmentplus.api;
+package dev.mrsterner.bewitchmentplus.common.interfaces;
 
 import java.util.Optional;
 
