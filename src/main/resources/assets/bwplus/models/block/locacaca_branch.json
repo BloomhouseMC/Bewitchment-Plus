@@ -2,7 +2,7 @@
 	"credit": "Made with Blockbench",
 	"textures": {
 		"1": "bwplus:block/locacaca_log_side",
-		"2": "bwplus:block/locacaca_leaves",
+		"2": "bwplus:block/locacaca_leaf",
 		"particle": "bwplus:block/locacaca_log_top"
 	},
 	"elements": [

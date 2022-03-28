@@ -22,7 +22,6 @@ import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class MutandisItemEntity extends ThrownItemEntity implements FlyingItemEntity {
     public static final BooleanProperty WATERLOGGED = BooleanProperty.of("waterlogged");

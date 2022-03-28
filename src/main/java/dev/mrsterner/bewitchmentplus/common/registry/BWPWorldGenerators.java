@@ -1,6 +1,7 @@
 package dev.mrsterner.bewitchmentplus.common.registry;
 
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
+import dev.mrsterner.bewitchmentplus.common.world.feature.LotusTreeFeature;
 import dev.mrsterner.bewitchmentplus.common.world.feature.YewTreeFeature;
 import dev.mrsterner.bewitchmentplus.common.world.structure.YewTreeHouseStructure;
 import dev.mrsterner.bewitchmentplus.mixin.common.StructureFeatureAccessor;
@@ -19,6 +20,9 @@ public class BWPWorldGenerators extends ConfiguredFeatures{
     public static final Feature<ProbabilityConfig> YEW_TREE_FEATURE = registerFeature("yew_tree_feature", new YewTreeFeature(ProbabilityConfig.CODEC));
     public static final RegistryEntry<ConfiguredFeature<ProbabilityConfig, ?>> YEW_ON_GRASS = ConfiguredFeatures.register("yew_on_grass", YEW_TREE_FEATURE, new ProbabilityConfig(0.0F));
 
+    public static final Feature<ProbabilityConfig> LOTUS_TREE_FEATURE = registerFeature("lotus_tree_feature", new LotusTreeFeature(ProbabilityConfig.CODEC));
+    public static final RegistryEntry<ConfiguredFeature<ProbabilityConfig, ?>> LOTUS_TREE_IN_JUNGEL = ConfiguredFeatures.register("lotus_in_jungle", LOTUS_TREE_FEATURE, new ProbabilityConfig(0.0F));
+
     public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> PATCH_BLOODROOT = ConfiguredFeatures.register(
     "flower_bloodroot",
     Feature.FLOWER,
@@ -26,6 +30,7 @@ public class BWPWorldGenerators extends ConfiguredFeatures{
           64, 6, 2,
             PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK,
             new SimpleBlockFeatureConfig(BlockStateProvider.of(BWPObjects.BLOODROOT)))));
+
 
 
     public static final RegistryEntry<PlacedFeature> PATCH_BLOODROOT_DESERT = PlacedFeatures.register(
@@ -37,6 +42,7 @@ public class BWPWorldGenerators extends ConfiguredFeatures{
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP,
             BiomePlacementModifier.of());
 
+
     public static final RegistryEntry<PlacedFeature> YEW_LIGHT = PlacedFeatures.register(
         "yew_light",
         YEW_ON_GRASS,
@@ -44,6 +50,14 @@ public class BWPWorldGenerators extends ConfiguredFeatures{
             SquarePlacementModifier.of(),
             PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP,
             BiomePlacementModifier.of());
+
+    public static final RegistryEntry<PlacedFeature> LOTUS_LIGHT = PlacedFeatures.register(
+    "lotus_singular",
+    LOTUS_TREE_IN_JUNGEL,
+    RarityFilterPlacementModifier.of(4),
+    SquarePlacementModifier.of(),
+    PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP,
+    BiomePlacementModifier.of());
 
     private static <C extends FeatureConfig, F extends Feature<C>> F registerFeature(String name, F feature) {
         return Registry.register(Registry.FEATURE, name, feature);

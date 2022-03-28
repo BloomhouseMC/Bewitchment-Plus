@@ -5,7 +5,6 @@ import dev.mrsterner.bewitchmentplus.common.block.*;
 import dev.mrsterner.bewitchmentplus.common.block.yew.*;
 import dev.mrsterner.bewitchmentplus.common.item.*;
 import dev.mrsterner.bewitchmentplus.mixin.common.BlocksMixin;
-import moriyashiine.bewitchment.api.block.WitchAltarBlock;
 import moriyashiine.bewitchment.api.item.BroomItem;
 import moriyashiine.bewitchment.common.block.CoffinBlock;
 import moriyashiine.bewitchment.common.registry.BWObjects;
@@ -17,7 +16,6 @@ import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.*;
 import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.state.property.Properties;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
@@ -73,12 +71,13 @@ public class BWPObjects {
 	public static final Block EMBERGRASS = register("embergrass", new BWPPlantBlock(copyOf(Blocks.GRASS),8), true, gen());
 	public static final Block LEECH_CHEST = register("leech_chest", new LeechChestBlock(FabricBlockSettings.of(Material.PLANT).strength(2.5F, 3.0F).sounds(BlockSoundGroup.MOSS_BLOCK)), true, gen());
 
+	public static final Block LOCACACA_LEAVES = register("locacaca_leaves", new Block(copyOf(Blocks.GRASS).nonOpaque().breakInstantly()), false);
 	public static final Block DRAGONFRUIT_BLOCK = register("dragonfruit_block", new Block(copyOf(Blocks.MELON).nonOpaque().breakInstantly()){
 		@Override
 		public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
 			return VoxelShapes.union(createCuboidShape(5, 0, 5, 11, 4, 11), createCuboidShape(6, 4, 6, 10, 7, 10));
 		}
-	}, true);
+	}, false);
 
 
 	public static final Block UNICORN_BLOOD_PUDDLE = register("unicorn_blood_puddle", new UnicornPuddleBlock(FabricBlockSettings.of(Material.WATER)), false);
@@ -113,7 +112,7 @@ public class BWPObjects {
 		}
 	}, true);
 
-	public static final Block LOCACACA_LOG = register("locacaca_log", new PillarBlock(copyOf(Blocks.OAK_LOG)), true);
+	public static final Block LOCACACA_LOG = register("locacaca_log", new PillarBlock(copyOf(Blocks.OAK_LOG)), false);
 	public static final Block LOCACACA_BRANCH = register("locacaca_branch", new LotusBranchBlock(FabricBlockSettings.of(Material.WOOD)), false);
 
 	public static final Block STRIPPED_YEW_LOG = register("stripped_yew_log", new PillarBlock(copyOf(Blocks.OAK_LOG)), true);

@@ -30,4 +30,9 @@ public class DefaultBiomeFeaturesMixin {
     private static void addMeadowVegetation(GenerationSettings.Builder builder, CallbackInfo ci) {
         builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, BWPWorldGenerators.YEW_LIGHT);
     }
+
+    @Inject(method = "addJungleTrees", at = @At("HEAD"))
+    private static void addJungleVegetation(GenerationSettings.Builder builder, CallbackInfo ci) {
+        builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, BWPWorldGenerators.LOTUS_LIGHT);
+    }
 }

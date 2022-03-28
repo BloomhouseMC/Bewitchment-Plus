@@ -1,18 +1,13 @@
 package dev.mrsterner.bewitchmentplus.common.item;
 
 import dev.mrsterner.bewitchmentplus.common.registry.BWPTags;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Waterloggable;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.tag.BlockTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryEntryList;
-
-import java.util.stream.Stream;
 
 public class MutandisItem extends Item {
     public static final BooleanProperty WATERLOGGED = BooleanProperty.of("waterlogged");
