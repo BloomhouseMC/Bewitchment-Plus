@@ -1,0 +1,21 @@
+{
+  "type": "bewitchment:ritual_recipe",
+  "ingredients": [
+    {
+      "item": "bwplus:soul"
+    },
+    {
+      "item": "bwplus:unicorn_blood"
+    },
+    {
+      "item": "minecraft:clay"
+    },
+    {
+      "item": "bewitchment:demon_heart"
+    }
+  ],
+  "inner": "normal",
+  "outer": "eldritch",
+  "ritual_function": "bwplus:make_effigy",
+  "cost": 800
+}
