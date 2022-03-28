@@ -36,12 +36,13 @@ public class BWPConfig implements ConfigData {
 	public static class World {
 		public final boolean blackDogStructureSpawn = true;
 		public final boolean cambionVillageStructureSpawn = true;
-		public final boolean cambionBastionStructureSpawn = true;
-		public final boolean cambionNetherFortressStructureSpawn = true;
 
 		@ConfigEntry.Gui.Tooltip
 		@ConfigEntry.BoundedDiscrete(max = 100, min = 1)
-		public final int yewTreeWeight = 25;
-	}
+		public final int yewTreeWeight = 10;
+		@ConfigEntry.Gui.Tooltip
+		@ConfigEntry.BoundedDiscrete(max = 100, min = 1)
+        public float lotusTreeWeight = 50;
+    }
 
 }

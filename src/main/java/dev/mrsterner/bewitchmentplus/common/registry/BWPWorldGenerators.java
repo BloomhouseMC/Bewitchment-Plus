@@ -15,6 +15,8 @@ import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.placementmodifier.*;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 
+import static net.minecraft.world.gen.feature.VegetationPlacedFeatures.modifiers;
+
 
 public class BWPWorldGenerators extends ConfiguredFeatures{
     public static final Feature<ProbabilityConfig> YEW_TREE_FEATURE = registerFeature("yew_tree_feature", new YewTreeFeature(ProbabilityConfig.CODEC));
@@ -23,45 +25,22 @@ public class BWPWorldGenerators extends ConfiguredFeatures{
     public static final Feature<ProbabilityConfig> LOTUS_TREE_FEATURE = registerFeature("lotus_tree_feature", new LotusTreeFeature(ProbabilityConfig.CODEC));
     public static final RegistryEntry<ConfiguredFeature<ProbabilityConfig, ?>> LOTUS_TREE_IN_JUNGEL = ConfiguredFeatures.register("lotus_in_jungle", LOTUS_TREE_FEATURE, new ProbabilityConfig(0.0F));
 
-    public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> PATCH_BLOODROOT = ConfiguredFeatures.register(
-    "flower_bloodroot",
-    Feature.FLOWER,
-        new RandomPatchFeatureConfig(
-          64, 6, 2,
-            PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK,
-            new SimpleBlockFeatureConfig(BlockStateProvider.of(BWPObjects.BLOODROOT)))));
+    public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> PATCH_BLOODROOT = ConfiguredFeatures.register("flower_bloodroot",
+        Feature.FLOWER, new RandomPatchFeatureConfig(64, 6, 2, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(BlockStateProvider.of(BWPObjects.BLOODROOT)))));
 
+    public static final RegistryEntry<PlacedFeature> PATCH_BLOODROOT_DESERT = PlacedFeatures.register("patch_bloodroot_desert",
+        PATCH_BLOODROOT, RarityFilterPlacementModifier.of(2), SquarePlacementModifier.of(), CountPlacementModifier.of(ClampedIntProvider.create(UniformIntProvider.create(-3, 1), 0, 1)), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
+    public static final RegistryEntry<PlacedFeature> YEW_LIGHT = PlacedFeatures.register("yew_light",
+        YEW_ON_GRASS, RarityFilterPlacementModifier.of(4), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
-    public static final RegistryEntry<PlacedFeature> PATCH_BLOODROOT_DESERT = PlacedFeatures.register(
-    "patch_bloodroot_desert",
-        PATCH_BLOODROOT,
-            RarityFilterPlacementModifier.of(2),
-            SquarePlacementModifier.of(),
-            CountPlacementModifier.of(ClampedIntProvider.create(UniformIntProvider.create(-3, 1), 0, 1)),
-            PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP,
-            BiomePlacementModifier.of());
-
-
-    public static final RegistryEntry<PlacedFeature> YEW_LIGHT = PlacedFeatures.register(
-        "yew_light",
-        YEW_ON_GRASS,
-            RarityFilterPlacementModifier.of(4),
-            SquarePlacementModifier.of(),
-            PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP,
-            BiomePlacementModifier.of());
-
-    public static final RegistryEntry<PlacedFeature> LOTUS_LIGHT = PlacedFeatures.register(
-    "lotus_singular",
-    LOTUS_TREE_IN_JUNGEL,
-    RarityFilterPlacementModifier.of(4),
-    SquarePlacementModifier.of(),
-    PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP,
-    BiomePlacementModifier.of());
+    public static final RegistryEntry<PlacedFeature> LOTUS_HEAVY = PlacedFeatures.register("lotus_multiple",
+        LOTUS_TREE_IN_JUNGEL, modifiers(PlacedFeatures.createCountExtraModifier(4, 0.1F, 1)));
 
     private static <C extends FeatureConfig, F extends Feature<C>> F registerFeature(String name, F feature) {
         return Registry.register(Registry.FEATURE, name, feature);
     }
+
 
     public static void init() {
         StructureFeatureAccessor.callRegister(BewitchmentPlus.MODID + ":yew_tree_house", new YewTreeHouseStructure(), GenerationStep.Feature.SURFACE_STRUCTURES);
