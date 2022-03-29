@@ -2,6 +2,7 @@ package dev.mrsterner.bewitchmentplus.mixin.client;
 
 import dev.mrsterner.bewitchmentplus.common.entity.LeshonEntity;
 import dev.mrsterner.bewitchmentplus.common.item.GobletBlockItem;
+import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
 import dev.mrsterner.bewitchmentplus.common.utils.BWPUtil;
 import moriyashiine.bewitchment.common.item.AthameItem;
 import net.fabricmc.api.EnvType;
@@ -15,6 +16,7 @@ import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
@@ -88,6 +90,13 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
             if (abstractClientPlayerEntity.getOffHandStack().getItem() instanceof GobletBlockItem) {
                 cir.setReturnValue(BipedEntityModel.ArmPose.BLOCK);
             }
+        }
+    }
+    @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/entity/PlayerEntityRenderer;getArmPose(Lnet/minecraft/client/network/AbstractClientPlayerEntity;Lnet/minecraft/util/Hand;)Lnet/minecraft/client/render/entity/model/BipedEntityModel$ArmPose;"), method = "setModelPose")
+    public void setModelPoseRedirect(AbstractClientPlayerEntity player, CallbackInfo ci) {
+        if(player.getEquippedStack(EquipmentSlot.HEAD).getItem().equals(BWPObjects.LESHON_SKULL.asItem())){
+            PlayerEntityModel<AbstractClientPlayerEntity> playerEntityModel = this.getModel();
+            playerEntityModel.head.visible = false;
         }
     }
 }

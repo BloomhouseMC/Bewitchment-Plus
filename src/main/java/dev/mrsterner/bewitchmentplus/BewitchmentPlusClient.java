@@ -1,6 +1,5 @@
 package dev.mrsterner.bewitchmentplus;
 
-import dev.mrsterner.bewitchmentplus.client.model.LeshonSkullModel;
 import dev.mrsterner.bewitchmentplus.client.model.entity.UnicornEntityModel;
 import dev.mrsterner.bewitchmentplus.client.model.entity.BlackDogEntityModel;
 import dev.mrsterner.bewitchmentplus.client.model.entity.CambionEntityModel;
@@ -27,8 +26,8 @@ import net.minecraft.client.color.world.FoliageColors;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.ChestBlockEntityRenderer;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import software.bernie.geckolib3.renderers.geo.GeoArmorRenderer;
 import software.bernie.geckolib3.renderers.geo.GeoItemRenderer;
 
 
@@ -48,8 +47,7 @@ public class BewitchmentPlusClient implements ClientModInitializer {
 
 		ClientTickEvents.END_CLIENT_TICK.register(ClientTickHandler::clientTickEnd);
 
-		ArmorRenderer.register(new LeshonSkullArmorRenderer(new Identifier(BewitchmentPlus.MODID, "textures/entity/item/skull.png"), null), BWPObjects.LESHON_SKULL);
-
+		GeoArmorRenderer.registerArmorRenderer(new LeshonSkullArmorRenderer(), BWPObjects.LESHON_SKULL);
 
 		BlockEntityRendererRegistry.register(BWPBlockEntityTypes.GOBLET, ctx -> new GobletBlockItemRenderer());
 		BlockEntityRendererRegistry.register(BWPBlockEntityTypes.STATUE_BLOCK_ENTITY, ctx -> new StatueRenderer());
@@ -63,7 +61,6 @@ public class BewitchmentPlusClient implements ClientModInitializer {
 		EntityModelLayerRegistry.registerModelLayer(MimicBlockEntityRenderer.MIMIC_LAYER, MimicBlockEntityRenderer::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(BlackDogEntityModel.BLACKDOG_MODEL_LAYER, BlackDogEntityModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(UnicornEntityModel.UNICORN_MODEL_LAYER, UnicornEntityModel::getTexturedModelData);
-		EntityModelLayerRegistry.registerModelLayer(LeshonSkullModel.LAYER_LOCATION, LeshonSkullModel::getTexturedModelData);
 
 		EntityRendererRegistry.register(BWPEntityTypes.MUTANDIS_ENTITY_ENTITY_TYPE, FlyingItemEntityRenderer::new);
 		EntityRendererRegistry.register(BWPEntityTypes.NIFFLER, NifflerEntityRenderer::new);
@@ -92,7 +89,6 @@ public class BewitchmentPlusClient implements ClientModInitializer {
 		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.SILVER_GOBLET, renderer);
 		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.GOLD_GOBLET, renderer);
 		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.NETHERITE_GOBLET, renderer);
-		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.LESHON_SKULL, new LeshonSkullRenderer());
 		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.LILITH_STATUE_BLACKSTONE, statueRenderer);
 		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.LILITH_STATUE_GOLD, statueRenderer);
 		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.LILITH_STATUE_NETHERBRICK, statueRenderer);
