@@ -1,7 +1,6 @@
 package dev.mrsterner.bewitchmentplus.common.entity;
 
 import moriyashiine.bewitchment.api.BewitchmentAPI;
-import moriyashiine.bewitchment.common.entity.living.LeonardEntity;
 import moriyashiine.bewitchment.common.entity.living.VampireEntity;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
 import moriyashiine.bewitchment.common.registry.BWComponents;
@@ -75,9 +74,9 @@ public class LilimEntity extends BWHostileEntity {
 		this.goalSelector.add(2, new WanderAroundFarGoal(this, 1.0D));
 		this.goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
 		this.goalSelector.add(3, new LookAroundGoal(this));
-		this.targetSelector.add(0, new RevengeGoal(this, new Class[0]));
-		this.targetSelector.add(3, new ActiveTargetGoal(this, MerchantEntity.class, false));
-		this.targetSelector.add(3, new ActiveTargetGoal(this, RaiderEntity.class, false));
+		this.targetSelector.add(0, new RevengeGoal(this));
+		this.targetSelector.add(2, new ActiveTargetGoal<>(this, MerchantEntity.class, false));
+		this.targetSelector.add(2, new ActiveTargetGoal<>(this, RaiderEntity.class, false));
 
 	}
 

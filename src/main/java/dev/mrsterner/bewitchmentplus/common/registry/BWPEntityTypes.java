@@ -1,7 +1,6 @@
 package dev.mrsterner.bewitchmentplus.common.registry;
 
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
-import dev.mrsterner.bewitchmentplus.client.renderer.entity.LilimEntityRenderer;
 import dev.mrsterner.bewitchmentplus.common.entity.*;
 import dev.mrsterner.bewitchmentplus.common.item.itementity.MutandisItemEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;

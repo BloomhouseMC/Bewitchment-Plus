@@ -21,9 +21,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 import java.util.LinkedHashMap;
@@ -72,13 +69,7 @@ public class BWPObjects {
 	public static final Block LEECH_CHEST = register("leech_chest", new LeechChestBlock(FabricBlockSettings.of(Material.PLANT).strength(2.5F, 3.0F).sounds(BlockSoundGroup.MOSS_BLOCK)), true, gen());
 
 	public static final Block LOCACACA_LEAVES = register("locacaca_leaves", new Block(copyOf(Blocks.GRASS).nonOpaque().breakInstantly()), false);
-	public static final Block DRAGONFRUIT_BLOCK = register("dragonfruit_block", new Block(copyOf(Blocks.MELON).nonOpaque().breakInstantly()){
-		@Override
-		public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-			return VoxelShapes.union(createCuboidShape(5, 0, 5, 11, 4, 11), createCuboidShape(6, 4, 6, 10, 7, 10));
-		}
-	}, false);
-
+	public static final Block DRAGONFRUIT_BLOCK = register("dragonfruit_block", new DragonfruitBlock(copyOf(Blocks.MELON)), false);
 
 	public static final Block UNICORN_BLOOD_PUDDLE = register("unicorn_blood_puddle", new UnicornPuddleBlock(FabricBlockSettings.of(Material.WATER)), false);
 	public static final Block SILVER_BLOCK_STAIRS = register("silver_stairs", new BWPStairsBlock(BWObjects.SILVER_BLOCK,copyOf(Blocks.GOLD_BLOCK)) {
