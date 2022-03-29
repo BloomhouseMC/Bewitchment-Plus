@@ -350,7 +350,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 		goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8));
 		goalSelector.add(3, new LookAroundGoal(this));
 		targetSelector.add(0, new RevengeGoal(this));
-		this.targetSelector.add(3, new ActiveTargetGoal<>(this, MobEntity.class, 5, false, false, (livingEntity) -> livingEntity instanceof Monster && !(livingEntity instanceof CambionEntity) && !(livingEntity instanceof LeonardEntity)));
+		targetSelector.add(3, new ActiveTargetGoal<>(this, MobEntity.class, 5, false, false, (livingEntity) -> livingEntity instanceof Monster && !(livingEntity instanceof CambionEntity) && !(livingEntity instanceof LeonardEntity)));
 	}
 
 	@Override

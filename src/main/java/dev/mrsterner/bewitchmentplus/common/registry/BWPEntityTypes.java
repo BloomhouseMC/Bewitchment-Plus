@@ -1,6 +1,7 @@
 package dev.mrsterner.bewitchmentplus.common.registry;
 
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
+import dev.mrsterner.bewitchmentplus.client.renderer.entity.LilimEntityRenderer;
 import dev.mrsterner.bewitchmentplus.common.entity.*;
 import dev.mrsterner.bewitchmentplus.common.item.itementity.MutandisItemEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
@@ -26,6 +27,7 @@ public class BWPEntityTypes {
 	public static final EntityType<LeshonEntity> LESHON = register("leshon", LeshonEntity.createAttributes(), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, LeshonEntity::new).dimensions(EntityDimensions.fixed(1f, 3f)).build());
 	public static final EntityType<YewBroomEntity> YEW_BROOM = register("yew_broom", FabricEntityTypeBuilder.create(SpawnGroup.MISC, YewBroomEntity::new).dimensions(EntityType.ARROW.getDimensions()).build());
 	public static final EntityType<DragonEntity> DRAGON = register("dragon", DragonEntity.createAttributes(), FabricEntityTypeBuilder.createMob().spawnGroup(SpawnGroup.CREATURE).entityFactory(DragonEntity::new).dimensions(EntityDimensions.changing(0.5f, 0.5f)).build());
+	public static final EntityType<LilimEntity> LILIM = register("lilim", LilimEntity.createAttributes(), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, LilimEntity::new).dimensions(EntityDimensions.changing(0.75f, 3f)).build());
 
 
 

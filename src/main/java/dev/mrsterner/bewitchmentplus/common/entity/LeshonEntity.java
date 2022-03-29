@@ -105,7 +105,7 @@ public class LeshonEntity extends HostileEntity implements IAnimatable {
         goalSelector.add(2, new WanderAroundFarGoal(this, 1));
         goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8));
         goalSelector.add(3, new LookAroundGoal(this));
-        targetSelector.add(2, new ActiveTargetGoal(this, PlayerEntity.class, true));
+        targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
         targetSelector.add(1, new RevengeGoal(this));
     }
 }

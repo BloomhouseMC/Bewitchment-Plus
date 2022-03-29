@@ -1,5 +1,6 @@
 package dev.mrsterner.bewitchmentplus;
 
+import dev.mrsterner.bewitchmentplus.client.model.entity.LilimEntityModel;
 import dev.mrsterner.bewitchmentplus.client.model.entity.UnicornEntityModel;
 import dev.mrsterner.bewitchmentplus.client.model.entity.BlackDogEntityModel;
 import dev.mrsterner.bewitchmentplus.client.model.entity.CambionEntityModel;
@@ -61,6 +62,7 @@ public class BewitchmentPlusClient implements ClientModInitializer {
 		EntityModelLayerRegistry.registerModelLayer(MimicBlockEntityRenderer.MIMIC_LAYER, MimicBlockEntityRenderer::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(BlackDogEntityModel.BLACKDOG_MODEL_LAYER, BlackDogEntityModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(UnicornEntityModel.UNICORN_MODEL_LAYER, UnicornEntityModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(LilimEntityModel.LILIM_MODEL_LAYER, LilimEntityModel::getTexturedModelData);
 
 		EntityRendererRegistry.register(BWPEntityTypes.MUTANDIS_ENTITY_ENTITY_TYPE, FlyingItemEntityRenderer::new);
 		EntityRendererRegistry.register(BWPEntityTypes.NIFFLER, NifflerEntityRenderer::new);
@@ -73,6 +75,7 @@ public class BewitchmentPlusClient implements ClientModInitializer {
 		EntityRendererRegistry.register(BWPEntityTypes.RUNE, RuneEntityRenderer::new);
 		EntityRendererRegistry.register(BWPEntityTypes.PHOENIX, PhoenixEntityRenderer::new);
 		EntityRendererRegistry.register(BWPEntityTypes.DRAGON, DragonEntityRenderer::new);
+		EntityRendererRegistry.register(BWPEntityTypes.LILIM, LilimEntityRenderer::new);
 
 		BWPSpriteIdentifiers.INSTANCE.addIdentifier(BWPSpriteIdentifiers.YEW_CHEST);
 		BWPSpriteIdentifiers.INSTANCE.addIdentifier(BWPSpriteIdentifiers.TRAPPED_YEW_CHEST);
