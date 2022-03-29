@@ -1,6 +1,6 @@
 package dev.mrsterner.bewitchmentplus.mixin.client;
 
-import dev.mrsterner.bewitchmentplus.common.utils.SpriteIdentifierRegistry;
+import dev.mrsterner.bewitchmentplus.common.registry.BWPSpriteIdentifiers;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.TexturedRenderLayers;
@@ -17,7 +17,7 @@ import java.util.function.Consumer;
 public class TexturedRenderLayersMixin {
     @Inject(method = "addDefaultTextures", at = @At("HEAD"))
     private static void injectCustomTextures(Consumer<SpriteIdentifier> consumer, CallbackInfo info) {
-        for (SpriteIdentifier identifier : SpriteIdentifierRegistry.INSTANCE.getIdentifiers()) {
+        for (SpriteIdentifier identifier : BWPSpriteIdentifiers.INSTANCE.getIdentifiers()) {
             consumer.accept(identifier);
         }
     }

@@ -6,6 +6,7 @@ import dev.mrsterner.bewitchmentplus.common.block.blockentity.GobletBlockEntity;
 import dev.mrsterner.bewitchmentplus.common.item.GobletBlockItem;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
 import dev.mrsterner.bewitchmentplus.common.utils.RenderHelper;
+import dev.mrsterner.bewitchmentplus.common.registry.BWPSpriteIdentifiers;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.fabric.api.renderer.v1.mesh.MeshBuilder;
 import net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering;
@@ -19,7 +20,6 @@ import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.texture.Sprite;
-import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.Inventories;
@@ -32,12 +32,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3f;
 import org.jetbrains.annotations.Nullable;
 
-import static net.minecraft.screen.PlayerScreenHandler.BLOCK_ATLAS_TEXTURE;
-
 public class GobletBlockItemRenderer implements BlockEntityRenderer<GobletBlockEntity>, BuiltinItemRendererRegistry.DynamicItemRenderer {
-    public static final SpriteIdentifier BLOOD = new SpriteIdentifier(BLOCK_ATLAS_TEXTURE, new Identifier(BewitchmentPlus.MODID, "block/goblet_fluid"));
-    public static final SpriteIdentifier HONEY = new SpriteIdentifier(BLOCK_ATLAS_TEXTURE, new Identifier(BewitchmentPlus.MODID, "block/honey_fluid"));
-    public static final SpriteIdentifier UNICORN = new SpriteIdentifier(BLOCK_ATLAS_TEXTURE, new Identifier(BewitchmentPlus.MODID, "block/goblet_fluid_unicorn"));
     private static final float EDGE_SIZE = 1f / 16f;
     private static final float INNER_SIZE = 1f - (EDGE_SIZE * 2f);
     public GobletItemModel gobletItemModel;
@@ -100,13 +95,13 @@ public class GobletBlockItemRenderer implements BlockEntityRenderer<GobletBlockE
             int newColor = ColorHelper.swapRedBlueIfNeeded(0x3f76e4);
             if (entity != null) {
                 newColor = ColorHelper.swapRedBlueIfNeeded(entity.color);
-                sprite = entity.color == RenderHelper.BLOOD_COLOR ? BLOOD.getSprite() : entity.color == RenderHelper.HONEY_COLOR ? HONEY.getSprite() : entity.color == RenderHelper.UNICORN_BLOOD_COLOR ? UNICORN.getSprite() : sprite;
+                sprite = entity.color == RenderHelper.BLOOD_COLOR ? BWPSpriteIdentifiers.BLOOD.getSprite() : entity.color == RenderHelper.HONEY_COLOR ? BWPSpriteIdentifiers.HONEY.getSprite() : entity.color == RenderHelper.UNICORN_BLOOD_COLOR ? BWPSpriteIdentifiers.UNICORN.getSprite() : sprite;
             } else if (itemStack != null) {
                 if (itemStack.getNbt() != null && itemStack.getNbt().contains("BlockEntityTag")) {
                     NbtCompound nbtCompound = itemStack.getNbt().getCompound("BlockEntityTag");
                     int color = nbtCompound.getInt("Color");
                     newColor = ColorHelper.swapRedBlueIfNeeded(color);
-                    sprite = color == RenderHelper.BLOOD_COLOR ? BLOOD.getSprite() : color == RenderHelper.HONEY_COLOR ? HONEY.getSprite() : color == RenderHelper.UNICORN_BLOOD_COLOR ? UNICORN.getSprite() : sprite;
+                    sprite = color == RenderHelper.BLOOD_COLOR ? BWPSpriteIdentifiers.BLOOD.getSprite() : color == RenderHelper.HONEY_COLOR ? BWPSpriteIdentifiers.HONEY.getSprite() : color == RenderHelper.UNICORN_BLOOD_COLOR ? BWPSpriteIdentifiers.UNICORN.getSprite() : sprite;
                 }
             }
             for(var direction :Direction.values()){

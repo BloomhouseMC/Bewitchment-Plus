@@ -4,6 +4,7 @@ import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import dev.mrsterner.bewitchmentplus.BewitchmentPlusClient;
 import dev.mrsterner.bewitchmentplus.common.block.MimicChestBlock;
 import dev.mrsterner.bewitchmentplus.common.block.blockentity.MimicChestBlockEntity;
+import dev.mrsterner.bewitchmentplus.common.registry.BWPSpriteIdentifiers;
 import it.unimi.dsi.fastutil.ints.Int2IntFunction;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -16,18 +17,15 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.*;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
-import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3f;
 import net.minecraft.world.World;
 
-import static net.minecraft.screen.PlayerScreenHandler.BLOCK_ATLAS_TEXTURE;
-
 @Environment(value= EnvType.CLIENT)
 public class MimicBlockEntityRenderer<T extends BlockEntity> implements BlockEntityRenderer<T> {
-    public static final SpriteIdentifier MIMIC_SPRITE = new SpriteIdentifier(BLOCK_ATLAS_TEXTURE, new Identifier(BewitchmentPlus.MODID, "block/mimic"));
+
     public static final EntityModelLayer MIMIC_LAYER = new EntityModelLayer(new Identifier(BewitchmentPlus.MODID, "mimic"), "main");
     private final ModelPart chest;
     private final ModelPart lid;
@@ -85,7 +83,7 @@ public class MimicBlockEntityRenderer<T extends BlockEntity> implements BlockEnt
             e = mimicChestBlockEntity.eyeRotation + h * mimicChestBlockEntity.partial;
         }
         int i = ((Int2IntFunction)propertySource.apply(new LightmapCoordinatesRetriever())).applyAsInt(light);
-        VertexConsumer vertexConsumer = MIMIC_SPRITE.getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
+        VertexConsumer vertexConsumer = BWPSpriteIdentifiers.MIMIC_SPRITE.getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
         this.render(matrices, vertexConsumer, this.chest, this.lid, this.tounge, this.tounge2, this.tounge3, this.tounge4, this.tounge5, this.eye, e, g, i, overlay, blockState, tickDelta);
         matrices.pop();
     }

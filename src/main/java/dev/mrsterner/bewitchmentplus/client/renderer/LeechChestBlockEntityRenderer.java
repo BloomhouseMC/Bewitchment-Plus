@@ -2,7 +2,7 @@ package dev.mrsterner.bewitchmentplus.client.renderer;
 
 import dev.mrsterner.bewitchmentplus.common.block.LeechChestBlock;
 import dev.mrsterner.bewitchmentplus.common.block.blockentity.LeechChestBlockEntity;
-import dev.mrsterner.bewitchmentplus.common.utils.SpriteIdentifierRegistry;
+import dev.mrsterner.bewitchmentplus.common.registry.BWPSpriteIdentifiers;
 import it.unimi.dsi.fastutil.ints.Int2IntFunction;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -60,7 +60,7 @@ public class LeechChestBlockEntityRenderer<T extends BlockEntity & ChestAnimatio
             g = 1.0F - g;
             g = 1.0F - g * g * g;
             int i = ((Int2IntFunction)properties.apply(new LightmapCoordinatesRetriever())).applyAsInt(light);
-            SpriteIdentifier spriteIdentifier = SpriteIdentifierRegistry.LEECH_CHEST;
+            SpriteIdentifier spriteIdentifier = BWPSpriteIdentifiers.LEECH_CHEST;
             VertexConsumer vertexConsumer = spriteIdentifier.getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
             renderMatrices(matrices, vertexConsumer, this.chestLid, this.chestLock, this.chestBottom, g, i, overlay);
             matrices.pop();

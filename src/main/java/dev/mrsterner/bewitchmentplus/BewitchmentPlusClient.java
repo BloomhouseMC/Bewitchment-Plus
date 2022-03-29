@@ -12,7 +12,7 @@ import dev.mrsterner.bewitchmentplus.common.block.yew.YewChestBlockEntity;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPBlockEntityTypes;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPEntityTypes;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
-import dev.mrsterner.bewitchmentplus.common.utils.SpriteIdentifierRegistry;
+import dev.mrsterner.bewitchmentplus.common.registry.BWPSpriteIdentifiers;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -77,17 +77,17 @@ public class BewitchmentPlusClient implements ClientModInitializer {
 		EntityRendererRegistry.register(BWPEntityTypes.PHOENIX, PhoenixEntityRenderer::new);
 		EntityRendererRegistry.register(BWPEntityTypes.DRAGON, DragonEntityRenderer::new);
 
-		SpriteIdentifierRegistry.INSTANCE.addIdentifier(SpriteIdentifierRegistry.YEW_CHEST);
-		SpriteIdentifierRegistry.INSTANCE.addIdentifier(SpriteIdentifierRegistry.TRAPPED_YEW_CHEST);
-		SpriteIdentifierRegistry.INSTANCE.addIdentifier(SpriteIdentifierRegistry.YEW_CHEST_LEFT);
-		SpriteIdentifierRegistry.INSTANCE.addIdentifier(SpriteIdentifierRegistry.TRAPPED_YEW_CHEST_LEFT);
-		SpriteIdentifierRegistry.INSTANCE.addIdentifier(SpriteIdentifierRegistry.YEW_CHEST_RIGHT);
-		SpriteIdentifierRegistry.INSTANCE.addIdentifier(SpriteIdentifierRegistry.TRAPPED_YEW_CHEST_RIGHT);
-		SpriteIdentifierRegistry.INSTANCE.addIdentifier(GobletBlockItemRenderer.BLOOD);
-		SpriteIdentifierRegistry.INSTANCE.addIdentifier(GobletBlockItemRenderer.UNICORN);
-		SpriteIdentifierRegistry.INSTANCE.addIdentifier(GobletBlockItemRenderer.HONEY);
-		SpriteIdentifierRegistry.INSTANCE.addIdentifier(MimicBlockEntityRenderer.MIMIC_SPRITE);
-		SpriteIdentifierRegistry.INSTANCE.addIdentifier(SpriteIdentifierRegistry.LEECH_CHEST);
+		BWPSpriteIdentifiers.INSTANCE.addIdentifier(BWPSpriteIdentifiers.YEW_CHEST);
+		BWPSpriteIdentifiers.INSTANCE.addIdentifier(BWPSpriteIdentifiers.TRAPPED_YEW_CHEST);
+		BWPSpriteIdentifiers.INSTANCE.addIdentifier(BWPSpriteIdentifiers.YEW_CHEST_LEFT);
+		BWPSpriteIdentifiers.INSTANCE.addIdentifier(BWPSpriteIdentifiers.TRAPPED_YEW_CHEST_LEFT);
+		BWPSpriteIdentifiers.INSTANCE.addIdentifier(BWPSpriteIdentifiers.YEW_CHEST_RIGHT);
+		BWPSpriteIdentifiers.INSTANCE.addIdentifier(BWPSpriteIdentifiers.TRAPPED_YEW_CHEST_RIGHT);
+		BWPSpriteIdentifiers.INSTANCE.addIdentifier(BWPSpriteIdentifiers.BLOOD);
+		BWPSpriteIdentifiers.INSTANCE.addIdentifier(BWPSpriteIdentifiers.UNICORN);
+		BWPSpriteIdentifiers.INSTANCE.addIdentifier(BWPSpriteIdentifiers.HONEY);
+		BWPSpriteIdentifiers.INSTANCE.addIdentifier(BWPSpriteIdentifiers.MIMIC_SPRITE);
+		BWPSpriteIdentifiers.INSTANCE.addIdentifier(BWPSpriteIdentifiers.LEECH_CHEST);
 
 		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.SILVER_GOBLET, renderer);
 		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.GOLD_GOBLET, renderer);
@@ -108,11 +108,7 @@ public class BewitchmentPlusClient implements ClientModInitializer {
 		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.YEW_CHEST, (stack, mode, matrices, vertexConsumers, light, overlay) -> MinecraftClient.getInstance().getBlockEntityRenderDispatcher().renderEntity(new YewChestBlockEntity(BWPBlockEntityTypes.YEW_CHEST_BLOCK_ENTITY, BlockPos.ORIGIN, BWPObjects.YEW_CHEST.getDefaultState(), YewChestBlockEntity.Type.YEW, false), matrices, vertexConsumers, light, overlay));
 		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.TRAPPED_YEW_CHEST, (stack, mode, matrices, vertexConsumers, light, overlay) -> MinecraftClient.getInstance().getBlockEntityRenderDispatcher().renderEntity(new YewChestBlockEntity(BWPBlockEntityTypes.YEW_CHEST_BLOCK_ENTITY, BlockPos.ORIGIN, BWPObjects.YEW_CHEST.getDefaultState(), YewChestBlockEntity.Type.YEW, true), matrices, vertexConsumers, light, overlay));
 		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.MIMIC_CHEST, (stack, mode, matrices, vertexConsumers, light, overlay) -> MinecraftClient.getInstance().getBlockEntityRenderDispatcher().renderEntity(new BWPChestBlockEntity(BlockEntityType.CHEST, BlockPos.ORIGIN, Blocks.CHEST.getDefaultState()), matrices, vertexConsumers, light, overlay));
-
 		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.LEECH_CHEST, (stack, mode, matrices, vertexConsumers, light, overlay) -> MinecraftClient.getInstance().getBlockEntityRenderDispatcher().renderEntity(new LeechChestBlockEntity(BlockEntityType.CHEST, BlockPos.ORIGIN, Blocks.CHEST.getDefaultState()), matrices, vertexConsumers, light, overlay));
-
-
-
 	}
 
 	public static final class ClientTickHandler {

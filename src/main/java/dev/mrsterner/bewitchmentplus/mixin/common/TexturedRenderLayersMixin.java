@@ -1,7 +1,7 @@
 package dev.mrsterner.bewitchmentplus.mixin.common;
 
 import dev.mrsterner.bewitchmentplus.common.block.yew.YewChestBlockEntity;
-import dev.mrsterner.bewitchmentplus.common.utils.SpriteIdentifierRegistry;
+import dev.mrsterner.bewitchmentplus.common.registry.BWPSpriteIdentifiers;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.enums.ChestType;
 import net.minecraft.client.render.TexturedRenderLayers;
@@ -14,13 +14,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.function.Consumer;
 
-import static dev.mrsterner.bewitchmentplus.common.utils.SpriteIdentifierRegistry.*;
+import static dev.mrsterner.bewitchmentplus.common.registry.BWPSpriteIdentifiers.*;
 
 @Mixin(TexturedRenderLayers.class)
 public class TexturedRenderLayersMixin {
     @Inject(method = "addDefaultTextures", at = @At("RETURN"))
     private static void injectSigns(Consumer<SpriteIdentifier> consumer, CallbackInfo info) {
-        for(SpriteIdentifier identifier: SpriteIdentifierRegistry.INSTANCE.getIdentifiers()) {
+        for(SpriteIdentifier identifier: BWPSpriteIdentifiers.INSTANCE.getIdentifiers()) {
             consumer.accept(identifier);
         }
     }

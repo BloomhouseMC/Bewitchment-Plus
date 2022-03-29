@@ -50,7 +50,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Magical 
     @Inject(method = "tick", at = @At("TAIL"))
     private void lechonTransform(CallbackInfo ci){
         PlayerEntity player = (PlayerEntity)(Object)this;
-        if(player.getEquippedStack(EquipmentSlot.HEAD).getItem().equals(BWPObjects.LESHON_SKULL.asItem())){
+        if(player.getEquippedStack(EquipmentSlot.HEAD).getItem().equals(BWPObjects.LESHON_SKULL.asItem()) && !player.getEquippedStack(EquipmentSlot.HEAD).getOrCreateNbt().getBoolean("Broken")){
             if(BWComponents.TRANSFORMATION_COMPONENT.get(player).getTransformation() == BWTransformations.HUMAN){
                 BWComponents.TRANSFORMATION_COMPONENT.get(player).setTransformation(BWPTransformations.LESHON);
                 TransformationLeshonPacket.useAbility((PlayerEntity)(Object)this, true);
