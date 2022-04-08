@@ -27,7 +27,7 @@ public class WorldgenHelper {
      * @param chance the probability of a successful placement
      * @return true if the placement of the structure was successfull
      */
-    public static boolean generateNbtFeature(Identifier nbtLocation,StructureWorldAccess world, BlockPos origin, float chance){
+    public static boolean generateNbtFeature(Identifier nbtLocation, StructureWorldAccess world, BlockPos origin, float chance){
         StructureManager structureManager = world.toServerWorld().getStructureManager();
         //Try fetch the nbt with the structure manager
         Optional<Structure> structureOptional = structureManager.getStructure(nbtLocation);

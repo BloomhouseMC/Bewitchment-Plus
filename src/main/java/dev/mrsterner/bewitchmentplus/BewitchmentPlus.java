@@ -2,6 +2,7 @@ package dev.mrsterner.bewitchmentplus;
 
 import dev.mrsterner.bewitchmentplus.common.BWPConfig;
 import dev.mrsterner.bewitchmentplus.common.block.blockentity.MimicChestBlockEntity;
+import dev.mrsterner.bewitchmentplus.common.entity.EffigyEntity;
 import dev.mrsterner.bewitchmentplus.common.entity.UnicornEntity;
 import dev.mrsterner.bewitchmentplus.common.item.GobletBlockItem;
 import dev.mrsterner.bewitchmentplus.common.network.packet.TransformationLeshonPacket;
@@ -14,6 +15,7 @@ import moriyashiine.bewitchment.api.BewitchmentAPI;
 import moriyashiine.bewitchment.api.component.BloodComponent;
 import moriyashiine.bewitchment.api.event.BloodSuckEvents;
 import moriyashiine.bewitchment.common.item.AthameItem;
+import moriyashiine.bewitchment.common.item.TaglockItem;
 import moriyashiine.bewitchment.common.registry.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
@@ -52,6 +54,8 @@ import static net.minecraft.block.ChestBlock.FACING;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.UUID;
+
 public class BewitchmentPlus implements ModInitializer {
 	public static final String MODID = "bwplus";
 	public static final ItemGroup BEWITCHMENT_PLUS_GROUP = FabricItemGroupBuilder.build(new Identifier(MODID, MODID), () -> new ItemStack(BWPObjects.SILVER_GOBLET));
@@ -80,6 +84,24 @@ public class BewitchmentPlus implements ModInitializer {
 		UseBlockCallback.EVENT.register(this::createMimic);
 		UseItemCallback.EVENT.register(this::gobletFillWithAthame);
 		UseEntityCallback.EVENT.register(this::succUnicorn);
+
+
+		//TODO remove this when effigy is fully implemented
+		UseEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
+			if(!world.isClient && player.getStackInHand(hand).getItem() instanceof TaglockItem && entity instanceof EffigyEntity effigyEntity){
+				ItemStack tagLock = player.getStackInHand(hand);
+				UUID ownerUUID = TaglockItem.getTaglockUUID(tagLock);
+				PlayerEntity playerEntity = world.getPlayerByUuid(ownerUUID);
+				if(!BWPComponents.EFFIGY_COMPONENT.get(playerEntity).getHasEffigy()){
+					BWPComponents.EFFIGY_COMPONENT.get(playerEntity).setEffigy(effigyEntity.getUuid());
+					BWPComponents.EFFIGY_COMPONENT.get(playerEntity).setHasEffigy(true);
+					effigyEntity.playSound(SoundEvents.BLOCK_ROOTS_BREAK, 3F, 1);
+					player.getStackInHand(hand).decrement(1);
+					return ActionResult.SUCCESS;
+				}
+			}
+			return ActionResult.PASS;
+		});
 
 	}
 	private ActionResult succUnicorn(PlayerEntity player, World world, Hand hand, Entity entity, HitResult hitResult) {

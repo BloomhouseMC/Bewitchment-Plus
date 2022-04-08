@@ -29,10 +29,18 @@ public class BWPWorldGenerators extends ConfiguredFeatures{
         Feature.FLOWER, new RandomPatchFeatureConfig(64, 6, 2, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(BlockStateProvider.of(BWPObjects.BLOODROOT)))));
 
     public static final RegistryEntry<PlacedFeature> PATCH_BLOODROOT_DESERT = PlacedFeatures.register("patch_bloodroot_desert",
-        PATCH_BLOODROOT, RarityFilterPlacementModifier.of(2), SquarePlacementModifier.of(), CountPlacementModifier.of(ClampedIntProvider.create(UniformIntProvider.create(-3, 1), 0, 1)), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
+        PATCH_BLOODROOT,
+        RarityFilterPlacementModifier.of(2),
+        SquarePlacementModifier.of(),
+        CountPlacementModifier.of(ClampedIntProvider.create(UniformIntProvider.create(-3, 1), 0, 1)),
+        PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
 
     public static final RegistryEntry<PlacedFeature> YEW_LIGHT = PlacedFeatures.register("yew_light",
-        YEW_ON_GRASS, RarityFilterPlacementModifier.of(4), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
+        YEW_ON_GRASS,
+        RarityFilterPlacementModifier.of(4),
+        SquarePlacementModifier.of(),
+        PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP,
+        BiomePlacementModifier.of());
 
     public static final RegistryEntry<PlacedFeature> LOTUS_HEAVY = PlacedFeatures.register("lotus_multiple",
         LOTUS_TREE_IN_JUNGEL, modifiers(PlacedFeatures.createCountExtraModifier(4, 0.1F, 1)));

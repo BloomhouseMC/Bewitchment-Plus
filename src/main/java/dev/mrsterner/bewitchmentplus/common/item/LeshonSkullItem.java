@@ -19,7 +19,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 public class LeshonSkullItem extends ArmorItem implements IAnimatable {
-    private AnimationFactory factory = new AnimationFactory(this);
+    private final AnimationFactory factory = new AnimationFactory(this);
     private final int SKULL_BREAKER_MAX = 20;
     private int skullBreaker = SKULL_BREAKER_MAX;
     public LeshonSkullItem(Settings settings) {
