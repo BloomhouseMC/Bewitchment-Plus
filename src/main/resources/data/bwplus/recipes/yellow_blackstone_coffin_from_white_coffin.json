@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "bwplus:white_blackstone_coffin"
+    },
+    {
+      "item": "yellow_dye"
+    }
+  ],
+  "result": {
+    "item": "bwplus:yellow_blackstone_coffin"
+  }
+}

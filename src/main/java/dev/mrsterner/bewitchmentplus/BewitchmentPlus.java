@@ -2,7 +2,6 @@ package dev.mrsterner.bewitchmentplus;
 
 import dev.mrsterner.bewitchmentplus.common.BWPConfig;
 import dev.mrsterner.bewitchmentplus.common.block.blockentity.MimicChestBlockEntity;
-import dev.mrsterner.bewitchmentplus.common.entity.EffigyEntity;
 import dev.mrsterner.bewitchmentplus.common.entity.UnicornEntity;
 import dev.mrsterner.bewitchmentplus.common.item.GobletBlockItem;
 import dev.mrsterner.bewitchmentplus.common.network.packet.TransformationLeshonPacket;
@@ -15,10 +14,10 @@ import moriyashiine.bewitchment.api.BewitchmentAPI;
 import moriyashiine.bewitchment.api.component.BloodComponent;
 import moriyashiine.bewitchment.api.event.BloodSuckEvents;
 import moriyashiine.bewitchment.common.item.AthameItem;
-import moriyashiine.bewitchment.common.item.TaglockItem;
 import moriyashiine.bewitchment.common.registry.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
@@ -30,6 +29,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.block.enums.ChestType;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
@@ -39,6 +39,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.property.Properties;
@@ -53,8 +54,6 @@ import static net.minecraft.block.ChestBlock.CHEST_TYPE;
 import static net.minecraft.block.ChestBlock.FACING;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.UUID;
 
 public class BewitchmentPlus implements ModInitializer {
 	public static final String MODID = "bwplus";
@@ -84,26 +83,29 @@ public class BewitchmentPlus implements ModInitializer {
 		UseBlockCallback.EVENT.register(this::createMimic);
 		UseItemCallback.EVENT.register(this::gobletFillWithAthame);
 		UseEntityCallback.EVENT.register(this::succUnicorn);
-
-
-		//TODO remove this when effigy is fully implemented
-		UseEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
-			if(!world.isClient && player.getStackInHand(hand).getItem() instanceof TaglockItem && entity instanceof EffigyEntity effigyEntity){
-				ItemStack tagLock = player.getStackInHand(hand);
-				UUID ownerUUID = TaglockItem.getTaglockUUID(tagLock);
-				PlayerEntity playerEntity = world.getPlayerByUuid(ownerUUID);
-				if(!BWPComponents.EFFIGY_COMPONENT.get(playerEntity).getHasEffigy()){
-					BWPComponents.EFFIGY_COMPONENT.get(playerEntity).setEffigy(effigyEntity.getUuid());
-					BWPComponents.EFFIGY_COMPONENT.get(playerEntity).setHasEffigy(true);
-					effigyEntity.playSound(SoundEvents.BLOCK_ROOTS_BREAK, 3F, 1);
-					player.getStackInHand(hand).decrement(1);
-					return ActionResult.SUCCESS;
-				}
-			}
-			return ActionResult.PASS;
-		});
+		ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register(this::gobletFillWithAthame);
 
 	}
+
+	private void gobletFillWithAthame(ServerWorld serverWorld, Entity entity, LivingEntity killedEntity) {
+		if (entity instanceof LivingEntity livingEntity) {
+			if (livingEntity.getMainHandStack().getItem() instanceof AthameItem) {
+				if (livingEntity instanceof PlayerEntity player && BWComponents.BLOOD_COMPONENT.get(killedEntity).getBlood() > 20 && killedEntity.getType().isIn(BWTags.HAS_BLOOD)) {
+					if (player.getOffHandStack().getItem() instanceof GobletBlockItem) {
+						serverWorld.playSound(null, player.getBlockPos(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.PLAYERS, 1, 0.5f);
+						NbtCompound compound = new NbtCompound();
+						var slots = DefaultedList.ofSize(1, BWObjects.BOTTLE_OF_BLOOD.getDefaultStack());
+						Inventories.writeNbt(compound, slots);
+						compound.putInt("Color", RenderHelper.BLOOD_COLOR);
+						compound.putBoolean("VampireBlood", BWComponents.TRANSFORMATION_COMPONENT.get(player).getTransformation() == BWTransformations.VAMPIRE);
+						compound.put("Goblet", player.getOffHandStack().getItem().getDefaultStack().writeNbt(new NbtCompound()));
+						player.getOffHandStack().getOrCreateNbt().put("BlockEntityTag", compound);
+					}
+				}
+			}
+		}
+	}
+
 	private ActionResult succUnicorn(PlayerEntity player, World world, Hand hand, Entity entity, HitResult hitResult) {
 		if (entity instanceof UnicornEntity livingEntity && hand == Hand.MAIN_HAND && player.isSneaking() && entity.isAlive() && BewitchmentAPI.isVampire(player, true) && player.getStackInHand(hand).isEmpty()) {
 			int toGive = (int) livingEntity.getHealth() / 4;
@@ -206,19 +208,18 @@ public class BewitchmentPlus implements ModInitializer {
 	 */
 	public TypedActionResult<ItemStack> gobletFillWithAthame(PlayerEntity player, World world, Hand hand){
 		if (!world.isClient() && player.getMainHandStack().getItem() instanceof AthameItem) {
-			if (player.getOffHandStack().getItem() instanceof GobletBlockItem) {
-				if(!player.getOffHandStack().hasNbt()){
-					world.playSound(null, player.getBlockPos(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.PLAYERS, 1, 0.5f);
-					NbtCompound compound = new NbtCompound();
-					var slots = DefaultedList.ofSize(1, BWObjects.BOTTLE_OF_BLOOD.getDefaultStack());
-					Inventories.writeNbt(compound, slots);
-					compound.putInt("Color", RenderHelper.BLOOD_COLOR);
-					compound.putBoolean("VampireBlood", BWComponents.TRANSFORMATION_COMPONENT.get(player).getTransformation() == BWTransformations.VAMPIRE);
-					compound.put("Goblet", player.getOffHandStack().getItem().getDefaultStack().writeNbt(new NbtCompound()));
-					player.getOffHandStack().getOrCreateNbt().put("BlockEntityTag", compound);
-					player.damage(DamageSource.player(player), BWComponents.TRANSFORMATION_COMPONENT.get(player).getTransformation() == BWTransformations.VAMPIRE ? player.getHealth() - 1 : 4);
-					return TypedActionResult.consume(player.getMainHandStack());
-				}
+			if (player.getOffHandStack().getItem() instanceof GobletBlockItem && BWComponents.TRANSFORMATION_COMPONENT.get(player).getTransformation() == BWTransformations.VAMPIRE ? BWComponents.BLOOD_COMPONENT.get(player).getBlood() > 20 : player.getHealth() > 10) {
+				world.playSound(null, player.getBlockPos(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.PLAYERS, 1, 0.5f);
+				NbtCompound compound = new NbtCompound();
+				var slots = DefaultedList.ofSize(1, BWObjects.BOTTLE_OF_BLOOD.getDefaultStack());
+				Inventories.writeNbt(compound, slots);
+				compound.putInt("Color", RenderHelper.BLOOD_COLOR);
+				compound.putBoolean("VampireBlood", BWComponents.TRANSFORMATION_COMPONENT.get(player).getTransformation() == BWTransformations.VAMPIRE);
+				compound.put("Goblet", player.getOffHandStack().getItem().getDefaultStack().writeNbt(new NbtCompound()));
+				player.getOffHandStack().getOrCreateNbt().put("BlockEntityTag", compound);
+				BWComponents.BLOOD_COMPONENT.get(player).drainBlood(20, false);
+				player.damage(DamageSource.player(player), BWComponents.TRANSFORMATION_COMPONENT.get(player).getTransformation() == BWTransformations.VAMPIRE ? 0 : 10);
+				return TypedActionResult.consume(player.getMainHandStack());
 			}
 		}
 		return TypedActionResult.pass(player.getMainHandStack());

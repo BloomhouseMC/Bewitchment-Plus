@@ -171,6 +171,11 @@
 
   "effect.bwplus.growth": "Growth",
   "effect.bwplus.half_life": "Half-Life",
-  "effect.bwplus.homestead": "Homestead"
+  "effect.bwplus.homestead": "Homestead",
 
+  "ritual.bwplus.rituals.make_effigy": "Effigy",
+  "ritual.bwplus.rituals.spectral_familiar": "Spectral Familiar",
+
+  "item.bwplus.music_disc_petals": "Music Disc",
+  "item.bwplus.music_disc_petals.desc": "Safro - Petals"
 }

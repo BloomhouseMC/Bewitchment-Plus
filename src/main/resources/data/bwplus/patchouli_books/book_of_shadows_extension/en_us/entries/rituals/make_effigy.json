@@ -7,7 +7,12 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "How about becoming dirt"
+      "text": "Imbue a nearby Armor Stand with dirt, makeshift totem of undying. The Effigy will be bound to the $(l:bewitchment:tools/taglock)Taglock$().$(br2)"
+    },
+    {
+      "type": "bewitchment:ritual",
+      "recipe": "bwplus:rituals/make_effigy",
+      "text": "A $(l:bewitchment:rituals/rituals)Ritual$() of Effigy can be cast. How about becoming dirt"
     }
   ]
 }

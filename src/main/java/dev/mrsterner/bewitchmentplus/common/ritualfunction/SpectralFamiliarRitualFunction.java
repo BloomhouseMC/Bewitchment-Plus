@@ -1,13 +1,16 @@
 package dev.mrsterner.bewitchmentplus.common.ritualfunction;
 
-import dev.mrsterner.bewitchmentplus.common.registry.BWPEntityTypes;
+import dev.mrsterner.bewitchmentplus.common.registry.BWPTags;
 import moriyashiine.bewitchment.api.registry.RitualFunction;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.particle.ParticleType;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 
 import java.util.function.Predicate;
 
@@ -25,18 +28,12 @@ public class SpectralFamiliarRitualFunction extends RitualFunction {
 
     @Override
     public void start(ServerWorld world, BlockPos glyphPos, BlockPos effectivePos, Inventory inventory, boolean catFamiliar) {
-        int rand = world.random.nextInt(4);
-        var entity = switch (rand + 1) {
-            case 1 -> BWPEntityTypes.NIFFLER.create(world);
-            case 2 -> BWPEntityTypes.PHOENIX.create(world);
-            case 3 -> BWPEntityTypes.UNICORN.create(world);
-            case 4 -> BWPEntityTypes.DRAGON.create(world);
-            default -> null;
-        };
-        if (entity != null) {
-            entity.initialize(world, world.getLocalDifficulty(effectivePos), SpawnReason.EVENT, null, null);
-            entity.updatePositionAndAngles(effectivePos.getX() + 0.5, effectivePos.getY(), effectivePos.getZ() + 0.5, world.random.nextFloat() * 360, 0);
-            world.spawnEntity(entity);
+        EntityType<?> entityType = Registry.ENTITY_TYPE.getEntryList(BWPTags.SPECTRAL_FAMILIAR).flatMap(entity -> entity.getRandom(world.random)).map((entry) -> (entry.value())).orElse(null);;
+        if(entityType != null){
+            PassiveEntity entity2 = (PassiveEntity)entityType.create(world);
+            entity2.initialize(world, world.getLocalDifficulty(effectivePos), SpawnReason.EVENT, null, null);
+            entity2.updatePositionAndAngles(effectivePos.getX() + 0.5, effectivePos.getY(), effectivePos.getZ() + 0.5, world.random.nextFloat() * 360, 0);
+            world.spawnEntity(entity2);
         }
         super.start(world, glyphPos, effectivePos, inventory, catFamiliar);
     }

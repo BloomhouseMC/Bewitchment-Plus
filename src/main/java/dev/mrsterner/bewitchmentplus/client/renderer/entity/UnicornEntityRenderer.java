@@ -1,26 +1,18 @@
 package dev.mrsterner.bewitchmentplus.client.renderer.entity;
 
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
-import dev.mrsterner.bewitchmentplus.common.interfaces.Magical;
 import dev.mrsterner.bewitchmentplus.client.model.entity.UnicornEntityModel;
 import dev.mrsterner.bewitchmentplus.common.entity.UnicornEntity;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.AbstractClientPlayerEntity;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
 
 public class UnicornEntityRenderer extends MobEntityRenderer<UnicornEntity, UnicornEntityModel<UnicornEntity>> {
     public UnicornEntityRenderer(EntityRendererFactory.Context context) {
         super(context, new UnicornEntityModel<>(context.getPart(UnicornEntityModel.UNICORN_MODEL_LAYER)), 0.5f);
     }
 
-
+/*TODO add Magical
     @Override
     public void render(UnicornEntity livingEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
         matrixStack.push();
@@ -54,6 +46,8 @@ public class UnicornEntityRenderer extends MobEntityRenderer<UnicornEntity, Unic
         }
         matrixStack.pop();
     }
+
+ */
 
     @Override
     public Identifier getTexture(UnicornEntity entity) {

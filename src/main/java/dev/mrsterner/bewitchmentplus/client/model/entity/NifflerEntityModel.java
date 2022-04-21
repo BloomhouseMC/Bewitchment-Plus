@@ -19,7 +19,7 @@ public class NifflerEntityModel extends AnimatedGeoModel<NifflerEntity> {
 
     @Override
     public Identifier getTextureLocation(NifflerEntity object) {
-        return new Identifier(BewitchmentPlus.MODID, "textures/entity/niffler/niffler_1.png");
+        return new Identifier(BewitchmentPlus.MODID, "textures/entity/niffler/0.png");
     }
 
     @Override

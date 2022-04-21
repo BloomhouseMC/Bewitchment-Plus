@@ -2,6 +2,7 @@ package dev.mrsterner.bewitchmentplus.common.item;
 
 import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPStatusEffects;
+import moriyashiine.bewitchment.api.BewitchmentAPI;
 import moriyashiine.bewitchment.common.Bewitchment;
 import moriyashiine.bewitchment.common.registry.BWComponents;
 import moriyashiine.bewitchment.common.registry.BWCurses;
@@ -62,15 +63,19 @@ public class GobletBlockItem extends BlockItem {
             }
             NbtCompound nbtCompound = nbt.getCompound("BlockEntityTag");
             NbtCompound goblet = nbtCompound.getCompound("Goblet");
-            if(nbtCompound.getCompound("VampireBlood") != null){
-                boolean vampire = nbtCompound.getBoolean("VampireBlood");
-                if(vampire && user instanceof PlayerEntity player && (!Bewitchment.config.enableCurses || BWComponents.CURSES_COMPONENT.get(player).hasCurse(BWCurses.SUSCEPTIBILITY))){
-                    BWComponents.TRANSFORMATION_COMPONENT.maybeGet(player).ifPresent(transformationComponent -> {
-                        transformationComponent.getTransformation().onRemoved(player);
-                        transformationComponent.setTransformation(BWTransformations.VAMPIRE);
-                        transformationComponent.getTransformation().onAdded(player);
-                    });
-                }
+            if(user instanceof PlayerEntity player){
+                BWComponents.TRANSFORMATION_COMPONENT.maybeGet(player).ifPresent(transformationComponent -> {
+                    if(transformationComponent.getTransformation() == BWTransformations.HUMAN){
+                        if(nbtCompound.getCompound("VampireBlood") != null && nbtCompound.getBoolean("VampireBlood") && (!Bewitchment.config.enableCurses || BWComponents.CURSES_COMPONENT.get(player).hasCurse(BWCurses.SUSCEPTIBILITY))){
+                            transformationComponent.getTransformation().onRemoved(player);
+                            transformationComponent.setTransformation(BWTransformations.VAMPIRE);
+                            transformationComponent.getTransformation().onAdded(player);
+                        }
+
+                    }else if(BewitchmentAPI.isVampire(user, true)){
+                        BWComponents.BLOOD_COMPONENT.get(user).fillBlood(20, false);
+                    }
+                });
             }
             if (goblet != null && !goblet.isEmpty()) {
                 itemStack = ItemStack.fromNbt(goblet);

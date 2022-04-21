@@ -19,6 +19,6 @@ public class PhoenixEntityModel extends AnimatedGeoModel<PhoenixEntity> {
 
     @Override
     public Identifier getTextureLocation(PhoenixEntity entity) {
-        return new Identifier(BewitchmentPlus.MODID, "textures/phoenix/phoenix.png");
+        return new Identifier(BewitchmentPlus.MODID, "textures/entity/phoenix/0.png");
     }
 }

@@ -1,0 +1,90 @@
+{
+  "category": "bewitchment:tools",
+  "name": "Blackstone Coffins",
+  "icon": "bwplus:white_blackstone_coffin",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Coffins, originally emerging from $(l:bewitchment:creatures/vampire)Vampires$(), have recently found traction especially among night-active witches.$(br2)When you sleep in one, you can skip the day.$(br2)Coffins, much like beds, can be dyed if they're white."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bwplus:white_blackstone_coffin"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bwplus:orange_blackstone_coffin",
+      "recipe2": "bwplus:orange_blackstone_coffin_from_white_coffin"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bwplus:magenta_blackstone_coffin",
+      "recipe2": "bwplus:magenta_blackstone_coffin_from_white_coffin"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bwplus:light_blue_blackstone_coffin",
+      "recipe2": "bwplus:light_blue_blackstone_coffin_from_white_coffin"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bwplus:yellow_blackstone_coffin",
+      "recipe2": "bwplus:yellow_blackstone_coffin_from_white_coffin"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bwplus:lime_blackstone_coffin",
+      "recipe2": "bwplus:lime_blackstone_coffin_from_white_coffin"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bwplus:pink_blackstone_coffin",
+      "recipe2": "bwplus:pink_blackstone_coffin_from_white_coffin"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bwplus:gray_blackstone_coffin",
+      "recipe2": "bwplus:gray_blackstone_coffin_from_white_coffin"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bwplus:light_gray_blackstone_coffin",
+      "recipe2": "bwplus:light_gray_blackstone_coffin_from_white_coffin"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bwplus:cyan_blackstone_coffin",
+      "recipe2": "bwplus:cyan_blackstone_coffin_from_white_coffin"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bwplus:purple_blackstone_coffin",
+      "recipe2": "bwplus:purple_blackstone_coffin_from_white_coffin"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bwplus:blue_blackstone_coffin",
+      "recipe2": "bwplus:blue_blackstone_coffin_from_white_coffin"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bwplus:brown_blackstone_coffin",
+      "recipe2": "bwplus:brown_blackstone_coffin_from_white_coffin"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bwplus:green_blackstone_coffin",
+      "recipe2": "bwplus:green_blackstone_coffin_from_white_coffin"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bwplus:red_blackstone_coffin",
+      "recipe2": "bwplus:red_blackstone_coffin_from_white_coffin"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bwplus:black_blackstone_coffin",
+      "recipe2": "bwplus:black_blackstone_coffin_from_white_coffin"
+    }
+  ]
+}

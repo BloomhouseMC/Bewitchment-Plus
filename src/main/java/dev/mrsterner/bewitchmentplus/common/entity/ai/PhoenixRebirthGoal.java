@@ -2,7 +2,6 @@ package dev.mrsterner.bewitchmentplus.common.entity.ai;
 
 import dev.mrsterner.bewitchmentplus.common.entity.PhoenixEntity;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPEntityTypes;
-import moriyashiine.bewitchment.api.BewitchmentAPI;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
@@ -18,7 +17,7 @@ public class PhoenixRebirthGoal extends Goal {
 
     @Override
     public boolean canStart() {
-        return BewitchmentAPI.getMoonPhase(phoenixEntity.world) == 0;
+        return false; //TODO BewitchmentAPI.getMoonPhase(phoenixEntity.world) == 0;
     }
 
     @Override

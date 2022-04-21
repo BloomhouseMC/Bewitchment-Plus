@@ -1,0 +1,12 @@
+{
+  "category": "bewitchment:tools",
+  "name": "Moonflower",
+  "icon": "bwplus:moonlight_infusion",
+  "entry_color": "3EA9ff",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "It sure is usefull to know what moon-phase for the upcoming night, by watering a potted plant with some Moonlight Infusion"
+    }
+  ]
+}

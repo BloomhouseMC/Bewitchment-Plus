@@ -1,0 +1,27 @@
+{
+  "category": "bewitchment:tools",
+  "name": "Goblets",
+  "icon": "bwplus:silver_goblet",
+  "entry_color": "3EA9ff",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Use with $(l:bewitchment:tools/athame)Athame$() in off-hand to spill your blood, vampires might want to trick you in to drinking it.$(br2)Can also be used on off-hand when killing Humanoids to fill with regular blood.$(br)Can harvest Unicorn blood as well.$(br) Is placeable"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bwplus:silver_goblet",
+      "text": ""
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bwplus:gold_goblet",
+      "text": ""
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bwplus:netherite_goblet",
+      "text": ""
+    }
+  ]
+}
