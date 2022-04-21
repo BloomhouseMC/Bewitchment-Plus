@@ -1,6 +1,7 @@
 package dev.mrsterner.bewitchmentplus.common.entity;
 
 import dev.mrsterner.besmirchment.common.registry.BSMTransformations;
+import dev.mrsterner.bewitchmentplus.common.compat.BSMCompat;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPTags;
 import moriyashiine.bewitchment.api.BewitchmentAPI;
 import moriyashiine.bewitchment.common.registry.BWDamageSources;
@@ -71,12 +72,11 @@ public class RuneEntity extends Entity {
             var entityList = world.getNonSpectatingEntities(LivingEntity.class, new Box(blockPos).expand(runeEntity.dataTracker.get(ACTIVE_RANGE), runeEntity.dataTracker.get(ACTIVE_RANGE), runeEntity.dataTracker.get(ACTIVE_RANGE)));
             if (!entityList.isEmpty()) {
                 for (LivingEntity mob : entityList) {
-                    boolean bl = FabricLoader.getInstance().isModLoaded("besmirchment");
+
                     boolean werewolf = mob instanceof PlayerEntity player && (BewitchmentAPI.isWerewolf(player, true) || BewitchmentAPI.isWerewolf(player, false));
                     boolean vampire = mob instanceof PlayerEntity player && (BewitchmentAPI.isVampire(player, true) || BewitchmentAPI.isVampire(player, false));
-                    boolean isLich = bl && mob instanceof PlayerEntity player && (BSMTransformations.isLich(player, true) || BSMTransformations.isLich(player, false));//TODO test if this doesnt crash if besmirchment isnt loaded
-                    boolean isWerepyre = bl && mob instanceof PlayerEntity player && (BSMTransformations.isWerepyre(player, true) || BSMTransformations.isWerepyre(player, false));
-                    if (mob.getType().isIn(BWPTags.UNHOLY) || werewolf || vampire || isLich || isWerepyre) {
+
+                    if ((mob.getType().isIn(BWPTags.UNHOLY) || werewolf || vampire || FabricLoader.getInstance().isModLoaded("besmirchment")) && BSMCompat.isBesmirchmentLoaded(mob)) {
                         double distanceX = blockPos.getX() - mob.getX();
                         double distanceZ = blockPos.getZ() - mob.getZ();
                         double max = MathHelper.absMax(distanceX, distanceZ);

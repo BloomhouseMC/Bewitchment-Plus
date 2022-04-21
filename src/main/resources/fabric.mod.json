@@ -46,7 +46,8 @@
 	"fabricloader": ">=0.7.4",
 	"fabric": "*",
 	"minecraft": "1.18.x",
-    "bewitchment": ">=1.18-14"
+    "bewitchment": ">=1.18-14",
+    "geckolib3": ">=3.0.30"
   },
   "suggests": {
 	"another-mod": "*"
