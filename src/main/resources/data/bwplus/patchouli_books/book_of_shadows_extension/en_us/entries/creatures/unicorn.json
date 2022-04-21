@@ -1,0 +1,17 @@
+{
+  "category": "bewitchment:creatures",
+  "name": "Unicorn",
+  "icon": "bwplus:phoenix_spawn_egg",
+  "entry_color": "3EA9ff",
+  "advancement": "bwplus:hidden_unlocks/ectoplasm",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Unicorn! Dont you dare slay it, that would be great sin. Their blood can be drunk with a goblet to save yourself from death, but the cost of splaying something so pure would be the the $(l:bewitchment:curses/conducting_curses)Curse$() of $(l:bwplus:curses/half_life)Half Life$(), Summoned with the $(l:bewitchment:rituals/rituals#spectral_familiar)Spectral Familiar Ritual$()"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "bwplus:unicorn"
+    }
+  ]
+}

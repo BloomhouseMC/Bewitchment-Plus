@@ -2,16 +2,20 @@ package dev.mrsterner.bewitchmentplus;
 
 import dev.mrsterner.bewitchmentplus.common.BWPConfig;
 import dev.mrsterner.bewitchmentplus.common.block.blockentity.MimicChestBlockEntity;
+import dev.mrsterner.bewitchmentplus.common.block.blockentity.YewLogBlockEntity;
+import dev.mrsterner.bewitchmentplus.common.block.yew.YewLogBlock;
 import dev.mrsterner.bewitchmentplus.common.entity.UnicornEntity;
 import dev.mrsterner.bewitchmentplus.common.item.GobletBlockItem;
 import dev.mrsterner.bewitchmentplus.common.network.packet.TransformationLeshonPacket;
 import dev.mrsterner.bewitchmentplus.common.registry.*;
+import dev.mrsterner.bewitchmentplus.common.utils.BWPUtil;
 import dev.mrsterner.bewitchmentplus.common.utils.RenderHelper;
 import dev.mrsterner.bewitchmentplus.common.world.BWPWorldState;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import moriyashiine.bewitchment.api.BewitchmentAPI;
 import moriyashiine.bewitchment.api.component.BloodComponent;
+import moriyashiine.bewitchment.api.component.TransformationComponent;
 import moriyashiine.bewitchment.api.event.BloodSuckEvents;
 import moriyashiine.bewitchment.common.item.AthameItem;
 import moriyashiine.bewitchment.common.registry.*;
@@ -84,9 +88,42 @@ public class BewitchmentPlus implements ModInitializer {
 		UseItemCallback.EVENT.register(this::gobletFillWithAthame);
 		UseEntityCallback.EVENT.register(this::succUnicorn);
 		ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register(this::gobletFillWithAthame);
+		UseBlockCallback.EVENT.register(this::createHomeStead);
 
 	}
 
+	/**
+	 *
+	 * @param player
+	 * @param world
+	 * @param hand
+	 * @param blockHitResult
+	 * @return
+	 */
+	private ActionResult createHomeStead(PlayerEntity player, World world, Hand hand, BlockHitResult blockHitResult) {
+		TransformationComponent transformationComponent = BWComponents.TRANSFORMATION_COMPONENT.get(player);
+			if(world instanceof ServerWorld serverWorld && transformationComponent.getTransformation() == BWPTransformations.LESHON){
+				if(serverWorld.getBlockState(blockHitResult.getBlockPos()).getBlock() instanceof YewLogBlock && serverWorld.getBlockState(blockHitResult.getBlockPos()).get(BWProperties.NATURAL)) {
+					BWPWorldState worldState = BWPWorldState.get(serverWorld);
+					Pair<ServerWorld, YewLogBlockEntity> existingHomeStead = BWPUtil.getPossibleHomeStead(player);
+					if (existingHomeStead != null) {
+						existingHomeStead.getLeft().setBlockState(existingHomeStead.getRight().getPos(), BWPObjects.YEW_LOG.getDefaultState());
+					}
+					world.setBlockState(blockHitResult.getBlockPos(), BWPObjects.YEW_CUT_LOG.getDefaultState());
+					worldState.addHomeStead(player.getUuid(), blockHitResult.getBlockPos());
+					return ActionResult.success(true);
+				}
+			}
+		return ActionResult.PASS;
+	}
+
+
+	/**
+	 *
+	 * @param serverWorld
+	 * @param entity
+	 * @param killedEntity
+	 */
 	private void gobletFillWithAthame(ServerWorld serverWorld, Entity entity, LivingEntity killedEntity) {
 		if (entity instanceof LivingEntity livingEntity) {
 			if (livingEntity.getMainHandStack().getItem() instanceof AthameItem) {
@@ -106,6 +143,15 @@ public class BewitchmentPlus implements ModInitializer {
 		}
 	}
 
+	/**
+	 *
+	 * @param player
+	 * @param world
+	 * @param hand
+	 * @param entity
+	 * @param hitResult
+	 * @return
+	 */
 	private ActionResult succUnicorn(PlayerEntity player, World world, Hand hand, Entity entity, HitResult hitResult) {
 		if (entity instanceof UnicornEntity livingEntity && hand == Hand.MAIN_HAND && player.isSneaking() && entity.isAlive() && BewitchmentAPI.isVampire(player, true) && player.getStackInHand(hand).isEmpty()) {
 			int toGive = (int) livingEntity.getHealth() / 4;
@@ -164,8 +210,8 @@ public class BewitchmentPlus implements ModInitializer {
 	 */
 	private ActionResult createMimic(PlayerEntity player, World world, Hand hand, BlockHitResult blockHitResult) {
 		BlockEntity blockEntity = world.getBlockEntity(blockHitResult.getBlockPos());
-		if(blockEntity instanceof ChestBlockEntity && !world.isClient()){
-			BWPWorldState worldState = BWPWorldState.get(world);
+		if(blockEntity instanceof ChestBlockEntity && world instanceof ServerWorld serverWorld){
+			BWPWorldState worldState = BWPWorldState.get(serverWorld);
 			BlockPos blockPos = blockHitResult.getBlockPos();
 			for (int i = worldState.mimicChestsPair.size() - 1; i >= 0; i--) {
 				if(worldState.mimicChestsPair.get(i).getRight().equals(blockPos.asLong())){
@@ -173,17 +219,17 @@ public class BewitchmentPlus implements ModInitializer {
 						return ActionResult.PASS;
 					}else{
 						DefaultedList<ItemStack> temporaryMimicInventory = DefaultedList.ofSize(27, ItemStack.EMPTY);
-						BlockState blockState = world.getBlockState(blockPos);
+						BlockState blockState = serverWorld.getBlockState(blockPos);
 						boolean single = blockState.get(CHEST_TYPE) == ChestType.SINGLE;
 						if(single){
-							Inventory chestInventory = ChestBlock.getInventory((ChestBlock)blockState.getBlock(), blockState, world, blockPos, true);
+							Inventory chestInventory = ChestBlock.getInventory((ChestBlock)blockState.getBlock(), blockState, serverWorld, blockPos, true);
 							for(int j = 0; j < chestInventory.size(); j++){
 								temporaryMimicInventory.set(j, chestInventory.getStack(j));
 								chestInventory.setStack(j, ItemStack.EMPTY);
 							}
 							BlockState newLeechChestBlockState = BWPObjects.MIMIC_CHEST.getDefaultState().with(Properties.HORIZONTAL_FACING, blockState.get(FACING));
-							world.setBlockState(blockPos, newLeechChestBlockState);
-							MimicChestBlockEntity leechChestBlockEntity = (MimicChestBlockEntity) world.getBlockEntity(blockPos);
+							serverWorld.setBlockState(blockPos, newLeechChestBlockState);
+							MimicChestBlockEntity leechChestBlockEntity = (MimicChestBlockEntity) serverWorld.getBlockEntity(blockPos);
 							leechChestBlockEntity.getInventoryChest();
 							for(int k = 0; k < temporaryMimicInventory.size(); k++){
 								leechChestBlockEntity.getInventoryChest().set(k, temporaryMimicInventory.get(k));

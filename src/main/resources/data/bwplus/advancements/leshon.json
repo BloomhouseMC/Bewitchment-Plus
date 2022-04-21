@@ -1,0 +1,34 @@
+{
+  "parent": "bwplus:root",
+  "display": {
+    "title": "Me Monster?",
+    "description": "I should take a bath",
+    "icon": {
+      "item": "bwplus:leshon_skull"
+    },
+    "show_toast": true,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "bwplus:leshon": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "predicate": {
+              "type" : "bwplus:leshon"
+            },
+            "entity" : "this"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "bwplus:leshon"
+    ]
+  ]
+}
+

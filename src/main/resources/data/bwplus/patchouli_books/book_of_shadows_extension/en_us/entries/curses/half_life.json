@@ -1,0 +1,13 @@
+{
+  "category": "bewitchment:curses",
+  "name": "Half Life",
+  "icon": "bwplus:unicorn_blood",
+  "advancement": "bwplus:unicorn",
+  "entry_color": "3EA9ff",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "This curse will kill you, you can extend the cure by drinking more unicorn blood, or rid of it by being resurrected, like with a $(br2)$(l)Totem of Undying$(), $(l:bewitchment:poppets/death_protection)Death Protection$() Poppet or $(l:bwplus:rituals/make_effigy)Effigy$()"
+    }
+  ]
+}

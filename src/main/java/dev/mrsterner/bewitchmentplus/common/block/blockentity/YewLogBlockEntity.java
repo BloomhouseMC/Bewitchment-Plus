@@ -32,7 +32,7 @@ public class YewLogBlockEntity extends BlockEntity {
             while(var11.hasNext()) {
                 playerEntity = var11.next();
                 if(playerEntity.getEquippedStack(EquipmentSlot.HEAD).getItem().equals(BWPObjects.LESHON_SKULL.asItem())){
-                    playerEntity.addStatusEffect(new StatusEffectInstance(BWPStatusEffects.HOMESTEAD, 20 * 2, 1, true, true));
+                    playerEntity.addStatusEffect(new StatusEffectInstance(BWPStatusEffects.HOMESTEAD, 20 * 3, 1, true, true));
                 }
             }
         }

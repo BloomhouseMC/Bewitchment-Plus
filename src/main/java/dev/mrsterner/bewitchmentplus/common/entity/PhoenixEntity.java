@@ -1,12 +1,12 @@
 package dev.mrsterner.bewitchmentplus.common.entity;
 
+import dev.mrsterner.bewitchmentplus.common.entity.ai.PhoenixFlyGoal;
 import dev.mrsterner.bewitchmentplus.common.entity.ai.PhoenixRebirthGoal;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
 import moriyashiine.bewitchment.common.entity.living.util.BWTameableEntity;
 import moriyashiine.bewitchment.common.registry.BWSoundEvents;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.FuzzyTargeting;
 import net.minecraft.entity.ai.control.FlightMoveControl;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.BirdNavigation;
@@ -24,7 +24,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -37,7 +36,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 public class PhoenixEntity extends BWTameableEntity implements IAnimatable {
     private final AnimationFactory factory = new AnimationFactory(this);
-    private static final TrackedData<Boolean> FLYING = DataTracker.registerData(PhoenixEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    public static final TrackedData<Boolean> FLYING = DataTracker.registerData(PhoenixEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public PhoenixEntity(EntityType<? extends TameableEntity> type, World world) {
         super(type, world);
         this.moveControl = new FlightMoveControl(this, 180, false);
@@ -68,7 +67,7 @@ public class PhoenixEntity extends BWTameableEntity implements IAnimatable {
         this.goalSelector.add(2, new MeleeAttackGoal(this, 1.0D, true));
         this.goalSelector.add(3, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
         this.goalSelector.add(4, new AnimalMateGoal(this, 1.0D));
-        this.goalSelector.add(5, new PhoenixEntity.WanderAroundFarGoal(this, 1.0D));
+        this.goalSelector.add(5, new PhoenixFlyGoal(this, 1.0D));
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(6, new LookAroundGoal(this));
         this.targetSelector.add(0, new TrackOwnerAttackerGoal(this));
@@ -146,41 +145,5 @@ public class PhoenixEntity extends BWTameableEntity implements IAnimatable {
         return factory;
     }
 
-    public class WanderAroundFarGoal extends WanderAroundGoal {
-        private PhoenixEntity phoenixEntity;
-        public static final float CHANCE = 0.001F;
-        protected final float probability;
 
-        @Override
-        public void start() {
-            phoenixEntity.getDataTracker().set(FLYING, true);
-            super.start();
-        }
-
-        @Override
-        public void stop() {
-            phoenixEntity.getDataTracker().set(FLYING, false);
-            super.stop();
-        }
-
-        public WanderAroundFarGoal(PhoenixEntity pathAwareEntity, double d) {
-            this(pathAwareEntity, d, 0.001F);
-        }
-
-        public WanderAroundFarGoal(PhoenixEntity mob, double speed, float probability) {
-            super(mob, speed);
-            this.probability = probability;
-            this.phoenixEntity = mob;
-        }
-
-        @Nullable
-        protected Vec3d getWanderTarget() {
-            if (this.mob.isInsideWaterOrBubbleColumn()) {
-                Vec3d vec3d = FuzzyTargeting.find(this.mob, 15, 7);
-                return vec3d == null ? super.getWanderTarget() : vec3d;
-            } else {
-                return this.mob.getRandom().nextFloat() >= this.probability ? FuzzyTargeting.find(this.mob, 10, 7) : super.getWanderTarget();
-            }
-        }
-    }
 }

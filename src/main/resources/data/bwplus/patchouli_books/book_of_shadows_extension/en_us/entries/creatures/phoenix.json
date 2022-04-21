@@ -1,0 +1,17 @@
+{
+  "category": "bewitchment:creatures",
+  "name": "Phoenix",
+  "icon": "bwplus:phoenix_spawn_egg",
+  "entry_color": "3EA9ff",
+  "advancement": "bwplus:hidden_unlocks/ectoplasm",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Phoenix!, Summoned with the $(l:bewitchment:rituals/rituals#spectral_familiar)Spectral Familiar Ritual$()"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "bwplus:phoenix"
+    }
+  ]
+}
