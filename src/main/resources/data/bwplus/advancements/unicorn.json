@@ -1,0 +1,34 @@
+{
+  "parent": "bwplus:root",
+  "display": {
+    "title": "You MONSTER!",
+    "description": "The purest of beings",
+    "icon": {
+      "item": "bwplus:unicorn_blood"
+    },
+    "show_toast": true,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "bwplus:unicorn": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "predicate": {
+              "type" : "bwplus:unicorn"
+            },
+            "entity" : "this"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "bwplus:unicorn"
+    ]
+  ]
+}
+

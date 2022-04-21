@@ -1,0 +1,22 @@
+{
+  "display": {
+    "title": {
+      "text": "Bewitchment Plus"
+    },
+    "description": {
+      "text": "..."
+    },
+    "icon": {
+      "item": "bwplus:silver_goblet"
+    },
+    "hidden": false,
+    "background": "minecraft:textures/block/gray_concrete.png",
+    "show_toast": false,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "trigger": {
+      "trigger": "minecraft:tick"
+    }
+  }
+}

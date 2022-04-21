@@ -2,6 +2,7 @@ package dev.mrsterner.bewitchmentplus.common.entity;
 
 import dev.mrsterner.bewitchmentplus.common.entity.ai.*;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPEntityTypes;
+import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPTags;
 import dev.mrsterner.bewitchmentplus.mixin.common.MobEntityAccessor;
 import moriyashiine.bewitchment.common.entity.living.util.BWTameableEntity;
@@ -10,10 +11,12 @@ import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
@@ -22,6 +25,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.LocalDifficulty;
@@ -58,6 +62,11 @@ public class NifflerEntity extends BWTameableEntity implements IAnimatable, Inve
         .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0D)
         .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25D)
         .add(EntityAttributes.GENERIC_FLYING_SPEED, 0.6D);
+    }
+
+
+    public ItemStack getPickedResult(HitResult target) {
+        return new ItemStack(BWPObjects.NIFFLER_SPAWN_EGG.asItem());
     }
 
     private <E extends IAnimatable> PlayState devMovement(AnimationEvent<E> animationEvent) {
@@ -218,6 +227,8 @@ public class NifflerEntity extends BWTameableEntity implements IAnimatable, Inve
         ItemEntity itemEntity = new ItemEntity(this.world, this.getX(), this.getY(), this.getZ(), stack);
         this.world.spawnEntity(itemEntity);
     }
+
+
 
 
     @Override

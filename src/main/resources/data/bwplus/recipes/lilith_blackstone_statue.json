@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DSD",
+    " S ",
+    "SRS"
+  ],
+  "key": {
+    "D": {
+      "tag": "c:silver_ingots"
+    },
+    "S": {
+      "item": "minecraft:polished_blackstone"
+    },
+    "R": {
+      "item": "bewitchment:mandrake_root"
+    }
+  },
+  "result": {
+    "item": "bwplus:statue_lilith_blackstone"
+  }
+}

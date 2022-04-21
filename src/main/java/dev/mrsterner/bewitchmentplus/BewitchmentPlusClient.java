@@ -49,6 +49,7 @@ public class BewitchmentPlusClient implements ClientModInitializer {
 		ClientTickEvents.END_CLIENT_TICK.register(ClientTickHandler::clientTickEnd);
 
 		GeoArmorRenderer.registerArmorRenderer(new LeshonSkullArmorRenderer(), BWPObjects.LESHON_SKULL);
+		GeoItemRenderer.registerItemRenderer(BWPObjects.LESHON_SKULL, new LeshonSkullItemRenderer());
 
 		BlockEntityRendererRegistry.register(BWPBlockEntityTypes.GOBLET, ctx -> new GobletBlockItemRenderer());
 		BlockEntityRendererRegistry.register(BWPBlockEntityTypes.STATUE_BLOCK_ENTITY, ctx -> new StatueRenderer());

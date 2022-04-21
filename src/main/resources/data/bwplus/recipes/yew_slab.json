@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wooden_slab",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "bwplus:yew_planks"
+    }
+  },
+  "result": {
+    "item": "bwplus:yew_slab",
+    "count": 6
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " L ",
+    " D ",
+    "SOS"
+  ],
+  "key": {
+    "L": {
+      "item": "bwplus:yew_log"
+    },
+    "D": {
+      "item": "bewitchment:demon_heart"
+    },
+    "S": {
+      "item": "bwplus:yew_sapling"
+    },
+    "O": {
+      "item": "bewitchment:heaven_extract"
+    }
+  },
+  "result": {
+    "item": "bwplus:yew_broom"
+  }
+}

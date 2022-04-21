@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "tag": "c:silver_blocks"
+  },
+  "result": "bwplus:silver_stairs",
+  "count": 1
+}

@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "bwplus:yew_chest",
+    "bwplus:trapped_yew_chest",
+    "bwplus:mimic_chest",
+    "bwplus:leech_chest"
+  ]
+}

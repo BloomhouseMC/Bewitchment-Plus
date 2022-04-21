@@ -45,14 +45,15 @@ public class BWPObjects {
 	public static final Item MOONLIGHT_INFUSION = register("moonlight_infusion", new Item(gen().recipeRemainder(Items.GLASS_BOTTLE)));
 	public static final Item ENDER_INFUSION = register("ender_vial", new Item(gen().recipeRemainder(Items.GLASS_BOTTLE)));//0x70922d
 	public static final Item BLACK_DOG_SPAWN_EGG = register("black_dog_spawn_egg", new SpawnEggItem(BWPEntityTypes.BLACK_DOG, 0x000000, 0x343434, new Item.Settings().group(ItemGroup.MISC)));
-	public static final Item CAMBION_SPAWN_EGG = register("cambion_spawn_egg",new SpawnEggItem(BWPEntityTypes.CAMBION,  0xE34234, 0x343434, new Item.Settings().group(ItemGroup.MISC)));
+	public static final Item NIFFLER_SPAWN_EGG = register("niffler_spawn_egg", new SpawnEggItem(BWPEntityTypes.NIFFLER, 0xFFFFFF, 0x8F95E6, new Item.Settings().group(ItemGroup.MISC)));
+	public static final Item PHOENIX_SPAWN_EGG = register("phoenix_spawn_egg", new SpawnEggItem(BWPEntityTypes.PHOENIX, 0xFFFFFF, 0x09E6D0, new Item.Settings().group(ItemGroup.MISC)));
+	public static final Item UNICORN_SPAWN_EGG = register("unicorn_spawn_egg", new SpawnEggItem(BWPEntityTypes.UNICORN, 0xFFFFFF, 0x0CE69F, new Item.Settings().group(ItemGroup.MISC)));
+	public static final Item CAMBION_SPAWN_EGG = register("cambion_spawn_egg",new SpawnEggItem(BWPEntityTypes.CAMBION,  0xE34234, 0x09E6D0, new Item.Settings().group(ItemGroup.MISC)));
 	public static final Item MUSIC_DISC_PETALS = register("music_disc_petals", new BWPMusicDisc(7, BWPSounds.MUSIC_DISC_PETALS, new Item.Settings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.RARE)));
 	public static final Item YEW_BROOM = register("yew_broom", new BroomItem(gen().maxCount(1), BWPEntityTypes.YEW_BROOM));
 	public static final Item DRAGONBLOOD_STAFF = register("dragonblood_staff", new DragonbloodStaffItem(200, gen().maxCount(1).rarity(Rarity.RARE)));
 
 	public static final Item LESHON_SKULL = register("leshon_skull", new LeshonSkullItem(gen()));
-
-	public static final Item TEST_ITEM = register("test_item", new StructureTestItem(gen()));
 	
 	//BLOCKS
 	public static final Block SILVER_GOBLET = registerGoblet("silver_goblet", new GobletBlock(copyOf(BWObjects.SILVER_BLOCK)));
@@ -66,7 +67,8 @@ public class BWPObjects {
 	public static final Block MOONFLOWER = register("moonflower", new MoonflowerBlock(copyOf(Blocks.STONE)), false, gen());
 	public static final Block MIMIC_CHEST = register("mimic_chest", new MimicChestBlock(FabricBlockSettings.of(Material.WOOD).strength(2.5F).sounds(BlockSoundGroup.WOOD)), true, gen());
 	public static final Block EMBERGRASS = register("embergrass", new BWPPlantBlock(copyOf(Blocks.GRASS),8), true, gen());
-	public static final Block LEECH_CHEST = register("leech_chest", new LeechChestBlock(FabricBlockSettings.of(Material.PLANT).strength(2.5F, 3.0F).sounds(BlockSoundGroup.MOSS_BLOCK)), true, gen());
+	public static final Block LEECH_CHEST = register("leech_chest", new LeechChestBlock(FabricBlockSettings.of(Material.PLANT).strength(2.5F, 3.0F).sounds(BlockSoundGroup.MOSS_BLOCK)),
+			false /*TODO leech enable when feature complete*/, gen());
 
 	public static final Block LOCACACA_LEAVES = register("locacaca_leaves", new Block(copyOf(Blocks.GRASS).nonOpaque().breakInstantly()), false);
 	public static final Block DRAGONFRUIT_BLOCK = register("dragonfruit_block", new DragonfruitBlock(copyOf(Blocks.MELON)), false);
@@ -126,7 +128,7 @@ public class BWPObjects {
 	public static final Item YEW_DOOR_ITEM = register("yew_door", new TallBlockItem(YEW_DOOR, gen()));
 	public static final Block YEW_CHEST = register("yew_chest", new YewChestBlock(copyOf(Blocks.CHEST), () -> BWPBlockEntityTypes.YEW_CHEST_BLOCK_ENTITY, false), true);
 	public static final Block TRAPPED_YEW_CHEST = register("trapped_yew_chest", new YewChestBlock(copyOf(Blocks.CHEST), () -> BWPBlockEntityTypes.YEW_CHEST_BLOCK_ENTITY, true), true);
-	private static final Identifier YEW_SIGN_TEXTURE = new Identifier(BewitchmentPlus.MODID, "entity/sign/yew");
+	public static final Identifier YEW_SIGN_TEXTURE = new Identifier(BewitchmentPlus.MODID, "entity/sign/yew");
 	public static final YewSignBlock YEW_SIGN = register("yew_sign", new YewSignBlock(YEW_SIGN_TEXTURE, copyOf(Blocks.OAK_SIGN)), false);
 	public static final Block YEW_WALL_SIGN = register("yew_wall_sign", new YewWallSignBlock(YEW_SIGN_TEXTURE, copyOf(Blocks.OAK_WALL_SIGN)), false);
 	public static final Item YEW_SIGN_ITEM = register("yew_sign", new SignItem(gen().maxCount(16), YEW_SIGN, YEW_WALL_SIGN));

@@ -11,14 +11,14 @@ import java.util.UUID;
 
 
 public class LeshonLogic {
-    public static final EntityAttributeModifier LESHON_MOVEMENT_SPEED_MODIFIER = new EntityAttributeModifier(UUID.fromString("718104a6-aa19-4b53-bad9-2f9edd46d38a"), "Transformation modifier", 0.16, EntityAttributeModifier.Operation.ADDITION);
-    private static final EntityAttributeModifier LESHON_REACH_MODIFIER = new EntityAttributeModifier(UUID.fromString("4c6d90ab-41ad-4d8a-b77a-6329361d3a7b"), "Transformation modifier", 1, EntityAttributeModifier.Operation.ADDITION);
-    private static final EntityAttributeModifier LESHON_STEP_HEIGHT_MODIFIER = new EntityAttributeModifier(UUID.fromString("af386c1c-b4fc-429d-87b6-b2559826fa9d"), "Transformation modifier", 0.4, EntityAttributeModifier.Operation.ADDITION);
-    private static final EntityAttributeModifier LESHON_ATTACK_RANGE_MODIFIER = new EntityAttributeModifier(UUID.fromString("ae0e4c0a-971f-4629-89ad-60c115112c1d"), "Transformation modifier", 1, EntityAttributeModifier.Operation.ADDITION);
-    private static final EntityAttributeModifier LESHON_ATTACK_SPEED_MODIFIER = new EntityAttributeModifier(UUID.fromString("db2512a4-654d-4843-8b06-619748a33954"), "Transformation modifier", -2, EntityAttributeModifier.Operation.ADDITION);
-    private static final EntityAttributeModifier LESHON_ARMOR_MODIFIER = new EntityAttributeModifier(UUID.fromString("f00b1b0f-8ad6-4a2f-bdf5-6c337ffee56c"), "Transformation modifier", 16, EntityAttributeModifier.Operation.ADDITION);
-    private static final EntityAttributeModifier LESHON_ATTACK_DAMAGE_MODIFIER_1 = new EntityAttributeModifier(UUID.fromString("12c0bedf-bde5-4cae-8acc-90b1204731dd"), "Transformation modifier", 30, EntityAttributeModifier.Operation.ADDITION);
-    private static final EntityAttributeModifier LESHON_ARMOR_TOUGHNESS_MODIFIER_1 = new EntityAttributeModifier(UUID.fromString("edfd078d-e25c-4e27-ad91-c2b32037c8be"), "Transformation modifier", 16, EntityAttributeModifier.Operation.ADDITION);
+    public static final EntityAttributeModifier LESHON_MOVEMENT_SPEED_MODIFIER = new EntityAttributeModifier(UUID.fromString("718104a6-aa19-4b53-bad9-2f9edd46d38b"), "Transformation modifier", 0.16, EntityAttributeModifier.Operation.ADDITION);
+    private static final EntityAttributeModifier LESHON_REACH_MODIFIER = new EntityAttributeModifier(UUID.fromString("4c6d90ab-41ad-4d8a-b77a-6329361d3a7c"), "Transformation modifier", 1, EntityAttributeModifier.Operation.ADDITION);
+    private static final EntityAttributeModifier LESHON_STEP_HEIGHT_MODIFIER = new EntityAttributeModifier(UUID.fromString("af386c1c-b4fc-429d-87b6-b2559826fa9e"), "Transformation modifier", 0.4, EntityAttributeModifier.Operation.ADDITION);
+    private static final EntityAttributeModifier LESHON_ATTACK_RANGE_MODIFIER = new EntityAttributeModifier(UUID.fromString("ae0e4c0a-971f-4629-89ad-60c115112c1e"), "Transformation modifier", 1, EntityAttributeModifier.Operation.ADDITION);
+    private static final EntityAttributeModifier LESHON_ATTACK_SPEED_MODIFIER = new EntityAttributeModifier(UUID.fromString("db2512a4-654d-4843-8b06-619748a33955"), "Transformation modifier", -2, EntityAttributeModifier.Operation.ADDITION);
+    private static final EntityAttributeModifier LESHON_ARMOR_MODIFIER = new EntityAttributeModifier(UUID.fromString("f00b1b0f-8ad6-4a2f-bdf5-6c337ffee56f"), "Transformation modifier", 16, EntityAttributeModifier.Operation.ADDITION);
+    private static final EntityAttributeModifier LESHON_ATTACK_DAMAGE_MODIFIER_1 = new EntityAttributeModifier(UUID.fromString("12c0bedf-bde5-4cae-8acc-90b1204731de"), "Transformation modifier", 30, EntityAttributeModifier.Operation.ADDITION);
+    private static final EntityAttributeModifier LESHON_ARMOR_TOUGHNESS_MODIFIER_1 = new EntityAttributeModifier(UUID.fromString("edfd078d-e25c-4e27-ad91-c2b32037c8bf"), "Transformation modifier", 16, EntityAttributeModifier.Operation.ADDITION);
 
 
     public static void handleAttributes(PlayerEntity player){

@@ -5,7 +5,18 @@
   "item.bwplus.black_dog_spawn_egg": "Black Dog Spawn Egg",
   "item.bwplus.cambion_spawn_egg": "Cambion Spawn Egg",
 
-  "item.bwplus.spectral_crystal": "Spectral Crystal",
+  "item.bwplus.soul": "Soul",
+
+  "item.bwplus.bloodroot_item": "Bloodroot",
+  "item.bwplus.dragonfruit": "Dragon Fruit",
+  "item.bwplus.mutandis_brew": "Mutandis Brew",
+  "item.bwplus.mutandis": "Mutandis",
+  "item.bwplus.unicorn_blood": "Unicorn Blood",
+  "item.bwplus.moonlight_infusion": "Moonlight Infusion",
+  "item.bwplus.ender_vial": "Ender Vial",
+  "item.bwplus.yew_broom": "Yew Broom",
+  "item.bwplus.dragonblood_staff": "Dragonblood Staff",
+  "item.bwplus.leshon_skull": "Leshon Skull",
 
   "liquid.bottle_of_blood" : "Blood",
   "liquid.potion" : "Water",
@@ -13,9 +24,85 @@
   "liquid.unicorn_blood" : "Unicorn Blood",
 
   "block.bwplus.silver_goblet": "Silver Goblet",
-  "block.bwplus.snetherite_goblet": "Netherite Goblet",
+  "block.bwplus.netherite_goblet": "Netherite Goblet",
   "block.bwplus.gold_goblet": "Gold Goblet",
   "block.bwplus.leech_chest": "Leech Chest",
+  "block.bwplus.mimic_chest": "Mimic Chest",
+
+  "block.bwplus.silver_standing_candelabra": "Silver Standing Candelabra",
+  "block.bwplus.netherite_standing_candelabra": "Netherite Standing Candelabra",
+  "block.bwplus.gold_standing_candelabra": "Gold Standing Candelabra",
+
+  "block.bwplus.pentacle": "Pentacle",
+  "block.bwplus.embergrass": "Embergrass",
+
+  "block.bwplus.silver_stairs": "Silver Stairs",
+  "block.bwplus.cut_silver_stairs": "Cut Silver Stairs",
+  "block.bwplus.silver_slab": "Silver Slab",
+  "block.bwplus.cut_silver_block": "Cut Silver Block",
+  "block.bwplus.cut_silver_slab": "Cut Silver Slab",
+
+
+  "block.bwplus.locacaca_leaves": "Lotus Leaves",
+  "block.bwplus.locacaca_log": "Lotus Log",
+  "block.bwplus.locacaca_branch": "Lotus Branch",
+  "block.bwplus.dragonfruit_block": "Dragon Fruit",
+
+  "block.bwplus.stripped_yew_log": "Stripped Yew Log",
+  "block.bwplus.stripped_yew_wood": "Stripped Yew Wood",
+  "block.bwplus.yew_log": "Yew Log",
+  "block.bwplus.yew_cut_log": "Cut Yew Log",
+  "block.bwplus.yew_wood": "Yew Wood",
+  "block.bwplus.yew_planks": "Yew Planks",
+  "block.bwplus.yew_stairs": "Yew Stairs",
+  "block.bwplus.yew_slab": "Yew Slab",
+
+  "block.bwplus.yew_fence": "Yew Fence",
+  "block.bwplus.yew_fence_gate": "Yew Fence Gate",
+  "block.bwplus.yew_leaves": "Yew Leaves",
+  "block.bwplus.yew_sapling": "Yew Sapling",
+  "block.bwplus.yew_pressure_plate": "Yew Pressure Plate",
+  "block.bwplus.yew_button": "Yew Button",
+  "block.bwplus.yew_trapdoor": "Yew Trapdoor",
+  "block.bwplus.yew_door": "Yew Door",
+  "block.bwplus.yew_chest": "Yew Chest",
+  "block.bwplus.trapped_yew_chest": "Trapped Yew Chest",
+  "block.bwplus.yew_sign": "Yew Sign",
+
+
+  "block.bwplus.white_blackstone_coffin": "White Blackstone Coffin",
+  "block.bwplus.orange_blackstone_coffin": "Orange Blackstone Coffin",
+  "block.bwplus.magenta_blackstone_coffin": "Magenta Blackstone Coffin",
+  "block.bwplus.light_blue_blackstone_coffin": "Light Blue Blackstone Coffin",
+  "block.bwplus.yellow_blackstone_coffin": "Yellow Blackstone Coffin",
+  "block.bwplus.lime_blackstone_coffin": "Lime Blackstone Coffin",
+  "block.bwplus.pink_blackstone_coffin": "Pink Blackstone Coffin",
+  "block.bwplus.gray_blackstone_coffin": "Gray Blackstone Coffin",
+  "block.bwplus.light_gray_blackstone_coffin": "Light Gray Blackstone Coffin",
+  "block.bwplus.cyan_blackstone_coffin": "Cyan Blackstone Coffin",
+  "block.bwplus.purple_blackstone_coffin": "Purple Blackstone Coffin",
+  "block.bwplus.blue_blackstone_coffin": "Blue Blackstone Coffin",
+  "block.bwplus.brown_blackstone_coffin": "Brown Blackstone Coffin",
+  "block.bwplus.green_blackstone_coffin": "Green Blackstone Coffin",
+  "block.bwplus.red_blackstone_coffin": "Red Blackstone Coffin",
+  "block.bwplus.black_blackstone_coffin": "Black Blackstone Coffin",
+
+
+  "block.bwplus.statue_lilith_blackstone": "Lilith Blackstone Statue",
+  "block.bwplus.statue_lilith_gold": "Lilith Gold Statue",
+  "block.bwplus.statue_lilith_netherbrick": "Lilith Netherbrick Statue",
+
+  "block.bwplus.statue_herne_blackstone": "Herne Blackstone Statue",
+  "block.bwplus.statue_herne_gold": "Herne Gold Statue",
+  "block.bwplus.statue_herne_netherbrick": "Herne Netherbrick Statue",
+
+  "block.bwplus.statue_leonard_blackstone": "Leonard Blackstone Statue",
+  "block.bwplus.statue_leonard_gold": "Leonard Gold Statue",
+  "block.bwplus.statue_leonard_netherbrick": "Leonard Netherbrick Statue",
+
+  "block.bwplus.statue_baphomet_blackstone": "Baphomet Blackstone Statue",
+  "block.bwplus.statue_baphomet_gold": "Baphomet Gold Statue",
+  "block.bwplus.statue_baphomet_netherbrick": "Baphomet Netherbrick Statue",
 
   "block.bwplus.red_witch_wool": "Red Fleece",
   "block.bwplus.green_witch_wool": "Green Fleece",
@@ -49,6 +136,9 @@
   "block.bwplus.lime_witch_wool_carpet": "Lime Fleece Carpet",
   "block.bwplus.magenta_witch_wool_carpet": "Magenta Fleece Carpet",
   "block.bwplus.white_witch_wool_carpet": "White Fleece Carpet",
+
+
+
 
   "block.bwplus.rgb_witch_wool": "1337Fleece",
   "block.bwplus.rgb_witch_wool_carpet": "1337Fleece Carpet",

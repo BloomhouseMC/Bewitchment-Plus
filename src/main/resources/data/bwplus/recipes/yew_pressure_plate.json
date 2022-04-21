@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wooden_pressure_plate",
+  "pattern": [
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "bwplus:yew_planks"
+    }
+  },
+  "result": {
+    "item": "bwplus:yew_pressure_plate"
+  }
+}

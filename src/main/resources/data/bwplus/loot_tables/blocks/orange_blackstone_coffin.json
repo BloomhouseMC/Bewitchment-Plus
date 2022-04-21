@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "block_state_property",
+              "block": "bwplus:orange_blackstone_coffin",
+              "properties": {
+                "part": "head"
+              }
+            }
+          ],
+          "name": "bwplus:orange_blackstone_coffin"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ]
+    }
+  ]
+}

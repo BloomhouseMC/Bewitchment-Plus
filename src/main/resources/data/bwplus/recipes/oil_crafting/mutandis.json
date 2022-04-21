@@ -1,0 +1,18 @@
+{
+  "type": "bewitchment:oil_recipe",
+  "ingredients": [
+    {
+      "item": "minecraft:egg"
+    },
+    {
+      "item": "bewitchment:mandrake_root"
+    },
+    {
+      "item": "minecraft:bone_meal"
+    }
+  ],
+  "result": {
+    "item": "bwplus:mutandis"
+  },
+  "color": 13893631
+}

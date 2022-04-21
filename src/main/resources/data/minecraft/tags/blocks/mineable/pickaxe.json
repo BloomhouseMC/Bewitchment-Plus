@@ -3,6 +3,32 @@
   "values": [
     "bwplus:silver_goblet",
     "bwplus:gold_goblet",
-    "bwplus:netherite_goblet"
+    "bwplus:netherite_goblet",
+    "bwplus:silver_standing_candelabra",
+    "bwplus:gold_standing_candelabra",
+    "bwplus:netherite_standing_candelabra",
+    "bwplus:cut_silver_block",
+    "bwplus:cut_silver_slab",
+    "bwplus:cut_silver_stairs",
+    "bwplus:silver_slab",
+    "bwplus:silver_stairs",
+    "bwplus:black_blackstone_coffin",
+    "bwplus:white_blackstone_coffin",
+    "bwplus:brown_blackstone_coffin",
+    "bwplus:red_blackstone_coffin",
+    "bwplus:orange_blackstone_coffin",
+    "bwplus:yellow_blackstone_coffin",
+    "bwplus:lime_blackstone_coffin",
+    "bwplus:green_blackstone_coffin",
+    "bwplus:cyan_blackstone_coffin",
+    "bwplus:light_blue_blackstone_coffin",
+    "bwplus:blue_blackstone_coffin",
+    "bwplus:purple_blackstone_coffin",
+    "bwplus:magenta_blackstone_coffin",
+    "bwplus:pink_blackstone_coffin",
+    "bwplus:light_gray_blackstone_coffin",
+    "bwplus:gray_blackstone_coffin"
+
+
     ]
 }

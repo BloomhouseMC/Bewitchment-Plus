@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DSD",
+    " S ",
+    "SRS"
+  ],
+  "key": {
+    "D": {
+      "item": "minecraft:stick"
+    },
+    "S": {
+      "item": "minecraft:nether_bricks"
+    },
+    "R": {
+      "item": "bewitchment:belladonna"
+    }
+  },
+  "result": {
+    "item": "bwplus:statue_herne_netherbrick"
+  }
+}

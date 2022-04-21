@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "TTT",
+    "NIN",
+    " B "
+  ],
+  "key": {
+    "T": {
+      "item": "torch"
+    },
+    "N": {
+      "item": "netherite_scrap"
+    },
+    "I": {
+      "item": "netherite_ingot"
+    },
+    "B": {
+      "item": "netherite_block"
+    }
+  },
+  "result": {
+    "item": "bwplus:netherite_standing_candelabra"
+  }
+}

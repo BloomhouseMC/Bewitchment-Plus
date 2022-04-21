@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wooden_fence",
+  "pattern": [
+    "#W#",
+    "#W#"
+  ],
+  "key": {
+    "#": {
+      "item": "stick"
+    },
+    "W": {
+      "item": "bwplus:yew_planks"
+    }
+  },
+  "result": {
+    "item": "bwplus:yew_fence_gate",
+    "count": 3
+  }
+}

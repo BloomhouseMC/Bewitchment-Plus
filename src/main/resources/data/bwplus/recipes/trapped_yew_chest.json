@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "bwplus:yew_chest"
+    },
+    {
+      "item": "tripwire_hook"
+    }
+  ],
+  "result": {
+    "item": "bwplus:trapped_yew_chest"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DSD",
+    " S ",
+    "SRS"
+  ],
+  "key": {
+    "D": {
+      "item": "bewitchment:demon_horn"
+    },
+    "S": {
+      "item": "minecraft:polished_blackstone"
+    },
+    "R": {
+      "item": "minecraft:paper"
+    }
+  },
+  "result": {
+    "item": "bwplus:statue_baphomet_blackstone"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CCC",
+    "CBC",
+    "CCC"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:blackstone"
+    },
+    "B": {
+      "item": "yellow_bed"
+    }
+  },
+  "result": {
+    "item": "bwplus:yellow_blackstone_coffin"
+  }
+}

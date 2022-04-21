@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "# #",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "bwplus:yew_planks"
+    }
+  },
+  "result": {
+    "item": "bwplus:yew_chest"
+  }
+}

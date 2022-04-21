@@ -1,0 +1,128 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "conditions": [
+                {
+                  "condition": "alternative",
+                  "terms": [
+                    {
+                      "condition": "match_tool",
+                      "predicate": {
+                        "tag": "fabric:shears"
+                      }
+                    },
+                    {
+                      "condition": "match_tool",
+                      "predicate": {
+                        "enchantments": [
+                          {
+                            "enchantment": "silk_touch",
+                            "levels": {
+                              "min": 1
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ],
+              "name": "bwplus:yew_leaves"
+            },
+            {
+              "type": "minecraft:item",
+              "conditions": [
+                {
+                  "condition": "minecraft:survives_explosion"
+                },
+                {
+                  "condition": "table_bonus",
+                  "enchantment": "fortune",
+                  "chances": [
+                    0.05,
+                    0.0625,
+                    0.083333336,
+                    0.1
+                  ]
+                }
+              ],
+              "name": "bwplus:yew_sapling"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "table_bonus",
+              "enchantment": "fortune",
+              "chances": [
+                0.02,
+                0.022222223,
+                0.025,
+                0.033333335,
+                0.1
+              ]
+            }
+          ],
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1.0,
+                "max": 2.0,
+                "type": "uniform"
+              }
+            },
+            {
+              "function": "minecraft:explosion_decay"
+            }
+          ],
+          "name": "stick"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "inverted",
+          "term": {
+            "condition": "alternative",
+            "terms": [
+              {
+                "condition": "match_tool",
+                "predicate": {
+                  "item": "shears"
+                }
+              },
+              {
+                "condition": "match_tool",
+                "predicate": {
+                  "enchantments": [
+                    {
+                      "enchantment": "silk_touch",
+                      "levels": {
+                        "min": 1
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

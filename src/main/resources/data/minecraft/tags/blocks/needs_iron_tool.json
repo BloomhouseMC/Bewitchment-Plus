@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "bwplus:cut_silver_block",
+    "bwplus:silver_slab",
+    "bwplus:silver_stairs",
+    "bwplus:cut_silver_slab",
+    "bwplus:cut_silver_stairs",
+    "bwplus:gold_standing_candelabra",
+    "bwplus:silver_standing_candelabra"
+  ]
+}

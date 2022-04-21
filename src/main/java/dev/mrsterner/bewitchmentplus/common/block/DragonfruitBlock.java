@@ -22,34 +22,8 @@ public class DragonfruitBlock extends Block {
         return VoxelShapes.union(createCuboidShape(5, 0, 5, 11, 4, 11), createCuboidShape(6, 4, 6, 10, 7, 10));
     }
 
-    @Override
-    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        if (world.getBlockState(pos) == Blocks.AIR.getDefaultState()) {
-            int i;
-            for (i = 2; i < 6; ++i) {
-                BlockPos blockPos = pos.up();
-                BlockPos blockPos1 = blockPos.offset(Direction.byId(i));
-                if (!world.getFluidState(blockPos.offset(Direction.byId(i))).isEmpty()) {
-                    return false;
-                }
-                if (!world.getFluidState(blockPos1.offset(Direction.byId(i).rotateYClockwise())).isEmpty()) {
-                    return false;
-                }
-            }
-            for (i = 2; i < 6; ++i) {
-                BlockPos pos1 = pos.down();
-                BlockPos pos2 = pos1.offset(Direction.byId(i));
-                if (!world.getFluidState(pos1.offset(Direction.byId(i))).isEmpty()) {
-                    return false;
-                }
-                if (!world.getFluidState(pos2.offset(Direction.byId(i).rotateYClockwise())).isEmpty()) {
-                    return false;
-                }
-            }
-            return world.getBlockState(pos.down()).isSideSolidFullSquare(world, pos, Direction.UP);
-        }
-        else return false;
-    }
+
+
 
     @Override
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState newState, WorldAccess world, BlockPos pos, BlockPos posFrom) {

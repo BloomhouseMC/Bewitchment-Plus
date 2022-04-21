@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "TTT",
+    "NIN",
+    " B "
+  ],
+  "key": {
+    "T": {
+      "item": "torch"
+    },
+    "N": {
+      "item": "gold_nugget"
+    },
+    "I": {
+      "item": "gold_ingot"
+    },
+    "B": {
+      "item": "gold_block"
+    }
+  },
+  "result": {
+    "item": "bwplus:gold_standing_candelabra"
+  }
+}

@@ -1,6 +1,7 @@
 package dev.mrsterner.bewitchmentplus.common.entity;
 
 import dev.mrsterner.bewitchmentplus.common.entity.ai.PhoenixRebirthGoal;
+import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
 import moriyashiine.bewitchment.common.entity.living.util.BWTameableEntity;
 import moriyashiine.bewitchment.common.registry.BWSoundEvents;
 import net.minecraft.block.BlockState;
@@ -17,6 +18,7 @@ import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -35,6 +37,9 @@ public class PhoenixEntity extends BWTameableEntity implements IAnimatable {
         this.moveControl = new FlightMoveControl(this, 180, false);
     }
 
+    public ItemStack getPickedResult(HitResult target) {
+        return new ItemStack(BWPObjects.PHOENIX_SPAWN_EGG.asItem());
+    }
     public static DefaultAttributeContainer.Builder createAttributes() {
         return MobEntity.createMobAttributes()
         .add(EntityAttributes.GENERIC_MAX_HEALTH, 8.0D)
