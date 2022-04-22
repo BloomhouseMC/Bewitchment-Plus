@@ -21,7 +21,7 @@ versions of [Minecraft][minecraft] Java Edition.
 Discord link: [BloomhouseMC][contributing]
 
 ## Do you have any suggestions for what should be in Bewitchment Plus?
-You can let us know in the #Suggestions channel on our Discord!
+You can let us know in the #Suggestions channel on our [Discord][contributing]!
 
 
 
