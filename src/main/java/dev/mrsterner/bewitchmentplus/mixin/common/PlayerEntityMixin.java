@@ -7,18 +7,24 @@ import dev.mrsterner.bewitchmentplus.common.registry.BWPTransformations;
 import dev.mrsterner.bewitchmentplus.common.transformation.LeshonLogic;
 import dev.mrsterner.bewitchmentplus.common.utils.BWPUtil;
 import moriyashiine.bewitchment.api.component.TransformationComponent;
+import moriyashiine.bewitchment.client.network.packet.SpawnSmokeParticlesPacket;
 import moriyashiine.bewitchment.common.network.packet.TransformationAbilityPacket;
 import moriyashiine.bewitchment.common.registry.BWComponents;
+import moriyashiine.bewitchment.common.registry.BWSoundEvents;
 import moriyashiine.bewitchment.common.registry.BWTransformations;
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -32,6 +38,8 @@ import static dev.mrsterner.bewitchmentplus.common.transformation.LeshonLogic.LE
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity implements Magical {
     @Shadow public abstract ItemStack getEquippedStack(EquipmentSlot slot);
+
+    @Shadow @Final private PlayerInventory inventory;
 
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
@@ -50,24 +58,37 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Magical 
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void lechonTransform(CallbackInfo ci){
-        PlayerEntity player = (PlayerEntity)(Object)this;
-        if(player.getEquippedStack(EquipmentSlot.HEAD).getItem().equals(BWPObjects.LESHON_SKULL.asItem()) && !player.getEquippedStack(EquipmentSlot.HEAD).getOrCreateNbt().getBoolean("Broken")){
-            if(BWComponents.TRANSFORMATION_COMPONENT.get(player).getTransformation() == BWTransformations.HUMAN){
-                BWComponents.TRANSFORMATION_COMPONENT.get(player).setTransformation(BWPTransformations.LESHON);
-                TransformationAbilityPacket.useAbility(player, true);
-                LeshonLogic.handleAttributes(player);
-            }
-        }else if(BWComponents.TRANSFORMATION_COMPONENT.get(player).getTransformation() == BWPTransformations.LESHON){
-            BWComponents.TRANSFORMATION_COMPONENT.maybeGet(player).ifPresent(transformationComponent -> {
-                if (transformationComponent.isAlternateForm()) {
-                    TransformationAbilityPacket.useAbility(player, true);
+        if (!world.isClient) {
+            PlayerEntity player = (PlayerEntity)(Object)this;
+            if(player.getEquippedStack(EquipmentSlot.HEAD).getItem().equals(BWPObjects.LESHON_SKULL.asItem()) && !player.getEquippedStack(EquipmentSlot.HEAD).getOrCreateNbt().getBoolean("Broken")){
+                if(BWComponents.TRANSFORMATION_COMPONENT.get(player).getTransformation() == BWTransformations.HUMAN){
+                    BWComponents.TRANSFORMATION_COMPONENT.maybeGet(player).ifPresent(transformationComponent -> {
+                        transformationComponent.getTransformation().onRemoved(player);
+                        transformationComponent.setTransformation(BWPTransformations.LESHON);
+                        transformationComponent.getTransformation().onAdded(player);
+                        LeshonLogic.handleAttributes(player);
+                        TransformationAbilityPacket.useAbility(player, true);
+                        PlayerLookup.tracking(this).forEach(trackingPlayer -> SpawnSmokeParticlesPacket.send(trackingPlayer, this));
+                        SpawnSmokeParticlesPacket.send(player, this);
+                        world.playSound(null, getBlockPos(), BWSoundEvents.ENTITY_GENERIC_CURSE, getSoundCategory(), getSoundVolume(), getSoundPitch());
+                    });
                 }
-                transformationComponent.getTransformation().onRemoved(player);
-                transformationComponent.setTransformation(BWTransformations.HUMAN);
-                transformationComponent.getTransformation().onAdded(player);
-                LeshonLogic.handleAttributes(player);
-            });
+            }else if(BWComponents.TRANSFORMATION_COMPONENT.get(player).getTransformation() == BWPTransformations.LESHON){
+                BWComponents.TRANSFORMATION_COMPONENT.maybeGet(player).ifPresent(transformationComponent -> {
+                    if (transformationComponent.isAlternateForm()) {
+                        TransformationAbilityPacket.useAbility(player, true);
+                    }
+                    transformationComponent.getTransformation().onRemoved(player);
+                    transformationComponent.setTransformation(BWTransformations.HUMAN);
+                    transformationComponent.getTransformation().onAdded(player);
+                    LeshonLogic.handleAttributes(player);
+                    PlayerLookup.tracking(this).forEach(trackingPlayer -> SpawnSmokeParticlesPacket.send(trackingPlayer, this));
+                    SpawnSmokeParticlesPacket.send(player, this);
+                    world.playSound(null, getBlockPos(), BWSoundEvents.ENTITY_GENERIC_CURSE, getSoundCategory(), getSoundVolume(), getSoundPitch());
+                });
+            }
         }
+
     }
 
     @Unique
