@@ -42,13 +42,13 @@ public class BWPStatusEffects {
         }
 
         @Override
-        public void onApplied(LivingEntity entity, AttributeContainer attributes, int amplifier) {
+        public void applyUpdateEffect(LivingEntity entity, int amplifier) {
             for(StatusEffect statusEffect : Registry.STATUS_EFFECT){
                 if(!statusEffect.isBeneficial() && !statusEffect.equals(BWPStatusEffects.HALF_LIFE)){
                     entity.removeStatusEffect(statusEffect);
                 }
             }
-            super.onApplied(entity, attributes, amplifier);
+            super.applyUpdateEffect(entity, amplifier);
         }
 
 

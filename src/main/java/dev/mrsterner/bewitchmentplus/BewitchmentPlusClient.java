@@ -1,5 +1,6 @@
 package dev.mrsterner.bewitchmentplus;
 
+import com.terraformersmc.terraform.sign.SpriteIdentifierRegistry;
 import dev.mrsterner.bewitchmentplus.client.model.entity.LilimEntityModel;
 import dev.mrsterner.bewitchmentplus.client.model.entity.UnicornEntityModel;
 import dev.mrsterner.bewitchmentplus.client.model.entity.BlackDogEntityModel;
@@ -25,8 +26,10 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.color.world.FoliageColors;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.block.entity.ChestBlockEntityRenderer;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
+import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.util.math.BlockPos;
 import software.bernie.geckolib3.renderers.geo.GeoArmorRenderer;
 import software.bernie.geckolib3.renderers.geo.GeoItemRenderer;
@@ -89,6 +92,8 @@ public class BewitchmentPlusClient implements ClientModInitializer {
 		BWPSpriteIdentifiers.INSTANCE.addIdentifier(BWPSpriteIdentifiers.HONEY);
 		BWPSpriteIdentifiers.INSTANCE.addIdentifier(BWPSpriteIdentifiers.MIMIC_SPRITE);
 		BWPSpriteIdentifiers.INSTANCE.addIdentifier(BWPSpriteIdentifiers.LEECH_CHEST);
+		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, BWPObjects.YEW_SIGN.getTexture()));
+
 
 		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.SILVER_GOBLET, renderer);
 		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.GOLD_GOBLET, renderer);

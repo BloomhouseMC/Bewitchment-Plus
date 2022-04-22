@@ -38,7 +38,7 @@ public abstract class LivingEntityMixin extends Entity {
     }
 
     @Inject(method = "heal", at = @At("HEAD"), cancellable = true)
-    public void torporCancelHeal(float amount, CallbackInfo callbackInfo) {
+    public void halfLifeCancelHeal(float amount, CallbackInfo callbackInfo) {
         if (this.hasStatusEffect(BWPStatusEffects.HALF_LIFE)) {
             callbackInfo.cancel();
         }

@@ -1,4 +1,4 @@
-package dev.mrsterner.bewitchmentplus.mixin.common;
+package dev.mrsterner.bewitchmentplus.mixin.client;
 
 import dev.mrsterner.bewitchmentplus.common.block.yew.YewSign;
 import net.fabricmc.api.EnvType;

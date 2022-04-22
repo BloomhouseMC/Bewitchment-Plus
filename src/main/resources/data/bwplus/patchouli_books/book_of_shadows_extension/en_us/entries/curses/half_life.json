@@ -7,7 +7,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "This curse will kill you, you can extend the cure by drinking more unicorn blood, or rid of it by being resurrected, like with a $(br2)$(l)Totem of Undying$(), $(l:bewitchment:poppets/death_protection)Death Protection$() Poppet or $(l:bwplus:rituals/make_effigy)Effigy$()"
+      "text": "This curse will save you from negative effects and save you even from death $(l)a short while$().$(br)This curse will kill you when it is removed, you can extend the curse by drinking more unicorn blood, or rid of it by being resurrected, like with a $(br2)$(l)Totem of Undying$(), $(l:bewitchment:poppets/death_protection)Death Protection$() Poppet or $(l:bwplus:rituals/make_effigy)Effigy$()"
     }
   ]
 }

@@ -15,10 +15,8 @@
     "common.MobEntityAccessor",
     "common.PlayerEntityMixin",
     "common.ServerPlayerEntityMixin",
-    "common.SignBlockEntityRendererMixin",
     "common.SimpleBlockStateProviderMixin",
     "common.StructureFeatureAccessor",
-    "common.TexturedRenderLayersMixin",
     "common.TogglePressingForwardPacketMixin",
     "common.TransformationAbilityPacketMixin",
     "common.VillagerBreedTaskMixin",
@@ -26,6 +24,7 @@
   ],
   "client": [
     "client.AbstractInventoryScreenMixin",
+    "client.TexturedRenderLayersMixin",
     "client.GameRendererMixin",
     "client.InGameHudMixin",
     "client.LivingEntityRendererMixin",
@@ -33,7 +32,8 @@
     "client.PlayerEntityRendererMixin",
     "client.RenderLayerAccessor",
     "client.SignEditScreenMixin",
-    "client.TexturedRenderLayersMixin"
+    "client.TexturedRenderLayersMixin",
+    "client.SignBlockEntityRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

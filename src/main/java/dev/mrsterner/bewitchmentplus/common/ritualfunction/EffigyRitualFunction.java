@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class EffigyRitualFunction extends RitualFunction {
+    private boolean found = false;
     public EffigyRitualFunction(ParticleType<?> startParticle, Predicate<LivingEntity> sacrifice) {
         super(startParticle, sacrifice);
     }
@@ -43,23 +44,24 @@ public class EffigyRitualFunction extends RitualFunction {
 
     @Override
     public void start(ServerWorld world, BlockPos glyphPos, BlockPos effectivePos, Inventory inventory, boolean catFamiliar) {
-        int radius = catFamiliar ? 9 : 3;
-        ItemStack taglock = null;
+        int radius = catFamiliar ? 16 : 8;
+        ItemStack tagLock = null;
         for(int i = 0; i < inventory.size(); ++i) {
             ItemStack stack = inventory.getStack(i);
             if (inventory.getStack(i).getItem() instanceof TaglockItem) {
-                taglock = stack;
+                tagLock = stack;
                 break;
             }
         }
-        if (taglock != null) {
+        if (tagLock != null) {
             List<ArmorStandEntity> armorStandEntityList = world.getEntitiesByClass(ArmorStandEntity.class, (new Box(effectivePos)).expand(radius, 0.0D, radius), ArmorStandEntity::isAlive);
-            if(armorStandEntityList.iterator().hasNext()){
+            if(armorStandEntityList.iterator().hasNext() && !found){
                 ArmorStandEntity armorStandEntity = armorStandEntityList.iterator().next();
                 EffigyEntity effigyEntity = BWPEntityTypes.EFFIGY.create(world);
                 if (effigyEntity != null) {
+                    found = true;
                     effigyEntity.updatePositionAndAngles(armorStandEntity.getX() + 0.5, armorStandEntity.getY(), armorStandEntity.getZ() + 0.5, world.random.nextFloat() * 360, 0);
-                    var ownerUUID = BewitchmentAPI.getTaglockOwner(world, taglock);
+                    var ownerUUID = BewitchmentAPI.getTaglockOwner(world, tagLock);
                     if(ownerUUID instanceof PlayerEntity player){
                         if(!BWPComponents.EFFIGY_COMPONENT.get(player).getHasEffigy()){
                             BWPComponents.EFFIGY_COMPONENT.get(player).setEffigy(effigyEntity.getUuid());
