@@ -1,13 +1,22 @@
 package dev.mrsterner.bewitchmentplus.common.entity;
 
+import dev.mrsterner.bewitchmentplus.common.entity.ai.LeshonMeleeAttackGoal;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.predicate.entity.EntityPredicates;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -18,8 +27,11 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
+import java.util.EnumSet;
+
 @SuppressWarnings("ALL")
 public class LeshonEntity extends HostileEntity implements IAnimatable {
+    public static final TrackedData<Boolean> ATTACKING = DataTracker.registerData(LeshonEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private final AnimationFactory factory = new AnimationFactory(this);
     public Vec3d motionCalc = new Vec3d(0,0,0);
     public boolean isAttacking = false;
@@ -37,6 +49,19 @@ public class LeshonEntity extends HostileEntity implements IAnimatable {
         .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4);
     }
 
+    @Override
+    protected void initDataTracker() {
+        super.initDataTracker();
+        this.dataTracker.startTracking(ATTACKING, false);
+    }
+
+    public boolean getAttckingState() {
+        return this.dataTracker.get(ATTACKING);
+    }
+
+    public void setAttackingState(boolean isAttacking) {
+        this.dataTracker.set(ATTACKING, isAttacking);
+    }
 
     private <E extends IAnimatable> PlayState devMovement(AnimationEvent<E> animationEvent) {
         final AnimationController animationController = animationEvent.getController();
@@ -86,10 +111,21 @@ public class LeshonEntity extends HostileEntity implements IAnimatable {
         return PlayState.CONTINUE;
     }
 
+    private <E extends IAnimatable> PlayState devAttack(AnimationEvent<E> animationEvent) {
+        final AnimationController animationController = animationEvent.getController();
+        //Create a builder to stack animations in.
+        AnimationBuilder builder = new AnimationBuilder();
+        if (this.getDataTracker().get(ATTACKING)) {
+            builder.addAnimation("animation.leshon.standing.attack", true);
+        }
+        animationController.setAnimation(builder);
+        return PlayState.CONTINUE;
+    }
 
     @Override
     public void registerControllers(AnimationData animationData) {
         animationData.addAnimationController(new AnimationController(this, "DevMovement", 2, this::devMovement));
+        animationData.addAnimationController(new AnimationController(this, "DevAttack", 2, this::devAttack));
     }
 
     @Override
@@ -101,11 +137,13 @@ public class LeshonEntity extends HostileEntity implements IAnimatable {
     @Override
     protected void initGoals() {
         goalSelector.add(0, new SwimGoal(this));
-        goalSelector.add(1, new MeleeAttackGoal(this, 1, true));
+        goalSelector.add(1, new LeshonMeleeAttackGoal(this, 1, true));
         goalSelector.add(2, new WanderAroundFarGoal(this, 1));
         goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8));
         goalSelector.add(3, new LookAroundGoal(this));
         targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
         targetSelector.add(1, new RevengeGoal(this));
     }
+
+
 }
