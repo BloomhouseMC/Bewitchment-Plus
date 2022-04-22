@@ -154,6 +154,7 @@
 
   "text.autoconfig.bwplus.option.entities": "Entities",
   "text.autoconfig.bwplus.option.world": "World",
+  "text.autoconfig.bwplus.option.mechanics": "Mechanics",
 
   "text.autoconfig.bwplus.option.entities.blackDogBiomeCategories": "Black dog Biome Categories",
   "text.autoconfig.bwplus.option.entities.blackDogWeight": "Black dog spawn weight",
@@ -172,6 +173,11 @@
 
   "text.autoconfig.bwplus.option.world.yewTreeWeight": "Yew tree spawn weight",
   "text.autoconfig.bwplus.option.world.yewTreeWeight.@Tooltip": "Higher value decreases amount of trees",
+
+  "text.autoconfig.bwplus.option.mechanics.allowGetVampBloodFromGobletAndAthame": "Allow Vampire-Blood-Goblet-Killing",
+  "text.autoconfig.bwplus.option.mechanics.allowGetVampBloodFromGobletAndAthame.@Tooltip": "Allow Goblets to be filled in off-hand with vampire-blood while killing Vampire with Athame",
+
+
 
   "effect.bwplus.growth": "Growth",
   "effect.bwplus.half_life": "Half-Life",

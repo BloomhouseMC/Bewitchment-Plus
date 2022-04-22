@@ -18,6 +18,9 @@ public class BWPConfig implements ConfigData {
 	@ConfigEntry.Gui.CollapsibleObject
 	public World world = new World();
 
+	@ConfigEntry.Gui.CollapsibleObject
+	public Mechanics mechanics = new Mechanics();
+
 
 
 	public static class Entities {
@@ -44,5 +47,10 @@ public class BWPConfig implements ConfigData {
 		@ConfigEntry.BoundedDiscrete(max = 100, min = 1)
         public float lotusTreeWeight = 50;
     }
+
+	public static class Mechanics {
+		@ConfigEntry.Gui.Tooltip
+		public final boolean allowGetVampBloodFromGobletAndAthame = false;
+	}
 
 }

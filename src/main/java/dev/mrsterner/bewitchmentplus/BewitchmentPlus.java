@@ -16,6 +16,7 @@ import moriyashiine.bewitchment.api.BewitchmentAPI;
 import moriyashiine.bewitchment.api.component.BloodComponent;
 import moriyashiine.bewitchment.api.component.TransformationComponent;
 import moriyashiine.bewitchment.api.event.BloodSuckEvents;
+import moriyashiine.bewitchment.common.entity.living.VampireEntity;
 import moriyashiine.bewitchment.common.item.AthameItem;
 import moriyashiine.bewitchment.common.registry.*;
 import net.fabricmc.api.ModInitializer;
@@ -131,7 +132,8 @@ public class BewitchmentPlus implements ModInitializer {
 						var slots = DefaultedList.ofSize(1, BWObjects.BOTTLE_OF_BLOOD.getDefaultStack());
 						Inventories.writeNbt(compound, slots);
 						compound.putInt("Color", RenderHelper.BLOOD_COLOR);
-						compound.putBoolean("VampireBlood", BWComponents.TRANSFORMATION_COMPONENT.get(player).getTransformation() == BWTransformations.VAMPIRE);
+						boolean isTargetVamp = BewitchmentPlus.config.mechanics.allowGetVampBloodFromGobletAndAthame && (killedEntity instanceof VampireEntity || BewitchmentAPI.isVampire(killedEntity, true));
+						compound.putBoolean("VampireBlood", isTargetVamp);
 						compound.put("Goblet", player.getOffHandStack().getItem().getDefaultStack().writeNbt(new NbtCompound()));
 						player.getOffHandStack().getOrCreateNbt().put("BlockEntityTag", compound);
 					}
