@@ -11,62 +11,32 @@
     {
       "type": "patchouli:crafting",
       "recipe": "bwplus:baphomet_blackstone_statue",
-      "text": ""
-    },
-    {
-      "type": "patchouli:crafting",
-      "recipe": "bwplus:baphomet_gold_statue",
-      "text": ""
+      "recipe2": "bwplus:baphomet_gold_statue"
     },
     {
       "type": "patchouli:crafting",
       "recipe": "bwplus:baphomet_netherbricks_statue",
-      "text": ""
-    },
-    {
-      "type": "patchouli:crafting",
-      "recipe": "bwplus:lilith_blackstone_statue",
-      "text": ""
+      "recipe2": "bwplus:lilith_blackstone_statue"
     },
     {
       "type": "patchouli:crafting",
       "recipe": "bwplus:lilith_gold_statue",
-      "text": ""
-    },
-    {
-      "type": "patchouli:crafting",
-      "recipe": "bwplus:lilith_netherbricks_statue",
-      "text": ""
+      "recipe2": "bwplus:lilith_netherbricks_statue"
     },
     {
       "type": "patchouli:crafting",
       "recipe": "bwplus:leonard_blackstone_statue",
-      "text": ""
-    },
-    {
-      "type": "patchouli:crafting",
-      "recipe": "bwplus:leonard_gold_statue",
-      "text": ""
+      "recipe2": "bwplus:leonard_gold_statue"
     },
     {
       "type": "patchouli:crafting",
       "recipe": "bwplus:leonard_netherbricks_statue",
-      "text": ""
-    },
-    {
-      "type": "patchouli:crafting",
-      "recipe": "bwplus:herne_blackstone_statue",
-      "text": ""
+      "recipe2": "bwplus:herne_blackstone_statue"
     },
     {
       "type": "patchouli:crafting",
       "recipe": "bwplus:herne_gold_statue",
-      "text": ""
-    },
-    {
-      "type": "patchouli:crafting",
-      "recipe": "bwplus:herne_netherbricks_statue",
-      "text": ""
+      "recipe2": "bwplus:herne_netherbricks_statue"
     }
   ]
 }

@@ -4,6 +4,7 @@
   "package": "dev.mrsterner.bewitchmentplus.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "common.BindFamiliarRitualFunctionMixin",
     "common.BlockEntityTypeMixin",
     "common.BlocksMixin",
     "common.DefaultBiomeFeaturesMixin",
@@ -19,7 +20,9 @@
     "common.StructureFeatureAccessor",
     "common.TexturedRenderLayersMixin",
     "common.TogglePressingForwardPacketMixin",
-    "common.VillagerBreedTaskMixin"
+    "common.TransformationAbilityPacketMixin",
+    "common.VillagerBreedTaskMixin",
+    "common.VillagerHostilesSensorMixin"
   ],
   "client": [
     "client.AbstractInventoryScreenMixin",

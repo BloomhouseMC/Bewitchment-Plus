@@ -2,11 +2,12 @@ package dev.mrsterner.bewitchmentplus.mixin.common;
 
 
 import dev.mrsterner.bewitchmentplus.common.interfaces.Magical;
-import dev.mrsterner.bewitchmentplus.common.network.packet.TransformationLeshonPacket;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPTransformations;
 import dev.mrsterner.bewitchmentplus.common.transformation.LeshonLogic;
 import dev.mrsterner.bewitchmentplus.common.utils.BWPUtil;
+import moriyashiine.bewitchment.api.component.TransformationComponent;
+import moriyashiine.bewitchment.common.network.packet.TransformationAbilityPacket;
 import moriyashiine.bewitchment.common.registry.BWComponents;
 import moriyashiine.bewitchment.common.registry.BWTransformations;
 import net.minecraft.entity.EntityType;
@@ -53,13 +54,19 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Magical 
         if(player.getEquippedStack(EquipmentSlot.HEAD).getItem().equals(BWPObjects.LESHON_SKULL.asItem()) && !player.getEquippedStack(EquipmentSlot.HEAD).getOrCreateNbt().getBoolean("Broken")){
             if(BWComponents.TRANSFORMATION_COMPONENT.get(player).getTransformation() == BWTransformations.HUMAN){
                 BWComponents.TRANSFORMATION_COMPONENT.get(player).setTransformation(BWPTransformations.LESHON);
-                TransformationLeshonPacket.useAbility((PlayerEntity)(Object)this, true);
+                TransformationAbilityPacket.useAbility(player, true);
                 LeshonLogic.handleAttributes(player);
             }
         }else if(BWComponents.TRANSFORMATION_COMPONENT.get(player).getTransformation() == BWPTransformations.LESHON){
-            TransformationLeshonPacket.useAbility((PlayerEntity)(Object)this, true);
-            BWComponents.TRANSFORMATION_COMPONENT.get(player).setTransformation(BWTransformations.HUMAN);
-            LeshonLogic.handleAttributes(player);
+            BWComponents.TRANSFORMATION_COMPONENT.maybeGet(player).ifPresent(transformationComponent -> {
+                if (transformationComponent.isAlternateForm()) {
+                    TransformationAbilityPacket.useAbility(player, true);
+                }
+                transformationComponent.getTransformation().onRemoved(player);
+                transformationComponent.setTransformation(BWTransformations.HUMAN);
+                transformationComponent.getTransformation().onAdded(player);
+                LeshonLogic.handleAttributes(player);
+            });
         }
     }
 

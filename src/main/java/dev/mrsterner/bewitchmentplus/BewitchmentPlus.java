@@ -6,7 +6,6 @@ import dev.mrsterner.bewitchmentplus.common.block.blockentity.YewLogBlockEntity;
 import dev.mrsterner.bewitchmentplus.common.block.yew.YewLogBlock;
 import dev.mrsterner.bewitchmentplus.common.entity.UnicornEntity;
 import dev.mrsterner.bewitchmentplus.common.item.GobletBlockItem;
-import dev.mrsterner.bewitchmentplus.common.network.packet.TransformationLeshonPacket;
 import dev.mrsterner.bewitchmentplus.common.registry.*;
 import dev.mrsterner.bewitchmentplus.common.utils.BWPUtil;
 import dev.mrsterner.bewitchmentplus.common.utils.RenderHelper;
@@ -69,7 +68,6 @@ public class BewitchmentPlus implements ModInitializer {
 	public void onInitialize() {
 		AutoConfig.register(BWPConfig.class, GsonConfigSerializer::new);
 		config = AutoConfig.getConfigHolder(BWPConfig.class).getConfig();
-		ServerPlayNetworking.registerGlobalReceiver(TransformationLeshonPacket.ID, TransformationLeshonPacket::handle);
 
 		BWPEntityTypes.init();
 		BWPObjects.init();
