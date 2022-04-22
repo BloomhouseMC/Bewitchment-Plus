@@ -56,8 +56,8 @@ public class BWPUtil {
         if (player.world instanceof ServerWorld) {
             for (ServerWorld serverWorld : player.world.getServer().getWorlds()) {
                 BWPWorldState worldState = BWPWorldState.get(serverWorld);
-                if (worldState.homeStead.containsKey(player.getUuid())) {
-                    BlockEntity entity = serverWorld.getBlockEntity(worldState.homeStead.get(player.getUuid()));
+                if (BWPWorldState.homeStead.containsKey(player.getUuid())) {
+                    BlockEntity entity = serverWorld.getBlockEntity(BWPWorldState.homeStead.get(player.getUuid()));
                     if (entity instanceof YewLogBlockEntity) {
                         return new Pair<>(serverWorld, (YewLogBlockEntity) entity);
                     }

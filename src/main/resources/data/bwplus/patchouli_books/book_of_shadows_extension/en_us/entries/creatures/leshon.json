@@ -7,7 +7,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "Leshon, an ancient Creature of magic, Found near Yew trees which are found on mountainous areas"
+      "text": "Leshon, an ancient Creature of magic, Found near $(l:bwplus:introduction/yew_trees)Yew Trees$() which are found on mountainous areas. Kill it to steal its skull and wear it to inherit its powers. But without a natural Yew tree nearby the skull will degrade. Right-click on a natural spawned Yew log to mark it as yours"
     },
     {
       "type": "patchouli:entity",

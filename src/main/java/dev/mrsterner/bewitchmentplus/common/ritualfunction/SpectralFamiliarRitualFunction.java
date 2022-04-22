@@ -28,7 +28,7 @@ public class SpectralFamiliarRitualFunction extends RitualFunction {
 
     @Override
     public void start(ServerWorld world, BlockPos glyphPos, BlockPos effectivePos, Inventory inventory, boolean catFamiliar) {
-        EntityType<?> entityType = Registry.ENTITY_TYPE.getEntryList(BWPTags.SPECTRAL_FAMILIAR).flatMap(entity -> entity.getRandom(world.random)).map((entry) -> (entry.value())).orElse(null);;
+        EntityType<?> entityType = Registry.ENTITY_TYPE.getEntryList(BWPTags.SPECTRAL_FAMILIAR).flatMap(entity -> entity.getRandom(world.random)).map((entry) -> (entry.value())).orElse(null);
         if(entityType != null){
             PassiveEntity entity2 = (PassiveEntity)entityType.create(world);
             entity2.initialize(world, world.getLocalDifficulty(effectivePos), SpawnReason.EVENT, null, null);

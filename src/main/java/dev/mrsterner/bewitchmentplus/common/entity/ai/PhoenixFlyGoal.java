@@ -9,7 +9,7 @@ import org.jetbrains.annotations.Nullable;
 import static dev.mrsterner.bewitchmentplus.common.entity.PhoenixEntity.FLYING;
 
 public class PhoenixFlyGoal extends WanderAroundGoal {
-    private PhoenixEntity phoenixEntity;
+    private final PhoenixEntity phoenixEntity;
     public static final float CHANCE = 0.001F;
     protected final float probability;
 

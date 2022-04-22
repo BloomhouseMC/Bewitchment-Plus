@@ -67,9 +67,9 @@ public class UnicornEntityModel<T extends UnicornEntity> extends AnimalModel<T> 
 
 		ModelPartData head = modelData.getRoot().getChild("head_parts").getChild("head");
 		ModelPartData neck = modelData.getRoot().getChild("head_parts");
-		head.addChild("horn", ModelPartBuilder.create().uv(34, 9).cuboid(-0.5F, -12.0F, -2.5F, 1.0F, 6.0F, 1.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, -5.0F, 4.0F));
-		neck.addChild("mane", ModelPartBuilder.create().uv(26, 12).cuboid(-1.0F, -11.0F, 5.01F, 2.0F, 16.0F, 4.0F, new Dilation(0.0F)), ModelTransform.NONE);
-		return TexturedModelData.of(modelData, 64, 64);
+		head.addChild("horn", ModelPartBuilder.create().uv(0, 0).cuboid(-0.5F, -12.0F, -2.5F, 1.0F, 6.0F, 1.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, -5.0F, 4.0F));
+		neck.addChild("mane", ModelPartBuilder.create().uv(0, 64).cuboid(-1.0F, -11.0F, 5.01F, 2.0F, 16.0F, 4.0F, new Dilation(0.0F)), ModelTransform.NONE);
+		return TexturedModelData.of(modelData, 128, 128);
 	}
 
 	public void animateModel(T horseBaseEntity, float f, float g, float h) {

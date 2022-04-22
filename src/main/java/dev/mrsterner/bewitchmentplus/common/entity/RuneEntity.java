@@ -1,6 +1,5 @@
 package dev.mrsterner.bewitchmentplus.common.entity;
 
-import dev.mrsterner.besmirchment.common.registry.BSMTransformations;
 import dev.mrsterner.bewitchmentplus.common.compat.BSMCompat;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPTags;
 import moriyashiine.bewitchment.api.BewitchmentAPI;

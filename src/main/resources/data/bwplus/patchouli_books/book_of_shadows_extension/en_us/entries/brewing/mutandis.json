@@ -1,0 +1,23 @@
+{
+  "category": "bewitchment:brewing",
+  "name": "Mutandis",
+  "icon": "bwplus:mutandis",
+  "entry_color": "3EA9ff",
+  "advancement": "bewitchment:hidden_unlocks/altars",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Mutate crops to change them to other crops!"
+    },
+    {
+      "type": "bewitchment:oil",
+      "recipe": "bwplus:oil_crafting/mutandis",
+      "text": "Uses like bonemeal on one single crop"
+    },
+    {
+      "type": "bewitchment:oil",
+      "recipe": "bwplus:oil_crafting/mutandis_brew",
+      "text": "Throw this brew to mutate a 3x1x3 area"
+    }
+  ]
+}

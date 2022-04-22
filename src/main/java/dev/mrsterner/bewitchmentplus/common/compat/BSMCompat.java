@@ -1,10 +1,7 @@
 package dev.mrsterner.bewitchmentplus.common.compat;
 
 import dev.mrsterner.besmirchment.common.registry.BSMTransformations;
-import moriyashiine.bewitchment.api.BewitchmentAPI;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 
 public class BSMCompat {
