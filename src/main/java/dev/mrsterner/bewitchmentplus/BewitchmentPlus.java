@@ -91,12 +91,12 @@ public class BewitchmentPlus implements ModInitializer {
 	}
 
 	/**
-	 *
-	 * @param player
-	 * @param world
-	 * @param hand
-	 * @param blockHitResult
-	 * @return
+	 * Used by a Leshon to create a YewCutLog which a leshon uses for powers.
+	 * @param player The transformed player, Leshon
+	 * @param world World
+	 * @param hand The Players Hand
+	 * @param blockHitResult ctx of block hit
+	 * @return Success if the Leshon successfully creats a Cut Log, else Pass
 	 */
 	private ActionResult createHomeStead(PlayerEntity player, World world, Hand hand, BlockHitResult blockHitResult) {
 		TransformationComponent transformationComponent = BWComponents.TRANSFORMATION_COMPONENT.get(player);
@@ -117,10 +117,10 @@ public class BewitchmentPlus implements ModInitializer {
 
 
 	/**
-	 *
-	 * @param serverWorld
-	 * @param entity
-	 * @param killedEntity
+	 * This is for when a blood-holding entity gets killed by a player with a goblet in off-hand and an athame in main-hand. Fills the goblet with blood
+	 * @param serverWorld World
+	 * @param entity Player
+	 * @param killedEntity The entity killed
 	 */
 	private void gobletFillWithAthame(ServerWorld serverWorld, Entity entity, LivingEntity killedEntity) {
 		if (entity instanceof LivingEntity livingEntity) {
@@ -137,18 +137,19 @@ public class BewitchmentPlus implements ModInitializer {
 						compound.put("Goblet", player.getOffHandStack().getItem().getDefaultStack().writeNbt(new NbtCompound()));
 						player.getOffHandStack().getOrCreateNbt().put("BlockEntityTag", compound);
 					}
+
 				}
 			}
 		}
 	}
 
 	/**
-	 *
-	 * @param player
-	 * @param world
-	 * @param hand
-	 * @param entity
-	 * @param hitResult
+	 * Event for when a Vampire tries to suck blood from an unicorn, will result in Half-Life curse
+	 * @param player The Vampiric Player
+	 * @param world World
+	 * @param hand Players Main hand
+	 * @param entity The Entity sucked from, in this case, a Unicorn
+	 * @param hitResult not used
 	 * @return
 	 */
 	private ActionResult succUnicorn(PlayerEntity player, World world, Hand hand, Entity entity, HitResult hitResult) {
@@ -165,7 +166,7 @@ public class BewitchmentPlus implements ModInitializer {
 						player.addStatusEffect(new StatusEffectInstance(BWPStatusEffects.HALF_LIFE, 20 * 10, 1, false, false, true));
 						entity.damage(BWDamageSources.VAMPIRE, 2);
 					}
-					return ActionResult.PASS;
+					return ActionResult.SUCCESS;
 				}
 			}
 		}
@@ -174,10 +175,10 @@ public class BewitchmentPlus implements ModInitializer {
 
 	/**
 	 * Converts a potted plant to the MoonlightFlower with the moonlight infusion
-	 * @param player
-	 * @param world
-	 * @param hand
-	 * @param blockHitResult
+	 * @param player The Convertee
+	 * @param world World
+	 * @param hand The Convertees hand
+	 * @param blockHitResult block ctx, in this case, a potted plant
 	 * @return
 	 */
 	private ActionResult createMoonflower(PlayerEntity player, World world, Hand hand, BlockHitResult blockHitResult) {
@@ -201,10 +202,10 @@ public class BewitchmentPlus implements ModInitializer {
 
 	/**
 	 * Checks if a chest is really a mimic and then transfers its inventory to the new mimic if the player interacting isnt the owner of the mimic
-	 * @param player
-	 * @param world
-	 * @param hand
-	 * @param blockHitResult
+	 * @param player Unsuspecting player who opens the chest
+	 * @param world World
+	 * @param hand The players hand
+	 * @param blockHitResult ctx of blockhit
 	 * @return
 	 */
 	private ActionResult createMimic(PlayerEntity player, World world, Hand hand, BlockHitResult blockHitResult) {
@@ -245,10 +246,10 @@ public class BewitchmentPlus implements ModInitializer {
 
 
 	/**
-	 * Allows you to cut yourself with athame in off-hand to fill it with blood
-	 * @param player
-	 * @param world
-	 * @param hand
+	 * Allows you to cut yourself with athame while there is a goblet in off-hand to fill it with blood
+	 * @param player The cutting player
+	 * @param world World
+	 * @param hand The players hand
 	 * @return
 	 */
 	public TypedActionResult<ItemStack> gobletFillWithAthame(PlayerEntity player, World world, Hand hand){

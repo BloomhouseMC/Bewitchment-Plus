@@ -19,7 +19,7 @@ import java.util.Random;
 
 public class WorldgenHelper {
 
-    /**
+    /** This method places and nbt structure at a given origin
      * @author - MrSterner
      * @param nbtLocation the location of the structure file about to be placed
      * @param world the structures world access
@@ -107,26 +107,5 @@ public class WorldgenHelper {
                 world.setBlockState(pos, Blocks.DIRT.getDefaultState(), 3);
             }
         }
-    }
-
-    /**
-     * @author - MrSterner
-     * @param world
-     * @param normalizeOrigin
-     * @return
-     */
-    public static boolean touchGrass(StructureWorldAccess world, BlockPos normalizeOrigin) {
-        BlockPos.Mutable mutable = new BlockPos.Mutable();
-        for (int yOffset = 0; yOffset <= 1; ++yOffset) {
-            for (int xOffset = -1; xOffset <= 1; ++xOffset) {
-                for (int zOffset = -1; zOffset <= 1; ++zOffset) {
-                    BlockPos test = mutable.set(normalizeOrigin.getX() + xOffset, normalizeOrigin.getY() + yOffset, normalizeOrigin.getZ() + zOffset);
-                    if (world.getBlockState(test).isIn(BlockTags.BASE_STONE_OVERWORLD)) {
-                        return false;
-                    }
-                }
-            }
-        }
-        return true;
     }
 }

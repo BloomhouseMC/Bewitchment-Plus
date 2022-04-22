@@ -2,7 +2,7 @@ package dev.mrsterner.bewitchmentplus.common.block;
 
 import dev.mrsterner.bewitchmentplus.common.block.blockentity.LeechChestBlockEntity;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPBlockEntityTypes;
-import dev.mrsterner.bewitchmentplus.common.utils.damage.LeechDamageSource;
+import dev.mrsterner.bewitchmentplus.common.registry.BWPDamageSources;
 import it.unimi.dsi.fastutil.floats.Float2FloatFunction;
 import moriyashiine.bewitchment.common.item.TaglockItem;
 import moriyashiine.bewitchment.common.registry.BWObjects;
@@ -107,7 +107,7 @@ public class LeechChestBlock extends AbstractChestBlock<LeechChestBlockEntity> i
     public void leechAndDamage(World world, BlockPos pos, PlayerEntity player) {
         if (world.getBlockEntity(pos) instanceof LeechChestBlockEntity be) {
             if (be.getOwnerId() != player.getId() && !be.getWhitelisted().contains(player.getUuid())) {
-                player.damage(new LeechDamageSource(), 3.0F);
+                player.damage(BWPDamageSources.LEECH, 3.0F);
                 be.setLeechedId(player.getId());
             }
         }

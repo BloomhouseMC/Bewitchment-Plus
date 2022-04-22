@@ -11,12 +11,9 @@ import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.math.Vector4f;
 
 import java.util.List;
-
-import static dev.mrsterner.bewitchmentplus.client.renderlayer.BWPRenderLayers.RUNE_LAYER;
 
 public class RenderHelper {
     public static final int HONEY_COLOR = 0xff9500;
@@ -147,20 +144,5 @@ public class RenderHelper {
         tessellator.draw();
     }
 
-    public static void renderLayer(Identifier base, Matrix4f matrix4f, VertexConsumerProvider vertexConsumers, float sizeX, float sizeY, int light, int overlay, float[] rgba) {
-        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(getRuneEffect(base));
 
-        vertexConsumer.vertex(matrix4f, 0, 0, sizeY).color(rgba[0], rgba[1], rgba[2], rgba[3])
-        .texture(0, 1).light(light).overlay(overlay).normal(0, 1, 0).next();
-        vertexConsumer.vertex(matrix4f, sizeX, 0, sizeY).color(rgba[0], rgba[1], rgba[2], rgba[3])
-        .texture(1, 1).light(light).overlay(overlay).normal(0, 1, 0).next();
-        vertexConsumer.vertex(matrix4f, sizeX, 0, 0).color(rgba[0], rgba[1], rgba[2], rgba[3])
-        .texture(1, 0).light(light).overlay(overlay).normal(0, 1, 0).next();
-        vertexConsumer.vertex(matrix4f, 0, 0, 0).color(rgba[0], rgba[1], rgba[2], rgba[3])
-        .texture(0, 0).light(light).overlay(overlay).normal(0, 1, 0).next();
-    }
-
-    public static RenderLayer getRuneEffect(Identifier texture) {
-        return RUNE_LAYER.apply(texture);
-    }
 }

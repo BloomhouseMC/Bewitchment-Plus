@@ -2,6 +2,7 @@ package dev.mrsterner.bewitchmentplus.client.renderer;
 
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import dev.mrsterner.bewitchmentplus.BewitchmentPlusClient;
+import dev.mrsterner.bewitchmentplus.client.renderlayer.BWPRenderLayers;
 import dev.mrsterner.bewitchmentplus.client.shader.BWPShader;
 import dev.mrsterner.bewitchmentplus.common.entity.RuneEntity;
 import net.minecraft.client.render.*;
@@ -13,7 +14,6 @@ import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.math.Vec3f;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
-import static dev.mrsterner.bewitchmentplus.common.utils.RenderHelper.renderLayer;
 
 public class RuneEntityRenderer extends EntityRenderer<RuneEntity> {
     public RuneEntityRenderer(EntityRendererFactory.Context ctx) {
@@ -86,7 +86,7 @@ public class RuneEntityRenderer extends EntityRenderer<RuneEntity> {
                 matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(90));
                 matrices.scale(!entity.getExpansion() ? 20 : 20 + entity.getExpansionTick(), !entity.getExpansion() ? 20 : 20 + entity.getExpansionTick(), !entity.getExpansion() ? 20 : 20 + entity.getExpansionTick());
                 Matrix4f matrix4f = matrices.peek().getPositionMatrix();
-                renderLayer(getTexture(i % 15 + 1), matrix4f, provider, 1,1,light, OverlayTexture.DEFAULT_UV, new float[]{1F, 1F, 1F, 1F});
+                BWPRenderLayers.renderLayer(getTexture(i % 15 + 1), matrix4f, provider, 1,1,light, OverlayTexture.DEFAULT_UV, new float[]{1F, 1F, 1F, 1F});
                 if(radiusBase % 80 >= 50){
                     //entity.world.addParticle(ParticleTypes.DRIPPING_HONEY, entity.getX()+(x/10),entity.getY(),entity.getZ()+(z/10),0,0,0);
                 }
