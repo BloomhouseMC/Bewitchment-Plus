@@ -39,6 +39,8 @@ public class StandingCandelabraBlock extends Block implements Waterloggable {
 
     }
 
+
+
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return Block.createCuboidShape(4,0,4, 12, 16, 12);

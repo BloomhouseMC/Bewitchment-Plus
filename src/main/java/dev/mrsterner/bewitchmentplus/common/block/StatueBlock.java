@@ -28,6 +28,8 @@ public class StatueBlock extends HorizontalFacingBlock implements BlockEntityPro
         }
     }
 
+
+
     @Override
     public BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.MODEL;

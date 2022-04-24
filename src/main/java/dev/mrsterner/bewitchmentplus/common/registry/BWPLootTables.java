@@ -8,7 +8,7 @@ import net.minecraft.util.Identifier;
 
 public class BWPLootTables {
 
-    public static final LootContextType SLOT = LootContextTypesAccessor.guardvillager$register("slot", (context) -> {
+    public static final LootContextType SLOT = LootContextTypesAccessor.guardvillager$register("bwp:slot", (context) -> {
         context.allow(LootContextParameters.THIS_ENTITY);
     });
 

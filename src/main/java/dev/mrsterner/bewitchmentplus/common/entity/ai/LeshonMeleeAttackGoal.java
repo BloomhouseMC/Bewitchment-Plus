@@ -4,7 +4,6 @@ import dev.mrsterner.bewitchmentplus.common.entity.LeshonEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.entity.mob.PathAwareEntity;
 
 import java.util.EnumSet;
 

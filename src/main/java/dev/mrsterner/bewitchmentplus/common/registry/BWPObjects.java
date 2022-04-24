@@ -56,12 +56,14 @@ public class BWPObjects {
 	public static final Item LESHON_SKULL = register("leshon_skull", new LeshonSkullItem(gen()));
 	
 	//BLOCKS
-	public static final Block SILVER_GOBLET = registerGoblet("silver_goblet", new GobletBlock(copyOf(BWObjects.SILVER_BLOCK)));
-	public static final Block GOLD_GOBLET = registerGoblet("gold_goblet", new GobletBlock(copyOf(Blocks.GOLD_BLOCK)));
-	public static final Block NETHERITE_GOBLET = registerGoblet("netherite_goblet", new GobletBlock(copyOf(Blocks.NETHERITE_BLOCK)));
+	public static final Block SILVER_GOBLET = registerGoblet("silver_goblet", new GobletBlock(copyOf(BWObjects.SILVER_BLOCK)), new Item.Settings().group(BewitchmentPlus.BEWITCHMENT_PLUS_GROUP));
+	public static final Block GOLD_GOBLET = registerGoblet("gold_goblet", new GobletBlock(copyOf(Blocks.GOLD_BLOCK)), new Item.Settings().group(BewitchmentPlus.BEWITCHMENT_PLUS_GROUP));
+	public static final Block NETHERITE_GOBLET = registerGoblet("netherite_goblet", new GobletBlock(copyOf(Blocks.NETHERITE_BLOCK)), new Item.Settings().group(BewitchmentPlus.BEWITCHMENT_PLUS_GROUP).fireproof());
 	public static final Block SILVER_STANDING_CANDELABRA = register("silver_standing_candelabra", new StandingCandelabraBlock(FabricBlockSettings.of(Material.METAL)), true);
 	public static final Block GOLD_STANDING_CANDELABRA = register("gold_standing_candelabra", new StandingCandelabraBlock(FabricBlockSettings.of(Material.METAL)), true);
-	public static final Block NETHERITE_STANDING_CANDELABRA = register("netherite_standing_candelabra", new StandingCandelabraBlock(FabricBlockSettings.of(Material.METAL)), true);
+	public static final Block NETHERITE_STANDING_CANDELABRA = register("netherite_standing_candelabra_block", new StandingCandelabraBlock(copyOf(Blocks.NETHERITE_BLOCK)), false);
+	public static final Item NETHERITE_STANDING_CANDELABRA_ITEM = register("netherite_standing_candelabra", new StandingCandelabraBlockItem(NETHERITE_STANDING_CANDELABRA,gen().fireproof()));
+
 	public static final Block PENTACLE = register("pentacle", new PentacleBlock(copyOf(BWObjects.SILVER_BLOCK)), true, gen());
 	public static final Block BLOODROOT = register("bloodroot", new BWPPlantBlock(FabricBlockSettings.of(Material.PLANT).sounds(BlockSoundGroup.BAMBOO_SAPLING).strength(0.3F).nonOpaque().breakInstantly().dynamicBounds(),0),false, gen());
 	public static final Block MOONFLOWER = register("moonflower", new MoonflowerBlock(copyOf(Blocks.STONE)), false, gen());
@@ -212,9 +214,9 @@ public class BWPObjects {
 	}
 
 
-	private static <T extends Block> T registerGoblet(String id, T block) {
+	private static <T extends Block> T registerGoblet(String id, T block, Item.Settings settings) {
 		BLOCKS.put(block, new Identifier(BewitchmentPlus.MODID, id));
-		ITEMS.put(new GobletBlockItem(block, gen()), BLOCKS.get(block));
+		ITEMS.put(new GobletBlockItem(block, settings), BLOCKS.get(block));
 		return block;
 	}
 
