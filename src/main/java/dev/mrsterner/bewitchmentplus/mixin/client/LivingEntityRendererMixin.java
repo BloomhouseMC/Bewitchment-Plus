@@ -22,6 +22,7 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, M extend
 
     @Inject(method = "render(Lnet/minecraft/entity/LivingEntity;FFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V", at = @At("HEAD"))
     private void renderTree(T livingEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo ci){
+        /*
         if(livingEntity instanceof PlayerEntity player && player.isSneaking()){
             matrixStack.push();
             matrixStack.translate(-0.5,0,-0.5);
@@ -34,5 +35,7 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, M extend
             MinecraftClient.getInstance().getBlockRenderManager().renderBlockAsEntity(Blocks.OAK_LEAVES.getDefaultState(), matrixStack, vertexConsumerProvider, i, OverlayTexture.DEFAULT_UV);
             matrixStack.pop();
         }
+
+         */
     }
 }

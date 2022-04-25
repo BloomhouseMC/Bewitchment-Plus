@@ -14,19 +14,26 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class BWPRitualFunctions {
-    private static final Map<RitualFunction, Identifier> RITUAL_FUNCTIONS = new LinkedHashMap<>();
+    //private static final Map<RitualFunction, Identifier> RITUAL_FUNCTIONS = new LinkedHashMap<>();
 
 
-    public static final RitualFunction SUMMON_SPECTRAL_FAMILIAR = register("summon_spectral_familiar", new SpectralFamiliarRitualFunction(ParticleTypes.HAPPY_VILLAGER, livingEntity -> livingEntity instanceof BWTameableEntity));
-    public static final RitualFunction MAKE_EFFIGY = register("make_effigy", new EffigyRitualFunction(ParticleTypes.HAPPY_VILLAGER, null));
+    public static final RitualFunction SUMMON_SPECTRAL_FAMILIAR = new SpectralFamiliarRitualFunction(ParticleTypes.HAPPY_VILLAGER, livingEntity -> livingEntity instanceof BWTameableEntity);
+    public static final RitualFunction MAKE_EFFIGY = new EffigyRitualFunction(ParticleTypes.HAPPY_VILLAGER, null);
 
-
+    public static <T> T register(Registry<? super T> registry, String name, T entry) {
+        return Registry.register(registry, new Identifier(BewitchmentPlus.MODID, name), entry);
+    }
+    /*
     private static <T extends RitualFunction> T register(String name, T ritualFunction) {
         RITUAL_FUNCTIONS.put(ritualFunction, new Identifier(BewitchmentPlus.MODID, name));
         return ritualFunction;
     }
 
+     */
+
     public static void init() {
-        RITUAL_FUNCTIONS.keySet().forEach(contract -> Registry.register(BWRegistries.RITUAL_FUNCTIONS, RITUAL_FUNCTIONS.get(contract), contract));
+        register(BWRegistries.RITUAL_FUNCTIONS, "spectral_familiar", SUMMON_SPECTRAL_FAMILIAR);
+        register(BWRegistries.RITUAL_FUNCTIONS, "make_effigy", MAKE_EFFIGY);
+        //RITUAL_FUNCTIONS.keySet().forEach(contract -> Registry.register(BWRegistries.RITUAL_FUNCTIONS, RITUAL_FUNCTIONS.get(contract), contract));
     }
 }
