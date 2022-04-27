@@ -37,7 +37,6 @@ public class LifeDrainParticle extends Particle {
     public float yaw;
     public float pitch;
     public float speedModifier;
-    protected int timeInSolid = -1;
     protected int targetChangeCooldown = 0;
     protected PlayerEntity player;
 
@@ -110,23 +109,6 @@ public class LifeDrainParticle extends Particle {
 
         if (!new BlockPos(x, y, z).equals(this.getTargetPosition())) {
             this.move(velocityX, velocityY, velocityZ);
-        }
-
-        if (random.nextInt(20) == 0) {
-            this.world.playSound(new BlockPos(this.x, this.y, this.z), SoundEvents.PARTICLE_SOUL_ESCAPE, SoundCategory.AMBIENT, 1.0f, 1.5f, true);
-        }
-
-        BlockPos pos = new BlockPos(this.x, this.y, this.z);
-        if (!this.world.getBlockState(pos).isAir()) {
-            if (timeInSolid > -1) {
-                timeInSolid += 1;
-            }
-        } else {
-            timeInSolid = 0;
-        }
-
-        if (timeInSolid > 25) {
-            this.markDead();
         }
     }
 
