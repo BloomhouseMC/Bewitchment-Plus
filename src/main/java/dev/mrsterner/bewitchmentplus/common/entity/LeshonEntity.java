@@ -105,9 +105,6 @@ public class LeshonEntity extends HostileEntity implements IAnimatable {
                 builder.addAnimation("animation.leshon.standing.walk", true);
             }
         }
-        if(isAttacking || entity.handSwinging){
-            builder.addAnimation("animation.leshon.standing.attack", false);
-        }
         if(animationEvent.getController().getCurrentAnimation() == null || builder.getRawAnimationList().size() <= 0){
             builder.addAnimation( "animation.leshon.standing.idle", true);
         }
