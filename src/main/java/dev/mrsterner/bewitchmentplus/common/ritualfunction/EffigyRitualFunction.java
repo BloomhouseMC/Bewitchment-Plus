@@ -38,13 +38,15 @@ public class EffigyRitualFunction extends RitualFunction {
                 break;
             }
         }
+        List<ArmorStandEntity> armorStandEntityList = world.getEntitiesByClass(ArmorStandEntity.class, (new Box(pos)).expand(16, 0.0D, 16), ArmorStandEntity::isAlive);
 
-        return taglock != null && BewitchmentAPI.getTaglockOwner(world, taglock) != null;
+        return armorStandEntityList.iterator().hasNext() && taglock != null && BewitchmentAPI.getTaglockOwner(world, taglock) != null;
     }
 
     @Override
     public void start(ServerWorld world, BlockPos glyphPos, BlockPos effectivePos, Inventory inventory, boolean catFamiliar) {
-        int radius = catFamiliar ? 16 : 8;
+        found = false;
+        int radius = 16;
         ItemStack tagLock = null;
         for(int i = 0; i < inventory.size(); ++i) {
             ItemStack stack = inventory.getStack(i);

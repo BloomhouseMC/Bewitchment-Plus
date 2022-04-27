@@ -141,7 +141,14 @@
   "block.bwplus.magenta_witch_wool_carpet": "Magenta Fleece Carpet",
   "block.bwplus.white_witch_wool_carpet": "White Fleece Carpet",
 
-
+  "entity.bwplus.leshon": "Leshon",
+  "entity.bwplus.effigy": "Effigy",
+  "entity.bwplus.unicorn": "Unicorn",
+  "entity.bwplus.niffler": "Niffler",
+  "entity.bwplus.phoenix": "phoenix",
+  "entity.bwplus.dragon": "Dragon",
+  "entity.bwplus.lilim": "Lilim",
+  "entity.bwplus.druden": "Druden",
 
 
   "block.bwplus.rgb_witch_wool": "1337Fleece",

@@ -7,7 +7,6 @@
     "common.BindFamiliarRitualFunctionMixin",
     "common.BlockEntityTypeMixin",
     "common.BlocksMixin",
-    "common.DefaultBiomeFeaturesMixin",
     "common.IronGolemTargetingMixin",
     "common.LivingEntityMixin",
     "common.LootContextTypesAccessor",

@@ -34,8 +34,11 @@ public class BWPObjects {
 	private static final Map<Block, Identifier> BLOCKS = new LinkedHashMap<>();
 	private static final Map<Item, Identifier> ITEMS = new LinkedHashMap<>();
 
-	//ITEMS
+	public static Map<Item, Identifier> getItems(){
+		return ITEMS;
+	}
 
+	//ITEMS
 	public static final Item BLOODROOT_ITEM = register("bloodroot_item", new Item(gen()));
 	public static final Item DRAGONFRUIT = register("dragonfruit", new Item(gen().food(BWPFoodComponents.DRAGONFRUIT)));
 	public static final Item MUTANDIS = register("mutandis", new MutandisItem(gen()));
@@ -44,21 +47,17 @@ public class BWPObjects {
 	public static final Item UNICORN_BLOOD = register("unicorn_blood", new Item(gen()));
 	public static final Item MOONLIGHT_INFUSION = register("moonlight_infusion", new Item(gen().recipeRemainder(Items.GLASS_BOTTLE)));
 	public static final Item ENDER_INFUSION = register("ender_vial", new Item(gen().recipeRemainder(Items.GLASS_BOTTLE)));//0x70922d
-	public static final Item BLACK_DOG_SPAWN_EGG = register("black_dog_spawn_egg", new SpawnEggItem(BWPEntityTypes.BLACK_DOG, 0x000000, 0x343434, new Item.Settings().group(ItemGroup.MISC)));
-	public static final Item NIFFLER_SPAWN_EGG = register("niffler_spawn_egg", new SpawnEggItem(BWPEntityTypes.NIFFLER, 0xFFFFFF, 0x8F95E6, new Item.Settings().group(ItemGroup.MISC)));
-	public static final Item PHOENIX_SPAWN_EGG = register("phoenix_spawn_egg", new SpawnEggItem(BWPEntityTypes.PHOENIX, 0xFFFFFF, 0x09E6D0, new Item.Settings().group(ItemGroup.MISC)));
-	public static final Item UNICORN_SPAWN_EGG = register("unicorn_spawn_egg", new SpawnEggItem(BWPEntityTypes.UNICORN, 0xFFFFFF, 0x0CE69F, new Item.Settings().group(ItemGroup.MISC)));
-	public static final Item CAMBION_SPAWN_EGG = register("cambion_spawn_egg",new SpawnEggItem(BWPEntityTypes.CAMBION,  0xE34234, 0x09E6D0, new Item.Settings().group(ItemGroup.MISC)));
 	public static final Item MUSIC_DISC_PETALS = register("music_disc_petals", new BWPMusicDisc(7, BWPSounds.MUSIC_DISC_PETALS, new Item.Settings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.RARE)));
 	public static final Item YEW_BROOM = register("yew_broom", new BroomItem(gen().maxCount(1), BWPEntityTypes.YEW_BROOM));
 	public static final Item DRAGONBLOOD_STAFF = register("dragonblood_staff", new DragonbloodStaffItem(200, gen().maxCount(1).rarity(Rarity.RARE)));
-
+	public static final Item VAMPIRE_KNIFE = register("vampire_knife", new VamireKnifeItem(ToolMaterials.IRON, 2, -3F,gen()));
 	public static final Item LESHON_SKULL = register("leshon_skull", new LeshonSkullItem(gen()));
-	
+	public static final Item CROWN_OF_THE_FOREST = register("crown_of_the_forest", new CrownOfTheForestTrinketItem(gen().maxCount(1)));
+
 	//BLOCKS
-	public static final Block SILVER_GOBLET = registerGoblet("silver_goblet", new GobletBlock(copyOf(BWObjects.SILVER_BLOCK)), new Item.Settings().group(BewitchmentPlus.BEWITCHMENT_PLUS_GROUP));
-	public static final Block GOLD_GOBLET = registerGoblet("gold_goblet", new GobletBlock(copyOf(Blocks.GOLD_BLOCK)), new Item.Settings().group(BewitchmentPlus.BEWITCHMENT_PLUS_GROUP));
-	public static final Block NETHERITE_GOBLET = registerGoblet("netherite_goblet", new GobletBlock(copyOf(Blocks.NETHERITE_BLOCK)), new Item.Settings().group(BewitchmentPlus.BEWITCHMENT_PLUS_GROUP).fireproof());
+	public static final Block SILVER_GOBLET = registerGoblet("silver_goblet", new GobletBlock(copyOf(BWObjects.SILVER_BLOCK)), gen());
+	public static final Block GOLD_GOBLET = registerGoblet("gold_goblet", new GobletBlock(copyOf(Blocks.GOLD_BLOCK)), gen());
+	public static final Block NETHERITE_GOBLET = registerGoblet("netherite_goblet", new GobletBlock(copyOf(Blocks.NETHERITE_BLOCK)), gen().fireproof());
 	public static final Block SILVER_STANDING_CANDELABRA = register("silver_standing_candelabra", new StandingCandelabraBlock(FabricBlockSettings.of(Material.METAL)), true);
 	public static final Block GOLD_STANDING_CANDELABRA = register("gold_standing_candelabra", new StandingCandelabraBlock(FabricBlockSettings.of(Material.METAL)), true);
 	public static final Block NETHERITE_STANDING_CANDELABRA = register("netherite_standing_candelabra", new StandingCandelabraBlock(FabricBlockSettings.copyOf(Blocks.NETHERITE_BLOCK)), false);
@@ -205,6 +204,13 @@ public class BWPObjects {
 
 	public static final Block RGB_FLEECE = registerDecorative("rgb_witch_wool", new Block(copyOf(Blocks.WHITE_WOOL)), true);
 	public static final Block RGB_FLEECE_CARPET = registerDecorative("rgb_witch_wool_carpet", new CarpetBlock(copyOf(Blocks.WHITE_WOOL)), true);
+
+	//SPAWN EGGS
+	public static final Item BLACK_DOG_SPAWN_EGG = register("black_dog_spawn_egg", new SpawnEggItem(BWPEntityTypes.BLACK_DOG, 0x000000, 0x343434, gen()));
+	public static final Item NIFFLER_SPAWN_EGG = register("niffler_spawn_egg", new SpawnEggItem(BWPEntityTypes.NIFFLER, 0xFFFFFF, 0x8F95E6, gen()));
+	public static final Item PHOENIX_SPAWN_EGG = register("phoenix_spawn_egg", new SpawnEggItem(BWPEntityTypes.PHOENIX, 0xFFFFFF, 0x09E6D0, gen()));
+	public static final Item UNICORN_SPAWN_EGG = register("unicorn_spawn_egg", new SpawnEggItem(BWPEntityTypes.UNICORN, 0xFFFFFF, 0x0CE69F, gen()));
+	public static final Item CAMBION_SPAWN_EGG = register("cambion_spawn_egg",new SpawnEggItem(BWPEntityTypes.CAMBION,  0xE34234, 0x09E6D0, gen()));
 
 
 	public static FleeceBlock registerFleece(String id, DyeColor color, boolean carpet){

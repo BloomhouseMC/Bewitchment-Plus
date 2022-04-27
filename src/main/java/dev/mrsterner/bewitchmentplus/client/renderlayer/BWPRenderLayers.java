@@ -15,7 +15,6 @@ public class BWPRenderLayers extends RenderLayer {
         super(name, vertexFormat, drawMode, expectedBufferSize, hasCrumbling, translucent, startAction, endAction);
     }
 
-
     private static RenderLayer makeLayer(String name, VertexFormat format, VertexFormat.DrawMode mode, int bufSize, boolean hasCrumbling, boolean sortOnUpload, RenderLayer.MultiPhaseParameters glState) {
         return RenderLayerAccessor.of(name, format, mode, bufSize, hasCrumbling, sortOnUpload, glState);
     }
@@ -35,12 +34,25 @@ public class BWPRenderLayers extends RenderLayer {
 
     public static final Function<Identifier, RenderLayer> RUNE_LAYER = Util.memoize(texture -> {
         RenderLayer.MultiPhaseParameters glState = RenderLayer.MultiPhaseParameters.builder()
-        .shader(new RenderPhase.Shader(BWPShader::rune))
-        .texture(new RenderPhase.Texture(texture, false, false))
-        .transparency(RenderLayer.TRANSLUCENT_TRANSPARENCY)
-        .cull(DISABLE_CULLING)
-        .lightmap(ENABLE_LIGHTMAP)
-        .build(true);
+                .shader(new RenderPhase.Shader(BWPShader::rune))
+                .texture(new RenderPhase.Texture(texture, false, false))
+                .transparency(RenderLayer.TRANSLUCENT_TRANSPARENCY)
+                .cull(DISABLE_CULLING)
+                .lightmap(ENABLE_LIGHTMAP)
+                .build(true);
         return makeLayer(BewitchmentPlus.MODID + "bw_rune", VertexFormats.POSITION_COLOR_TEXTURE_LIGHT_NORMAL, VertexFormat.DrawMode.QUADS, 256, true, true, glState);
+    });
+
+    public static final Function<Identifier, RenderLayer> GLOWY = Util.memoize(texture -> {
+        RenderLayer.MultiPhaseParameters glState = RenderLayer.MultiPhaseParameters.builder()
+                .texture(new RenderPhase.Texture(texture, false, false))
+                .transparency(Transparency.TRANSLUCENT_TRANSPARENCY)
+                .cull(DISABLE_CULLING)
+                .lightmap(ENABLE_LIGHTMAP)
+                .overlay(DISABLE_OVERLAY_COLOR)
+                .layering(VIEW_OFFSET_Z_LAYERING)
+                .shader(ENERGY_SWIRL_SHADER)
+                .build(true);
+        return makeLayer(BewitchmentPlus.MODID + "bw_glow", VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, VertexFormat.DrawMode.QUADS, 256, false, false, glState);
     });
 }

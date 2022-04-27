@@ -5,7 +5,6 @@ import moriyashiine.bewitchment.api.registry.Curse;
 import moriyashiine.bewitchment.common.registry.BWComponents;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.AttributeContainer;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.util.Identifier;
@@ -56,9 +55,6 @@ public class BWPStatusEffects {
         public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier) {
             if(amplifier == 1){
                 BWComponents.CURSES_COMPONENT.get(entity).addCurse(new Curse.Instance(BWPCurses.HALF_LIFE, 168000));
-            }
-            if(!entity.hasStatusEffect(BWPStatusEffects.HALF_LIFE) && amplifier == 0){
-                entity.damage(DamageSource.MAGIC, Float.MAX_VALUE);
             }
             super.onRemoved(entity, attributes, amplifier);
         }

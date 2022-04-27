@@ -2,7 +2,9 @@ package dev.mrsterner.bewitchmentplus.common.utils;
 
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.Structure;
 import net.minecraft.structure.StructureManager;
 import net.minecraft.structure.StructurePlacementData;
@@ -14,10 +16,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.StructureWorldAccess;
 
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
 public class WorldgenHelper {
+    private int offsetX, offsetZ;
 
     /** This method places and nbt structure at a given origin
      * @author - MrSterner
@@ -31,7 +33,7 @@ public class WorldgenHelper {
         StructureManager structureManager = world.toServerWorld().getStructureManager();
         //Try fetch the nbt with the structure manager
         Optional<Structure> structureOptional = structureManager.getStructure(nbtLocation);
-        if (structureOptional.isEmpty()) {
+        if (!structureOptional.isPresent()) {
             BewitchmentPlus.LOGGER.info("NBT " + nbtLocation + " does not exist!");
         }else if (touchGrass(world, origin,world.getRandom(), chance, structureOptional.get().getSize().getY())) {
             //Unless structureOptional.isEmpty() not catches, get the structure from the optional
@@ -41,12 +43,33 @@ public class WorldgenHelper {
             //Get basic placementData
             StructurePlacementData placementData = (new StructurePlacementData()).setMirror(BlockMirror.NONE).setRotation(BlockRotation.NONE).setIgnoreEntities(false);
             //Place the structure at the normalized origin
-            BewitchmentPlus.LOGGER.info("NBT " + normalizeOrigin + " generated");
             structure.place(world, normalizeOrigin, normalizeOrigin, placementData, world.getRandom(), 2);
             WorldgenHelper.checkAir(world, normalizeOrigin);
             return true;
         }
         return false;
+    }
+
+
+
+    //Mostly stolen from CammiePone
+    public static HashMap<BlockPos, BlockState> getStructureMap(Identifier nbtLocation, ServerWorld world){
+        StructureManager structureManager = world.getStructureManager();
+        Optional<Structure> structureOptional = structureManager.getStructure(nbtLocation);
+        BlockPos pos = BlockPos.ORIGIN;
+        HashMap<BlockPos, BlockState> dummyMap = new HashMap<>();
+        if(structureOptional.isPresent()) {
+            Structure structure = structureOptional.get();
+            StructurePlacementData placementData = new StructurePlacementData();
+
+            List<Structure.StructureBlockInfo> randInfoList = placementData.getRandomBlockInfos(structure.blockInfoLists, pos).getAll();
+            List<Structure.StructureBlockInfo> infoList = Structure.process(world, pos, pos, placementData, randInfoList);
+            for (Structure.StructureBlockInfo info : infoList) {
+                dummyMap.put(info.pos.subtract(pos), info.state);
+            }
+
+        }
+        return dummyMap;
     }
 
     /**

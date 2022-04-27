@@ -1,9 +1,10 @@
 package dev.mrsterner.bewitchmentplus.mixin.common;
 
 
+import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
+import dev.mrsterner.bewitchmentplus.common.interfaces.CrownOfForest;
 import dev.mrsterner.bewitchmentplus.common.interfaces.Magical;
-import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
-import dev.mrsterner.bewitchmentplus.common.registry.BWPTransformations;
+import dev.mrsterner.bewitchmentplus.common.registry.*;
 import dev.mrsterner.bewitchmentplus.common.transformation.LeshonLogic;
 import dev.mrsterner.bewitchmentplus.common.utils.BWPUtil;
 import moriyashiine.bewitchment.client.network.packet.SpawnSmokeParticlesPacket;
@@ -12,15 +13,22 @@ import moriyashiine.bewitchment.common.registry.BWComponents;
 import moriyashiine.bewitchment.common.registry.BWSoundEvents;
 import moriyashiine.bewitchment.common.registry.BWTransformations;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtHelper;
+import net.minecraft.nbt.NbtList;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -30,11 +38,19 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.HashMap;
+
 import static dev.mrsterner.bewitchmentplus.common.transformation.LeshonLogic.LESHON_MOVEMENT_SPEED_MODIFIER;
 
 
 @Mixin(PlayerEntity.class)
-public abstract class PlayerEntityMixin extends LivingEntity implements Magical {
+public abstract class PlayerEntityMixin extends LivingEntity implements Magical, CrownOfForest {
+
+
+    @Unique
+    private HashMap<BlockPos, BlockState> parsedMap = new HashMap<>();
+    @Unique
+    private final Identifier nbt = new Identifier(BewitchmentPlus.MODID, "yew_tree_0");
     @Shadow public abstract ItemStack getEquippedStack(EquipmentSlot slot);
 
     @Shadow @Final private PlayerInventory inventory;
@@ -42,6 +58,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Magical 
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
     }
+
 
     @Inject(method = "tickMovement", at =@At("HEAD"))
     private void lechonAttribute(CallbackInfo ci){
@@ -55,7 +72,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Magical 
     }
 
     @Inject(method = "tick", at = @At("TAIL"))
-    private void lechonTransform(CallbackInfo ci){
+    private void leshonTransform(CallbackInfo ci){
         if (!world.isClient) {
             PlayerEntity player = (PlayerEntity)(Object)this;
             if(player.getEquippedStack(EquipmentSlot.HEAD).getItem().equals(BWPObjects.LESHON_SKULL.asItem()) && !player.getEquippedStack(EquipmentSlot.HEAD).getOrCreateNbt().getBoolean("Broken")){
@@ -88,12 +105,60 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Magical 
         }
 
     }
+    @Inject(method = "tick", at = @At("HEAD"))
+    private void halfLife(CallbackInfo ci){
+        if(!world.isClient()) {
+            PlayerEntity player = (PlayerEntity) (Object) this;
+            if (player.hasStatusEffect(BWPStatusEffects.HALF_LIFE) && player.getStatusEffect(BWPStatusEffects.HALF_LIFE).getDuration() < 10 && !BWPComponents.EFFIGY_COMPONENT.get(player).getHasEffigy()) {
+                player.damage(DamageSource.MAGIC, Float.MAX_VALUE);
+            }
+        }
+    }
+    @Inject(method = "tick", at = @At("TAIL"))
+    private void crownOfTheForest(CallbackInfo ci){
+        /*
+        if(world instanceof ServerWorld serverWorld){
+            PlayerEntity player = (PlayerEntity) (Object) this;
+            if(player.isSneaking()){
+                List<Pair<SlotReference, ItemStack>> component = TrinketsApi.getTrinketComponent(player).get().getEquipped(BWPObjects.CROWN_OF_THE_FOREST);
+                if(!component.isEmpty()){
+
+                    parsedMap = WorldgenHelper.getStructureMap(nbt, serverWorld);
+                    CrownOfForest.of(player).ifPresent(crownOfForest -> {
+                        crownOfForest.setParsedMap(WorldgenHelper.getStructureMap(nbt, serverWorld));
+                        System.out.println("ParsedMapSetCCC: "+crownOfForest.getParsedMap());
+                    });
+                }
+            }
+        }
+
+         */
+    }
+
+
+    @Override
+    public HashMap<BlockPos, BlockState> getParsedMap(){
+        return parsedMap;
+    }
+
+    public void setParsedMap(HashMap<BlockPos, BlockState> parsedMap){
+        this.parsedMap = parsedMap;
+    }
 
     @Unique
     private boolean magical = false;
 
     @Inject(method = "writeCustomDataToNbt", at = @At("TAIL"))
     private void writeBWPData(NbtCompound compoundTag, CallbackInfo info) {
+        NbtList nbtList = new NbtList();
+        parsedMap.forEach((pos, state) -> {
+            NbtCompound map = new NbtCompound();
+            map.put("BlockPos", NbtHelper.fromBlockPos(pos));
+            map.put("BlockState", NbtHelper.fromBlockState(state));
+            nbtList.add(map);
+        });
+        compoundTag.put("StructureMap", nbtList);
+
         NbtCompound tag = new NbtCompound();
         tag.putBoolean("Magical", magical);
         compoundTag.put("MagicalCompound", tag);
@@ -101,6 +166,16 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Magical 
 
     @Inject(method = "readCustomDataFromNbt", at = @At("TAIL"))
     private void readBWPData(NbtCompound compoundTag, CallbackInfo info) {
+        NbtList nbtList = compoundTag.getList("StructureMap", NbtElement.COMPOUND_TYPE);
+        parsedMap.clear();
+        for(int i = 0; i < nbtList.size(); i++) {
+            NbtCompound map = nbtList.getCompound(i);
+            parsedMap.put(
+                    NbtHelper.toBlockPos(map.getCompound("BlockPos")),
+                    NbtHelper.toBlockState(map.getCompound("BlockState"))
+            );
+        }
+
         NbtCompound tag = (NbtCompound) compoundTag.get("MagicalCompound");
         if (tag != null) {
             this.magical = tag.getBoolean("Magical");

@@ -2,8 +2,10 @@ accessWidener v1 named
 accessible  class net/minecraft/client/render/RenderLayer$MultiPhase
 accessible  class net/minecraft/client/render/RenderLayer$MultiPhaseParameters
 accessible  class net/minecraft/client/render/RenderPhase$Textures
-accessible class net/minecraft/client/render/RenderPhase$Shader
-accessible class net/minecraft/client/render/RenderPhase$Texture
-accessible class net/minecraft/client/render/RenderPhase$TextureBase
-accessible class net/minecraft/client/gui/hud/InGameHud$HeartType
-accessible method net/minecraft/block/TallPlantBlock onBreakInCreative (Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;Lnet/minecraft/entity/player/PlayerEntity;)V
+accessible  class net/minecraft/client/render/RenderPhase$Shader
+accessible  class net/minecraft/client/render/RenderPhase$Texture
+accessible  class net/minecraft/client/render/RenderPhase$TextureBase
+accessible  class net/minecraft/client/gui/hud/InGameHud$HeartType
+accessible  method net/minecraft/block/TallPlantBlock onBreakInCreative (Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;Lnet/minecraft/entity/player/PlayerEntity;)V
+accessible  field net/minecraft/structure/Structure blockInfoLists  Ljava/util/List;
+accessible method net/minecraft/entity/LivingEntity tryUseTotem (Lnet/minecraft/entity/damage/DamageSource;)Z

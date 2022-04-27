@@ -43,6 +43,17 @@ public class LeshonEntity extends HostileEntity implements IAnimatable {
     }
 
     @Override
+    protected void initGoals() {
+        goalSelector.add(0, new SwimGoal(this));
+        goalSelector.add(1, new LeshonMeleeAttackGoal(this, 1, true));
+        goalSelector.add(2, new WanderAroundFarGoal(this, 1));
+        goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8));
+        goalSelector.add(3, new LookAroundGoal(this));
+        targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
+        targetSelector.add(1, new RevengeGoal(this));
+    }
+
+    @Override
     protected void initDataTracker() {
         super.initDataTracker();
         this.dataTracker.startTracking(ATTACKING, false);
@@ -125,18 +136,4 @@ public class LeshonEntity extends HostileEntity implements IAnimatable {
     public AnimationFactory getFactory() {
         return factory;
     }
-
-
-    @Override
-    protected void initGoals() {
-        goalSelector.add(0, new SwimGoal(this));
-        goalSelector.add(1, new LeshonMeleeAttackGoal(this, 1, true));
-        goalSelector.add(2, new WanderAroundFarGoal(this, 1));
-        goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8));
-        goalSelector.add(3, new LookAroundGoal(this));
-        targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
-        targetSelector.add(1, new RevengeGoal(this));
-    }
-
-
 }

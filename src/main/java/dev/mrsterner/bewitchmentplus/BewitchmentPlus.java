@@ -68,16 +68,15 @@ public class BewitchmentPlus implements ModInitializer {
 	public void onInitialize() {
 		AutoConfig.register(BWPConfig.class, GsonConfigSerializer::new);
 		config = AutoConfig.getConfigHolder(BWPConfig.class).getConfig();
-
-		BWPEntityTypes.init();
 		BWPObjects.init();
+		BWPBoatTypes.init();
 		BWPBlockEntityTypes.init();
-		BWPEntitySpawns.init();
-		BWPCriterion.init();
-		BWPRitualFunctions.init();
+		BWPEntityTypes.init();
 		BWPStatusEffects.init();
+		BWPRitualFunctions.init();
 		BWPTransformations.init();
 		BWPCurses.init();
+		BWPCriterion.init();
 		BWPSounds.init();
 		BWPWorldGenerators.init();
 

@@ -15,7 +15,7 @@
           "type": "bwplus:leshon",
           "weight": 5,
           "minCount": 0,
-          "maxCount": 2
+          "maxCount": 1
         }
       ]
     }
