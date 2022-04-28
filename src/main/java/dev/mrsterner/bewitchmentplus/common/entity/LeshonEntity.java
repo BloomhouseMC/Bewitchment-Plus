@@ -118,9 +118,10 @@ public class LeshonEntity extends HostileEntity implements IAnimatable {
         AnimationBuilder builder = new AnimationBuilder();
         if (this.getDataTracker().get(ATTACKING)) {
             builder.addAnimation("animation.leshon.standing.attack", true);
+            return PlayState.CONTINUE;
         }
         animationController.setAnimation(builder);
-        return PlayState.CONTINUE;
+        return PlayState.STOP;
     }
 
     @Override
