@@ -84,7 +84,7 @@ public class StatueRenderer implements BlockEntityRenderer<StatueBlockEntity>, B
         }else if(s.contains("leonard")){
             VertexConsumer ivertexbuilder1 = ItemRenderer.getItemGlintConsumer(vertexConsumers, this.leonardStatueModel.getLayer(getStatueTexture(entity.getStatue())), false, false);
             leonardStatueModel.render(matrices, ivertexbuilder1, light, overlay, 1, 1, 1, 1);
-            System.out.println(getStatueTexture(entity.getStatue()));
+            //System.out.println(getStatueTexture(entity.getStatue()));
         }else if(s.contains("baphomet")){
             VertexConsumer ivertexbuilder1 = ItemRenderer.getItemGlintConsumer(vertexConsumers, this.baphometStatueModel.getLayer(getStatueTexture(entity.getStatue())), false, false);
             baphometStatueModel.render(matrices, ivertexbuilder1, light, overlay, 1, 1, 1, 1);

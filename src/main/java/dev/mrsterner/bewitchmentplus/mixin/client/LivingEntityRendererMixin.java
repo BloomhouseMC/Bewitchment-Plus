@@ -27,7 +27,7 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, M extend
                 matrixStack.translate(-0.5, 0, -0.5);
                 CrownOfForest.of(player).ifPresent(crownOfForest -> {
                     HashMap<BlockPos, BlockState> structureMap = crownOfForest.getParsedMap();
-                    System.out.println("StructureMap: "+structureMap);
+
                     for (int j = 0; j < structureMap.size(); j++) {
                         BlockPos blockPos = (BlockPos) structureMap.keySet().toArray()[j];
                         BlockState blockState = structureMap.get(blockPos);

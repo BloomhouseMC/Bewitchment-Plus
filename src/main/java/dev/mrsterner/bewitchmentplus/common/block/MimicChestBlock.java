@@ -55,7 +55,7 @@ public class MimicChestBlock extends AbstractChestBlock<MimicChestBlockEntity> i
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (!world.isClient) {
             if (player.isSneaking() && player.getStackInHand(hand).isOf(BWObjects.TAGLOCK)) {
-                System.out.println(this.getLeechedPlayer());
+                //System.out.println(this.getLeechedPlayer());
                 if (this.getLeechedPlayer() != null) {
                     TaglockItem.useTaglock(player, this.getLeechedPlayer(), hand, true, false);
                     this.setLeechedPlayer(null);

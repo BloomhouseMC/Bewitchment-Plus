@@ -3,14 +3,12 @@ package dev.mrsterner.bewitchmentplus.client.particle;
 import dev.mrsterner.bewitchmentplus.common.network.packet.C2SBloodParticlePacket;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.DefaultParticleType;
@@ -22,6 +20,7 @@ import net.minecraft.util.math.*;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Optional;
 
 //Derivative from Illuminations https://github.com/Ladysnake/Illuminations/blob/1.18/src/main/java/ladysnake/illuminations/client/particle/WillOWispParticle.java
 public class LifeDrainParticle extends Particle {
@@ -34,6 +33,7 @@ public class LifeDrainParticle extends Particle {
     protected double zTarget;
     public float speedModifier;
     protected PlayerEntity player;
+    protected Optional<LivingEntity> source;
 
     protected LifeDrainParticle(ClientWorld world, double x, double y, double z, Identifier texture, float red, float green, float blue, float redEvolution, float greenEvolution, float blueEvolution) {
         super(world, x, y, z);
@@ -53,6 +53,7 @@ public class LifeDrainParticle extends Particle {
         this.blueEvolution = blueEvolution;
         this.greenEvolution = greenEvolution;
         this.player = world.getClosestPlayer((TargetPredicate.createNonAttackable()).setBaseMaxDistance(8D), this.x, this.y, this.z);
+        source = world.getEntitiesByClass(LivingEntity.class, new Box(new BlockPos(this.x, this.y, this.z)).expand(2, 2, 2), LivingEntity::isAlive).stream().findFirst();
         if (this.player == null) {
             this.markDead();
         }
@@ -96,10 +97,10 @@ public class LifeDrainParticle extends Particle {
         }
         double distance = getTargetPosition().getSquaredDistance(new Vec3i(this.x, this.y, this.z));
         if (distance < 2D) {
-            System.out.println("Send");
-            C2SBloodParticlePacket.send(player.getUuid());
+            if(source.isPresent()){
+                C2SBloodParticlePacket.send(player.getUuid(), source.get().getId());
+            }
             this.markDead();
-
         }
     }
 
