@@ -1,31 +1,16 @@
 package dev.mrsterner.bewitchmentplus.mixin.client;
 
-import dev.emi.trinkets.api.SlotReference;
-import dev.emi.trinkets.api.TrinketsApi;
-import dev.mrsterner.bewitchmentplus.common.interfaces.CrownOfForest;
-import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Pair;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3i;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import java.util.HashMap;
-import java.util.List;
 
 @Environment(EnvType.CLIENT)
 @Mixin(LivingEntityRenderer.class)

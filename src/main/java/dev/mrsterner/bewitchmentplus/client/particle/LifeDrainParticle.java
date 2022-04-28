@@ -1,5 +1,6 @@
 package dev.mrsterner.bewitchmentplus.client.particle;
 
+import dev.mrsterner.bewitchmentplus.common.network.packet.C2SBloodParticlePacket;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -24,7 +25,6 @@ import java.util.List;
 
 //Derivative from Illuminations https://github.com/Ladysnake/Illuminations/blob/1.18/src/main/java/ladysnake/illuminations/client/particle/WillOWispParticle.java
 public class LifeDrainParticle extends Particle {
-    private final TargetPredicate targetPredicate = TargetPredicate.createAttackable().setBaseMaxDistance(12.0);
     public final Identifier texture;
     protected final float redEvolution;
     protected final float greenEvolution;
@@ -32,12 +32,7 @@ public class LifeDrainParticle extends Particle {
     protected double xTarget;
     protected double yTarget;
     protected double zTarget;
-    public float prevYaw;
-    public float prevPitch;
-    public float yaw;
-    public float pitch;
     public float speedModifier;
-    protected int targetChangeCooldown = 0;
     protected PlayerEntity player;
 
     protected LifeDrainParticle(ClientWorld world, double x, double y, double z, Identifier texture, float red, float green, float blue, float redEvolution, float greenEvolution, float blueEvolution) {
@@ -45,7 +40,7 @@ public class LifeDrainParticle extends Particle {
         this.texture = texture;
         setBoundingBoxSpacing(0.02f, 0.02f);
         this.gravityStrength = 0.0F;
-        this.maxAge = 16;
+        this.maxAge = 20 * 4;
         speedModifier = 0.1f + Math.max(0, random.nextFloat() - 0.1f);
         this.velocityX *= 0.1;
         this.velocityY *= 0.1;
@@ -82,11 +77,7 @@ public class LifeDrainParticle extends Particle {
             this.markDead();
         }
 
-        this.targetChangeCooldown -= (new Vec3d(x, y, z).squaredDistanceTo(prevPosX, prevPosY, prevPosZ) < 0.0125) ? 10 : 1;
-
-        if ((this.world.getTime() % 20 == 0) && ((xTarget == 0 && yTarget == 0 && zTarget == 0) || new Vec3d(x, y, z).squaredDistanceTo(xTarget, yTarget, zTarget) < 9 || targetChangeCooldown <= 0)) {
-            selectBlockTarget();
-        }
+        selectBlockTarget();
 
         Vec3d targetVector = new Vec3d(this.xTarget - this.x, this.yTarget - this.y, this.zTarget - this.z);
         double length = targetVector.length();
@@ -96,13 +87,6 @@ public class LifeDrainParticle extends Particle {
         velocityY = (0.9) * velocityY + (0.1) * targetVector.y;
         velocityZ = (0.9) * velocityZ + (0.1) * targetVector.z;
 
-        this.prevYaw = this.yaw;
-        this.prevPitch = this.pitch;
-        Vec3d vec3d = new Vec3d(velocityX, velocityY, velocityZ);
-        float f = (float) Math.sqrt(vec3d.x * vec3d.x + vec3d.z * vec3d.z);
-        this.yaw = (float) (MathHelper.atan2(vec3d.x, vec3d.z) * 57.2957763671875D);
-        this.pitch = (float) (MathHelper.atan2(vec3d.y, f) * 57.2957763671875D);
-
         for (int i = 0; i < 10 * this.speedModifier; i++) {
             this.world.addParticle(new LifeDrainParticleEffect(this.red, this.green, this.blue, this.redEvolution, this.greenEvolution, this.blueEvolution), this.x + random.nextGaussian() / 15, this.y + random.nextGaussian() / 15, this.z + random.nextGaussian() / 15, 0, 0, 0);
         }
@@ -110,7 +94,15 @@ public class LifeDrainParticle extends Particle {
         if (!new BlockPos(x, y, z).equals(this.getTargetPosition())) {
             this.move(velocityX, velocityY, velocityZ);
         }
+        double distance = getTargetPosition().getSquaredDistance(new Vec3i(this.x, this.y, this.z));
+        if (distance < 2D) {
+            System.out.println("Send");
+            C2SBloodParticlePacket.send(player.getUuid());
+            this.markDead();
+
+        }
     }
+
 
     @Override
     public void move(double dx, double dy, double dz) {
@@ -143,8 +135,6 @@ public class LifeDrainParticle extends Particle {
         return new BlockPos(this.xTarget, this.yTarget + 0.5, this.zTarget);
     }
 
-
-
     private void selectBlockTarget() {
         if(player != null){
             this.xTarget = player.getX();
@@ -161,19 +151,6 @@ public class LifeDrainParticle extends Particle {
 
     @Override
     public void buildGeometry(VertexConsumer vertexConsumer, Camera camera, float tickDelta) {
-        Vec3d vec3d = camera.getPos();
-        float f = (float) (MathHelper.lerp(tickDelta, this.prevPosX, this.x) - vec3d.getX());
-        float g = (float) (MathHelper.lerp(tickDelta, this.prevPosY, this.y) - vec3d.getY());
-        float h = (float) (MathHelper.lerp(tickDelta, this.prevPosZ, this.z) - vec3d.getZ());
-
-        MatrixStack matrixStack = new MatrixStack();
-        matrixStack.translate(f, g, h);
-        matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(MathHelper.lerp(g, this.prevYaw, this.yaw) - 180));
-        matrixStack.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(MathHelper.lerp(g, this.prevPitch, this.pitch)));
-        matrixStack.scale(0.5F, -0.5F, 0.5F);
-        matrixStack.translate(0, -1, 0);
-        VertexConsumerProvider.Immediate immediate = MinecraftClient.getInstance().getBufferBuilders().getEntityVertexConsumers();
-        immediate.draw();
     }
 
     @Override

@@ -6,6 +6,7 @@ import dev.mrsterner.bewitchmentplus.common.block.blockentity.YewLogBlockEntity;
 import dev.mrsterner.bewitchmentplus.common.block.yew.YewLogBlock;
 import dev.mrsterner.bewitchmentplus.common.entity.UnicornEntity;
 import dev.mrsterner.bewitchmentplus.common.item.GobletBlockItem;
+import dev.mrsterner.bewitchmentplus.common.network.packet.C2SBloodParticlePacket;
 import dev.mrsterner.bewitchmentplus.common.registry.*;
 import dev.mrsterner.bewitchmentplus.common.utils.BWPUtil;
 import dev.mrsterner.bewitchmentplus.common.utils.RenderHelper;
@@ -25,6 +26,7 @@ import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.block.FlowerPotBlock;
@@ -86,6 +88,8 @@ public class BewitchmentPlus implements ModInitializer {
 		UseEntityCallback.EVENT.register(this::succUnicorn);
 		ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register(this::gobletFillWithAthame);
 		UseBlockCallback.EVENT.register(this::createHomeStead);
+
+		ServerPlayNetworking.registerGlobalReceiver(C2SBloodParticlePacket.ID, C2SBloodParticlePacket::handle);
 
 	}
 
