@@ -131,7 +131,7 @@ public class LilimEntity extends BWHostileEntity {
 	}
 
 	private class LilimMeleeAttackGoal extends MeleeAttackGoal {
-		public LilimMeleeAttackGoal(PathAwareEntity mob, double speed, boolean pauseWhenMobIdle) {
+		public LilimMeleeAttackGoal(LilimEntity mob, double speed, boolean pauseWhenMobIdle) {
 			super(mob, speed, pauseWhenMobIdle);
 		}
 
@@ -139,11 +139,15 @@ public class LilimEntity extends BWHostileEntity {
 		protected void attack(LivingEntity target, double squaredDistance) {
 			super.attack(target, squaredDistance);
 			if(target instanceof AnimalEntity || target.getType().isIn(BWTags.HAS_BLOOD)){
-				BWComponents.BLOOD_COMPONENT.maybeGet(target).ifPresent(bloodComponent -> {
 					if (this.mob.getRandom().nextFloat() <= 0.5F) {
-						bloodComponent.fillBlood(1, false);
+						BWComponents.BLOOD_COMPONENT.maybeGet(target).ifPresent(bloodComponent -> {
+							bloodComponent.drainBlood(1, false);
+						});
+						BWComponents.BLOOD_COMPONENT.maybeGet(this.mob).ifPresent(bloodComponent -> {
+							bloodComponent.fillBlood(1, false);
+						});
 					}
-				});
+
 			}
 		}
 	}
