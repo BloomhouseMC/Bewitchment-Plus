@@ -52,7 +52,7 @@ public abstract class LivingEntityMixin extends Entity {
             }
     }
     @ModifyVariable(method = "damage", at = @At("HEAD"))
-    private float multiplyDamageForVulnerability(float amount) {
+    private float halfLifeDamageHandler(float amount) {
         if (this.hasStatusEffect(BWPStatusEffects.HALF_LIFE)) {
             return this.getStatusEffect(BWPStatusEffects.HALF_LIFE).getAmplifier() == 1 ? 0 : amount;
         }

@@ -3,7 +3,6 @@ package dev.mrsterner.bewitchmentplus.common.network.packet;
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPParticleTypes;
 import io.netty.buffer.Unpooled;
-import moriyashiine.bewitchment.api.BewitchmentAPI;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.client.MinecraftClient;

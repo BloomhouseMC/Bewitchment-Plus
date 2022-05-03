@@ -52,7 +52,7 @@ public class BWPObjects {
 	public static final Item DRAGONBLOOD_STAFF = register("dragonblood_staff", new DragonbloodStaffItem(200, gen().maxCount(1).rarity(Rarity.RARE)));
 	public static final Item VAMPIRE_KNIFE = register("vampire_knife", new VamireKnifeItem(ToolMaterials.IRON, 2, -3F,gen()));
 	public static final Item LESHON_SKULL = register("leshon_skull", new LeshonSkullItem(gen()));
-	public static final Item CROWN_OF_THE_FOREST = register("crown_of_the_forest", new CrownOfTheForestTrinketItem(gen().maxCount(1)));
+	// TODO public static final Item CROWN_OF_THE_FOREST = register("crown_of_the_forest", new CrownOfTheForestTrinketItem(gen().maxCount(1)));
 
 	//BLOCKS
 	public static final Block SILVER_GOBLET = registerGoblet("silver_goblet", new GobletBlock(copyOf(BWObjects.SILVER_BLOCK)), gen());

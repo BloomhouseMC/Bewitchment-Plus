@@ -53,7 +53,12 @@ public class LifeDrainParticle extends Particle {
         this.blueEvolution = blueEvolution;
         this.greenEvolution = greenEvolution;
         this.player = world.getClosestPlayer((TargetPredicate.createNonAttackable()).setBaseMaxDistance(8D), this.x, this.y, this.z);
-        source = world.getEntitiesByClass(LivingEntity.class, new Box(new BlockPos(this.x, this.y, this.z)).expand(2, 2, 2), LivingEntity::isAlive).stream().findFirst();
+        Optional<LivingEntity> found = Optional.empty();
+        for (LivingEntity livingEntity : world.getEntitiesByClass(LivingEntity.class, new Box(new BlockPos(this.x, this.y, this.z)).expand(2, 2, 2), LivingEntity::isAlive)) {
+            found = Optional.of(livingEntity);
+            break;
+        }
+        source = found;
         if (this.player == null) {
             this.markDead();
         }
@@ -61,9 +66,7 @@ public class LifeDrainParticle extends Particle {
 
     @Override
     public void tick() {
-        if (this.prevPosX == this.x && this.prevPosY == this.y && this.prevPosZ == this.z) {
-            this.selectBlockTarget();
-        }
+        selectBlockTarget();
 
         this.prevPosX = this.x;
         this.prevPosY = this.y;
@@ -71,14 +74,12 @@ public class LifeDrainParticle extends Particle {
 
         if (this.age++ >= this.maxAge) {
             for (int i = 0; i < 25; i++) {
-                this.world.addParticle(new LifeDrainParticleEffect(this.red, this.green, this.blue, this.redEvolution, this.greenEvolution, this.blueEvolution), this.x + random.nextGaussian() / 15, this.y + random.nextGaussian() / 15, this.z + random.nextGaussian() / 15, 0, 0, 0);
+                this.world.addParticle(new LifeDrainParticleEffect(this.red, this.green, this.blue, this.redEvolution, this.greenEvolution, this.blueEvolution), this.x + random.nextGaussian() / 16, this.y + random.nextGaussian() / 16, this.z + random.nextGaussian() / 16, 0, 0, 0);
             }
             this.world.playSound(new BlockPos(this.x, this.y, this.z), SoundEvents.PARTICLE_SOUL_ESCAPE, SoundCategory.AMBIENT, 1.0f, 1.5f, true);
             this.world.playSound(new BlockPos(this.x, this.y, this.z), SoundEvents.BLOCK_SOUL_SAND_BREAK, SoundCategory.AMBIENT, 1.0f, 1.0f, true);
             this.markDead();
         }
-
-        selectBlockTarget();
 
         Vec3d targetVector = new Vec3d(this.xTarget - this.x, this.yTarget - this.y, this.zTarget - this.z);
         double length = targetVector.length();
@@ -97,9 +98,7 @@ public class LifeDrainParticle extends Particle {
         }
         double distance = getTargetPosition().getSquaredDistance(new Vec3i(this.x, this.y, this.z));
         if (distance < 2D) {
-            if(source.isPresent()){
-                C2SBloodParticlePacket.send(player.getUuid(), source.get().getId());
-            }
+            source.ifPresent(livingEntity -> C2SBloodParticlePacket.send(player.getUuid(), livingEntity.getId()));
             this.markDead();
         }
     }

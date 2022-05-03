@@ -38,8 +38,6 @@ public class LifeDrainTrailParticle extends SpriteBillboardParticle {
         return ParticleTextureSheet.PARTICLE_SHEET_TRANSLUCENT;
     }
 
-
-
     @Override
     public void tick() {
         this.prevPosX = this.x;

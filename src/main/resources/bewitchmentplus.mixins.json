@@ -8,6 +8,7 @@
     "common.BlockEntityTypeMixin",
     "common.BlocksMixin",
     "common.IronGolemTargetingMixin",
+    "common.LilithEntityMixin",
     "common.LivingEntityMixin",
     "common.LootContextTypesAccessor",
     "common.MilkBucketItemMixin",
@@ -23,16 +24,15 @@
   ],
   "client": [
     "client.AbstractInventoryScreenMixin",
-    "client.TexturedRenderLayersMixin",
     "client.GameRendererMixin",
     "client.InGameHudMixin",
     "client.LivingEntityRendererMixin",
     "client.MinecraftClientMixin",
     "client.PlayerEntityRendererMixin",
     "client.RenderLayerAccessor",
+    "client.SignBlockEntityRendererMixin",
     "client.SignEditScreenMixin",
-    "client.TexturedRenderLayersMixin",
-    "client.SignBlockEntityRendererMixin"
+    "client.TexturedRenderLayersMixin"
   ],
   "injectors": {
     "defaultRequire": 1
