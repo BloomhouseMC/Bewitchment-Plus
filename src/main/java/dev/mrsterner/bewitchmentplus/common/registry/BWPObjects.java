@@ -14,6 +14,7 @@ import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.*;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.DyeColor;
@@ -53,6 +54,10 @@ public class BWPObjects {
 	public static final Item VAMPIRE_KNIFE = register("vampire_knife", new VamireKnifeItem(ToolMaterials.IRON, 2, -3F,gen()));
 	public static final Item LESHON_SKULL = register("leshon_skull", new LeshonSkullItem(gen()));
 	// TODO public static final Item CROWN_OF_THE_FOREST = register("crown_of_the_forest", new CrownOfTheForestTrinketItem(gen().maxCount(1)));
+
+	public static final Item DEATHS_HOOD = register("deaths_hood", new ArmorItem(BWPMaterials.DEATH_ARMOR, EquipmentSlot.HEAD, gen()));
+	public static final Item DEATHS_ROBES = register("deaths_robes", new ArmorItem(BWPMaterials.DEATH_ARMOR, EquipmentSlot.CHEST, gen()));
+	public static final Item DEATHS_PANTS = register("deaths_footwear", new ArmorItem(BWPMaterials.DEATH_ARMOR, EquipmentSlot.FEET, gen()));
 
 	//BLOCKS
 	public static final Block SILVER_GOBLET = registerGoblet("silver_goblet", new GobletBlock(copyOf(BWObjects.SILVER_BLOCK)), gen());

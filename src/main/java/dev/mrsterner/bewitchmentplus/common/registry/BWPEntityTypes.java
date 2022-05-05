@@ -101,6 +101,13 @@ public class BWPEntityTypes {
 			.dimensions(EntityDimensions.fixed(0F, 0F))
 			.build());
 
+	public static final EntityType<DeathEntity> DEATH = register("death", FabricEntityTypeBuilder
+			.<DeathEntity>createLiving()
+			.entityFactory(DeathEntity::new)
+			.dimensions(EntityDimensions.fixed(2F, 3F))
+			.defaultAttributes(DeathEntity::createAttributes)
+			.build());
+
 	public static final EntityType<MutandisItemEntity> MUTANDIS_ENTITY_ENTITY_TYPE = Registry.register(Registry.ENTITY_TYPE, new Identifier(BewitchmentPlus.MODID, "mutanis_entity"),
 	FabricEntityTypeBuilder.<MutandisItemEntity>create(SpawnGroup.MISC, MutandisItemEntity::new)
 	.dimensions(EntityDimensions.fixed(0.25F, 0.25F)).trackRangeBlocks(4).trackedUpdateRate(10).build());
