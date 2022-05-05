@@ -1,16 +1,19 @@
 package dev.mrsterner.bewitchmentplus.mixin.common;
 
 import dev.mrsterner.bewitchmentplus.common.registry.BWPCurses;
+import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPStatusEffects;
 import moriyashiine.bewitchment.api.registry.Curse;
 import moriyashiine.bewitchment.common.registry.BWComponents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -34,6 +37,10 @@ public abstract class LivingEntityMixin extends Entity {
     @Nullable
     public abstract StatusEffectInstance getStatusEffect(StatusEffect effect);
 
+
+    @Shadow public abstract boolean canWalkOnFluid(FluidState fluidState);
+
+    private boolean walkOnFluid = false;
 
     @Inject(method = "tryUseTotem", at = @At("HEAD"))
     private void tryUseTotem(DamageSource source, CallbackInfoReturnable<Boolean> callbackInfo) {
@@ -63,6 +70,20 @@ public abstract class LivingEntityMixin extends Entity {
     public void halfLifeCancelHeal(float amount, CallbackInfo callbackInfo) {
         if (this.hasStatusEffect(BWPStatusEffects.HALF_LIFE)) {
             callbackInfo.cancel();
+        }
+    }
+
+    @Inject(method = "tickMovement", at = @At("HEAD"))
+    private void deathWalk(CallbackInfo ci){
+        LivingEntity livingEntity = (LivingEntity)(Object)this;
+        this.walkOnFluid = livingEntity.getEquippedStack(EquipmentSlot.FEET).getItem().equals(BWPObjects.DEATHS_FOOTWEAR);
+
+    }
+
+    @Inject(method = "canWalkOnFluid", at = @At("RETURN"), cancellable = true)
+    private void deathWalk(FluidState fluidState, CallbackInfoReturnable<Boolean> cir){
+        if(walkOnFluid){
+            cir.setReturnValue(true);
         }
     }
 }

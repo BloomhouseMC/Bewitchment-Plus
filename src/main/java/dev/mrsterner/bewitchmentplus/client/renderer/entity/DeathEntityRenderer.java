@@ -1,9 +1,7 @@
 package dev.mrsterner.bewitchmentplus.client.renderer.entity;
 
 import dev.mrsterner.bewitchmentplus.client.model.entity.DeathEntityModel;
-import dev.mrsterner.bewitchmentplus.client.model.entity.EffigyEntityModel;
 import dev.mrsterner.bewitchmentplus.common.entity.DeathEntity;
-import dev.mrsterner.bewitchmentplus.common.entity.EffigyEntity;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;

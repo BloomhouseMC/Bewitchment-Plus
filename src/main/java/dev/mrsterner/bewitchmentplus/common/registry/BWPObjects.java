@@ -57,7 +57,7 @@ public class BWPObjects {
 
 	public static final Item DEATHS_HOOD = register("deaths_hood", new ArmorItem(BWPMaterials.DEATH_ARMOR, EquipmentSlot.HEAD, gen()));
 	public static final Item DEATHS_ROBES = register("deaths_robes", new ArmorItem(BWPMaterials.DEATH_ARMOR, EquipmentSlot.CHEST, gen()));
-	public static final Item DEATHS_PANTS = register("deaths_footwear", new ArmorItem(BWPMaterials.DEATH_ARMOR, EquipmentSlot.FEET, gen()));
+	public static final Item DEATHS_FOOTWEAR = register("deaths_footwear", new ArmorItem(BWPMaterials.DEATH_ARMOR, EquipmentSlot.FEET, gen()));
 
 	//BLOCKS
 	public static final Block SILVER_GOBLET = registerGoblet("silver_goblet", new GobletBlock(copyOf(BWObjects.SILVER_BLOCK)), gen());

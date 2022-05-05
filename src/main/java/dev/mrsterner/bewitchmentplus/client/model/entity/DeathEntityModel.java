@@ -2,7 +2,6 @@ package dev.mrsterner.bewitchmentplus.client.model.entity;
 
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import dev.mrsterner.bewitchmentplus.common.entity.DeathEntity;
-import dev.mrsterner.bewitchmentplus.common.entity.EffigyEntity;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
