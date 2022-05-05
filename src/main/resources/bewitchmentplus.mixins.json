@@ -23,6 +23,7 @@
     "common.VillagerHostilesSensorMixin"
   ],
   "client": [
+    "client.EntityRenderDispatcherMixin",
     "client.InGameOverlayRendererMixin",
     "client.AbstractInventoryScreenMixin",
     "client.GameRendererMixin",

@@ -15,6 +15,7 @@ import dev.mrsterner.bewitchmentplus.common.item.GobletBlockItem;
 import dev.mrsterner.bewitchmentplus.common.item.StatueBlockItem;
 import dev.mrsterner.bewitchmentplus.common.network.packet.S2CBloodParticlesPacket;
 import dev.mrsterner.bewitchmentplus.common.registry.*;
+import moriyashiine.bewitchment.client.renderer.WitchArmorRenderer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -80,6 +81,8 @@ public class BewitchmentPlusClient implements ClientModInitializer {
 		GeoArmorRenderer.registerArmorRenderer(new LeshonSkullArmorRenderer(), BWPObjects.LESHON_SKULL);
 		GeoItemRenderer.registerItemRenderer(BWPObjects.LESHON_SKULL, new LeshonSkullItemRenderer());
 		TerraformBoatClientHelper.registerModelLayer(new Identifier(BewitchmentPlus.MODID, "yew"));
+		ArmorRenderer.register(new WitchArmorRenderer(new Identifier(BewitchmentPlus.MODID, "textures/entity/armor/death_robes.png"), null),  BWPObjects.DEATHS_HOOD, BWPObjects.DEATHS_ROBES, BWPObjects.DEATHS_FOOTWEAR);
+
 
 		BlockEntityRendererRegistry.register(BWPBlockEntityTypes.GOBLET, ctx -> new GobletBlockItemRenderer());
 		BlockEntityRendererRegistry.register(BWPBlockEntityTypes.STATUE_BLOCK_ENTITY, ctx -> new StatueRenderer());
