@@ -17,6 +17,7 @@
   "license": "GPL-3.0",
   "icon": "assets/bwplus/icon.png",
   "environment": "*",
+  "accessWidener" : "bewitchmentplus.accesswidener",
   "entrypoints": {
 	"main": [
       "dev.mrsterner.bewitchmentplus.BewitchmentPlus"

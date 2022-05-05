@@ -33,11 +33,7 @@ public class NifflerEntityRenderer extends GeoEntityRenderer<NifflerEntity> {
 
  */
 
-    @Override
-    public void renderEarly(NifflerEntity animatable, MatrixStack matrices, float ticks, VertexConsumerProvider renderTypeBuffer, VertexConsumer vertexBuilder, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float partialTicks) {
-        matrices.scale(0.5F,0.5F, 0.5F);
-        super.renderEarly(animatable, matrices, ticks, renderTypeBuffer, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, partialTicks);
-    }
+
 
 
     @Override

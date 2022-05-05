@@ -46,7 +46,6 @@ public class NifflerEntity extends BWTameableEntity implements IAnimatable, Inve
     public SimpleInventory nifflerInventory = new SimpleInventory(6);
     public List<Long> blocksChecked = new ArrayList<>();
     private static final TrackedData<Boolean> NIFFLING = DataTracker.registerData(NifflerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-    private static final TrackedData<Boolean> SITTING = DataTracker.registerData(NifflerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public static final TrackedData<Boolean> SLEEPING = DataTracker.registerData(NifflerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private final AnimationFactory factory = new AnimationFactory(this);
     public NifflerEntity(EntityType<? extends TameableEntity> type, World world) {
@@ -67,30 +66,30 @@ public class NifflerEntity extends BWTameableEntity implements IAnimatable, Inve
         return new ItemStack(BWPObjects.NIFFLER_SPAWN_EGG.asItem());
     }
 
+    public Vec3d getDeltaMotion(){
+        return new Vec3d(this.getX()-this.prevX, this.getY()-this.prevY,this.getZ()-this.prevZ);
+    }
+
     private <E extends IAnimatable> PlayState devMovement(AnimationEvent<E> animationEvent) {
         final AnimationController animationController = animationEvent.getController();
         AnimationBuilder builder = new AnimationBuilder();
-        Vec3d motionCalc = new Vec3d(this.getX()-this.prevX, this.getY()-this.prevY,this.getZ()-this.prevZ);
-        boolean isMovingHorizontal = Math.sqrt(Math.pow(motionCalc.x, 2) + Math.pow(motionCalc.z, 2)) > 0.005;
+
+        boolean isMovingHorizontal = Math.sqrt(Math.pow(getDeltaMotion().x, 2) + Math.pow(getDeltaMotion().z, 2)) > 0.005;
         if(this.dataTracker.get(SLEEPING)){
-            builder.addAnimation("animation.niffler.sleep", true);
-        }else if (!this.isOnGround() && motionCalc.getY() < 0){
+            builder.addAnimation("niffler_sleep", true);
+        }else if (!this.isOnGround() && getDeltaMotion().getY() < 0){
             //TODO create falling animation
         }else if(isMovingHorizontal || animationEvent.isMoving()){
             animationController.setAnimationSpeed(2);
             if(this.dataTracker.get(NIFFLING)){
-                builder.addAnimation("animation.niffler.walk_sniff", true);
+                builder.addAnimation("niffler_running_sniff", true);
             }else{
-                builder.addAnimation("animation.niffler.walk", true);
+                builder.addAnimation("niffler_running", true);
             }
-        }else if(this.dataTracker.get(SITTING)){
-            animationController.setAnimationSpeed(1);
-            builder.addAnimation("animation.niffler.niffle", true);
         }
-
         if(animationEvent.getController().getCurrentAnimation() == null || builder.getRawAnimationList().size() <= 0){
             animationController.setAnimationSpeed(1);
-            builder.addAnimation( "animation.niffler.idle", true);
+            builder.addAnimation( "niffler_idle", true);
         }
         animationController.setAnimation(builder);
         return PlayState.CONTINUE;
@@ -238,7 +237,6 @@ public class NifflerEntity extends BWTameableEntity implements IAnimatable, Inve
     @Override
     protected void initDataTracker() {
         this.dataTracker.startTracking(NIFFLING, false);
-        this.dataTracker.startTracking(SITTING, false);
         this.dataTracker.startTracking(SLEEPING, false);
         super.initDataTracker();
     }

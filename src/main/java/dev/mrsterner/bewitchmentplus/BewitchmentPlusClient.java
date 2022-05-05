@@ -123,7 +123,7 @@ public class BewitchmentPlusClient implements ClientModInitializer {
 		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.MIMIC_CHEST, (stack, mode, matrices, vertexConsumers, light, overlay) -> MinecraftClient.getInstance().getBlockEntityRenderDispatcher().renderEntity(new BWPChestBlockEntity(BlockEntityType.CHEST, BlockPos.ORIGIN, Blocks.CHEST.getDefaultState()), matrices, vertexConsumers, light, overlay));
 		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.LEECH_CHEST, (stack, mode, matrices, vertexConsumers, light, overlay) -> MinecraftClient.getInstance().getBlockEntityRenderDispatcher().renderEntity(new LeechChestBlockEntity(BlockEntityType.CHEST, BlockPos.ORIGIN, Blocks.CHEST.getDefaultState()), matrices, vertexConsumers, light, overlay));
 
-
+/*TODO
 		TrinketRendererRegistry.registerRenderer(BWPObjects.CROWN_OF_THE_FOREST, (stack, slotReference, contextModel, matrices, vertexConsumers, light, entity, limbAngle, limbDistance, tickDelta, animationProgress, headYaw, headPitch) -> {
 			TrinketRenderer.translateToChest(matrices, (PlayerEntityModel<AbstractClientPlayerEntity>) contextModel, (AbstractClientPlayerEntity) entity);
 			matrices.translate(0, -1 / 4.25f, 1 / 48f);
@@ -131,6 +131,8 @@ public class BewitchmentPlusClient implements ClientModInitializer {
 			matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(180));
 			MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformation.Mode.FIXED, light, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, 0);
 		});
+
+ */
 	}
 
 	public static final class ClientTickHandler {
