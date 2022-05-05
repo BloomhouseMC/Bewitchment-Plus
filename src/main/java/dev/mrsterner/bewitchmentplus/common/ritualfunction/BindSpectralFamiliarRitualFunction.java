@@ -28,6 +28,6 @@ public class BindSpectralFamiliarRitualFunction extends RitualFunction {
     @Override
     public void tick(World world, BlockPos glyphPos, BlockPos effectivePos, boolean catFamiliar) {
         super.tick(world, glyphPos, effectivePos, catFamiliar);
-        //TODO summon death or player wearing deaths attire
+        //TODO summon death or player wearing deaths attire, BUT MAKE IT CONFIGURABLE
     }
 }

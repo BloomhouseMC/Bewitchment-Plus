@@ -1,9 +1,11 @@
 package dev.mrsterner.bewitchmentplus.mixin.common;
 
 import dev.mrsterner.bewitchmentplus.common.registry.BWPCurses;
+import dev.mrsterner.bewitchmentplus.common.registry.BWPMaterials;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPStatusEffects;
 import moriyashiine.bewitchment.api.registry.Curse;
+import moriyashiine.bewitchment.common.misc.BWUtil;
 import moriyashiine.bewitchment.common.registry.BWComponents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -14,6 +16,9 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
+import net.minecraft.item.ArmorItem;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -87,6 +92,20 @@ public abstract class LivingEntityMixin extends Entity {
         this.walkOnFluid = livingEntity.getEquippedStack(EquipmentSlot.FEET).getItem().equals(BWPObjects.DEATHS_FOOTWEAR);
 
     }
+    @Inject(method = "tickMovement", at = @At("HEAD"))
+    private void deathParticle(CallbackInfo ci){
+        LivingEntity livingEntity = (LivingEntity)(Object)this;
+        if(BWUtil.getArmorPieces(livingEntity, (stack) -> stack.getItem() instanceof ArmorItem && ((ArmorItem)stack.getItem()).getMaterial() == BWPMaterials.DEATH_ARMOR) == 3){
+            float r1 = world.random.nextFloat() * 360.0F;
+            float mx = -MathHelper.cos(r1 / 180.0F * 3.1415927F) / 20.0F;
+            float mz = MathHelper.sin(r1 / 180.0F * 3.1415927F) / 20.0F;
+            world.addParticle(ParticleTypes.SMOKE, true, livingEntity.getX(), livingEntity.getY() + 0.1D, livingEntity.getZ(), mx, 0.0D, mz);
+            if(world.getRandom().nextFloat() < 0.10F){
+                world.addParticle(ParticleTypes.SOUL, true, livingEntity.getX(), livingEntity.getY() + 0.1D, livingEntity.getZ(), mx, 0.0D, mz);
+            }
+        }
+    }
+
 
     @Inject(method = "canWalkOnFluid", at = @At("RETURN"), cancellable = true)
     private void deathWalk(FluidState fluidState, CallbackInfoReturnable<Boolean> cir){
