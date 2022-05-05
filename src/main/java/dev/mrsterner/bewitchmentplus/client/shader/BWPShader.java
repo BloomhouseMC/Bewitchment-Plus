@@ -21,11 +21,6 @@ public class BWPShader  {
                 inst -> shadow = inst)
         );
     }
-
-    /**
-     * Used to create a Shader instance
-     * @return
-     */
     public static Shader rune() {
         return rune;
     }

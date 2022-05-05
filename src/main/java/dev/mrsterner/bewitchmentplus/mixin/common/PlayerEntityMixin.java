@@ -7,7 +7,9 @@ import dev.mrsterner.bewitchmentplus.common.interfaces.Magical;
 import dev.mrsterner.bewitchmentplus.common.registry.*;
 import dev.mrsterner.bewitchmentplus.common.transformation.LeshonLogic;
 import dev.mrsterner.bewitchmentplus.common.utils.BWPUtil;
+import dev.mrsterner.bewitchmentplus.common.world.BWPWorldState;
 import moriyashiine.bewitchment.client.network.packet.SpawnSmokeParticlesPacket;
+import moriyashiine.bewitchment.common.misc.BWUtil;
 import moriyashiine.bewitchment.common.network.packet.TransformationAbilityPacket;
 import moriyashiine.bewitchment.common.registry.BWComponents;
 import moriyashiine.bewitchment.common.registry.BWSoundEvents;
@@ -22,12 +24,15 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Final;
@@ -111,6 +116,20 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Magical,
             PlayerEntity player = (PlayerEntity) (Object) this;
             if (player.hasStatusEffect(BWPStatusEffects.HALF_LIFE) && player.getStatusEffect(BWPStatusEffects.HALF_LIFE).getDuration() < 10 && !BWPComponents.EFFIGY_COMPONENT.get(player).getHasEffigy()) {
                 player.damage(DamageSource.MAGIC, Float.MAX_VALUE);
+            }
+        }
+    }
+    @Inject(method = "tick", at = @At("TAIL"))
+    private void addDeathPlayer(CallbackInfo ci){
+        if(world instanceof ServerWorld serverWorld) {
+            PlayerEntity player = (PlayerEntity) (Object) this;
+            BWPWorldState worldState = BWPWorldState.get(serverWorld);
+            if(BWUtil.getArmorPieces(player, (stack) -> stack.getItem() instanceof ArmorItem && ((ArmorItem)stack.getItem()).getMaterial() == BWPMaterials.DEATH_ARMOR) == 3){
+                worldState.deathPlayer.add(new Pair<>(player.getUuid(), true));
+            }else if(worldState.deathPlayer.stream().anyMatch(worldStates -> worldStates.getLeft().equals(player.getUuid()))){
+                    if (worldState.deathPlayer.remove(player.getUuid())) {
+                        worldState.markDirty();
+                    }
             }
         }
     }

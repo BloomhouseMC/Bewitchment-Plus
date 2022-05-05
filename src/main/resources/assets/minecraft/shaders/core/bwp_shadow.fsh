@@ -24,10 +24,6 @@ void main() {
         discard;
     }
     color.a = 0.5;
-    color.r = 0;
-    color.g = 0;
-    color.b = 0;
-
-    color *= lightMapColor;
+    color.rgb = 0;
     fragColor = linear_fog(color, vertexDistance, FogStart, FogEnd, FogColor);
 }

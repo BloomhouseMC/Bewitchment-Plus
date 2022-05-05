@@ -49,8 +49,14 @@ public class BWPConfig implements ConfigData {
     }
 
 	public static class Mechanics {
+
+		@ConfigEntry.Gui.RequiresRestart
 		@ConfigEntry.Gui.Tooltip
 		public final boolean allowGetVampBloodFromGobletAndAthame = false;
+
+		@ConfigEntry.Gui.RequiresRestart
+		@ConfigEntry.Gui.Tooltip
+		public final boolean allowSummoningPlayersWithDeathGearInsteadOfDeath = false;
 	}
 
 }
