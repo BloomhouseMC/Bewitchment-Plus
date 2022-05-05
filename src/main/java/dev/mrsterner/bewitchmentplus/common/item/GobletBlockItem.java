@@ -49,7 +49,7 @@ public class GobletBlockItem extends BlockItem {
 
     @Override
     public int getMaxUseTime(ItemStack stack) {
-        return 40;
+        return 20;
     }
 
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {

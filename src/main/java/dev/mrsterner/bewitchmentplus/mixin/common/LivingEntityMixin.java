@@ -66,6 +66,14 @@ public abstract class LivingEntityMixin extends Entity {
         return amount;
     }
 
+    @Inject(method = "damage", at = @At("HEAD"), cancellable = true)
+    private void deathRobes(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+        LivingEntity livingEntity = (LivingEntity)(Object)this;
+        if (livingEntity.getEquippedStack(EquipmentSlot.CHEST).getItem().equals(BWPObjects.DEATHS_ROBES) && source.isFire()) {
+            cir.setReturnValue(false);
+        }
+    }
+
     @Inject(method = "heal", at = @At("HEAD"), cancellable = true)
     public void halfLifeCancelHeal(float amount, CallbackInfo callbackInfo) {
         if (this.hasStatusEffect(BWPStatusEffects.HALF_LIFE)) {
