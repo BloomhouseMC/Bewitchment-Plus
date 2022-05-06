@@ -15,8 +15,8 @@ import java.util.*;
 
 public class BWPWorldState extends PersistentState {
     public final List<Pair<UUID, Long>> mimicChestsPair = new ArrayList<>();
-    public final List<Pair<UUID, BlockPos>> homeStead = new ArrayList<>();
     public final List<Pair<UUID, Boolean>> deathPlayer = new ArrayList<>();
+    public static final Map<UUID, BlockPos> homeStead = new HashMap<>();
 
 
     public static BWPWorldState readNbt(NbtCompound nbt) {
@@ -24,7 +24,7 @@ public class BWPWorldState extends PersistentState {
         NbtList homeSteadList = nbt.getList("HomeStead", 10);
         for (NbtElement tag : homeSteadList) {
             NbtCompound homeSteadTag = (NbtCompound) tag;
-            worldState.homeStead.add(new Pair<>(homeSteadTag.getUuid("Player"), NbtHelper.toBlockPos(homeSteadTag.getCompound("Pos"))));
+            homeStead.put(homeSteadTag.getUuid("Player"), NbtHelper.toBlockPos(homeSteadTag.getCompound("Pos")));
         }
         NbtList mimicChestsList = nbt.getList("MimicChests", NbtType.COMPOUND);
         for (int i = 0; i < mimicChestsList.size(); i++) {
@@ -63,17 +63,25 @@ public class BWPWorldState extends PersistentState {
 
         //HomeStead
         NbtList homeSteadList = new NbtList();
-        for (Pair<UUID, BlockPos> pair : this.homeStead) {
-            NbtCompound homeSteadCompound = new NbtCompound();
-            homeSteadCompound.putUuid("Player", pair.getLeft());
-            homeSteadCompound.put("Pos", NbtHelper.fromBlockPos(pair.getRight()));
-            mimicList.add(homeSteadCompound);
-        }
+        homeStead.forEach(((uuid, blockPos) -> {
+            NbtCompound homeSteadTag = new NbtCompound();
+            homeSteadTag.putUuid("Player", uuid);
+            homeSteadTag.put("Pos", NbtHelper.fromBlockPos(blockPos));
+            homeSteadList.add(homeSteadTag);
+        }));
         nbt.put("HomeStead", homeSteadList);
 
         return nbt;
     }
+    public void addHomeStead(UUID uuid, BlockPos pos){
+        homeStead.put(uuid, pos);
+        markDirty();
+    }
 
+    public void removeHomeStead(UUID uuid){
+        homeStead.remove(uuid);
+        markDirty();
+    }
 
     public static BWPWorldState get(ServerWorld world) {
         return world.getPersistentStateManager().getOrCreate(BWPWorldState::readNbt, BWPWorldState::new, BewitchmentPlus.MODID + "_universal");

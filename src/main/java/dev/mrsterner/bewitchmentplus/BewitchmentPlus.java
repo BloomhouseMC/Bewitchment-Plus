@@ -103,18 +103,18 @@ public class BewitchmentPlus implements ModInitializer {
 	 */
 	private ActionResult createHomeStead(PlayerEntity player, World world, Hand hand, BlockHitResult blockHitResult) {
 		TransformationComponent transformationComponent = BWComponents.TRANSFORMATION_COMPONENT.get(player);
-			if(world instanceof ServerWorld serverWorld && transformationComponent.getTransformation() == BWPTransformations.LESHON){
-				if(serverWorld.getBlockState(blockHitResult.getBlockPos()).getBlock() instanceof YewLogBlock && serverWorld.getBlockState(blockHitResult.getBlockPos()).get(BWProperties.NATURAL)) {
-					BWPWorldState worldState = BWPWorldState.get(serverWorld);
-					Pair<ServerWorld, YewLogBlockEntity> existingHomeStead = BWPUtil.getPossibleHomeStead(player);
-					if (existingHomeStead != null) {
-						existingHomeStead.getLeft().setBlockState(existingHomeStead.getRight().getPos(), BWPObjects.YEW_LOG.getDefaultState());
-					}
-					world.setBlockState(blockHitResult.getBlockPos(), BWPObjects.YEW_CUT_LOG.getDefaultState());
-					worldState.addHomeStead(player.getUuid(), blockHitResult.getBlockPos());
-					return ActionResult.success(true);
+		if(world instanceof ServerWorld serverWorld && transformationComponent.getTransformation() == BWPTransformations.LESHON){
+			if(serverWorld.getBlockState(blockHitResult.getBlockPos()).getBlock() instanceof YewLogBlock && serverWorld.getBlockState(blockHitResult.getBlockPos()).get(BWProperties.NATURAL)) {
+				BWPWorldState worldState = BWPWorldState.get(serverWorld);
+				Pair<ServerWorld, YewLogBlockEntity> existingHomeStead = BWPUtil.getPossibleHomeStead(player);
+				if (existingHomeStead != null) {
+					existingHomeStead.getLeft().setBlockState(existingHomeStead.getRight().getPos(), BWPObjects.YEW_LOG.getDefaultState());
 				}
+				world.setBlockState(blockHitResult.getBlockPos(), BWPObjects.YEW_CUT_LOG.getDefaultState());
+				worldState.addHomeStead(player.getUuid(), blockHitResult.getBlockPos());
+				return ActionResult.success(true);
 			}
+		}
 		return ActionResult.PASS;
 	}
 
