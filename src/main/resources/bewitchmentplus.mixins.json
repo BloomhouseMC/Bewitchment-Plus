@@ -34,7 +34,8 @@
     "client.RenderLayerAccessor",
     "client.SignBlockEntityRendererMixin",
     "client.SignEditScreenMixin",
-    "client.TexturedRenderLayersMixin"
+    "client.TexturedRenderLayersMixin",
+    "client.HeldItemRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

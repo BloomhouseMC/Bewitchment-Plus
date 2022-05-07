@@ -30,18 +30,13 @@ uniform float GameTime;
 
 
 float wobble(vec2 pair) {
-    return (fract(sin(dot(pair, vec2(10,100))/2)) - 0.5);
+     return (sin(dot(pair.xy, vec2(10,100)) * 0.25) - 0.5) * 2;
 }
 
 void main() {
     float salt = wobble(vec2(GameTime, GameTime));
-    vec3 offset = vec3(wobble(salt * Position.yz), wobble(salt * Position.xz), wobble(salt * Position.xy)) / 50;
-    gl_Position = ProjMat * ModelViewMat * vec4(Position + offset, 1.0);
-
-    vertexDistance = length((ModelViewMat * vec4(Position + offset, 1.0)).xyz);
-    vertexColor = minecraft_mix_light(Light0_Direction, Light1_Direction, Normal, Color);
-    lightMapColor = texelFetch(Sampler2, UV2 / 16, 0);
+    vec3 offset = 0.025 * vec3(wobble(salt * Position.yz), wobble(salt * Position.xz), wobble(salt * Position.xy));
+    gl_Position = ProjMat * vec4(Position + offset, 1.0);
     overlayColor = texelFetch(Sampler1, UV1, 0);
     texCoord0 = UV0;
-    normal = ProjMat * ModelViewMat * vec4(Normal, 0.0);
 }

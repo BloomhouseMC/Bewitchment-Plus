@@ -40,7 +40,7 @@ public class BWPRenderLayers extends RenderLayer {
                 .cull(DISABLE_CULLING)
                 .lightmap(ENABLE_LIGHTMAP)
                 .build(true);
-        return makeLayer(BewitchmentPlus.MODID + "bw_rune", VertexFormats.POSITION_COLOR_TEXTURE_LIGHT_NORMAL, VertexFormat.DrawMode.QUADS, 256, true, true, glState);
+        return makeLayer(BewitchmentPlus.MODID + "bwp_rune", VertexFormats.POSITION_COLOR_TEXTURE_LIGHT_NORMAL, VertexFormat.DrawMode.QUADS, 256, true, true, glState);
     });
 
     public static final Function<Identifier, RenderLayer> SHADOW = Util.memoize(texture -> {

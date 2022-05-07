@@ -17,7 +17,7 @@ public class BWPShader  {
         inst -> rune = inst)
         );
         registrations.add(Pair.of(
-                new Shader(resourceManager, "bwp_shadow", VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL),
+                new Shader(resourceManager, "bwp_shadow", VertexFormats.POSITION_COLOR_TEXTURE_LIGHT_NORMAL),
                 inst -> shadow = inst)
         );
     }
