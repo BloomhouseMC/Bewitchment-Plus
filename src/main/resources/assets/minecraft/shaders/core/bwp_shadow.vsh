@@ -1,6 +1,7 @@
 #version 150
 
 #moj_import <light.glsl>
+#moj_import <fog.glsl>
 
 in vec3 Position;
 in vec4 Color;
@@ -14,6 +15,8 @@ uniform sampler2D Sampler2;
 
 uniform mat4 ModelViewMat;
 uniform mat4 ProjMat;
+uniform mat3 IViewRotMat;
+uniform int FogShape;
 
 uniform vec3 Light0_Direction;
 uniform vec3 Light1_Direction;
@@ -36,7 +39,13 @@ float wobble(vec2 pair) {
 void main() {
     float salt = wobble(vec2(GameTime, GameTime));
     vec3 offset = 0.025 * vec3(wobble(salt * Position.yz), wobble(salt * Position.xz), wobble(salt * Position.xy));
-    gl_Position = ProjMat * vec4(Position + offset, 1.0);
+
+    gl_Position = ProjMat * ModelViewMat * vec4(Position + offset, 1.0);
+
+    vertexDistance = fog_distance(ModelViewMat, IViewRotMat * Position, FogShape);
+    vertexColor = minecraft_mix_light(Light0_Direction, Light1_Direction, Normal, Color);
+    lightMapColor = texelFetch(Sampler2, UV2 / 16, 0);
     overlayColor = texelFetch(Sampler1, UV1, 0);
     texCoord0 = UV0;
+    normal = ProjMat * ModelViewMat * vec4(Normal, 0.0);
 }

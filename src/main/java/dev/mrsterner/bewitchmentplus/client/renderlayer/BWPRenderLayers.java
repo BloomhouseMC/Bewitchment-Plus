@@ -46,12 +46,12 @@ public class BWPRenderLayers extends RenderLayer {
     public static final Function<Identifier, RenderLayer> SHADOW = Util.memoize(texture -> {
         RenderLayer.MultiPhaseParameters glState = RenderLayer.MultiPhaseParameters.builder()
                 .shader(new RenderPhase.Shader(BWPShader::shadow))
-                .texture(new RenderPhase.Texture(texture, true, false))
+                .texture(new RenderPhase.Texture(texture, false, false))
                 .transparency(TRANSLUCENT_TRANSPARENCY)
                 .cull(DISABLE_CULLING)
                 .lightmap(RenderLayer.ENABLE_LIGHTMAP)
                 .overlay(RenderLayer.ENABLE_OVERLAY_COLOR)
                 .build(true);
-        return makeLayer(BewitchmentPlus.MODID + "bw_shadow", VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, VertexFormat.DrawMode.QUADS, 256, true, true, glState);
+        return makeLayer(BewitchmentPlus.MODID + "shadow", VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, VertexFormat.DrawMode.QUADS, 256, true, true, glState);
     });
 }
