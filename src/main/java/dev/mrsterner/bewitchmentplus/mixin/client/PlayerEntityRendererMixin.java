@@ -93,7 +93,7 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
                 matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180.0F - player.bodyYaw));
                 matrixStack.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(180.0F));
                 matrixStack.translate(0,-1.4,0);
-                matrixStack.scale(0.9f,0.9f,0.9f);
+                matrixStack.scale(0.8f,0.8f,0.8f);
                 this.getModel().hat.visible = false;
                 this.getModel().jacket.visible = false;
                 this.getModel().leftPants.visible = false;

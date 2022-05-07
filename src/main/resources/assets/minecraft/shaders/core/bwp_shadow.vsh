@@ -39,7 +39,6 @@ float wobble(vec2 pair) {
 void main() {
     float salt = wobble(vec2(GameTime, GameTime));
     vec3 offset = 0.025 * vec3(wobble(salt * Position.yz), wobble(salt * Position.xz), wobble(salt * Position.xy));
-
     gl_Position = ProjMat * ModelViewMat * vec4(Position + offset, 1.0);
 
     vertexDistance = fog_distance(ModelViewMat, IViewRotMat * Position, FogShape);
