@@ -76,7 +76,7 @@ public class NifflerEntity extends BWTameableEntity implements IAnimatable, Inve
 
         boolean isMovingHorizontal = Math.sqrt(Math.pow(getDeltaMotion().x, 2) + Math.pow(getDeltaMotion().z, 2)) > 0.005;
         if(this.dataTracker.get(SLEEPING)){
-            builder.addAnimation("niffler_sleep", true);
+            builder.addAnimation("niffler_idle", true);//TODO niffler_sleep
         }else if (!this.isOnGround() && getDeltaMotion().getY() < 0){
             //TODO create falling animation
         }else if(isMovingHorizontal || animationEvent.isMoving()){
