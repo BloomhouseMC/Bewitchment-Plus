@@ -8,17 +8,17 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 public class DragonEntityModel extends AnimatedGeoModel<DragonEntity> {
 
     @Override
-    public Identifier getAnimationFileLocation(DragonEntity entity) {
+    public Identifier getAnimationResource(DragonEntity entity) {
         return new Identifier(BewitchmentPlus.MODID, "animations/dragon.animation.json");
     }
 
     @Override
-    public Identifier getModelLocation(DragonEntity entity) {
+    public Identifier getModelResource(DragonEntity entity) {
         return new Identifier(BewitchmentPlus.MODID, "geo/dragon.geo.json");
     }
 
     @Override
-    public Identifier getTextureLocation(DragonEntity entity) {
+    public Identifier getTextureResource(DragonEntity entity) {
         return new Identifier(BewitchmentPlus.MODID, "textures/entity/dragon/dragon.png");
     }
 }

@@ -6,7 +6,7 @@ import moriyashiine.bewitchment.client.network.packet.SpawnSmokeParticlesPacket;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.server.PlayerStream;
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -27,14 +27,15 @@ import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.tag.ConfiguredStructureFeatureTags;
+import net.minecraft.tag.StructureTags;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
-import java.util.Random;
 
 
 public class BlackDogEntity extends BWHostileEntity {
@@ -62,13 +63,14 @@ public class BlackDogEntity extends BWHostileEntity {
 
 	public static boolean spawnRestriction(EntityType<BlackDogEntity> type, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos pos, Random random) {
 		ServerWorld world = serverWorldAccess.toServerWorld();
-		Biome.Category category = Biome.getCategory(world.getBiome(new BlockPos(pos)));
-		if (BewitchmentPlus.config.entities.blackDogBiomeCategories.contains(category.getName())) {
+		RegistryEntry<Biome> biome = world.getBiome(new BlockPos(pos));
+
+		if (BewitchmentPlus.config.entities.blackDogBiomeCategories.contains(biome.toString())) {
 			return true;
 		}
 		if (BewitchmentPlus.config.world.blackDogStructureSpawn) {
 			int maxDistanceToStructure = 16;
-			BlockPos village = world.locateStructure(ConfiguredStructureFeatureTags.VILLAGE, pos, 1, false);
+			BlockPos village = world.locateStructure(StructureTags.VILLAGE, pos, 1, false);
 			return village != null && withinDistance(village, pos, maxDistanceToStructure);
 		}
 		return false;
@@ -107,7 +109,7 @@ public class BlackDogEntity extends BWHostileEntity {
 			this.setStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 100, 0, true, true), null);
 		this.setStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 100, 0, true, true), null);
 		if (!world.isClient && !hasCustomName() && world.isDay() && !world.isRaining() && world.isSkyVisibleAllowingSea(getBlockPos())) {
-			PlayerStream.watching(this).forEach(playerEntity -> SpawnSmokeParticlesPacket.send(playerEntity, this));
+			PlayerLookup.tracking(this).forEach(playerEntity -> SpawnSmokeParticlesPacket.send(playerEntity, this));
 			remove(RemovalReason.DISCARDED);
 		}
 	}

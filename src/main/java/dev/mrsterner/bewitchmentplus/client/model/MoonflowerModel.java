@@ -8,17 +8,17 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 public class MoonflowerModel extends AnimatedGeoModel<MoonflowerBlockEntity> {
 
     @Override
-    public Identifier getAnimationFileLocation(MoonflowerBlockEntity entity) {
+    public Identifier getAnimationResource(MoonflowerBlockEntity entity) {
         return new Identifier(BewitchmentPlus.MODID, "animations/moonflower.animation.json");
     }
 
     @Override
-    public Identifier getModelLocation(MoonflowerBlockEntity animatable) {
+    public Identifier getModelResource(MoonflowerBlockEntity animatable) {
         return new Identifier(BewitchmentPlus.MODID, "geo/moonflower.geo.json");
     }
 
     @Override
-    public Identifier getTextureLocation(MoonflowerBlockEntity entity) {
+    public Identifier getTextureResource(MoonflowerBlockEntity entity) {
         return new Identifier(BewitchmentPlus.MODID, "textures/block/moonflower.png");
     }
 }

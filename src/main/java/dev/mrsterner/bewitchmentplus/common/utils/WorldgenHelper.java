@@ -5,18 +5,23 @@ import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.structure.Structure;
-import net.minecraft.structure.StructureManager;
 import net.minecraft.structure.StructurePlacementData;
+import net.minecraft.structure.StructureTemplate;
+import net.minecraft.structure.StructureTemplateManager;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.StructureWorldAccess;
+import net.minecraft.world.gen.structure.Structure;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
+
 
 public class WorldgenHelper {
     private int offsetX, offsetZ;
@@ -30,14 +35,14 @@ public class WorldgenHelper {
      * @return true if the placement of the structure was successfull
      */
     public static boolean generateNbtFeature(Identifier nbtLocation, StructureWorldAccess world, BlockPos origin, float chance){
-        StructureManager structureManager = world.toServerWorld().getStructureManager();
+        StructureTemplateManager templateManager = world.getServer().getStructureTemplateManager();
         //Try fetch the nbt with the structure manager
-        Optional<Structure> structureOptional = structureManager.getStructure(nbtLocation);
+        Optional<StructureTemplate> structureOptional = templateManager.getTemplate(nbtLocation);
         if (!structureOptional.isPresent()) {
             BewitchmentPlus.LOGGER.info("NBT " + nbtLocation + " does not exist!");
-        }else if (touchGrass(world, origin,world.getRandom(), chance, structureOptional.get().getSize().getY())) {
+        }else if (touchGrass(world, origin, world.getRandom(), chance, structureOptional.get().getSize().getY())) {
             //Unless structureOptional.isEmpty() not catches, get the structure from the optional
-            Structure structure = structureOptional.get();
+            StructureTemplate structure = structureOptional.get();
             //Change the origin from the corner of the structure to the middle of the structure
             BlockPos normalizeOrigin = origin.subtract(new Vec3i(Math.floor((double) structure.getSize().getX() / 2), 0, Math.floor((double) structure.getSize().getX() / 2)));
             //Get basic placementData
@@ -48,28 +53,6 @@ public class WorldgenHelper {
             return true;
         }
         return false;
-    }
-
-
-
-    //Mostly stolen from CammiePone
-    public static HashMap<BlockPos, BlockState> getStructureMap(Identifier nbtLocation, ServerWorld world){
-        StructureManager structureManager = world.getStructureManager();
-        Optional<Structure> structureOptional = structureManager.getStructure(nbtLocation);
-        BlockPos pos = BlockPos.ORIGIN;
-        HashMap<BlockPos, BlockState> dummyMap = new HashMap<>();
-        if(structureOptional.isPresent()) {
-            Structure structure = structureOptional.get();
-            StructurePlacementData placementData = new StructurePlacementData();
-
-            List<Structure.StructureBlockInfo> randInfoList = placementData.getRandomBlockInfos(structure.blockInfoLists, pos).getAll();
-            List<Structure.StructureBlockInfo> infoList = Structure.process(world, pos, pos, placementData, randInfoList);
-            for (Structure.StructureBlockInfo info : infoList) {
-                dummyMap.put(info.pos.subtract(pos), info.state);
-            }
-
-        }
-        return dummyMap;
     }
 
     /**

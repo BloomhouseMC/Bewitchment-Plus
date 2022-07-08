@@ -5,12 +5,12 @@ import dev.mrsterner.bewitchmentplus.common.entity.BlackDogEntity;
 import dev.mrsterner.bewitchmentplus.common.entity.CambionEntity;
 import dev.mrsterner.bewitchmentplus.common.world.feature.LotusTreeFeature;
 import dev.mrsterner.bewitchmentplus.common.world.feature.YewTreeFeature;
-import dev.mrsterner.bewitchmentplus.common.world.structure.YewTreeHouseStructure;
-import dev.mrsterner.bewitchmentplus.mixin.common.StructureFeatureAccessor;
 import net.fabricmc.fabric.api.biome.v1.*;
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
 import net.fabricmc.fabric.mixin.object.builder.SpawnRestrictionAccessor;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnRestriction;
+import net.minecraft.tag.BiomeTags;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.intprovider.ClampedIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
@@ -18,6 +18,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.ProbabilityConfig;
 import net.minecraft.world.gen.feature.*;
@@ -68,18 +69,18 @@ public class BWPWorldGenerators extends ConfiguredFeatures{
 
     public static void init() {
         BiomeModification worldGen = BiomeModifications.create(new Identifier(BewitchmentPlus.MODID, "world_features"));
-        worldGen.add(ModificationPhase.ADDITIONS, BiomeSelectors.categories(Biome.Category.EXTREME_HILLS), context -> context.getGenerationSettings().addBuiltInFeature(GenerationStep.Feature.VEGETAL_DECORATION, YEW_LIGHT.value()));
-        worldGen.add(ModificationPhase.ADDITIONS, BiomeSelectors.categories(Biome.Category.MESA, Biome.Category.DESERT), context -> context.getGenerationSettings().addBuiltInFeature(GenerationStep.Feature.VEGETAL_DECORATION, PATCH_BLOODROOT_DESERT.value()));
-        worldGen.add(ModificationPhase.ADDITIONS, BiomeSelectors.categories(Biome.Category.JUNGLE), context -> context.getGenerationSettings().addBuiltInFeature(GenerationStep.Feature.VEGETAL_DECORATION, LOTUS_HEAVY.value()));
+        worldGen.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(ConventionalBiomeTags.EXTREME_HILLS), context -> context.getGenerationSettings().addBuiltInFeature(GenerationStep.Feature.VEGETAL_DECORATION, YEW_LIGHT.value()));
+        worldGen.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(ConventionalBiomeTags.MESA).or( BiomeSelectors.tag(ConventionalBiomeTags.DESERT)), context -> context.getGenerationSettings().addBuiltInFeature(GenerationStep.Feature.VEGETAL_DECORATION, PATCH_BLOODROOT_DESERT.value()));
+        worldGen.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(ConventionalBiomeTags.JUNGLE), context -> context.getGenerationSettings().addBuiltInFeature(GenerationStep.Feature.VEGETAL_DECORATION, LOTUS_HEAVY.value()));
 
 
-        if (registerEntitySpawn(BWPEntityTypes.CAMBION, foundInOverworld().and(context -> BewitchmentPlus.config.entities.cambionBiomeCategories.contains(Biome.getCategory(context.getBiomeRegistryEntry()).getName())), BewitchmentPlus.config.entities.cambionWeight, BewitchmentPlus.config.entities.cambionMinGroupCount, BewitchmentPlus.config.entities.cambionMaxGroupCount)) {
+        if (registerEntitySpawn(BWPEntityTypes.CAMBION, foundInOverworld().and(context -> BewitchmentPlus.config.entities.cambionBiomeCategories.contains(context.getBiomeRegistryEntry().value().toString())), BewitchmentPlus.config.entities.cambionWeight, BewitchmentPlus.config.entities.cambionMinGroupCount, BewitchmentPlus.config.entities.cambionMaxGroupCount)) {
             SpawnRestrictionAccessor.callRegister(BWPEntityTypes.CAMBION, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, CambionEntity::canMobSpawn);
         }
         if (registerEntitySpawn(BWPEntityTypes.BLACK_DOG, foundInOverworld(), BewitchmentPlus.config.entities.blackDogWeight, BewitchmentPlus.config.entities.blackDogMinGroupCount, BewitchmentPlus.config.entities.blackDogMaxGroupCount)) {
             SpawnRestrictionAccessor.callRegister(BWPEntityTypes.BLACK_DOG, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BlackDogEntity::canMobSpawn);
         }
-        StructureFeatureAccessor.callRegister(BewitchmentPlus.MODID + ":yew_tree_house", new YewTreeHouseStructure(), GenerationStep.Feature.SURFACE_STRUCTURES);
+        //StructureFeatureAccessor.callRegister(BewitchmentPlus.MODID + ":yew_tree_house", new YewTreeHouseStructure(), GenerationStep.Feature.SURFACE_STRUCTURES);
 
     }
 
@@ -101,8 +102,8 @@ public class BWPWorldGenerators extends ConfiguredFeatures{
 
     private static Predicate<BiomeSelectionContext> foundInOverworld() {
         return context -> {
-            Biome.Category category = Biome.getCategory(context.getBiomeRegistryEntry());
-            return category != Biome.Category.NONE && category != Biome.Category.NETHER && category != Biome.Category.THEEND;
+            RegistryEntry<Biome> biome = context.getBiomeRegistryEntry();
+            return biome.isIn(ConventionalBiomeTags.IN_OVERWORLD);
         };
     }
 }

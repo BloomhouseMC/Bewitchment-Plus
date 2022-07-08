@@ -8,7 +8,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.block.ChestAnimationProgress;
+import net.minecraft.block.entity.LidOpenable;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
@@ -24,7 +24,7 @@ import net.minecraft.util.math.Vec3f;
 import net.minecraft.world.World;
 
 @Environment(EnvType.CLIENT)
-public class LeechChestBlockEntityRenderer<T extends BlockEntity & ChestAnimationProgress> extends ChestBlockEntityRenderer<T> {
+public class LeechChestBlockEntityRenderer<T extends BlockEntity & LidOpenable> extends ChestBlockEntityRenderer<T> {
     private final ModelPart chestLid;
     private final ModelPart chestBottom;
     private final ModelPart chestLock;
@@ -56,7 +56,7 @@ public class LeechChestBlockEntityRenderer<T extends BlockEntity & ChestAnimatio
             } else {
                 properties = chest.getBlockEntitySource(blockState, world, entity.getPos(), true);
             }
-            float g = properties.apply(LeechChestBlock.getAnimationProgressRetriever(entity)).get(tickDelta);
+            float g = properties.apply(LeechChestBlock.getAnimationProgressRetriever((LidOpenable)entity)).get(tickDelta);
             g = 1.0F - g;
             g = 1.0F - g * g * g;
             int i = ((Int2IntFunction)properties.apply(new LightmapCoordinatesRetriever())).applyAsInt(light);

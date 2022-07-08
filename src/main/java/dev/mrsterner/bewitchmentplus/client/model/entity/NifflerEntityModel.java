@@ -13,17 +13,17 @@ import static dev.mrsterner.bewitchmentplus.common.entity.NifflerEntity.SLEEPING
 public class NifflerEntityModel extends AnimatedGeoModel<NifflerEntity> {
 
     @Override
-    public Identifier getModelLocation(NifflerEntity object) {
+    public Identifier getModelResource(NifflerEntity object) {
         return new Identifier(BewitchmentPlus.MODID, "geo/niffler.geo.json");
     }
 
     @Override
-    public Identifier getTextureLocation(NifflerEntity object) {
+    public Identifier getTextureResource(NifflerEntity object) {
         return new Identifier(BewitchmentPlus.MODID, "textures/entity/niffler/0.png");
     }
 
     @Override
-    public Identifier getAnimationFileLocation(NifflerEntity animatable) {
+    public Identifier getAnimationResource(NifflerEntity animatable) {
         return new Identifier(BewitchmentPlus.MODID, "animations/niffler.animation.json");
     }
 

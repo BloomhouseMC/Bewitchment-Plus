@@ -7,17 +7,17 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 
 public class LeshonSkullModel extends AnimatedGeoModel<LeshonSkullItem> {
     @Override
-    public Identifier getModelLocation(LeshonSkullItem object) {
+    public Identifier getModelResource(LeshonSkullItem object) {
         return new Identifier(BewitchmentPlus.MODID, "geo/skull.geo.json");
     }
 
     @Override
-    public Identifier getTextureLocation(LeshonSkullItem object) {
+    public Identifier getTextureResource(LeshonSkullItem object) {
         return new Identifier(BewitchmentPlus.MODID, "textures/entity/skull.png");
     }
 
     @Override
-    public Identifier getAnimationFileLocation(LeshonSkullItem animatable) {
+    public Identifier getAnimationResource(LeshonSkullItem animatable) {
         return new Identifier(BewitchmentPlus.MODID, "animations/skull.animation.json");
     }
 }

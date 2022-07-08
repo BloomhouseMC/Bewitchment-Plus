@@ -8,17 +8,17 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 public class DeathEntityModel extends AnimatedGeoModel<DeathEntity> {
 
     @Override
-    public Identifier getAnimationFileLocation(DeathEntity entity) {
+    public Identifier getAnimationResource(DeathEntity entity) {
         return new Identifier(BewitchmentPlus.MODID, "animations/death.animation.json");
     }
 
     @Override
-    public Identifier getModelLocation(DeathEntity entity) {
+    public Identifier getModelResource(DeathEntity entity) {
         return new Identifier(BewitchmentPlus.MODID, "geo/death.geo.json");
     }
 
     @Override
-    public Identifier getTextureLocation(DeathEntity entity) {
+    public Identifier getTextureResource(DeathEntity entity) {
         return new Identifier(BewitchmentPlus.MODID, "textures/entity/death.png");
     }
 }

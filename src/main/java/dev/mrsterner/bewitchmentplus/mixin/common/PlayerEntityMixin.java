@@ -5,10 +5,7 @@ import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import dev.mrsterner.bewitchmentplus.common.interfaces.CrownOfForest;
 import dev.mrsterner.bewitchmentplus.common.interfaces.Magical;
 import dev.mrsterner.bewitchmentplus.common.registry.*;
-import dev.mrsterner.bewitchmentplus.common.transformation.LeshonLogic;
-import dev.mrsterner.bewitchmentplus.common.utils.BWPUtil;
 import dev.mrsterner.bewitchmentplus.common.world.BWPWorldState;
-import moriyashiine.bewitchment.client.network.packet.SpawnSmokeParticlesPacket;
 import moriyashiine.bewitchment.common.misc.BWUtil;
 import moriyashiine.bewitchment.common.network.packet.TransformationAbilityPacket;
 import moriyashiine.bewitchment.common.registry.BWComponents;
@@ -67,6 +64,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Magical,
 
     @Inject(method = "tickMovement", at =@At("HEAD"))
     private void lechonAttribute(CallbackInfo ci){
+        /*
         PlayerEntity player = (PlayerEntity)(Object)this;
         EntityAttributeInstance movementSpeedAttribute = player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
         if(BWPUtil.isLeshon(player, true)){
@@ -74,10 +72,13 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Magical,
         }else if(movementSpeedAttribute != null && movementSpeedAttribute.hasModifier(LESHON_MOVEMENT_SPEED_MODIFIER)){
             movementSpeedAttribute.removeModifier(LESHON_MOVEMENT_SPEED_MODIFIER);
         }
+
+         */
     }
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void leshonTransform(CallbackInfo ci){
+        /*
         if (!world.isClient) {
             PlayerEntity player = (PlayerEntity)(Object)this;
             if(player.getEquippedStack(EquipmentSlot.HEAD).getItem().equals(BWPObjects.LESHON_SKULL.asItem()) && !player.getEquippedStack(EquipmentSlot.HEAD).getOrCreateNbt().getBoolean("Broken")){
@@ -108,6 +109,8 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Magical,
                 });
             }
         }
+
+         */
 
     }
     @Inject(method = "tick", at = @At("HEAD"))

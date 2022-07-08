@@ -80,7 +80,7 @@ public class BewitchmentPlusClient implements ClientModInitializer {
 		ClientPlayNetworking.registerGlobalReceiver(S2CBloodParticlesPacket.ID, S2CBloodParticlesPacket::handle);
 		GeoArmorRenderer.registerArmorRenderer(new LeshonSkullArmorRenderer(), BWPObjects.LESHON_SKULL);
 		GeoItemRenderer.registerItemRenderer(BWPObjects.LESHON_SKULL, new LeshonSkullItemRenderer());
-		TerraformBoatClientHelper.registerModelLayer(new Identifier(BewitchmentPlus.MODID, "yew"));
+		TerraformBoatClientHelper.registerModelLayers(new Identifier(BewitchmentPlus.MODID, "yew"));
 		ArmorRenderer.register(new WitchArmorRenderer(new Identifier(BewitchmentPlus.MODID, "textures/entity/armor/death_robes.png"), null),  BWPObjects.DEATHS_HOOD, BWPObjects.DEATHS_ROBES, BWPObjects.DEATHS_FOOTWEAR);
 
 

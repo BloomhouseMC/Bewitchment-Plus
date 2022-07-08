@@ -1,19 +1,16 @@
 package dev.mrsterner.bewitchmentplus.common.block;
 
 import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.PlantBlock;
-import net.minecraft.block.ShapeContext;
+import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
-import java.util.Random;
 
 @SuppressWarnings("deprecation")
 public class BWPPlantBlock extends PlantBlock {
@@ -35,10 +32,9 @@ public class BWPPlantBlock extends PlantBlock {
         Vec3d vec3d = state.getModelOffset(world, pos);
         return SHAPE.offset(vec3d.x, vec3d.y, vec3d.z);
     }
-    @Override
-    public OffsetType getOffsetType() {
-        return OffsetType.XZ;
-    }
+
+
+
 
     @Override
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {

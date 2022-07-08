@@ -11,17 +11,17 @@ import software.bernie.geckolib3.model.provider.data.EntityModelData;
 public class LeshonEntityModel extends AnimatedGeoModel<LeshonEntity> {
 
     @Override
-    public Identifier getModelLocation(LeshonEntity object) {
+    public Identifier getModelResource(LeshonEntity object) {
         return new Identifier(BewitchmentPlus.MODID, "geo/leshon.geo.json");
     }
 
     @Override
-    public Identifier getTextureLocation(LeshonEntity object) {
+    public Identifier getTextureResource(LeshonEntity object) {
         return new Identifier(BewitchmentPlus.MODID, "textures/entity/leshon/leshon.png");
     }
 
     @Override
-    public Identifier getAnimationFileLocation(LeshonEntity animatable) {
+    public Identifier getAnimationResource(LeshonEntity animatable) {
         return new Identifier(BewitchmentPlus.MODID, "animations/leshon.animation.json");
     }
 

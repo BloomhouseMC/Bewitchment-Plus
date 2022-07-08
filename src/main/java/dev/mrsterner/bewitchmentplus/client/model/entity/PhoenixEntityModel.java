@@ -8,17 +8,17 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 public class PhoenixEntityModel extends AnimatedGeoModel<PhoenixEntity> {
 
     @Override
-    public Identifier getAnimationFileLocation(PhoenixEntity entity) {
+    public Identifier getAnimationResource(PhoenixEntity entity) {
         return new Identifier(BewitchmentPlus.MODID, "animations/phoenix.animation.json");
     }
 
     @Override
-    public Identifier getModelLocation(PhoenixEntity entity) {
+    public Identifier getModelResource(PhoenixEntity entity) {
         return new Identifier(BewitchmentPlus.MODID, "geo/phoenix.geo.json");
     }
 
     @Override
-    public Identifier getTextureLocation(PhoenixEntity entity) {
+    public Identifier getTextureResource(PhoenixEntity entity) {
         return new Identifier(BewitchmentPlus.MODID, "textures/entity/phoenix/0.png");
     }
 }

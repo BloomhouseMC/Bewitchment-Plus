@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '0.11-SNAPSHOT'
+    id 'fabric-loom' version '0.12-SNAPSHOT'
     id 'io.github.juuxel.loom-quiltflower' version '1.6.1'
     id 'maven-publish'
 }
@@ -80,7 +80,10 @@ repositories {
         url "https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/"
     }
 
-
+    maven {
+        name "modrinth"
+        url "https://api.modrinth.com/maven"
+    }
     maven {
         name = "jitpack"
         url = "https://jitpack.io"
@@ -102,16 +105,13 @@ dependencies {
     modImplementation "io.github.ladysnake:PlayerAbilityLib:${pal_version}"
     include "io.github.ladysnake:PlayerAbilityLib:${pal_version}"
 
-    modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
-        exclude(group: "net.fabricmc.fabric-api")
-    }
+
     modImplementation("com.github.virtuoel:pehkui:${project.pehkui_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
     modImplementation "io.github.ladysnake:impersonate:${impersonate_version}"
     modImplementation "vazkii.patchouli:Patchouli:${project.patchouli_version}"
     modImplementation "com.github.emilyalexandra:trinkets:${trinkets_version}"
-    modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
     modImplementation "software.bernie.geckolib:geckolib-fabric-${project.gecko_version}"
 
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${rei_version}"
@@ -123,6 +123,7 @@ dependencies {
     modCompileOnly("squeek.appleskin:appleskin-fabric:${appleskin_version}:api") {
         transitive = false
     }
+    modImplementation "maven.modrinth:midnightlib:${midnightlib_version}"
 }
 
 processResources {

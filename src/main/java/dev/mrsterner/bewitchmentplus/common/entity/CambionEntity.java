@@ -33,13 +33,14 @@ import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.tag.ConfiguredStructureFeatureTags;
+import net.minecraft.tag.StructureTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.*;
 import org.jetbrains.annotations.Nullable;
 
@@ -103,7 +104,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 			return true;
 		}//Todo maybe remove natural spawn
 		if (world instanceof ServerWorld && BewitchmentPlus.config.world.cambionVillageStructureSpawn) {
-			BlockPos nearestVillage = ((ServerWorld) world).locateStructure(ConfiguredStructureFeatureTags.VILLAGE, getBlockPos(), 3, false);
+			BlockPos nearestVillage = ((ServerWorld) world).locateStructure(StructureTags.VILLAGE, getBlockPos(), 3, false);
 			return (nearestVillage != null && Math.sqrt(nearestVillage.getSquaredDistance(getBlockPos())) < 128);
 		}
 		return false;
@@ -157,14 +158,14 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 	@Override
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityTag) {
 		if(!this.isBaby()){
-			this.initEquipment(difficulty);
+			this.initEquipment(world.getRandom(), difficulty);
 		}
 		dataTracker.set(MALE, random.nextBoolean());
 		return super.initialize(world, difficulty, spawnReason, entityData, entityTag);
 	}
 
 	@Override
-	protected void initEquipment(LocalDifficulty difficulty) {
+	protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
 		for (EquipmentSlot equipmentslottype : EquipmentSlot.values()) {
 			for (ItemStack stack : this.getItemsFromLootTable(equipmentslottype)) {
 				this.equipStack(equipmentslottype, stack);
@@ -376,7 +377,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 	}
 
 	@Override
-	public Inventory getInventory() {
+	public SimpleInventory getInventory() {
 		return cambionInventory;
 	}
 

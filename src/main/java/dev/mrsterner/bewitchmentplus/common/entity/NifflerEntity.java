@@ -287,7 +287,7 @@ public class NifflerEntity extends BWTameableEntity implements IAnimatable, Inve
     }
 
     @Override
-    public Inventory getInventory() {
+    public SimpleInventory getInventory() {
         return this.nifflerInventory;
     }
 }

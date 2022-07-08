@@ -7,10 +7,7 @@ import it.unimi.dsi.fastutil.floats.Float2FloatFunction;
 import moriyashiine.bewitchment.common.item.TaglockItem;
 import moriyashiine.bewitchment.common.registry.BWObjects;
 import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.client.block.ChestAnimationProgress;
+import net.minecraft.block.entity.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -25,7 +22,7 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.*;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -83,10 +80,10 @@ public class LeechChestBlock extends AbstractChestBlock<LeechChestBlockEntity> i
                     TaglockItem.useTaglock(player, entity, hand, true, false);
                     be.setLeechedId(0);
                 } else {
-                    player.sendMessage(new TranslatableText("text.bwplus.no_taglock").formatted(Formatting.RED), true);
+                    player.sendMessage(Text.translatable("text.bwplus.no_taglock").formatted(Formatting.RED), true);
                 }
             } else {
-                player.sendMessage(new TranslatableText("text.bwplus.no_taglock").formatted(Formatting.RED), true);
+                player.sendMessage(Text.translatable("text.bwplus.no_taglock").formatted(Formatting.RED), true);
             }
         }
     }
@@ -98,7 +95,7 @@ public class LeechChestBlock extends AbstractChestBlock<LeechChestBlockEntity> i
                     be.getWhitelisted().add(id);
                     stack.decrement(1);
                     be.markDirty();
-                    player.sendMessage(new TranslatableText("text.bwplus.whitelist").formatted(Formatting.GREEN), true);
+                    player.sendMessage(Text.translatable("text.bwplus.whitelist").formatted(Formatting.GREEN), true);
                 }
             }
         }
@@ -176,18 +173,24 @@ public class LeechChestBlock extends AbstractChestBlock<LeechChestBlockEntity> i
 
     }
 
-    public static DoubleBlockProperties.PropertyRetriever<LeechChestBlockEntity, Float2FloatFunction> getAnimationProgressRetriever(ChestAnimationProgress chestAnimationProgress) {
-        return new DoubleBlockProperties.PropertyRetriever<>() {
-            public Float2FloatFunction getFromBoth(LeechChestBlockEntity chestBlockEntity, LeechChestBlockEntity chestBlockEntity2) {
-                return (f) -> Math.max(chestBlockEntity.getAnimationProgress(f), chestBlockEntity2.getAnimationProgress(f));
+
+    public static DoubleBlockProperties.PropertyRetriever<ChestBlockEntity, Float2FloatFunction> getAnimationProgressRetriever(final LidOpenable progress) {
+        return new DoubleBlockProperties.PropertyRetriever<ChestBlockEntity, Float2FloatFunction>() {
+            public Float2FloatFunction getFromBoth(ChestBlockEntity chestBlockEntity, ChestBlockEntity chestBlockEntity2) {
+                return (tickDelta) -> {
+                    return Math.max(chestBlockEntity.getAnimationProgress(tickDelta), chestBlockEntity2.getAnimationProgress(tickDelta));
+                };
             }
-            public Float2FloatFunction getFrom(LeechChestBlockEntity chestBlockEntity) {
+
+            public Float2FloatFunction getFrom(ChestBlockEntity chestBlockEntity) {
                 Objects.requireNonNull(chestBlockEntity);
                 return chestBlockEntity::getAnimationProgress;
             }
+
             public Float2FloatFunction getFallback() {
-                Objects.requireNonNull(chestAnimationProgress);
-                return chestAnimationProgress::getAnimationProgress;
+                LidOpenable var10000 = progress;
+                Objects.requireNonNull(var10000);
+                return var10000::getAnimationProgress;
             }
         };
     }

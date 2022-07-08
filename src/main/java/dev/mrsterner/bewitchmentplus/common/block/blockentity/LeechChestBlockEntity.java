@@ -4,11 +4,7 @@ import dev.mrsterner.bewitchmentplus.common.registry.BWPBlockEntityTypes;
 import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.ChestBlockEntity;
-import net.minecraft.block.entity.ChestLidAnimator;
-import net.minecraft.block.entity.ViewerCountManager;
-import net.minecraft.client.block.ChestAnimationProgress;
+import net.minecraft.block.entity.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
@@ -22,7 +18,6 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -31,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class LeechChestBlockEntity extends ChestBlockEntity implements ChestAnimationProgress {
+public class LeechChestBlockEntity extends ChestBlockEntity implements LidOpenable {
     private DefaultedList<ItemStack> inventory;
     private final ViewerCountManager stateManager;
     private final ChestLidAnimator lidAnimator;
@@ -80,7 +75,7 @@ public class LeechChestBlockEntity extends ChestBlockEntity implements ChestAnim
     }
 
     protected Text getContainerName() {
-        return new TranslatableText("container.bwplus.leech_chest");
+        return Text.translatable("container.bwplus.leech_chest");
     }
 
     public void readNbt(NbtCompound nbt) {

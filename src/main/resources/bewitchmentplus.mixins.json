@@ -16,7 +16,6 @@
     "common.PlayerEntityMixin",
     "common.ServerPlayerEntityMixin",
     "common.SimpleBlockStateProviderMixin",
-    "common.StructureFeatureAccessor",
     "common.TogglePressingForwardPacketMixin",
     "common.TransformationAbilityPacketMixin",
     "common.VillagerBreedTaskMixin",

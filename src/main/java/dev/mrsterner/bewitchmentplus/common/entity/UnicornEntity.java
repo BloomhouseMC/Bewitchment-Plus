@@ -13,7 +13,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.passive.HorseBaseEntity;
+import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -46,7 +46,7 @@ public class UnicornEntity extends PassiveEntity {
     private float lastAngryAnimationProgress;
     private float eatingAnimationProgress;
     private float lastEatingAnimationProgress;
-    private static final TrackedData<Byte> HORSE_FLAGS = DataTracker.registerData(HorseBaseEntity.class, TrackedDataHandlerRegistry.BYTE);
+    private static final TrackedData<Byte> HORSE_FLAGS = DataTracker.registerData(UnicornEntity.class, TrackedDataHandlerRegistry.BYTE);
 
     public UnicornEntity(EntityType<? extends PassiveEntity> entityType, World world) {
         super(entityType, world);

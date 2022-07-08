@@ -4,6 +4,7 @@ import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
 import net.minecraft.world.biome.Biome;
 
 import java.util.Arrays;
@@ -24,12 +25,12 @@ public class BWPConfig implements ConfigData {
 
 
 	public static class Entities {
-		public final List<String> blackDogBiomeCategories = Arrays.asList(Biome.Category.PLAINS.getName());
+		public final List<String> blackDogBiomeCategories = Arrays.asList(ConventionalBiomeTags.PLAINS.toString());
 		public final int blackDogWeight = 8;
 		public final int blackDogMinGroupCount = 0;
 		public final int blackDogMaxGroupCount = 2;
 
-		public final List<String> cambionBiomeCategories = Arrays.asList(Biome.Category.NETHER.getName(), Biome.Category.DESERT.getName());
+		public final List<String> cambionBiomeCategories = Arrays.asList(ConventionalBiomeTags.IN_NETHER.toString(), ConventionalBiomeTags.DESERT.toString());
 		public final int cambionWeight = 12;
 		public final int cambionMinGroupCount = 0;
 		public final int cambionMaxGroupCount = 2;

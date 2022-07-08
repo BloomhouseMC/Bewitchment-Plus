@@ -18,6 +18,6 @@ public class DeathEntityRenderer extends GeoEntityRenderer<DeathEntity> {
 
     @Override
     public RenderLayer getRenderType(DeathEntity animatable, float partialTicks, MatrixStack stack, @Nullable VertexConsumerProvider renderTypeBuffer, @Nullable VertexConsumer vertexBuilder, int packedLightIn, Identifier textureLocation) {
-        return RenderLayer.getEntityTranslucent(this.getTextureLocation(animatable));
+        return RenderLayer.getEntityTranslucent(this.getTexture(animatable));
     }
 }

@@ -9,8 +9,8 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.entity.LidOpenable;
 import net.minecraft.block.enums.ChestType;
-import net.minecraft.client.block.ChestAnimationProgress;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
@@ -21,7 +21,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.*;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.*;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -60,7 +60,7 @@ public class MimicChestBlock extends AbstractChestBlock<MimicChestBlockEntity> i
                     TaglockItem.useTaglock(player, this.getLeechedPlayer(), hand, true, false);
                     this.setLeechedPlayer(null);
                 } else {
-                    player.sendMessage(new LiteralText("No Blood Sample Found").formatted(Formatting.GREEN), false);
+                    player.sendMessage(Text.literal("No Blood Sample Found").formatted(Formatting.GREEN), false);
                 }
             } else {
                 NamedScreenHandlerFactory namedScreenHandlerFactory = this.createScreenHandlerFactory(state, world, pos);
@@ -152,7 +152,7 @@ public class MimicChestBlock extends AbstractChestBlock<MimicChestBlockEntity> i
 
     }
 
-    public static DoubleBlockProperties.PropertyRetriever<MimicChestBlockEntity, Float2FloatFunction> getAnimationProgressRetriever(ChestAnimationProgress chestAnimationProgress) {
+    public static DoubleBlockProperties.PropertyRetriever<MimicChestBlockEntity, Float2FloatFunction> getAnimationProgressRetriever(LidOpenable chestAnimationProgress) {
         return new DoubleBlockProperties.PropertyRetriever<>() {
             public Float2FloatFunction getFromBoth(MimicChestBlockEntity chestBlockEntity, MimicChestBlockEntity chestBlockEntity2) {
                 return (f) -> Math.max(chestBlockEntity.getAnimationProgress(f), chestBlockEntity2.getAnimationProgress(f));

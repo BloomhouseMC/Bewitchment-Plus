@@ -3,6 +3,7 @@ package dev.mrsterner.bewitchmentplus.common.item;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPStatusEffects;
 import moriyashiine.bewitchment.api.BewitchmentAPI;
+import moriyashiine.bewitchment.common.BWConfig;
 import moriyashiine.bewitchment.common.Bewitchment;
 import moriyashiine.bewitchment.common.registry.BWComponents;
 import moriyashiine.bewitchment.common.registry.BWCurses;
@@ -27,7 +28,6 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.*;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
@@ -66,7 +66,7 @@ public class GobletBlockItem extends BlockItem {
             if(user instanceof PlayerEntity player){
                 BWComponents.TRANSFORMATION_COMPONENT.maybeGet(player).ifPresent(transformationComponent -> {
                     if(transformationComponent.getTransformation() == BWTransformations.HUMAN){
-                        if(nbtCompound.getCompound("VampireBlood") != null && nbtCompound.getBoolean("VampireBlood") && (!Bewitchment.config.enableCurses || BWComponents.CURSES_COMPONENT.get(player).hasCurse(BWCurses.SUSCEPTIBILITY))){
+                        if(nbtCompound.getCompound("VampireBlood") != null && nbtCompound.getBoolean("VampireBlood") && (!BWConfig.enableCurses || BWComponents.CURSES_COMPONENT.get(player).hasCurse(BWCurses.SUSCEPTIBILITY))){
                             transformationComponent.getTransformation().onRemoved(player);
                             transformationComponent.setTransformation(BWTransformations.VAMPIRE);
                             transformationComponent.getTransformation().onAdded(player);
@@ -134,7 +134,7 @@ public class GobletBlockItem extends BlockItem {
                 if(slots.get(0).getItem().equals(Items.POTION)){
                     PotionUtil.buildTooltip(slots.get(0), tooltip, 1.0F);
                 }else{
-                    tooltip.add(new TranslatableText("liquid." + slots.get(0).toString().replace("1 ", ""))
+                    tooltip.add(Text.translatable("liquid." + slots.get(0).toString().replace("1 ", ""))
                     .formatted(vamp ? Formatting.ITALIC : Formatting.DARK_RED)
                     .formatted(slots.get(0).getItem() == BWObjects.BOTTLE_OF_BLOOD ? Formatting.DARK_RED : slots.get(0).getItem() == Items.HONEY_BOTTLE ? Formatting.GOLD : Formatting.AQUA));
                 }

@@ -10,7 +10,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.block.ChestAnimationProgress;
+import net.minecraft.block.entity.LidOpenable;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
@@ -67,7 +67,7 @@ public class MimicBlockEntityRenderer<T extends BlockEntity> implements BlockEnt
         matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(180));
         matrices.translate(0.5,-1.5,-0.5);
         DoubleBlockProperties.PropertySource<Object> propertySource = (DoubleBlockProperties.PropertySource<Object>) abstractChestBlock.getBlockEntitySource(blockState, world, entity.getPos(), true);
-        var g = MimicChestBlock.getAnimationProgressRetriever((ChestAnimationProgress)entity).getFallback().get(tickDelta);
+        var g = MimicChestBlock.getAnimationProgressRetriever((LidOpenable)entity).getFallback().get(tickDelta);
         if(!world.isClient())return;
         g = 1.0f - g;
         g = 1.0f - g * g * g;

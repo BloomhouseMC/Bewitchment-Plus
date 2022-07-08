@@ -33,9 +33,4 @@ public abstract class MinecraftClientMixin {
     private void onFrameStart(boolean tick, CallbackInfo ci) {
         BewitchmentPlusClient.ClientTickHandler.renderTick(isPaused() ? pausedTickDelta : getTickDelta());
     }
-
-    @ModifyVariable(method = "startIntegratedServer(Ljava/lang/String;Ljava/util/function/Function;Ljava/util/function/Function;ZLnet/minecraft/client/MinecraftClient$WorldLoadAction;)V", at = @At(value = "FIELD", target = "Lnet/minecraft/client/MinecraftClient$WorldLoadAction;NONE:Lnet/minecraft/client/MinecraftClient$WorldLoadAction;", ordinal = 0), ordinal = 2, index = 11, name = "bl2", require = 1)
-    private boolean theDamnExperimentalSettings(boolean bl2) {
-        return false;
-    }
 }

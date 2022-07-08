@@ -8,17 +8,17 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 public class EffigyEntityModel extends AnimatedGeoModel<EffigyEntity> {
 
     @Override
-    public Identifier getAnimationFileLocation(EffigyEntity entity) {
+    public Identifier getAnimationResource(EffigyEntity entity) {
         return new Identifier(BewitchmentPlus.MODID, "animations/effigy.animation.json");
     }
 
     @Override
-    public Identifier getModelLocation(EffigyEntity entity) {
+    public Identifier getModelResource(EffigyEntity entity) {
         return new Identifier(BewitchmentPlus.MODID, "geo/effigy.geo.json");
     }
 
     @Override
-    public Identifier getTextureLocation(EffigyEntity entity) {
+    public Identifier getTextureResource(EffigyEntity entity) {
         return new Identifier(BewitchmentPlus.MODID, "textures/entity/effigy.png");
     }
 }

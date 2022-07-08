@@ -23,7 +23,7 @@ public class LeshonEntityRenderer extends GeoEntityRenderer<LeshonEntity> {
 
     @Override
     public RenderLayer getRenderType(LeshonEntity animatable, float partialTicks, MatrixStack stack, @Nullable VertexConsumerProvider renderTypeBuffer, @Nullable VertexConsumer vertexBuilder, int packedLightIn, Identifier textureLocation) {
-        return RenderLayer.getEntityTranslucent(this.getTextureLocation(animatable));
+        return RenderLayer.getEntityTranslucent(this.getTexture(animatable));
     }
 
     @Override
