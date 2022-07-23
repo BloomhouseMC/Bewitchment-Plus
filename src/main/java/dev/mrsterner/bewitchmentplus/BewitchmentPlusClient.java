@@ -109,9 +109,9 @@ public class BewitchmentPlusClient implements ClientModInitializer {
 		EntityRendererRegistry.register(BWPEntityTypes.CAMBION, CambionEntityRenderer::new);
 		EntityRendererRegistry.register(BWPEntityTypes.RUNE, RuneEntityRenderer::new);
 		EntityRendererRegistry.register(BWPEntityTypes.PHOENIX, PhoenixEntityRenderer::new);
-		EntityRendererRegistry.register(BWPEntityTypes.DRAGON, DragonEntityRenderer::new);
+		//EntityRendererRegistry.register(BWPEntityTypes.DRAGON, DragonEntityRenderer::new);
 		EntityRendererRegistry.register(BWPEntityTypes.LILIM, LilimEntityRenderer::new);
-		EntityRendererRegistry.register(BWPEntityTypes.DEATH, DeathEntityRenderer::new);
+		//EntityRendererRegistry.register(BWPEntityTypes.DEATH, DeathEntityRenderer::new);
 
 
 

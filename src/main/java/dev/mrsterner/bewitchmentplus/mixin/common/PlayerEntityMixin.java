@@ -67,6 +67,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Magical,
 
     @Inject(method = "tickMovement", at =@At("HEAD"))
     private void lechonAttribute(CallbackInfo ci){
+        /*
         PlayerEntity player = (PlayerEntity)(Object)this;
         EntityAttributeInstance movementSpeedAttribute = player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
         if(BWPUtil.isLeshon(player, true)){
@@ -74,10 +75,13 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Magical,
         }else if(movementSpeedAttribute != null && movementSpeedAttribute.hasModifier(LESHON_MOVEMENT_SPEED_MODIFIER)){
             movementSpeedAttribute.removeModifier(LESHON_MOVEMENT_SPEED_MODIFIER);
         }
+
+         */
     }
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void leshonTransform(CallbackInfo ci){
+        /*
         if (!world.isClient) {
             PlayerEntity player = (PlayerEntity)(Object)this;
             if(player.getEquippedStack(EquipmentSlot.HEAD).getItem().equals(BWPObjects.LESHON_SKULL.asItem()) && !player.getEquippedStack(EquipmentSlot.HEAD).getOrCreateNbt().getBoolean("Broken")){
@@ -109,6 +113,8 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Magical,
             }
         }
 
+         */
+
     }
     @Inject(method = "tick", at = @At("HEAD"))
     private void halfLife(CallbackInfo ci){
@@ -121,6 +127,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Magical,
     }
     @Inject(method = "tick", at = @At("TAIL"))
     private void addDeathPlayer(CallbackInfo ci){
+        /*
         if(world instanceof ServerWorld serverWorld) {
             PlayerEntity player = (PlayerEntity) (Object) this;
             BWPWorldState worldState = BWPWorldState.get(serverWorld);
@@ -132,6 +139,8 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Magical,
                     }
             }
         }
+
+         */
     }
     @Inject(method = "tick", at = @At("TAIL"))
     private void crownOfTheForest(CallbackInfo ci){
