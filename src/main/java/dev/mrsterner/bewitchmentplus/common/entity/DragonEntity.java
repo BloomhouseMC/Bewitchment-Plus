@@ -56,7 +56,8 @@ public class DragonEntity extends BWTameableEntity implements IAnimatable {
     @Nullable
     @Override
     public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        DragonEntity child = BWPEntityTypes.DRAGON.create(world);
+       //TODO  DragonEntity child = BWPEntityTypes.DRAGON.create(world);
+        /*
         if (child != null) {
             child.initialize(world, world.getLocalDifficulty(this.getBlockPos()), SpawnReason.BREEDING, null, null);
             UUID owner = this.getOwnerUuid();
@@ -71,6 +72,9 @@ public class DragonEntity extends BWTameableEntity implements IAnimatable {
         }
 
         return child;
+
+         */
+        return null;
     }
 
     private <E extends IAnimatable> PlayState basicMovement(AnimationEvent<E> event) {

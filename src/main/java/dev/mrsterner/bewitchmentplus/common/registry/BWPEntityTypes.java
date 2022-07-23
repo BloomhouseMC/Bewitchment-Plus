@@ -78,7 +78,7 @@ public class BWPEntityTypes {
 			.entityFactory(YewBroomEntity::new)
 			.dimensions(EntityType.ARROW.getDimensions())
 			.build());
-
+/*
 	public static final EntityType<DragonEntity> DRAGON = register("dragon", FabricEntityTypeBuilder
 			.<DragonEntity>createMob()
 			.spawnGroup(SpawnGroup.CREATURE)
@@ -86,6 +86,8 @@ public class BWPEntityTypes {
 			.defaultAttributes(DragonEntity::createAttributes)
 			.dimensions(EntityDimensions.changing(0.5f, 0.5f))
 			.build());
+
+ */
 
 	public static final EntityType<LilimEntity> LILIM = register("lilim", FabricEntityTypeBuilder
 			.<LilimEntity>createMob()
@@ -101,12 +103,15 @@ public class BWPEntityTypes {
 			.dimensions(EntityDimensions.fixed(0F, 0F))
 			.build());
 
+	/*
 	public static final EntityType<DeathEntity> DEATH = register("death", FabricEntityTypeBuilder
 			.<DeathEntity>createLiving()
 			.entityFactory(DeathEntity::new)
 			.dimensions(EntityDimensions.fixed(2F, 3F))
 			.defaultAttributes(DeathEntity::createAttributes)
 			.build());
+
+	 */
 
 	public static final EntityType<MutandisItemEntity> MUTANDIS_ENTITY_ENTITY_TYPE = Registry.register(Registry.ENTITY_TYPE, new Identifier(BewitchmentPlus.MODID, "mutanis_entity"),
 	FabricEntityTypeBuilder.<MutandisItemEntity>create(SpawnGroup.MISC, MutandisItemEntity::new)

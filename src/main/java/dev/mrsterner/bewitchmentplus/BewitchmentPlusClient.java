@@ -25,11 +25,13 @@ import net.minecraft.block.BedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.entity.SculkShriekerBlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.color.world.FoliageColors;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.TexturedRenderLayers;
+import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.render.block.entity.ChestBlockEntityRenderer;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.client.util.SpriteIdentifier;
@@ -53,8 +55,6 @@ public class BewitchmentPlusClient implements ClientModInitializer {
 		for(Item item : BWPObjects.getItems().keySet().stream().filter(item -> item instanceof StatueBlockItem).toList()){
 			BuiltinItemRendererRegistry.INSTANCE.register(item, new StatueRenderer());
 		}
-
-
 
 		BWPSpriteIdentifiers.INSTANCE.addIdentifier(BWPSpriteIdentifiers.YEW_CHEST);
 		BWPSpriteIdentifiers.INSTANCE.addIdentifier(BWPSpriteIdentifiers.TRAPPED_YEW_CHEST);
@@ -109,9 +109,9 @@ public class BewitchmentPlusClient implements ClientModInitializer {
 		EntityRendererRegistry.register(BWPEntityTypes.CAMBION, CambionEntityRenderer::new);
 		EntityRendererRegistry.register(BWPEntityTypes.RUNE, RuneEntityRenderer::new);
 		EntityRendererRegistry.register(BWPEntityTypes.PHOENIX, PhoenixEntityRenderer::new);
-		EntityRendererRegistry.register(BWPEntityTypes.DRAGON, DragonEntityRenderer::new);
+		//EntityRendererRegistry.register(BWPEntityTypes.DRAGON, DragonEntityRenderer::new);
 		EntityRendererRegistry.register(BWPEntityTypes.LILIM, LilimEntityRenderer::new);
-		EntityRendererRegistry.register(BWPEntityTypes.DEATH, DeathEntityRenderer::new);
+		//EntityRendererRegistry.register(BWPEntityTypes.DEATH, DeathEntityRenderer::new);
 
 
 

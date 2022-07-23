@@ -49,10 +49,13 @@ public class BindSpectralFamiliarRitualFunction extends RitualFunction {
     }
 
     public void summonDeath(World world, BlockPos effectivePos){
+        /*
         DeathEntity deathEntity = BWPEntityTypes.DEATH.create(world);
         if (deathEntity != null) {
             deathEntity.updatePositionAndAngles(effectivePos.getX() + 0.5, effectivePos.getY(), effectivePos.getZ() + 0.5, world.random.nextFloat() * 360, 0);
             world.spawnEntity(deathEntity);
         }
+
+         */
     }
 }

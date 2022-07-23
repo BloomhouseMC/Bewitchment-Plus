@@ -88,8 +88,13 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Inject(method = "tickMovement", at = @At("HEAD"))
     private void deathWalk(CallbackInfo ci){
+        /*
         LivingEntity livingEntity = (LivingEntity)(Object)this;
         this.walkOnFluid = livingEntity.getEquippedStack(EquipmentSlot.FEET).getItem().equals(BWPObjects.DEATHS_FOOTWEAR);
+
+
+
+         */
 
     }
     @Inject(method = "tickMovement", at = @At("HEAD"))

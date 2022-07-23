@@ -124,6 +124,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Magical,
     }
     @Inject(method = "tick", at = @At("TAIL"))
     private void addDeathPlayer(CallbackInfo ci){
+        /*
         if(world instanceof ServerWorld serverWorld) {
             PlayerEntity player = (PlayerEntity) (Object) this;
             BWPWorldState worldState = BWPWorldState.get(serverWorld);
@@ -135,6 +136,8 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Magical,
                     }
             }
         }
+
+         */
     }
     @Inject(method = "tick", at = @At("TAIL"))
     private void crownOfTheForest(CallbackInfo ci){
