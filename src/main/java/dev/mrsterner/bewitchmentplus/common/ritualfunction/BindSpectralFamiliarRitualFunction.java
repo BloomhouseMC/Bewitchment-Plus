@@ -1,6 +1,7 @@
 package dev.mrsterner.bewitchmentplus.common.ritualfunction;
 
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
+import dev.mrsterner.bewitchmentplus.common.BWPConfig;
 import dev.mrsterner.bewitchmentplus.common.entity.DeathEntity;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPEntityTypes;
 import dev.mrsterner.bewitchmentplus.common.world.BWPWorldState;
@@ -32,7 +33,7 @@ public class BindSpectralFamiliarRitualFunction extends RitualFunction {
     @Override
     public void start(ServerWorld world, BlockPos glyphPos, BlockPos effectivePos, Inventory inventory, boolean catFamiliar) {
         super.start(world, glyphPos, effectivePos, inventory, catFamiliar);
-        if(BewitchmentPlus.config.mechanics.allowSummoningPlayersWithDeathGearInsteadOfDeath){
+        if(BWPConfig.allowSummoningPlayersWithDeathGearInsteadOfDeath){
             BWPWorldState worldState = BWPWorldState.get(world);
             Optional<Pair<UUID, Boolean>> uuidBooleanPair = worldState.deathPlayer.stream().findAny();
             if(uuidBooleanPair.isPresent()){

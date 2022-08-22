@@ -11,6 +11,7 @@ import dev.mrsterner.bewitchmentplus.common.registry.*;
 import dev.mrsterner.bewitchmentplus.common.utils.BWPUtil;
 import dev.mrsterner.bewitchmentplus.common.utils.RenderHelper;
 import dev.mrsterner.bewitchmentplus.common.world.BWPWorldState;
+import eu.midnightdust.lib.config.MidnightConfig;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import moriyashiine.bewitchment.api.BewitchmentAPI;
@@ -63,13 +64,11 @@ import org.slf4j.LoggerFactory;
 public class BewitchmentPlus implements ModInitializer {
 	public static final String MODID = "bwplus";
 	public static final ItemGroup BEWITCHMENT_PLUS_GROUP = FabricItemGroupBuilder.build(new Identifier(MODID, MODID), () -> new ItemStack(BWPObjects.SILVER_GOBLET));
-	public static BWPConfig config;
 	public static final Logger LOGGER = LoggerFactory.getLogger("Bewitchment Plus");
 
 	@Override
 	public void onInitialize() {
-		AutoConfig.register(BWPConfig.class, GsonConfigSerializer::new);
-		config = AutoConfig.getConfigHolder(BWPConfig.class).getConfig();
+		MidnightConfig.init(MODID, BWPConfig.class);
 		BWPObjects.init();
 		BWPBoatTypes.init();
 		BWPBlockEntityTypes.init();
@@ -135,7 +134,7 @@ public class BewitchmentPlus implements ModInitializer {
 						var slots = DefaultedList.ofSize(1, BWObjects.BOTTLE_OF_BLOOD.getDefaultStack());
 						Inventories.writeNbt(compound, slots);
 						compound.putInt("Color", RenderHelper.BLOOD_COLOR);
-						boolean isTargetVamp = BewitchmentPlus.config.mechanics.allowGetVampBloodFromGobletAndAthame && (killedEntity instanceof VampireEntity || BewitchmentAPI.isVampire(killedEntity, true));
+						boolean isTargetVamp = BWPConfig.allowGetVampBloodFromGobletAndAthame && (killedEntity instanceof VampireEntity || BewitchmentAPI.isVampire(killedEntity, true));
 						compound.putBoolean("VampireBlood", isTargetVamp);
 						compound.put("Goblet", player.getOffHandStack().getItem().getDefaultStack().writeNbt(new NbtCompound()));
 						player.getOffHandStack().getOrCreateNbt().put("BlockEntityTag", compound);

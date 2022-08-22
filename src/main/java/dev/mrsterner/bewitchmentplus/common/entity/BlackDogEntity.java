@@ -1,6 +1,7 @@
 package dev.mrsterner.bewitchmentplus.common.entity;
 
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
+import dev.mrsterner.bewitchmentplus.common.BWPConfig;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
 import moriyashiine.bewitchment.client.network.packet.SpawnSmokeParticlesPacket;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
@@ -65,10 +66,10 @@ public class BlackDogEntity extends BWHostileEntity {
 		ServerWorld world = serverWorldAccess.toServerWorld();
 		RegistryEntry<Biome> biome = world.getBiome(new BlockPos(pos));
 
-		if (BewitchmentPlus.config.entities.blackDogBiomeCategories.contains(biome.toString())) {
+		if (BWPConfig.blackDogBiomeCategories.contains(biome.toString())) {
 			return true;
 		}
-		if (BewitchmentPlus.config.world.blackDogStructureSpawn) {
+		if (BWPConfig.blackDogStructureSpawn) {
 			int maxDistanceToStructure = 16;
 			BlockPos village = world.locateStructure(StructureTags.VILLAGE, pos, 1, false);
 			return village != null && withinDistance(village, pos, maxDistanceToStructure);

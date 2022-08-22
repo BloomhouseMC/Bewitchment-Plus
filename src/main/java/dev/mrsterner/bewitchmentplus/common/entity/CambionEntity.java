@@ -2,6 +2,7 @@ package dev.mrsterner.bewitchmentplus.common.entity;
 
 import com.google.common.collect.Maps;
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
+import dev.mrsterner.bewitchmentplus.common.BWPConfig;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPEntityTypes;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPLootTables;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
@@ -103,7 +104,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 		if (flag && (spawnReason == SpawnReason.SPAWNER || spawnReason == SpawnReason.STRUCTURE || spawnReason == SpawnReason.MOB_SUMMONED || spawnReason == SpawnReason.SPAWN_EGG || spawnReason == SpawnReason.COMMAND || spawnReason == SpawnReason.DISPENSER || spawnReason == SpawnReason.NATURAL)) {
 			return true;
 		}//Todo maybe remove natural spawn
-		if (world instanceof ServerWorld && BewitchmentPlus.config.world.cambionVillageStructureSpawn) {
+		if (world instanceof ServerWorld && BWPConfig.cambionVillageStructureSpawn) {
 			BlockPos nearestVillage = ((ServerWorld) world).locateStructure(StructureTags.VILLAGE, getBlockPos(), 3, false);
 			return (nearestVillage != null && Math.sqrt(nearestVillage.getSquaredDistance(getBlockPos())) < 128);
 		}

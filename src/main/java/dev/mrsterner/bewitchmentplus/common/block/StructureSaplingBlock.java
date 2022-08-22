@@ -1,6 +1,7 @@
 package dev.mrsterner.bewitchmentplus.common.block;
 
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
+import dev.mrsterner.bewitchmentplus.common.BWPConfig;
 import dev.mrsterner.bewitchmentplus.common.utils.WorldgenHelper;
 import net.minecraft.block.*;
 import net.minecraft.server.world.ServerWorld;
@@ -51,7 +52,7 @@ public class StructureSaplingBlock extends PlantBlock implements Fertilizable {
     }
 
     private void generateStructureTree(ServerWorld world, BlockPos pos) {
-        WorldgenHelper.generateNbtFeature(new Identifier(BewitchmentPlus.MODID, nbtLocation+"_"+world.getRandom().nextInt(variants)), world, pos, BewitchmentPlus.config.world.yewTreeWeight);
+        WorldgenHelper.generateNbtFeature(new Identifier(BewitchmentPlus.MODID, nbtLocation+"_"+world.getRandom().nextInt(variants)), world, pos, BWPConfig.yewTreeWeight);
     }
 
 

@@ -2,6 +2,7 @@ package dev.mrsterner.bewitchmentplus.common.world.feature;
 
 import com.mojang.serialization.Codec;
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
+import dev.mrsterner.bewitchmentplus.common.BWPConfig;
 import dev.mrsterner.bewitchmentplus.common.utils.WorldgenHelper;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.gen.ProbabilityConfig;
@@ -15,6 +16,6 @@ public class LotusTreeFeature extends Feature<ProbabilityConfig> {
 
     @Override
     public boolean generate(FeatureContext<ProbabilityConfig> context) {
-        return WorldgenHelper.generateNbtFeature(new Identifier(BewitchmentPlus.MODID, "lotus"), context.getWorld(), context.getOrigin(), BewitchmentPlus.config.world.lotusTreeWeight);
+        return WorldgenHelper.generateNbtFeature(new Identifier(BewitchmentPlus.MODID, "lotus"), context.getWorld(), context.getOrigin(), BWPConfig.lotusTreeWeight);
     }
 }

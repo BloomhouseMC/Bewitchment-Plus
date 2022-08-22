@@ -1,6 +1,7 @@
 package dev.mrsterner.bewitchmentplus.common.registry;
 
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
+import dev.mrsterner.bewitchmentplus.common.BWPConfig;
 import dev.mrsterner.bewitchmentplus.common.entity.BlackDogEntity;
 import dev.mrsterner.bewitchmentplus.common.entity.CambionEntity;
 import dev.mrsterner.bewitchmentplus.common.world.feature.LotusTreeFeature;
@@ -74,10 +75,10 @@ public class BWPWorldGenerators extends ConfiguredFeatures{
         worldGen.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(ConventionalBiomeTags.JUNGLE), context -> context.getGenerationSettings().addBuiltInFeature(GenerationStep.Feature.VEGETAL_DECORATION, LOTUS_HEAVY.value()));
 
 
-        if (registerEntitySpawn(BWPEntityTypes.CAMBION, foundInOverworld().and(context -> BewitchmentPlus.config.entities.cambionBiomeCategories.contains(context.getBiomeRegistryEntry().value().toString())), BewitchmentPlus.config.entities.cambionWeight, BewitchmentPlus.config.entities.cambionMinGroupCount, BewitchmentPlus.config.entities.cambionMaxGroupCount)) {
+        if (registerEntitySpawn(BWPEntityTypes.CAMBION, foundInOverworld().and(context -> BWPConfig.cambionBiomeCategories.contains(context.getBiomeRegistryEntry().value().toString())), BWPConfig.cambionWeight, BWPConfig.cambionMinGroupCount, BWPConfig.cambionMaxGroupCount)) {
             SpawnRestrictionAccessor.callRegister(BWPEntityTypes.CAMBION, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, CambionEntity::canMobSpawn);
         }
-        if (registerEntitySpawn(BWPEntityTypes.BLACK_DOG, foundInOverworld(), BewitchmentPlus.config.entities.blackDogWeight, BewitchmentPlus.config.entities.blackDogMinGroupCount, BewitchmentPlus.config.entities.blackDogMaxGroupCount)) {
+        if (registerEntitySpawn(BWPEntityTypes.BLACK_DOG, foundInOverworld(), BWPConfig.blackDogWeight, BWPConfig.blackDogMinGroupCount, BWPConfig.blackDogMaxGroupCount)) {
             SpawnRestrictionAccessor.callRegister(BWPEntityTypes.BLACK_DOG, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BlackDogEntity::canMobSpawn);
         }
         //StructureFeatureAccessor.callRegister(BewitchmentPlus.MODID + ":yew_tree_house", new YewTreeHouseStructure(), GenerationStep.Feature.SURFACE_STRUCTURES);

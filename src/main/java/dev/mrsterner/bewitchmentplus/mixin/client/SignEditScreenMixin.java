@@ -20,6 +20,7 @@ public class SignEditScreenMixin {
     @Final
     private SignBlockEntity sign;
 
+
     @ModifyVariable(method = "render", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/client/render/TexturedRenderLayers;getSignTextureId(Lnet/minecraft/util/SignType;)Lnet/minecraft/client/util/SpriteIdentifier;"))
     private SpriteIdentifier getSignTextureId(SpriteIdentifier spriteIdentifier) {
         if (sign.getCachedState().getBlock() instanceof YewSign) {

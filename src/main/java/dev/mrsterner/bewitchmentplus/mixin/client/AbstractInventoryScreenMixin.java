@@ -38,6 +38,7 @@ public abstract class AbstractInventoryScreenMixin<T extends ScreenHandler> exte
         }
     }
 
+
     @ModifyVariable(method = "drawStatusEffectBackgrounds", at = @At(value = "STORE"))
     private StatusEffectInstance customizeDrawnBackground(StatusEffectInstance effect) {
         if (effect.getEffectType() instanceof BWPStatusEffects.BWPStatusEffect) {

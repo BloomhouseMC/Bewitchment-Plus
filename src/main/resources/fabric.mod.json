@@ -25,9 +25,6 @@
 	"client": [
       "dev.mrsterner.bewitchmentplus.BewitchmentPlusClient"
 	],
-	"modmenu": [
-      "dev.mrsterner.bewitchmentplus.client.compat.BWPlusModMenu"
-	],
     "cardinal-components-entity": [
       "dev.mrsterner.bewitchmentplus.common.registry.BWPComponents"
     ]
@@ -35,10 +32,7 @@
   "custom": {
     "cardinal-components": [
       "bwplus:effigy"
-    ],
-	"modmenu": {
-	  "parent": "bewitchment"
-	}
+    ]
   },
   "mixins": [
 	"bewitchmentplus.mixins.json"
