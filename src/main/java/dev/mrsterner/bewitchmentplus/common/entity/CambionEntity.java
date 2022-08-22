@@ -231,7 +231,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 	}
 
 	@Override
-	protected void damageArmor(DamageSource damageSource, float damage) {
+	public void damageArmor(DamageSource damageSource, float damage) {
 		if (damage >= 0.0F) {
 			damage = damage / 4.0F;
 			if (damage < 1.0F) {
@@ -240,7 +240,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 			for (int i = 0; i < this.cambionInventory.size(); ++i) {
 				ItemStack itemstack = this.cambionInventory.getStack(i);
 				if ((!damageSource.isFire() || !itemstack.getItem().isFireproof())
-				&& itemstack.getItem() instanceof ArmorItem) {
+						&& itemstack.getItem() instanceof ArmorItem) {
 					int j = i;
 					itemstack.damage((int) damage, this, (p_214023_1_) -> {
 						p_214023_1_.sendEquipmentBreakStatus(EquipmentSlot.fromTypeIndex(EquipmentSlot.Type.ARMOR, j));
@@ -249,6 +249,8 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 			}
 		}
 	}
+
+
 
 	@Override
 	public void setBaby(boolean baby) {

@@ -177,10 +177,6 @@ public class RuneEntity extends Entity {
         return false;
     }
 
-    @Override
-    public boolean collides() {
-        return false;
-    }
 
     @Override
     public boolean isPushable() {
