@@ -12,7 +12,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.math.Vec3f;
-import org.checkerframework.checker.nullness.qual.NonNull;
 
 
 public class RuneEntityRenderer extends EntityRenderer<RuneEntity> {
@@ -32,7 +31,7 @@ public class RuneEntityRenderer extends EntityRenderer<RuneEntity> {
      * @param light
      */
     @Override
-    public void render(@NonNull RuneEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider provider, int light) {
+    public void render(RuneEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider provider, int light) {
         if(entity.getExpansionTick() < 200){
             Shader shader = BWPShader.rune();
             double ticks = (BewitchmentPlusClient.ClientTickHandler.ticksInGame + tickDelta) * 0.5;

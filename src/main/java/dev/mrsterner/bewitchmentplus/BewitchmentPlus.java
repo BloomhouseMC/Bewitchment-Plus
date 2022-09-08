@@ -12,8 +12,6 @@ import dev.mrsterner.bewitchmentplus.common.utils.BWPUtil;
 import dev.mrsterner.bewitchmentplus.common.utils.RenderHelper;
 import dev.mrsterner.bewitchmentplus.common.world.BWPWorldState;
 import eu.midnightdust.lib.config.MidnightConfig;
-import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import moriyashiine.bewitchment.api.BewitchmentAPI;
 import moriyashiine.bewitchment.api.component.BloodComponent;
 import moriyashiine.bewitchment.api.component.TransformationComponent;
