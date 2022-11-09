@@ -1,0 +1,23 @@
+{
+  "category": "bewitchment:brewing",
+  "name": "Мутандис",
+  "icon": "bwplus:mutandis",
+  "entry_color": "3EA9ff",
+  "advancement": "bewitchment:hidden_unlocks/altars",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Видоизменяет сельскохозяйственные культуры для того, чтобы изменить их на другие сельскохозяйственная культуры!"
+    },
+    {
+      "type": "bewitchment:oil",
+      "recipe": "bwplus:oil_crafting/mutandis",
+      "text": "Используется как Костная мука на одной *отдельной* сельскохозяйственной культуре."
+    },
+    {
+      "type": "bewitchment:oil",
+      "recipe": "bwplus:oil_crafting/mutandis_brew",
+      "text": "Брось этот отвар, чтобы изменить область 3x1x3."
+    }
+  ]
+}

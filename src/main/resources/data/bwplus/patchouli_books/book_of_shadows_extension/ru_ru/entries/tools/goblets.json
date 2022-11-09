@@ -1,0 +1,27 @@
+{
+  "category": "bewitchment:tools",
+  "name": "Кубки",
+  "icon": "bwplus:silver_goblet",
+  "entry_color": "3EA9ff",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Используй $(l:bewitchment:tools/athame)Атам$() в левой руке, чтобы пролить свою кровь, вампиры, возможно, захотят обманом заставить тебя выпить её.$(br2)А ещё может быть использован в правой руке при убийстве Гуманоида, чтобы наполнить обычной кровью.$(br)Кровь единорога также можно собрать.$(br)Размещаем."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bwplus:silver_goblet",
+      "text": ""
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bwplus:gold_goblet",
+      "text": ""
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "bwplus:netherite_goblet",
+      "text": ""
+    }
+  ]
+}

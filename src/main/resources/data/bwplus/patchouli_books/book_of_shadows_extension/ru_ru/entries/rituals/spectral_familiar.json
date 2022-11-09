@@ -1,0 +1,18 @@
+{
+  "category": "bewitchment:rituals",
+  "name": "Призрачный фамилиар",
+  "icon": "bwplus:soul",
+  "entry_color": "3EA9ff",
+  "advancement": "bwplus:hidden_unlocks/ectoplasm",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Как на счёт того, чтобы фамилиары из другой вселенной сбрасывали души."
+    },
+    {
+      "type": "bewitchment:ritual",
+      "recipe": "bwplus:rituals/spectral_familiar",
+      "text": "Можно осуществить $(l:bewitchment:rituals/rituals)Ритуал$() призрачного фамилиара. Убей фамилиара, получишь чудовищного фамилиара."
+    }
+  ]
+}

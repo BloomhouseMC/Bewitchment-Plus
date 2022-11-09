@@ -1,0 +1,17 @@
+{
+  "category": "bewitchment:creatures",
+  "name": "Нюхль",
+  "icon": "bwplus:niffler_spawn_egg",
+  "entry_color": "3EA9ff",
+  "advancement": "bwplus:hidden_unlocks/ectoplasm",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Нюхль. Он будет красть твоё золото из твоих сундуков. Вызывается при помощи $(l:bewitchment:rituals/rituals#spectral_familiar)Ритуала: Призрачный фамилиар$()."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "bwplus:niffler"
+    }
+  ]
+}

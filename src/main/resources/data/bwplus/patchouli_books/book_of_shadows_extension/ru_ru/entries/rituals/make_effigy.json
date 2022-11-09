@@ -1,0 +1,18 @@
+{
+  "category": "bewitchment:rituals",
+  "name": "Чучело",
+  "icon": "bwplus:unicorn_blood",
+  "entry_color": "3EA9ff",
+  "advancement": "bwplus:unicorn",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Наполни ближайшую $(l)Стойку для Брони$() при помощи клея и эссенции жизни.$(br)Чучело — это самодельный тотем бессмертия, попробуй заменить его и он спасёт тебя от смерти сразу же. Чучело будет будучи связано с $(l:bewitchment:tools/taglock)Набором для сбора генетического материала$().$(br2)"
+    },
+    {
+      "type": "bewitchment:ritual",
+      "recipe": "bwplus:rituals/make_effigy",
+      "text": "Можно осуществить $(l:bewitchment:rituals/rituals)Ритуал$() Чучела.$(br)$(o)Радиус ритуала равняется 16 с кошкой (котом), 8 при отсутствии.$()$(br)Как насчёт того, чтобы замызгаться."
+    }
+  ]
+}
