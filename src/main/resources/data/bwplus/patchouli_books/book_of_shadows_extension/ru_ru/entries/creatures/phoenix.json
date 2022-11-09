@@ -1,0 +1,17 @@
+{
+  "category": "bewitchment:creatures",
+  "name": "Феникс",
+  "icon": "bwplus:phoenix_spawn_egg",
+  "entry_color": "3EA9ff",
+  "advancement": "bwplus:hidden_unlocks/ectoplasm",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Феникс. Вызывается при помощи $(l:bewitchment:rituals/rituals#spectral_familiar)Ритуала: Призрачный фамилиар$()."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "bwplus:phoenix"
+    }
+  ]
+}

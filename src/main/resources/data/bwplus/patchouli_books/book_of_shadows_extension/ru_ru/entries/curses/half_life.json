@@ -1,0 +1,13 @@
+{
+  "category": "bewitchment:curses",
+  "name": "Полупериод жизни",
+  "icon": "bwplus:unicorn_blood",
+  "advancement": "bwplus:unicorn",
+  "entry_color": "3EA9ff",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Это проклятие спасёт тебя от отрицательных эффектов и спасёт тебя даже от смерти $(l)совсем ненадолго$().$(br)Это проклятие убьёт тебя, когда оно будет снято. Ты можешь продлить проклятие, выпив больше крови единорога или избавившись от него, будучи воскресшим подобно $(br2)$(l)Тотему бессмертия$(), Куклы $(l:bewitchment:poppets/death_protection)защиты от смерти$() или $(l:bwplus:rituals/make_effigy)куклы вуду$()."
+    }
+  ]
+}

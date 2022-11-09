@@ -1,0 +1,18 @@
+{
+  "category": "bewitchment:creatures",
+  "name": "Лешон",
+  "icon": "bwplus:leshon_skull",
+  "entry_color": "3EA9ff",
+  "advancement": "bwplus:leshon",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Лешон — древнее Существо магии, находится рядом с $(l:bwplus:introduction/yew_trees)Тисовыми деревьями$(), которые находятся в горной местности. Убей его, чтобы украсть его череп, и надень его, чтобы перенять его силы. Но в отсутствие естественного Тисового дерева поблизости череп будет деградировать. Нажми ПКМ по естественному появившемуся Тисовому бревну, чтобы пометить его как своего."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "bwplus:leshon",
+      "offset": 0.2
+    }
+  ]
+}

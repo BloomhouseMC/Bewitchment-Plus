@@ -1,0 +1,12 @@
+{
+  "category": "bewitchment:tools",
+  "name": "Луноцвет",
+  "icon": "bwplus:moonlight_infusion",
+  "entry_color": "3EA9ff",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Это, конечно, полезно знать, какая будет фаза луны на грядущую ночь, при помощи поливания растения в горшке с некоторым количеством Настойки из луноцвета."
+    }
+  ]
+}
