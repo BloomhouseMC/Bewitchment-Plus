@@ -20,7 +20,7 @@ public class BWPBlockEntityTypes {
 
 
     public static final BlockEntityType<GobletBlockEntity> GOBLET = register("goblet", FabricBlockEntityTypeBuilder.create(GobletBlockEntity::new, BWPObjects.GOLD_GOBLET, BWPObjects.NETHERITE_GOBLET, BWPObjects.SILVER_GOBLET).build(null));
-    public static final BlockEntityType<PentacleBlockEntity> PENTACLE = register("pentacle", FabricBlockEntityTypeBuilder.create(PentacleBlockEntity::new, BWPObjects.PENTACLE).build(null));
+    //public static final BlockEntityType<PentacleBlockEntity> PENTACLE = register("pentacle", FabricBlockEntityTypeBuilder.create(PentacleBlockEntity::new, BWPObjects.PENTACLE).build(null));
     public static final BlockEntityType<MoonflowerBlockEntity> MOONFLOWER_BLOCK_ENTITY = register("moonflower_block_entity", FabricBlockEntityTypeBuilder.create(MoonflowerBlockEntity::new, MOONFLOWER).build(null));
     public static final BlockEntityType<MimicChestBlockEntity> MIMIC_CHEST_BLOCK_ENTITY = register("mimic_chest_block_entity", FabricBlockEntityTypeBuilder.create(MimicChestBlockEntity::new, MIMIC_CHEST).build(null));
     public static final BlockEntityType<StatueBlockEntity> STATUE_BLOCK_ENTITY = register("statue_block_entity", FabricBlockEntityTypeBuilder.create(StatueBlockEntity::new, LILITH_STATUE_BLACKSTONE, LILITH_STATUE_GOLD, LILITH_STATUE_NETHERBRICK, HERNE_STATUE_BLACKSTONE, HERNE_STATUE_GOLD, HERNE_STATUE_NETHERBRICK, LEONARD_STATUE_BLACKSTONE, LEONARD_STATUE_GOLD,LEONARD_STATUE_NETHERBRICK, BAPHOMET_STATUE_BLACKSTONE, BAPHOMET_STATUE_GOLD, BAPHOMET_STATUE_NETHERBRICK).build(null));

@@ -95,45 +95,23 @@ dependencies {
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-    modImplementation("com.terraformersmc.terraform-api:terraform-wood-api-v1:${project.terraform_wood_api_version}"){
-        exclude(group: "com.terraformersmc.modmenu")
-    }
-    include("com.terraformersmc.terraform-api:terraform-wood-api-v1:${project.terraform_wood_api_version}"){
-        exclude(group: "com.terraformersmc.modmenu")
-    }
-    modImplementation("com.jamieswhiteshirt:reach-entity-attributes:${project.reach_version}"){
-        exclude(group: "com.terraformersmc.modmenu")
-    }
-    include("com.jamieswhiteshirt:reach-entity-attributes:${project.reach_version}"){
-        exclude(group: "com.terraformersmc.modmenu")
-    }
+    modRuntimeOnly "com.terraformersmc:modmenu:${mod_menu_version}"
+    modImplementation "com.terraformersmc.terraform-api:terraform-wood-api-v1:${terraform_wood_api_version}"
+    include "com.terraformersmc.terraform-api:terraform-wood-api-v1:${terraform_wood_api_version}"
+    modImplementation("com.jamieswhiteshirt:reach-entity-attributes:${project.reach_version}")
+    include("com.jamieswhiteshirt:reach-entity-attributes:${project.reach_version}")
 
-    modImplementation("com.github.emilyploszaj:step-height-entity-attribute:${step_height_version}"){
-        exclude(group: "com.terraformersmc.modmenu")
-    }
-    modImplementation("io.github.ladysnake:PlayerAbilityLib:${pal_version}"){
-        exclude(group: "com.terraformersmc.modmenu")
-    }
-    include("io.github.ladysnake:PlayerAbilityLib:${pal_version}"){
-        exclude(group: "com.terraformersmc.modmenu")
-    }
-
+    modImplementation("com.github.emilyploszaj:step-height-entity-attribute:${step_height_version}")
+    modImplementation("io.github.ladysnake:PlayerAbilityLib:${pal_version}")
+    include("io.github.ladysnake:PlayerAbilityLib:${pal_version}")
 
     modImplementation("com.github.virtuoel:pehkui:${project.pehkui_version}") {
-        exclude(group: "com.terraformersmc.modmenu")
         exclude(group: "net.fabricmc.fabric-api")
     }
-    modImplementation("io.github.ladysnake:impersonate:${impersonate_version}"){
-        exclude(group: "com.terraformersmc.modmenu")
-    }
-    modImplementation("vazkii.patchouli:Patchouli:${project.patchouli_version}"){
-        exclude(group: "com.terraformersmc.modmenu")
-    }
-    modImplementation("com.github.emilyalexandra:trinkets:${trinkets_version}"){
-        exclude(group: "com.terraformersmc.modmenu")
-    }
+    modImplementation("io.github.ladysnake:impersonate:${impersonate_version}")
+    modImplementation("vazkii.patchouli:Patchouli:${project.patchouli_version}")
+    modImplementation("com.github.emilyalexandra:trinkets:${trinkets_version}")
     modImplementation("software.bernie.geckolib:geckolib-fabric-${project.gecko_version}") {
-        exclude(group: "com.terraformersmc.modmenu")
         exclude(group: "io.github.prospector")
         exclude(group: "me.shedaniel")
         exclude(group: "net.fabricmc")
@@ -141,19 +119,12 @@ dependencies {
 
 
 
-    modImplementation("curse.maven:bewitchment-394915:${project.bewitchment_version}"){
-        exclude(group: "com.terraformersmc.modmenu")
-    }
-    modImplementation("curse.maven:besmirchment-2-542196:${project.besmirchment_version}"){
-        exclude(group: "com.terraformersmc.modmenu")
-    }
+    modImplementation("curse.maven:bewitchment-394915:${project.bewitchment_version}")
+    modImplementation("curse.maven:besmirchment-2-542196:${project.besmirchment_version}")
     modCompileOnly("squeek.appleskin:appleskin-fabric:${appleskin_version}:api") {
-        exclude(group: "com.terraformersmc.modmenu")
         transitive = false
     }
-    modImplementation("maven.modrinth:midnightlib:${midnightlib_version}"){
-        exclude(group: "com.terraformersmc.modmenu")
-    }
+    modImplementation("maven.modrinth:midnightlib:${midnightlib_version}")
 }
 
 processResources {

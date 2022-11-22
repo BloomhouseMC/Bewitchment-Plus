@@ -13,14 +13,14 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class BWPBoatTypes {
     public static void init() {
-        registerBoat("yew");
+        registerBoat("yew", BWPObjects.YEW_PLANKS.asItem());
     }
 
-    private static void registerBoat(String name) {
+    private static void registerBoat(String name, Item planks) {
         AtomicReference<TerraformBoatType> type = new AtomicReference<>();
         Item boat = TerraformBoatItemHelper.registerBoatItem(new Identifier(BewitchmentPlus.MODID, name + "_boat"), type::get, false, BewitchmentPlus.BEWITCHMENT_PLUS_GROUP);
         Item chest_boat = TerraformBoatItemHelper.registerBoatItem(new Identifier(BewitchmentPlus.MODID, name + "_chest_boat"), type::get, true, BewitchmentPlus.BEWITCHMENT_PLUS_GROUP);
-        type.set(new TerraformBoatTypeImpl(boat, chest_boat));
+        type.set(new TerraformBoatTypeImpl(boat, chest_boat, planks));
         Registry.register(TerraformBoatTypeRegistry.INSTANCE, new Identifier(BewitchmentPlus.MODID, name), type.get());
     }
 }

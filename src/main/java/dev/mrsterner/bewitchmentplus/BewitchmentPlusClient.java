@@ -74,7 +74,7 @@ public class BewitchmentPlusClient implements ClientModInitializer {
 
 
 		GeoItemRenderer.registerItemRenderer(BWPObjects.DRAGONBLOOD_STAFF, new DragonbloodStaffRenderer());
-		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(),BWPObjects.LOCACACA_LEAVES, BWPObjects.LOCACACA_BRANCH, BWPObjects.DRAGONFRUIT_BLOCK, BWPObjects.GOLD_STANDING_CANDELABRA,BWPObjects.NETHERITE_STANDING_CANDELABRA, BWPObjects.SILVER_STANDING_CANDELABRA, BWPObjects.PENTACLE, BWPObjects.BLOODROOT, BWPObjects.EMBERGRASS, BWPObjects.YEW_SAPLING, BWPObjects.YEW_DOOR, BWPObjects.YEW_TRAPDOOR, BWPObjects.YEW_CUT_LOG);
+		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(),BWPObjects.LOCACACA_LEAVES, BWPObjects.LOCACACA_BRANCH, BWPObjects.DRAGONFRUIT_BLOCK, BWPObjects.GOLD_STANDING_CANDELABRA,BWPObjects.NETHERITE_STANDING_CANDELABRA, BWPObjects.SILVER_STANDING_CANDELABRA, BWPObjects.BLOODROOT, BWPObjects.EMBERGRASS, BWPObjects.YEW_SAPLING, BWPObjects.YEW_DOOR, BWPObjects.YEW_TRAPDOOR, BWPObjects.YEW_CUT_LOG);
 		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, BWPObjects.YEW_SIGN.getTexture()));
 		ClientTickEvents.END_CLIENT_TICK.register(ClientTickHandler::clientTickEnd);
 		ClientPlayNetworking.registerGlobalReceiver(S2CBloodParticlesPacket.ID, S2CBloodParticlesPacket::handle);

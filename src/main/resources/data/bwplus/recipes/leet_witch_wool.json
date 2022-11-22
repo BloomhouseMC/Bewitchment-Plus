@@ -1,0 +1,36 @@
+{
+  "type": "crafting_shapeless",
+  "ingredients": [
+	{
+	  "tag": "bwplus:fleece"
+	},
+	{
+		"tag": "bwplus:fleece"
+	},
+	{
+		"tag": "bwplus:fleece"
+	},
+	{
+		"tag": "bwplus:fleece"
+	},
+	{
+		"tag": "bwplus:fleece"
+	},
+	{
+		"tag": "bwplus:fleece"
+	},
+	{
+		"tag": "bwplus:fleece"
+	},
+	{
+		"tag": "bwplus:fleece"
+	},
+	{
+		"tag": "bwplus:fleece"
+	}
+  ],
+  "result": {
+	"item": "bwplus:rgb_witch_wool",
+	"count": 9
+  }
+}

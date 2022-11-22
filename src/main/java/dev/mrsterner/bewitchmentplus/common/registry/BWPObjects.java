@@ -68,7 +68,7 @@ public class BWPObjects {
 	public static final Block NETHERITE_STANDING_CANDELABRA = register("netherite_standing_candelabra", new StandingCandelabraBlock(FabricBlockSettings.copyOf(Blocks.NETHERITE_BLOCK)), false);
 	public static final Item NETHERITE_STANDING_CANDELABRA_ITEM = register("netherite_standing_candelabra", new BlockItem(NETHERITE_STANDING_CANDELABRA,gen().fireproof()));
 
-	public static final Block PENTACLE = register("pentacle", new PentacleBlock(copyOf(BWObjects.SILVER_BLOCK)), true, gen());
+	//public static final Block PENTACLE = register("pentacle", new PentacleBlock(copyOf(BWObjects.SILVER_BLOCK)), true, gen());
 	public static final Block BLOODROOT = register("bloodroot", new BWPPlantBlock(FabricBlockSettings.of(Material.PLANT).sounds(BlockSoundGroup.BAMBOO_SAPLING).strength(0.3F).nonOpaque().breakInstantly().dynamicBounds(),0),false, gen());
 	public static final Block MOONFLOWER = register("moonflower", new MoonflowerBlock(copyOf(Blocks.STONE)), false, gen());
 	public static final Block MIMIC_CHEST = register("mimic_chest", new MimicChestBlock(FabricBlockSettings.of(Material.WOOD).strength(2.5F).sounds(BlockSoundGroup.WOOD)), true, gen());

@@ -15,6 +15,7 @@ public class BWPTags {
     public static final TagKey<EntityType<?>> UNHOLY = TagKey.of(Registry.ENTITY_TYPE_KEY, new Identifier(BewitchmentPlus.MODID, "unholy"));
 
     public static final TagKey<Block> MUTANDIS = TagKey.of(Registry.BLOCK_KEY, new Identifier(BewitchmentPlus.MODID, "mutandis"));
+    public static final TagKey<Block> FLEECE = TagKey.of(Registry.BLOCK_KEY, new Identifier(BewitchmentPlus.MODID, "fleece"));
 
 
 }

@@ -4,6 +4,7 @@ import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import dev.mrsterner.bewitchmentplus.common.BWPConfig;
 import dev.mrsterner.bewitchmentplus.common.entity.BlackDogEntity;
 import dev.mrsterner.bewitchmentplus.common.entity.CambionEntity;
+import dev.mrsterner.bewitchmentplus.common.entity.LeshonEntity;
 import dev.mrsterner.bewitchmentplus.common.world.feature.LotusTreeFeature;
 import dev.mrsterner.bewitchmentplus.common.world.feature.YewTreeFeature;
 import moriyashiine.bewitchment.mixin.SpawnRestrictionAccessor;
@@ -80,6 +81,9 @@ public class BWPWorldGenerators extends ConfiguredFeatures{
         }
         if (registerEntitySpawn(BWPEntityTypes.BLACK_DOG, foundInOverworld(), BWPConfig.blackDogWeight, BWPConfig.blackDogMinGroupCount, BWPConfig.blackDogMaxGroupCount)) {
             SpawnRestrictionAccessor.callRegister(BWPEntityTypes.BLACK_DOG, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BlackDogEntity::canMobSpawn);
+        }
+        if (registerEntitySpawn(BWPEntityTypes.LESHON, BiomeSelectors.foundInOverworld().and(BiomeSelectors.tag(ConventionalBiomeTags.MOUNTAIN).or(BiomeSelectors.tag(ConventionalBiomeTags.EXTREME_HILLS))), 2, 1, 1)) {
+            SpawnRestrictionAccessor.callRegister(BWPEntityTypes.LESHON, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LeshonEntity::canMobSpawn);
         }
         //StructureFeatureAccessor.callRegister(BewitchmentPlus.MODID + ":yew_tree_house", new YewTreeHouseStructure(), GenerationStep.Feature.SURFACE_STRUCTURES);
 
