@@ -3,12 +3,12 @@
 	"minecraft:geometry": [
 		{
 			"description": {
-				"identifier": "geometry.geometry.humanoid",
+				"identifier": "geometry.leshin",
 				"texture_width": 128,
 				"texture_height": 128,
 				"visible_bounds_width": 6,
-				"visible_bounds_height": 5.5,
-				"visible_bounds_offset": [0, 2.25, 0]
+				"visible_bounds_height": 7,
+				"visible_bounds_offset": [0, 1.5, 0]
 			},
 			"bones": [
 				{
@@ -34,13 +34,13 @@
 					]
 				},
 				{
-					"name": "bone24",
+					"name": "lowerBackFur",
 					"parent": "core",
 					"pivot": [0, 42, 4.5]
 				},
 				{
 					"name": "backFur2",
-					"parent": "bone24",
+					"parent": "lowerBackFur",
 					"pivot": [0, 28, 8]
 				},
 				{
@@ -103,7 +103,7 @@
 					]
 				},
 				{
-					"name": "beck",
+					"name": "becken",
 					"parent": "core",
 					"pivot": [0, 24, 7],
 					"cubes": [
@@ -112,7 +112,7 @@
 				},
 				{
 					"name": "tail",
-					"parent": "beck",
+					"parent": "becken",
 					"pivot": [0, 23, 8],
 					"rotation": [-37.5, 0, 0]
 				},
@@ -135,7 +135,7 @@
 				},
 				{
 					"name": "legs",
-					"parent": "beck",
+					"parent": "becken",
 					"pivot": [0, 22, 6]
 				},
 				{
@@ -248,7 +248,8 @@
 					"parent": "chest",
 					"pivot": [0, 36, 2.5],
 					"cubes": [
-						{"origin": [-7, 32, 0], "size": [14, 12, 11], "uv": [0, 0]}
+						{"origin": [-7, 32, 0], "size": [14, 12, 11], "uv": [0, 0]},
+						{"origin": [-7, 32, 0], "size": [14, 12, 11], "inflate": 0.5, "uv": [46, 105]}
 					]
 				},
 				{
@@ -321,7 +322,8 @@
 					"pivot": [5, 40.5, 4.5],
 					"rotation": [5, 0, -17.5],
 					"cubes": [
-						{"origin": [5, 37, 1], "size": [5, 7, 7], "uv": [53, 77]}
+						{"origin": [5, 37, 1], "size": [5, 7, 7], "uv": [53, 77]},
+						{"origin": [5, 37, 1], "size": [5, 7, 7], "inflate": 0.5, "uv": [15, 114]}
 					]
 				},
 				{
@@ -330,7 +332,8 @@
 					"pivot": [7, 37, 4.5],
 					"rotation": [2.5, 0, 0],
 					"cubes": [
-						{"origin": [5, 29, 2], "size": [4, 9, 5], "uv": [85, 39]}
+						{"origin": [5, 29, 2], "size": [4, 9, 5], "uv": [85, 39]},
+						{"origin": [5, 29, 2], "size": [4, 9, 5], "inflate": 0.5, "uv": [78, 114]}
 					]
 				},
 				{
@@ -453,7 +456,8 @@
 					"pivot": [0, 44, 7],
 					"rotation": [25, 0, 0],
 					"cubes": [
-						{"origin": [-4.5, 40, 2.3], "size": [9, 12, 8], "inflate": 0.005, "uv": [0, 23]}
+						{"origin": [-4.5, 39.7, 2.3], "size": [9, 12, 8], "inflate": 0.005, "uv": [0, 23]},
+						{"origin": [-4.5, 39.6, 2.3], "size": [9, 12, 8], "inflate": 0.25, "uv": [62, 108]}
 					]
 				},
 				{
@@ -469,7 +473,7 @@
 					"cubes": [
 						{"origin": [-3.5, 50, 4], "size": [7, 7, 7], "uv": [62, 63]},
 						{"origin": [-2, 57, 5], "size": [4, 7, 5], "uv": [83, 58]},
-						{"origin": [-2, 57, 4], "size": [4, 6, 1], "uv": [0, 0]},
+						{"origin": [-2, 57, 4], "size": [4, 6, 1], "uv": [32, 62]},
 						{"origin": [-2, 62.5, 10.5], "size": [4, 4, 2], "pivot": [-1.5, 32, 4], "rotation": [10, 0, 0], "uv": [26, 23]}
 					]
 				},
@@ -499,6 +503,7 @@
 					"name": "jawUnder",
 					"parent": "head",
 					"pivot": [0, 53, 4],
+					"rotation": [-30, 0, 0],
 					"cubes": [
 						{"origin": [-2, 39, 25.5], "size": [4, 6, 1], "inflate": -0.01, "pivot": [-1.5, 32, 4], "rotation": [75, 0, 0], "uv": [32, 62]},
 						{"origin": [-2, 36, 23.5], "size": [4, 11, 2], "inflate": -0.01, "pivot": [-1.5, 32, 4], "rotation": [75, 0, 0], "uv": [72, 92]}
@@ -762,7 +767,8 @@
 					"pivot": [-5, 40.5, 4.5],
 					"rotation": [5, 0, 17.5],
 					"cubes": [
-						{"origin": [-10, 37, 1], "size": [5, 7, 7], "uv": [77, 11]}
+						{"origin": [-10, 37, 1], "size": [5, 7, 7], "uv": [77, 11]},
+						{"origin": [-10, 37, 1], "size": [5, 7, 7], "inflate": 0.5, "uv": [58, 111]}
 					]
 				},
 				{
@@ -771,7 +777,8 @@
 					"pivot": [-7, 37, 4.5],
 					"rotation": [2.5, 0, 0],
 					"cubes": [
-						{"origin": [-9, 29, 2], "size": [4, 9, 5], "uv": [85, 25]}
+						{"origin": [-9, 29, 2], "size": [4, 9, 5], "uv": [85, 25]},
+						{"origin": [-9, 29, 2], "size": [4, 9, 5], "inflate": 0.5, "uv": [77, 114]}
 					]
 				},
 				{
