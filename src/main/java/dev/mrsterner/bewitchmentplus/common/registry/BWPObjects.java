@@ -40,14 +40,14 @@ public class BWPObjects {
 	}
 
 	//ITEMS
-	public static final Item BLOODROOT_ITEM = register("bloodroot_item", new Item(gen()));
+	public static final Item BLOODROOT_ITEM = register("bloodroot_item", new Item(gen().food(BWPFoodComponents.BLOODROOT)));
 	public static final Item DRAGONFRUIT = register("dragonfruit", new Item(gen().food(BWPFoodComponents.DRAGONFRUIT)));
 	public static final Item MUTANDIS = register("mutandis", new MutandisItem(gen()));
 	public static final Item SOUL = register("soul", new Item(gen()));
 	public static final Item MUTANDIS_BREW = register("mutandis_brew", new MutandisBrew(gen()));
 	public static final Item UNICORN_BLOOD = register("unicorn_blood", new Item(gen()));
 	public static final Item MOONLIGHT_INFUSION = register("moonlight_infusion", new Item(gen().recipeRemainder(Items.GLASS_BOTTLE)));
-	public static final Item ENDER_INFUSION = register("ender_vial", new Item(gen().recipeRemainder(Items.GLASS_BOTTLE)));//0x70922d
+	//public static final Item ENDER_INFUSION = register("ender_vial", new Item(gen().recipeRemainder(Items.GLASS_BOTTLE)));//0x70922d
 	//public static final Item MUSIC_DISC_PETALS = register("music_disc_petals", new BWPMusicDisc(7, BWPSounds.MUSIC_DISC_PETALS, new Item.Settings().group(ItemGroup.MISC).maxCount(1).rarity(Rarity.RARE)));
 	public static final Item YEW_BROOM = register("yew_broom", new BroomItem(gen().maxCount(1), BWPEntityTypes.YEW_BROOM));
 	public static final Item DRAGONBLOOD_STAFF = register("dragonblood_staff", new DragonbloodStaffItem(200, gen().maxCount(1).rarity(Rarity.RARE)));

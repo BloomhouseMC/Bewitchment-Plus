@@ -62,10 +62,6 @@ public class LeshonEntity extends HostileEntity implements IAnimatable {
         targetSelector.add(1, new RevengeGoal(this));
     }
 
-
-
-
-
     @Override
     protected void initDataTracker() {
         super.initDataTracker();
@@ -85,13 +81,15 @@ public class LeshonEntity extends HostileEntity implements IAnimatable {
         boolean isMovingHorizontal = Math.sqrt(Math.pow(motionCalc.x, 2) + Math.pow(motionCalc.z, 2)) > 0.005;
         if (this.isSleeping()) {
             builder.addAnimation("animation.leshon.quad.sleep", true);
-        }else if (this.getPose() == EntityPose.SWIMMING) {
-            builder.addAnimation("animation.leshon.swim", true);
+        }else if (this.getPose() == EntityPose.SWIMMING || this.touchingWater) {
+            builder.addAnimation("animation.leshin.standing.swim", true);
         }else if (!this.isOnGround() && motionCalc.getY() < -0.6) {
             if (!this.isClimbing()) {
                 builder.addAnimation("animation.leshon.standing.fall", false);
             }
-        }else if (this.isSneaking()) {
+        }else if(this.handSwinging){
+            builder.addAnimation("animation.leshon.standing.attack", true);
+        } else if (this.isSneaking()) {
             if (isMovingHorizontal) {
                 if(this.forwardSpeed < 0){
                     builder.addAnimation("animation.leshon.standing.sneakDev_back", true);
@@ -121,10 +119,14 @@ public class LeshonEntity extends HostileEntity implements IAnimatable {
     }
 
     private <E extends IAnimatable> PlayState devAttack(AnimationEvent<E> animationEvent) {
+        /*
         if (this.getDataTracker().get(ATTACKING)) {
             animationEvent.getController().setAnimation(new AnimationBuilder().addAnimation("animation.leshon.standing.attack", true));
             return PlayState.CONTINUE;
         }
+        return PlayState.STOP;
+
+         */
         return PlayState.STOP;
     }
 

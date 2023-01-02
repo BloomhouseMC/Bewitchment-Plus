@@ -1,5 +1,6 @@
 package dev.mrsterner.bewitchmentplus.common.block;
 
+import moriyashiine.bewitchment.api.block.CandelabraBlock;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.*;
@@ -146,8 +147,8 @@ public class StandingCandelabraBlock extends Block implements Waterloggable {
         return state.get(HALF) == DoubleBlockHalf.LOWER ? blockState.isSideSolidFullSquare(world, blockPos, Direction.UP) : blockState.isOf(this);
     }
 
-    @Environment(EnvType.CLIENT)
-    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
+    @Override
+    public void randomDisplayTick(BlockState state, World world, BlockPos pos, net.minecraft.util.math.random.Random random) {
         if (state.get(Properties.LIT) && state.get(HALF) == DoubleBlockHalf.UPPER) {
             world.addParticle(ParticleTypes.FLAME, (double)pos.getX() + 0.5D, (double)pos.getY() + 1D, (double)pos.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
             world.addParticle(ParticleTypes.FLAME, (double)pos.getX() + 0.125D, (double)pos.getY() + 1.075D, (double)pos.getZ() + 0.5D, 0.0D, 0.0D, 0.0D);
@@ -155,7 +156,6 @@ public class StandingCandelabraBlock extends Block implements Waterloggable {
             world.addParticle(ParticleTypes.FLAME, (double)pos.getX() + 0.5D, (double)pos.getY() + 1.075D, (double)pos.getZ() + 0.875D, 0.0D, 0.0D, 0.0D);
             world.addParticle(ParticleTypes.FLAME, (double)pos.getX() + 0.5D, (double)pos.getY() + 1.075D, (double)pos.getZ() + 0.125D, 0.0D, 0.0D, 0.0D);
         }
-
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {

@@ -35,7 +35,8 @@ public class SpectralFamiliarRitualFunction extends RitualFunction {
     @Override
     public void start(ServerWorld world, BlockPos glyphPos, BlockPos effectivePos, Inventory inventory, boolean catFamiliar) {
         Random random = world.getRandom();
-        int i = random.nextInt(2);
+        //int i = random.nextInt(2);//TODO
+        int i = 1;
         switch (i) {
             case 0 -> {
                 NifflerEntity nifflerEntity = BWPEntityTypes.NIFFLER.create(world);

@@ -1,14 +1,14 @@
 package dev.mrsterner.bewitchmentplus.common.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.HorizontalFacingBlock;
-import net.minecraft.block.ShapeContext;
+import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
+import net.minecraft.block.*;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
@@ -41,5 +41,19 @@ public class LotusBranchBlock extends HorizontalFacingBlock {
     @Override
     public @Nullable BlockState getPlacementState(ItemPlacementContext ctx) {
         return this.getDefaultState().with(Properties.HORIZONTAL_FACING, ctx.getPlayerFacing().getOpposite());
+    }
+
+    @Override
+    public boolean hasRandomTicks(BlockState state) {
+        return true;
+    }
+
+    @Override
+    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+        if(random.nextInt((int)(25.0F) + 1) == 0 && world.getBlockState(pos.up()).isOf(Blocks.AIR)){
+            world.setBlockState(pos.up(), BWPObjects.DRAGONFRUIT_BLOCK.getDefaultState());
+        }
+
+        super.randomTick(state, world, pos, random);
     }
 }
