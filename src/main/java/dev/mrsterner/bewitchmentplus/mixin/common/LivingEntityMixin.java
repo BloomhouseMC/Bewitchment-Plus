@@ -17,6 +17,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ArmorItem;
+import net.minecraft.item.Item;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -74,7 +75,8 @@ public abstract class LivingEntityMixin extends Entity {
     @Inject(method = "damage", at = @At("HEAD"), cancellable = true)
     private void deathRobes(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         LivingEntity livingEntity = (LivingEntity)(Object)this;
-        if (livingEntity.getEquippedStack(EquipmentSlot.CHEST).getItem().equals(BWPObjects.DEATHS_ROBES) && source.isFire()) {
+        Item is = livingEntity.getEquippedStack(EquipmentSlot.CHEST).getItem();
+        if (is != null && is.equals(BWPObjects.DEATHS_ROBES) && source.isFire()) {
             cir.setReturnValue(false);
         }
     }
@@ -89,8 +91,12 @@ public abstract class LivingEntityMixin extends Entity {
     @Inject(method = "tickMovement", at = @At("HEAD"))
     private void deathWalk(CallbackInfo ci){
         LivingEntity livingEntity = (LivingEntity)(Object)this;
-        this.walkOnFluid = livingEntity.getEquippedStack(EquipmentSlot.FEET).getItem().equals(BWPObjects.DEATHS_FOOTWEAR);
-
+        Item is = livingEntity.getEquippedStack(EquipmentSlot.FEET).getItem();
+        if (is == null) {
+            this.walkOnFluid = false;
+        } else {
+            this.walkOnFluid = is.equals(BWPObjects.DEATHS_FOOTWEAR);
+        }
     }
     @Inject(method = "tickMovement", at = @At("HEAD"))
     private void deathParticle(CallbackInfo ci){
