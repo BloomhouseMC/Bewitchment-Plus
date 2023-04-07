@@ -83,7 +83,7 @@ public class BWPWorldGenerators extends ConfiguredFeatures{
             SpawnRestrictionAccessor.callRegister(BWPEntityTypes.BLACK_DOG, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BlackDogEntity::canMobSpawn);
         }
         if (registerEntitySpawn(BWPEntityTypes.LESHON, BiomeSelectors.foundInOverworld().and(BiomeSelectors.tag(ConventionalBiomeTags.MOUNTAIN).or(BiomeSelectors.tag(ConventionalBiomeTags.EXTREME_HILLS))), 2, 1, 1)) {
-            SpawnRestrictionAccessor.callRegister(BWPEntityTypes.LESHON, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LeshonEntity::canMobSpawn);
+            SpawnRestrictionAccessor.callRegister(BWPEntityTypes.LESHON, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LeshonEntity::canSpawnInDark);
         }
         //StructureFeatureAccessor.callRegister(BewitchmentPlus.MODID + ":yew_tree_house", new YewTreeHouseStructure(), GenerationStep.Feature.SURFACE_STRUCTURES);
 
