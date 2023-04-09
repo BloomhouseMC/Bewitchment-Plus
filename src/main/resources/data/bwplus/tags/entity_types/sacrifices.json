@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "bwplus:niffler",
+    "bwplus:unicorn",
+    "bwplus:phoenix",
+    "bewitchment:owl",
+    "bewitchment:snake",
+    "bewitchment:raven",
+    "bewitchment:toad",
+    "minecraft:cat",
+    "minecraft:wolf"
+  ]
+}

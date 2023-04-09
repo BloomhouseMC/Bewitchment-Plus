@@ -254,7 +254,7 @@ public class BewitchmentPlus implements ModInitializer {
 	 */
 	public TypedActionResult<ItemStack> gobletFillWithAthame(PlayerEntity player, World world, Hand hand){
 		if (!world.isClient() && player.getMainHandStack().getItem() instanceof AthameItem) {
-			if (player.getOffHandStack().getItem() instanceof GobletBlockItem && BWComponents.TRANSFORMATION_COMPONENT.get(player).getTransformation() == BWTransformations.VAMPIRE ? BWComponents.BLOOD_COMPONENT.get(player).getBlood() > 20 : player.getHealth() > 10) {
+			if (player.getOffHandStack().getItem() instanceof GobletBlockItem && (BWComponents.TRANSFORMATION_COMPONENT.get(player).getTransformation() == BWTransformations.VAMPIRE ? BWComponents.BLOOD_COMPONENT.get(player).getBlood() > 20 : player.getHealth() > 10)) {
 				world.playSound(null, player.getBlockPos(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.PLAYERS, 1, 0.5f);
 				NbtCompound compound = new NbtCompound();
 				var slots = DefaultedList.ofSize(1, BWObjects.BOTTLE_OF_BLOOD.getDefaultStack());
@@ -269,5 +269,11 @@ public class BewitchmentPlus implements ModInitializer {
 			}
 		}
 		return TypedActionResult.pass(player.getMainHandStack());
+	}
+
+	public boolean isGoblt(PlayerEntity player){
+		return (player.getOffHandStack().isOf(BWPObjects.GOLD_GOBLET.asItem())) ||
+				(player.getOffHandStack().isOf(BWPObjects.SILVER_GOBLET.asItem())) ||
+				(player.getOffHandStack().isOf(BWPObjects.NETHERITE_GOBLET.asItem()));
 	}
 }
