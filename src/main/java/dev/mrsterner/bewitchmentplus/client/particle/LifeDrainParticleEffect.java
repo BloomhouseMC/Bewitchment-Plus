@@ -9,9 +9,10 @@ import net.fabricmc.api.Environment;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleType;
-import net.minecraft.util.registry.Registry;
 
 import com.mojang.brigadier.StringReader;
+import net.minecraft.registry.Registries;
+
 import java.util.Locale;
 
 //Derivative from Illuminations https://github.com/Ladysnake/Illuminations/blob/1.18/src/main/java/ladysnake/illuminations/client/particle/WispTrailParticleEffect.java
@@ -63,7 +64,7 @@ public record LifeDrainParticleEffect(float red, float green, float blue, float 
 
     @Override
     public String asString() {
-        return String.format(Locale.ROOT, "%s %.2f %.2f %.2f %.2f %.2f %.2f", Registry.PARTICLE_TYPE.getId(this.getType()), this.red, this.green, this.blue, this.redEvolution, this.greenEvolution, this.blueEvolution);
+        return String.format(Locale.ROOT, "%s %.2f %.2f %.2f %.2f %.2f %.2f", Registries.PARTICLE_TYPE.getId(this.getType()), this.red, this.green, this.blue, this.redEvolution, this.greenEvolution, this.blueEvolution);
     }
 
     @Override

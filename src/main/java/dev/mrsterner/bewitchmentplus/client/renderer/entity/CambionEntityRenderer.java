@@ -29,7 +29,12 @@ public class CambionEntityRenderer extends BipedEntityRenderer<CambionEntity, Bi
 
 	public CambionEntityRenderer(EntityRendererFactory.Context context) {
 		super(context, new CambionEntityModel(context.getPart(CambionEntityModel.MALE_CAMBION_MODEL_LAYER)), 0.5f);
-		this.addFeature(new ArmorFeatureRenderer<>(this, new BipedEntityModel(context.getPart(EntityModelLayers.PLAYER_INNER_ARMOR)), new BipedEntityModel(context.getPart(EntityModelLayers.PLAYER_OUTER_ARMOR))));
+		this.addFeature(new ArmorFeatureRenderer<>(
+				this,
+						new BipedEntityModel(context.getPart(EntityModelLayers.PLAYER_INNER_ARMOR)),
+						new BipedEntityModel(context.getPart(EntityModelLayers.PLAYER_OUTER_ARMOR)),
+				context.getModelManager()
+		));
 		MALE_MODEL = model;
 		FEMALE_MODEL = new CambionEntityModel(context.getPart(CambionEntityModel.FEMALE_CAMBION_MODEL_LAYER));
 	}

@@ -20,7 +20,7 @@ import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3f;
+import net.minecraft.util.math.RotationAxis;
 import net.minecraft.world.World;
 
 @Environment(value= EnvType.CLIENT)
@@ -61,10 +61,10 @@ public class MimicBlockEntityRenderer<T extends BlockEntity> implements BlockEnt
         matrices.push();
         float f = blockState.get(ChestBlock.FACING).asRotation();
         matrices.translate(0.5, 0.5, 0.5);
-        matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(-f));
+        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-f));
         matrices.translate(-0.5, -0.5, -0.5);
-        matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180));
-        matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(180));
+        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180));
+        matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(180));
         matrices.translate(0.5,-1.5,-0.5);
         DoubleBlockProperties.PropertySource<Object> propertySource = (DoubleBlockProperties.PropertySource<Object>) abstractChestBlock.getBlockEntitySource(blockState, world, entity.getPos(), true);
         var g = MimicChestBlock.getAnimationProgressRetriever((LidOpenable)entity).getFallback().get(tickDelta);
@@ -123,7 +123,7 @@ public class MimicBlockEntityRenderer<T extends BlockEntity> implements BlockEnt
         matrices.push();
         matrices.translate(0, -openFactor/2.5 + Math.sin(ticks/20)/20, 0);
         float f = blockState.get(ChestBlock.FACING).asRotation();
-        matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion( - 90 - f));
+        matrices.multiply(RotationAxis.POSITIVE_Y.rotation( - 90 - f));
         eye.render(matrices, vertices, light, overlay);
         matrices.pop();
 

@@ -4,11 +4,11 @@ import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.StructurePlacementData;
 import net.minecraft.structure.StructureTemplate;
 import net.minecraft.structure.StructureTemplateManager;
-import net.minecraft.tag.BlockTags;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
@@ -44,7 +44,7 @@ public class WorldgenHelper {
             //Unless structureOptional.isEmpty() not catches, get the structure from the optional
             StructureTemplate structure = structureOptional.get();
             //Change the origin from the corner of the structure to the middle of the structure
-            BlockPos normalizeOrigin = origin.subtract(new Vec3i(Math.floor((double) structure.getSize().getX() / 2), 0, Math.floor((double) structure.getSize().getX() / 2)));
+            BlockPos normalizeOrigin = origin.subtract(new Vec3i((int)Math.floor((double) structure.getSize().getX() / 2), 0, (int)Math.floor((double) structure.getSize().getX() / 2)));
             //Get basic placementData
             StructurePlacementData placementData = (new StructurePlacementData()).setMirror(BlockMirror.NONE).setRotation(BlockRotation.NONE).setIgnoreEntities(false);
             //Place the structure at the normalized origin

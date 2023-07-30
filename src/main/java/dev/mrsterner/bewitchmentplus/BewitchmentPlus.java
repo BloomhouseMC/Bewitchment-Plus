@@ -20,7 +20,6 @@ import moriyashiine.bewitchment.common.entity.living.VampireEntity;
 import moriyashiine.bewitchment.common.item.AthameItem;
 import moriyashiine.bewitchment.common.registry.*;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
@@ -61,8 +60,11 @@ import org.slf4j.LoggerFactory;
 
 public class BewitchmentPlus implements ModInitializer {
 	public static final String MODID = "bwplus";
-	public static final ItemGroup BEWITCHMENT_PLUS_GROUP = FabricItemGroupBuilder.build(new Identifier(MODID, MODID), () -> new ItemStack(BWPObjects.SILVER_GOBLET));
 	public static final Logger LOGGER = LoggerFactory.getLogger("Bewitchment Plus");
+
+	public static Identifier id(String s) {
+		return new Identifier(MODID, s);
+	}
 
 	@Override
 	public void onInitialize() {
@@ -77,6 +79,7 @@ public class BewitchmentPlus implements ModInitializer {
 		BWPCurses.init();
 		BWPCriterion.init();
 		BWPSounds.init();
+		BWPPlacerTypes.init();
 		BWPWorldGenerators.init();
 
 		UseBlockCallback.EVENT.register(this::createMoonflower);
@@ -164,7 +167,7 @@ public class BewitchmentPlus implements ModInitializer {
 						world.playSound(null, player.getBlockPos(), SoundEvents.ITEM_HONEY_BOTTLE_DRINK, player.getSoundCategory(), 1, 0.5f);
 						playerBloodComponent.fillBlood(toGive, false);
 						player.addStatusEffect(new StatusEffectInstance(BWPStatusEffects.HALF_LIFE, 20 * 10, 1, false, false, true));
-						entity.damage(BWDamageSources.VAMPIRE, 2);
+						entity.damage(BWDamageSources.create(entity.getWorld(), BWDamageSources.VAMPIRE), 2);
 					}
 					return ActionResult.SUCCESS;
 				}
@@ -264,7 +267,7 @@ public class BewitchmentPlus implements ModInitializer {
 				compound.put("Goblet", player.getOffHandStack().getItem().getDefaultStack().writeNbt(new NbtCompound()));
 				player.getOffHandStack().getOrCreateNbt().put("BlockEntityTag", compound);
 				BWComponents.BLOOD_COMPONENT.get(player).drainBlood(20, false);
-				player.damage(DamageSource.player(player), BWComponents.TRANSFORMATION_COMPONENT.get(player).getTransformation() == BWTransformations.VAMPIRE ? 0 : 10);
+				player.damage(player.getWorld().getDamageSources().playerAttack(player), BWComponents.TRANSFORMATION_COMPONENT.get(player).getTransformation() == BWTransformations.VAMPIRE ? 0 : 10);
 				return TypedActionResult.consume(player.getMainHandStack());
 			}
 		}

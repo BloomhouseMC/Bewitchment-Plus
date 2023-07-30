@@ -1,6 +1,5 @@
 package dev.mrsterner.bewitchmentplus.mixin.client;
 
-import dev.mrsterner.bewitchmentplus.client.renderlayer.BWPRenderLayers;
 import dev.mrsterner.bewitchmentplus.common.entity.LeshonEntity;
 import dev.mrsterner.bewitchmentplus.common.item.GobletBlockItem;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPMaterials;
@@ -22,8 +21,8 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -55,9 +54,7 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
             leshonEntity.age = player.age;
             leshonEntity.hurtTime = player.hurtTime;
             leshonEntity.maxHurtTime = Integer.MAX_VALUE;
-            leshonEntity.limbDistance = player.limbDistance;
-            leshonEntity.lastLimbDistance = player.lastLimbDistance;
-            leshonEntity.limbAngle = player.limbAngle;
+            leshonEntity.limbAnimator = player.limbAnimator;
             leshonEntity.headYaw = player.headYaw;
             leshonEntity.prevHeadYaw = player.prevHeadYaw;
             leshonEntity.bodyYaw = player.bodyYaw;
@@ -80,30 +77,6 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
             leshonEntity.setSprinting(player.isSprinting());
             MinecraftClient.getInstance().getEntityRenderDispatcher().getRenderer(leshonEntity).render(leshonEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light);
             callbackInfo.cancel();
-        }
-
-
-        if(BWUtil.getArmorPieces(player, (stack) -> stack.getItem() instanceof ArmorItem && ((ArmorItem)stack.getItem()).getMaterial() == BWPMaterials.DEATH_ARMOR) == 3){
-            RenderLayer renderLayer = BWPRenderLayers.SHADOW.apply(this.getTexture(player));
-            if (renderLayer != null) {
-                VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(renderLayer);
-                int o = getOverlay(player, this.getAnimationCounter(player, tickDelta));
-                this.getModel().setVisible(true);
-                matrixStack.push();
-                matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180.0F - player.bodyYaw));
-                matrixStack.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(180.0F));
-                matrixStack.translate(0,-1.4,0);
-                matrixStack.scale(0.8f,0.8f,0.8f);
-                this.getModel().hat.visible = false;
-                this.getModel().jacket.visible = false;
-                this.getModel().leftPants.visible = false;
-                this.getModel().rightPants.visible = false;
-                this.getModel().leftSleeve.visible = false;
-                this.getModel().rightSleeve.visible = false;
-                this.getModel().render(matrixStack, vertexConsumer, light, o, 1.0F, 1.0F, 1.0F, 1.0F);
-                matrixStack.pop();
-
-            }
         }
     }
 

@@ -15,13 +15,14 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.json.ModelTransformation;
+import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3f;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.util.math.RotationAxis;
 import net.minecraft.world.World;
 
 
@@ -39,15 +40,15 @@ public class StatueRenderer implements BlockEntityRenderer<StatueBlockEntity>, B
     }
 
     public Identifier getStatueTexture(StatueBlockItem itemStack) {
-        String string = Registry.ITEM.getKey(itemStack.asItem()).get().getValue().getPath();
+        String string = Registries.ITEM.getKey(itemStack.asItem()).get().getValue().getPath();
         return new Identifier(BewitchmentPlus.MODID,  "textures/block/statues/"+ string +".png");
     }
 
     @Override
-    public void render(ItemStack stack, ModelTransformation.Mode mode, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+    public void render(ItemStack stack, ModelTransformationMode mode, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         matrices.push();
-        matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(180));
-        String string = Registry.ITEM.getKey(stack.getItem()).get().getValue().getPath();
+        matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(180));
+        String string = Registries.ITEM.getKey(stack.getItem()).get().getValue().getPath();
         if(string.contains("lilith")){
             VertexConsumer ivertexbuilder1 = ItemRenderer.getItemGlintConsumer(vertexConsumers, this.lilithStatueModel.getLayer(getStatueTexture((StatueBlockItem) stack.getItem())), false, stack.hasGlint());
             lilithStatueModel.render(matrices, ivertexbuilder1, light, overlay, 1, 1, 1, 1);
@@ -71,10 +72,10 @@ public class StatueRenderer implements BlockEntityRenderer<StatueBlockEntity>, B
         BlockState blockState = bl ? entity.getCachedState() : BWPObjects.LILITH_STATUE_BLACKSTONE.getDefaultState().with(Properties.HORIZONTAL_FACING, Direction.SOUTH);
         matrices.push();
         matrices.translate(0.5, 1.5, 0.5);
-        matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(180));
+        matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(180));
         float f = blockState.get(Properties.HORIZONTAL_FACING).asRotation();
-        matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(f));
-        String s = Registry.BLOCK.getKey(entity.getStatue().getBlock()).get().getValue().getPath();
+        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(f));
+        String s = Registries.BLOCK.getKey(entity.getStatue().getBlock()).get().getValue().getPath();
         if(s.contains("lilith")){
             VertexConsumer ivertexbuilder1 = ItemRenderer.getItemGlintConsumer(vertexConsumers, this.lilithStatueModel.getLayer(getStatueTexture(entity.getStatue())), false, false);
             lilithStatueModel.render(matrices, ivertexbuilder1, light, overlay, 1, 1, 1, 1);
@@ -91,4 +92,6 @@ public class StatueRenderer implements BlockEntityRenderer<StatueBlockEntity>, B
         }
         matrices.pop();
     }
+
+
 }

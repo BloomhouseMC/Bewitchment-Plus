@@ -20,7 +20,7 @@ import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3f;
+import net.minecraft.util.math.RotationAxis;
 import net.minecraft.world.World;
 
 @Environment(EnvType.CLIENT)
@@ -48,7 +48,7 @@ public class LeechChestBlockEntityRenderer<T extends BlockEntity & LidOpenable> 
             matrices.push();
             float rotation = blockState.get(ChestBlock.FACING).asRotation();
             matrices.translate(0.5D, 0.5D, 0.5D);
-            matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(-rotation));
+            matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-rotation));
             matrices.translate(-0.5D, -0.5D, -0.5D);
             DoubleBlockProperties.PropertySource<? extends LeechChestBlockEntity> properties;
             if (world == null) {

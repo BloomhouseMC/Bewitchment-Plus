@@ -42,7 +42,7 @@ public class BWPUtil {
     public static LeshonEntity getLeshon(PlayerEntity player) {
         if (BWPTransformations.isLeshon(player, false)) {
             if(entity == null) {
-                entity = BWPEntityTypes.LESHON.create(player.world);
+                entity = BWPEntityTypes.LESHON.create(player.getWorld());
                 assert entity != null;
             }
             return entity;
@@ -51,8 +51,8 @@ public class BWPUtil {
     }
 
     public static Pair<ServerWorld, YewLogBlockEntity> getPossibleHomeStead(LivingEntity player) {
-        if (player.world instanceof ServerWorld) {
-            for (ServerWorld serverWorld : player.world.getServer().getWorlds()) {
+        if (player.getWorld() instanceof ServerWorld) {
+            for (ServerWorld serverWorld : player.getWorld().getServer().getWorlds()) {
                 BWPWorldState worldState = BWPWorldState.get(serverWorld);
                 if (BWPWorldState.homeStead.containsKey(player.getUuid())) {
                     BlockEntity entity = serverWorld.getBlockEntity(BWPWorldState.homeStead.get(player.getUuid()));

@@ -99,7 +99,7 @@ public class UnicornEntity extends PassiveEntity {
 
     @Override
     public void onDeath(DamageSource source) {
-        if(world.getBlockState(this.getBlockPos()).isAir()) world.setBlockState(this.getBlockPos(), BWPObjects.UNICORN_BLOOD_PUDDLE.getDefaultState());
+        if(getWorld().getBlockState(this.getBlockPos()).isAir()) getWorld().setBlockState(this.getBlockPos(), BWPObjects.UNICORN_BLOOD_PUDDLE.getDefaultState());
         super.onDeath(source);
     }
 
@@ -180,8 +180,8 @@ public class UnicornEntity extends PassiveEntity {
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        if (!state.getMaterial().isLiquid()) {
-            BlockState blockState = this.world.getBlockState(pos.up());
+        if (!state.isLiquid()) {
+            BlockState blockState = this.getWorld().getBlockState(pos.up());
             BlockSoundGroup blockSoundGroup = state.getSoundGroup();
             if (blockState.isOf(Blocks.SNOW)) {
                 blockSoundGroup = blockState.getSoundGroup();
@@ -245,13 +245,13 @@ public class UnicornEntity extends PassiveEntity {
         }
 
         super.tickMovement();
-        if (!this.world.isClient && this.isAlive()) {
+        if (!this.getWorld().isClient && this.isAlive()) {
             if (this.random.nextInt(900) == 0 && this.deathTime == 0) {
                 this.heal(1.0F);
             }
 
             if (this.eatsGrass()) {
-                if (!this.isEatingGrass() && !this.hasPassengers() && this.random.nextInt(300) == 0 && this.world.getBlockState(this.getBlockPos().down()).isOf(Blocks.GRASS_BLOCK)) {
+                if (!this.isEatingGrass() && !this.hasPassengers() && this.random.nextInt(300) == 0 && this.getWorld().getBlockState(this.getBlockPos().down()).isOf(Blocks.GRASS_BLOCK)) {
                     this.setEatingGrass(true);
                 }
 

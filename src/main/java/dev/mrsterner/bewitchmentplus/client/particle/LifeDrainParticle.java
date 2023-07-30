@@ -12,9 +12,9 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.tag.BlockTags;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.*;
 import org.jetbrains.annotations.Nullable;
@@ -54,7 +54,7 @@ public class LifeDrainParticle extends Particle {
         this.greenEvolution = greenEvolution;
         this.player = world.getClosestPlayer((TargetPredicate.createNonAttackable()).setBaseMaxDistance(8D), this.x, this.y, this.z);
         Optional<LivingEntity> found = Optional.empty();
-        for (LivingEntity livingEntity : world.getEntitiesByClass(LivingEntity.class, new Box(new BlockPos(this.x, this.y, this.z)).expand(2, 2, 2), LivingEntity::isAlive)) {
+        for (LivingEntity livingEntity : world.getEntitiesByClass(LivingEntity.class, new Box(new BlockPos((int)this.x, (int)this.y, (int)this.z)).expand(2, 2, 2), LivingEntity::isAlive)) {
             found = Optional.of(livingEntity);
             break;
         }
@@ -76,8 +76,8 @@ public class LifeDrainParticle extends Particle {
             for (int i = 0; i < 25; i++) {
                 this.world.addParticle(new LifeDrainParticleEffect(this.red, this.green, this.blue, this.redEvolution, this.greenEvolution, this.blueEvolution), this.x + random.nextGaussian() / 16, this.y + random.nextGaussian() / 16, this.z + random.nextGaussian() / 16, 0, 0, 0);
             }
-            this.world.playSound(new BlockPos(this.x, this.y, this.z), SoundEvents.PARTICLE_SOUL_ESCAPE, SoundCategory.AMBIENT, 1.0f, 1.5f, true);
-            this.world.playSound(new BlockPos(this.x, this.y, this.z), SoundEvents.BLOCK_SOUL_SAND_BREAK, SoundCategory.AMBIENT, 1.0f, 1.0f, true);
+            this.world.playSound(this.x, this.y, this.z, SoundEvents.PARTICLE_SOUL_ESCAPE, SoundCategory.AMBIENT, 1.0f, 1.5f, true);
+            this.world.playSound(this.x, this.y, this.z, SoundEvents.BLOCK_SOUL_SAND_BREAK, SoundCategory.AMBIENT, 1.0f, 1.0f, true);
             this.markDead();
         }
 
@@ -93,10 +93,10 @@ public class LifeDrainParticle extends Particle {
             this.world.addParticle(new LifeDrainParticleEffect(this.red, this.green, this.blue, this.redEvolution, this.greenEvolution, this.blueEvolution), this.x + random.nextGaussian() / 15, this.y + random.nextGaussian() / 15, this.z + random.nextGaussian() / 15, 0, 0, 0);
         }
 
-        if (!new BlockPos(x, y, z).equals(this.getTargetPosition())) {
+        if (!new BlockPos((int)x, (int)y, (int)z).equals(this.getTargetPosition())) {
             this.move(velocityX, velocityY, velocityZ);
         }
-        double distance = getTargetPosition().getSquaredDistance(new Vec3i(this.x, this.y, this.z));
+        double distance = getTargetPosition().getSquaredDistance(new Vec3d(this.x, this.y, this.z));
         if (distance < 2D) {
             source.ifPresent(livingEntity -> C2SBloodParticlePacket.send(player.getUuid(), livingEntity.getId()));
             this.markDead();
@@ -132,7 +132,7 @@ public class LifeDrainParticle extends Particle {
 
 
     public BlockPos getTargetPosition() {
-        return new BlockPos(this.xTarget, this.yTarget + 0.5, this.zTarget);
+        return new BlockPos((int)this.xTarget, (int)(this.yTarget + 0.5), (int)this.zTarget);
     }
 
     private void selectBlockTarget() {
@@ -141,7 +141,7 @@ public class LifeDrainParticle extends Particle {
             this.yTarget = player.getY() + 0.5D;
             this.zTarget = player.getZ();
 
-            BlockPos targetPos = new BlockPos(this.xTarget, this.yTarget, this.zTarget);
+            BlockPos targetPos = new BlockPos((int)this.xTarget, (int)this.yTarget, (int)this.zTarget);
             if (this.world.getBlockState(targetPos).isFullCube(world, targetPos) && !this.world.getBlockState(targetPos).isIn(BlockTags.SOUL_FIRE_BASE_BLOCKS)) {
                 return;
             }

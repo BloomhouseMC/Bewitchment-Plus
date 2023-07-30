@@ -21,9 +21,6 @@ public class DragonfruitBlock extends Block {
         return VoxelShapes.union(createCuboidShape(5, 0, 5, 11, 4, 11), createCuboidShape(6, 4, 6, 10, 7, 10));
     }
 
-
-
-
     @Override
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState newState, WorldAccess world, BlockPos pos, BlockPos posFrom) {
         return !state.canPlaceAt(world, pos) ? Blocks.AIR.getDefaultState() : super.getStateForNeighborUpdate(state, direction, newState, world, pos, posFrom);

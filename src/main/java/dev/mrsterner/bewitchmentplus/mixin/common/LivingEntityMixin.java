@@ -71,13 +71,6 @@ public abstract class LivingEntityMixin extends Entity {
         return amount;
     }
 
-    @Inject(method = "damage", at = @At("HEAD"), cancellable = true)
-    private void deathRobes(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        LivingEntity livingEntity = (LivingEntity)(Object)this;
-        if (livingEntity.getEquippedStack(EquipmentSlot.CHEST).getItem().equals(BWPObjects.DEATHS_ROBES) && source.isFire()) {
-            cir.setReturnValue(false);
-        }
-    }
 
     @Inject(method = "heal", at = @At("HEAD"), cancellable = true)
     public void halfLifeCancelHeal(float amount, CallbackInfo callbackInfo) {
@@ -87,26 +80,15 @@ public abstract class LivingEntityMixin extends Entity {
     }
 
     @Inject(method = "tickMovement", at = @At("HEAD"))
-    private void deathWalk(CallbackInfo ci){
-        /*
-        LivingEntity livingEntity = (LivingEntity)(Object)this;
-        this.walkOnFluid = livingEntity.getEquippedStack(EquipmentSlot.FEET).getItem().equals(BWPObjects.DEATHS_FOOTWEAR);
-
-
-
-         */
-
-    }
-    @Inject(method = "tickMovement", at = @At("HEAD"))
     private void deathParticle(CallbackInfo ci){
         LivingEntity livingEntity = (LivingEntity)(Object)this;
         if(BWUtil.getArmorPieces(livingEntity, (stack) -> stack.getItem() instanceof ArmorItem && ((ArmorItem)stack.getItem()).getMaterial() == BWPMaterials.DEATH_ARMOR) == 3){
-            float r1 = world.random.nextFloat() * 360.0F;
+            float r1 = getWorld().random.nextFloat() * 360.0F;
             float mx = -MathHelper.cos(r1 / 180.0F * 3.1415927F) / 20.0F;
             float mz = MathHelper.sin(r1 / 180.0F * 3.1415927F) / 20.0F;
-            world.addParticle(ParticleTypes.SMOKE, true, livingEntity.getX(), livingEntity.getY() + 0.1D, livingEntity.getZ(), mx, 0.0D, mz);
-            if(world.getRandom().nextFloat() < 0.10F){
-                world.addParticle(ParticleTypes.SOUL, true, livingEntity.getX(), livingEntity.getY() + 0.1D, livingEntity.getZ(), mx, 0.0D, mz);
+            getWorld().addParticle(ParticleTypes.SMOKE, true, livingEntity.getX(), livingEntity.getY() + 0.1D, livingEntity.getZ(), mx, 0.0D, mz);
+            if(getWorld().getRandom().nextFloat() < 0.10F){
+                getWorld().addParticle(ParticleTypes.SOUL, true, livingEntity.getX(), livingEntity.getY() + 0.1D, livingEntity.getZ(), mx, 0.0D, mz);
             }
         }
     }

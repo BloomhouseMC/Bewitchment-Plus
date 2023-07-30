@@ -1,9 +1,8 @@
 package dev.mrsterner.bewitchmentplus.common.entity;
 
-import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import dev.mrsterner.bewitchmentplus.common.BWPConfig;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPObjects;
-import moriyashiine.bewitchment.client.network.packet.SpawnSmokeParticlesPacket;
+import moriyashiine.bewitchment.client.packet.SpawnSmokeParticlesPacket;
 import moriyashiine.bewitchment.common.entity.living.util.BWHostileEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -27,12 +26,12 @@ import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.tag.StructureTags;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.tag.StructureTags;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -47,8 +46,6 @@ public class BlackDogEntity extends BWHostileEntity {
 		super(entityType, world);
 		this.setPathfindingPenalty(PathNodeType.DANGER_OTHER, 0.0F);
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_OTHER, 0.0F);
-		this.setPathfindingPenalty(PathNodeType.DANGER_CACTUS, 0.0F);
-		this.setPathfindingPenalty(PathNodeType.DAMAGE_CACTUS, 0.0F);
 		experiencePoints = 5;
 	}
 
@@ -106,10 +103,10 @@ public class BlackDogEntity extends BWHostileEntity {
 		if (attackTick > 0) {
 			attackTick--;
 		}
-		if (world.isThundering())
+		if (getWorld().isThundering())
 			this.setStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 100, 0, true, true), null);
 		this.setStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 100, 0, true, true), null);
-		if (!world.isClient && !hasCustomName() && world.isDay() && !world.isRaining() && world.isSkyVisibleAllowingSea(getBlockPos())) {
+		if (!getWorld().isClient && !hasCustomName() && getWorld().isDay() && !getWorld().isRaining() && getWorld().isSkyVisibleAllowingSea(getBlockPos())) {
 			PlayerLookup.tracking(this).forEach(playerEntity -> SpawnSmokeParticlesPacket.send(playerEntity, this));
 			remove(RemovalReason.DISCARDED);
 		}
@@ -118,10 +115,10 @@ public class BlackDogEntity extends BWHostileEntity {
 	public void toggleAttack(boolean attacking) {
 		if (attacking) {
 			attackTick = 40;
-			world.sendEntityStatus(this, (byte) 4);
+			getWorld().sendEntityStatus(this, (byte) 4);
 		} else {
 			attackTick = 2;
-			world.sendEntityStatus(this, (byte) 5);
+			getWorld().sendEntityStatus(this, (byte) 5);
 		}
 	}
 

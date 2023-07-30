@@ -5,11 +5,10 @@ import dev.mrsterner.bewitchmentplus.common.ritualfunction.BindSpectralFamiliarR
 import dev.mrsterner.bewitchmentplus.common.ritualfunction.EffigyRitualFunction;
 import dev.mrsterner.bewitchmentplus.common.ritualfunction.SpectralFamiliarRitualFunction;
 import moriyashiine.bewitchment.api.registry.RitualFunction;
-import moriyashiine.bewitchment.common.entity.living.util.BWTameableEntity;
 import moriyashiine.bewitchment.common.registry.BWRegistries;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 public class BWPRitualFunctions {
     public static final RitualFunction SUMMON_SPECTRAL_FAMILIAR = new SpectralFamiliarRitualFunction(ParticleTypes.HAPPY_VILLAGER, livingEntity -> livingEntity.getType().isIn(BWPTags.SACRIFICES));
@@ -22,7 +21,7 @@ public class BWPRitualFunctions {
 
 
     public static void init() {
-        register(BWRegistries.RITUAL_FUNCTIONS, "spectral_familiar", SUMMON_SPECTRAL_FAMILIAR);
-        register(BWRegistries.RITUAL_FUNCTIONS, "make_effigy", MAKE_EFFIGY);
+        register(BWRegistries.RITUAL_FUNCTION, "spectral_familiar", SUMMON_SPECTRAL_FAMILIAR);
+        register(BWRegistries.RITUAL_FUNCTION, "make_effigy", MAKE_EFFIGY);
     }
 }

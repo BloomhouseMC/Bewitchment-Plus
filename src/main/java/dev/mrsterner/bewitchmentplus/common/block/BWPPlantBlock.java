@@ -33,9 +33,6 @@ public class BWPPlantBlock extends PlantBlock {
         return SHAPE.offset(vec3d.x, vec3d.y, vec3d.z);
     }
 
-
-
-
     @Override
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
         super.randomDisplayTick(state, world, pos, random);

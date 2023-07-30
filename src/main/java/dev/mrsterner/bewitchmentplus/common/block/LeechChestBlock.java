@@ -2,7 +2,6 @@ package dev.mrsterner.bewitchmentplus.common.block;
 
 import dev.mrsterner.bewitchmentplus.common.block.blockentity.LeechChestBlockEntity;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPBlockEntityTypes;
-import dev.mrsterner.bewitchmentplus.common.registry.BWPDamageSources;
 import it.unimi.dsi.fastutil.floats.Float2FloatFunction;
 import moriyashiine.bewitchment.common.item.TaglockItem;
 import moriyashiine.bewitchment.common.registry.BWObjects;
@@ -104,7 +103,7 @@ public class LeechChestBlock extends AbstractChestBlock<LeechChestBlockEntity> i
     public void leechAndDamage(World world, BlockPos pos, PlayerEntity player) {
         if (world.getBlockEntity(pos) instanceof LeechChestBlockEntity be) {
             if (be.getOwnerId() != player.getId() && !be.getWhitelisted().contains(player.getUuid())) {
-                player.damage(BWPDamageSources.LEECH, 3.0F);
+                player.damage(player.getWorld().getDamageSources().cactus(), 3.0F);
                 be.setLeechedId(player.getId());
             }
         }
@@ -134,7 +133,7 @@ public class LeechChestBlock extends AbstractChestBlock<LeechChestBlockEntity> i
 
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
-        return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite()).with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
+        return this.getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing().getOpposite()).with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
     }
 
     public BlockState rotate(BlockState state, BlockRotation rotation) {
@@ -156,7 +155,7 @@ public class LeechChestBlock extends AbstractChestBlock<LeechChestBlockEntity> i
 
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
         if (state.get(WATERLOGGED)) {
-            world.createAndScheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+            world.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         }
         return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
     }

@@ -9,7 +9,7 @@ import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
+import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class EffigyEntityRenderer extends GeoEntityRenderer<EffigyEntity> {
     public EffigyEntityRenderer(EntityRendererFactory.Context ctx) {
@@ -17,7 +17,7 @@ public class EffigyEntityRenderer extends GeoEntityRenderer<EffigyEntity> {
     }
 
     @Override
-    public RenderLayer getRenderType(EffigyEntity animatable, float partialTicks, MatrixStack stack, @Nullable VertexConsumerProvider renderTypeBuffer, @Nullable VertexConsumer vertexBuilder, int packedLightIn, Identifier textureLocation) {
+    public RenderLayer getRenderType(EffigyEntity animatable, Identifier texture, VertexConsumerProvider bufferSource, float partialTick) {
         return RenderLayer.getEntityTranslucent(this.getTexture(animatable));
     }
 }

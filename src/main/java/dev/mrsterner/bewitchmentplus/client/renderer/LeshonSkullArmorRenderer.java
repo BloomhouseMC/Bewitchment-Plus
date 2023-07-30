@@ -1,12 +1,12 @@
 package dev.mrsterner.bewitchmentplus.client.renderer;
 
-import dev.mrsterner.bewitchmentplus.client.model.LeshonSkullModel;
+import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import dev.mrsterner.bewitchmentplus.common.item.LeshonSkullItem;
-import software.bernie.geckolib3.renderers.geo.GeoArmorRenderer;
+import software.bernie.geckolib.model.DefaultedItemGeoModel;
+import software.bernie.geckolib.renderer.GeoArmorRenderer;
 
 public class LeshonSkullArmorRenderer extends GeoArmorRenderer<LeshonSkullItem> {
     public LeshonSkullArmorRenderer() {
-        super(new LeshonSkullModel());
-        this.headBone = "armorHead";
+        super(new DefaultedItemGeoModel<>(BewitchmentPlus.id("leshon")));
     }
 }

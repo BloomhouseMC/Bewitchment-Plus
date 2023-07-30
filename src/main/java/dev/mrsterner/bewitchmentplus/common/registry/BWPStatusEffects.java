@@ -7,8 +7,9 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -25,7 +26,7 @@ public class BWPStatusEffects {
     }
 
     public static void init() {
-        STATUS_EFFECTS.keySet().forEach(effect -> Registry.register(Registry.STATUS_EFFECT, STATUS_EFFECTS.get(effect), effect));
+        STATUS_EFFECTS.keySet().forEach(effect -> Registry.register(Registries.STATUS_EFFECT, STATUS_EFFECTS.get(effect), effect));
     }
 
     public static class BWPStatusEffect extends StatusEffect {
@@ -42,7 +43,7 @@ public class BWPStatusEffects {
 
         @Override
         public void applyUpdateEffect(LivingEntity entity, int amplifier) {
-            for(StatusEffect statusEffect : Registry.STATUS_EFFECT){
+            for(StatusEffect statusEffect : Registries.STATUS_EFFECT){
                 if(!statusEffect.isBeneficial() && !statusEffect.equals(BWPStatusEffects.HALF_LIFE)){
                     entity.removeStatusEffect(statusEffect);
                 }

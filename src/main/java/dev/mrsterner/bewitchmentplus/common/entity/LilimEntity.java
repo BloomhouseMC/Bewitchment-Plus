@@ -36,7 +36,7 @@ public class LilimEntity extends BWHostileEntity {
 
 	public void tick() {
 		super.tick();
-		if (!this.world.isClient) {
+		if (!this.getWorld().isClient) {
 			BWComponents.BLOOD_COMPONENT.maybeGet(this).ifPresent((bloodComponent) -> {
 				if (this.getHealth() < this.getMaxHealth() && (this.age + this.getId()) % 40 == 0 && bloodComponent.getBlood() > 0) {
 					this.heal(1.0F);
@@ -46,7 +46,7 @@ public class LilimEntity extends BWHostileEntity {
 				}
 
 			});
-			if (this.world.isDay() && !this.world.isRaining() && this.world.isSkyVisible(this.getBlockPos())) {
+			if (this.getWorld().isDay() && !this.getWorld().isRaining() && this.getWorld().isSkyVisible(this.getBlockPos())) {
 				this.setOnFireFor(8);
 				this.onFireFromSun = true;
 			}
@@ -56,7 +56,7 @@ public class LilimEntity extends BWHostileEntity {
 
 	@Override
 	public boolean isInvulnerableTo(DamageSource damageSource) {
-		return damageSource.isExplosive() || damageSource.getSource() instanceof WitherSkullEntity;
+		return super.isInvulnerableTo(damageSource) || damageSource.getSource() instanceof WitherSkullEntity;
 	}
 
 	protected void initDataTracker() {

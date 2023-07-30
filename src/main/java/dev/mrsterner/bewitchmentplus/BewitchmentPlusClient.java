@@ -15,7 +15,7 @@ import dev.mrsterner.bewitchmentplus.common.item.GobletBlockItem;
 import dev.mrsterner.bewitchmentplus.common.item.StatueBlockItem;
 import dev.mrsterner.bewitchmentplus.common.network.packet.S2CBloodParticlesPacket;
 import dev.mrsterner.bewitchmentplus.common.registry.*;
-import moriyashiine.bewitchment.client.renderer.WitchArmorRenderer;
+import moriyashiine.bewitchment.client.render.WitchArmorRenderer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -38,9 +38,7 @@ import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import software.bernie.geckolib3.renderers.geo.GeoArmorRenderer;
-import software.bernie.geckolib3.renderers.geo.GeoItemRenderer;
-
+import software.bernie.geckolib.renderer.GeoItemRenderer;
 
 
 public class BewitchmentPlusClient implements ClientModInitializer {
@@ -73,14 +71,9 @@ public class BewitchmentPlusClient implements ClientModInitializer {
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 1 ? ((BedBlock) Block.getBlockFromItem(stack.getItem())).getColor().getFireworkColor() : 0xffffff, BWPObjects.WHITE_COFFIN, BWPObjects.ORANGE_COFFIN, BWPObjects.MAGENTA_COFFIN, BWPObjects.LIGHT_BLUE_COFFIN, BWPObjects.YELLOW_COFFIN, BWPObjects.LIME_COFFIN, BWPObjects.PINK_COFFIN, BWPObjects.GRAY_COFFIN, BWPObjects.LIGHT_GRAY_COFFIN, BWPObjects.CYAN_COFFIN, BWPObjects.PURPLE_COFFIN, BWPObjects.BLUE_COFFIN, BWPObjects.BROWN_COFFIN, BWPObjects.GREEN_COFFIN, BWPObjects.RED_COFFIN, BWPObjects.BLACK_COFFIN);
 
 
-		GeoItemRenderer.registerItemRenderer(BWPObjects.DRAGONBLOOD_STAFF, new DragonbloodStaffRenderer());
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(),BWPObjects.LOCACACA_LEAVES, BWPObjects.LOCACACA_BRANCH, BWPObjects.DRAGONFRUIT_BLOCK, BWPObjects.GOLD_STANDING_CANDELABRA,BWPObjects.NETHERITE_STANDING_CANDELABRA, BWPObjects.SILVER_STANDING_CANDELABRA, BWPObjects.BLOODROOT, BWPObjects.EMBERGRASS, BWPObjects.YEW_SAPLING, BWPObjects.YEW_DOOR, BWPObjects.YEW_TRAPDOOR, BWPObjects.YEW_CUT_LOG);
-		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, BWPObjects.YEW_SIGN.getTexture()));
 		ClientTickEvents.END_CLIENT_TICK.register(ClientTickHandler::clientTickEnd);
 		ClientPlayNetworking.registerGlobalReceiver(S2CBloodParticlesPacket.ID, S2CBloodParticlesPacket::handle);
-		GeoArmorRenderer.registerArmorRenderer(new LeshonSkullArmorRenderer(), BWPObjects.LESHON_SKULL);
-		GeoItemRenderer.registerItemRenderer(BWPObjects.LESHON_SKULL, new LeshonSkullItemRenderer());
-		TerraformBoatClientHelper.registerModelLayers(new Identifier(BewitchmentPlus.MODID, "yew"));
 		ArmorRenderer.register(new WitchArmorRenderer(new Identifier(BewitchmentPlus.MODID, "textures/entity/armor/death_robes.png"), null),  BWPObjects.DEATHS_HOOD, BWPObjects.DEATHS_ROBES, BWPObjects.DEATHS_FOOTWEAR);
 
 
@@ -100,15 +93,12 @@ public class BewitchmentPlusClient implements ClientModInitializer {
 
 
 		EntityRendererRegistry.register(BWPEntityTypes.MUTANDIS_ENTITY_ENTITY_TYPE, FlyingItemEntityRenderer::new);
-		EntityRendererRegistry.register(BWPEntityTypes.NIFFLER, NifflerEntityRenderer::new);
 		EntityRendererRegistry.register(BWPEntityTypes.LESHON, LeshonEntityRenderer::new);
 		EntityRendererRegistry.register(BWPEntityTypes.BLACK_DOG, BlackDogEntityRenderer::new);
 		EntityRendererRegistry.register(BWPEntityTypes.UNICORN, UnicornEntityRenderer::new);
 		EntityRendererRegistry.register(BWPEntityTypes.EFFIGY, EffigyEntityRenderer::new);
 		EntityRendererRegistry.register(BWPEntityTypes.YEW_BROOM, YewBroomEntityRenderer::new);
 		EntityRendererRegistry.register(BWPEntityTypes.CAMBION, CambionEntityRenderer::new);
-		EntityRendererRegistry.register(BWPEntityTypes.RUNE, RuneEntityRenderer::new);
-		EntityRendererRegistry.register(BWPEntityTypes.PHOENIX, PhoenixEntityRenderer::new);
 		//EntityRendererRegistry.register(BWPEntityTypes.DRAGON, DragonEntityRenderer::new);
 		EntityRendererRegistry.register(BWPEntityTypes.LILIM, LilimEntityRenderer::new);
 		//EntityRendererRegistry.register(BWPEntityTypes.DEATH, DeathEntityRenderer::new);

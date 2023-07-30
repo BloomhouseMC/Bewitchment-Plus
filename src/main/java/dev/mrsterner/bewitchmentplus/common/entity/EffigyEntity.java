@@ -10,16 +10,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Arm;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class EffigyEntity extends LivingEntity implements IAnimatable {
-    private final AnimationFactory factory = new AnimationFactory(this);
+public class EffigyEntity extends LivingEntity implements GeoEntity {
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private final DefaultedList<ItemStack> handItems;
     private final DefaultedList<ItemStack> armorItems;
     public EffigyEntity(EntityType<? extends LivingEntity> entityType, World world) {
@@ -69,18 +70,18 @@ public class EffigyEntity extends LivingEntity implements IAnimatable {
         .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, Double.MAX_VALUE);
     }
 
-    private <E extends IAnimatable> PlayState basicMovement(AnimationEvent<E> event) {
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.effigy.idle", true));
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+        controllerRegistrar.add(new AnimationController<>(this, "BasicMovement", 0, this::basicMovement));
+    }
+
+    private PlayState basicMovement(AnimationState<EffigyEntity> effigyEntityAnimationState) {
+        effigyEntityAnimationState.getController().setAnimation(RawAnimation.begin().thenLoop("animation.effigy.idle"));
         return PlayState.CONTINUE;
     }
 
     @Override
-    public void registerControllers(AnimationData animationData) {
-        animationData.addAnimationController(new AnimationController<>(this, "BasicMovement", 0, this::basicMovement));
-    }
-
-    @Override
-    public AnimationFactory getFactory() {
-        return factory;
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return cache;
     }
 }

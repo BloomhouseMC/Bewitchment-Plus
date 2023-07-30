@@ -1,9 +1,6 @@
 package dev.mrsterner.bewitchmentplus.common.ritualfunction;
 
-import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import dev.mrsterner.bewitchmentplus.common.BWPConfig;
-import dev.mrsterner.bewitchmentplus.common.entity.DeathEntity;
-import dev.mrsterner.bewitchmentplus.common.registry.BWPEntityTypes;
 import dev.mrsterner.bewitchmentplus.common.world.BWPWorldState;
 import moriyashiine.bewitchment.api.registry.RitualFunction;
 import moriyashiine.bewitchment.common.misc.BWUtil;

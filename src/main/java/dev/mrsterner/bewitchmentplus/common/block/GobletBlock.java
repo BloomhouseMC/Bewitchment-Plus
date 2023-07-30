@@ -8,12 +8,14 @@ import dev.mrsterner.bewitchmentplus.common.utils.RenderHelper;
 import moriyashiine.bewitchment.common.registry.BWObjects;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.ShulkerBoxBlockEntity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.*;
+import net.minecraft.loot.context.LootContextParameterSet;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.state.StateManager;
@@ -30,8 +32,6 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-
-import static net.minecraft.block.ShulkerBoxBlock.CONTENTS;
 
 public class GobletBlock extends Block implements BlockEntityProvider, Waterloggable {
     public static final IntProperty LIQUID_STATE = IntProperty.of("liquid_state", 0,4);
@@ -77,18 +77,19 @@ public class GobletBlock extends Block implements BlockEntityProvider, Waterlogg
     }
 
     @Override
-    public List<ItemStack> getDroppedStacks(BlockState state, net.minecraft.loot.context.LootContext.Builder builder) {
-        BlockEntity blockEntity = builder.getNullable(LootContextParameters.BLOCK_ENTITY);
+    public List<ItemStack> getDroppedStacks(BlockState state, LootContextParameterSet.Builder builder) {
+        BlockEntity blockEntity = builder.get(LootContextParameters.BLOCK_ENTITY);
         if (blockEntity instanceof GobletBlockEntity jarBlockEntity) {
-            builder = builder.putDrop(CONTENTS, (context, consumer) -> {
+            builder = builder.addDynamicDrop(ShulkerBoxBlock.CONTENTS_DYNAMIC_DROP_ID, (consumer) -> {
                 for(int i = 0; i < jarBlockEntity.size(); ++i) {
                     consumer.accept(jarBlockEntity.getStack(i));
                 }
             });
         }
-
         return super.getDroppedStacks(state, builder);
     }
+
+
 
     @Override
     public FluidState getFluidState(BlockState state) {

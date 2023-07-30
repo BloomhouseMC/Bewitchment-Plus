@@ -6,14 +6,14 @@ import moriyashiine.bewitchment.api.registry.Transformation;
 import moriyashiine.bewitchment.common.registry.BWComponents;
 import moriyashiine.bewitchment.common.registry.BWRegistries;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 public class BWPTransformations {
     public static final Transformation LESHON = new LeshonTransformation();
 
     public static void init(){
-        register(BWRegistries.TRANSFORMATIONS, "leshon", LESHON);
+        register(BWRegistries.TRANSFORMATION, "leshon", LESHON);
 
     }
 

@@ -112,7 +112,7 @@ public class MimicChestBlock extends AbstractChestBlock<MimicChestBlockEntity> i
 
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
-        return (this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite())).with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER).with(CHEST_TYPE, ChestType.SINGLE);
+        return (this.getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing().getOpposite())).with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER).with(CHEST_TYPE, ChestType.SINGLE);
     }
 
     public BlockState rotate(BlockState state, BlockRotation rotation) {
@@ -134,7 +134,7 @@ public class MimicChestBlock extends AbstractChestBlock<MimicChestBlockEntity> i
 
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
         if (state.get(WATERLOGGED)) {
-            world.createAndScheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+            world.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         }
 
         return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);

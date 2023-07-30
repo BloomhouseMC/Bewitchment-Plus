@@ -1,29 +1,42 @@
 package dev.mrsterner.bewitchmentplus.common.item;
 
+import dev.mrsterner.bewitchmentplus.client.renderer.LeshonSkullArmorRenderer;
+import dev.mrsterner.bewitchmentplus.client.renderer.LeshonSkullItemRenderer;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPStatusEffects;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPTransformations;
 import moriyashiine.bewitchment.common.registry.BWComponents;
+import net.minecraft.client.render.entity.model.BipedEntityModel;
+import net.minecraft.client.render.item.BuiltinModelItemRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib.animatable.GeoItem;
+import software.bernie.geckolib.animatable.client.RenderProvider;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.renderer.GeoArmorRenderer;
+import software.bernie.geckolib.renderer.GeoItemRenderer;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class LeshonSkullItem extends ArmorItem implements IAnimatable {
-    private final AnimationFactory factory = new AnimationFactory(this);
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+
+public class LeshonSkullItem extends ArmorItem implements GeoItem {
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private final Supplier<Object> renderProvider = GeoItem.makeRenderer(this);
     private final int SKULL_BREAKER_MAX = 20;
     private int skullBreaker = SKULL_BREAKER_MAX;
     public LeshonSkullItem(Settings settings) {
-        super(SKULL, EquipmentSlot.HEAD, settings.maxDamage(100));
+        super(SKULL, Type.HELMET, settings.maxDamage(100));
     }
 
     @Override
@@ -64,12 +77,15 @@ public class LeshonSkullItem extends ArmorItem implements IAnimatable {
     }
 
     public static final ArmorMaterial SKULL = new ArmorMaterial() {
-        public int getDurability(EquipmentSlot slot) {
-            return ArmorMaterials.CHAIN.getDurability(slot);
+
+        @Override
+        public int getDurability(Type type) {
+            return ArmorMaterials.CHAIN.getDurability(type);
         }
 
-        public int getProtectionAmount(EquipmentSlot slot) {
-            return ArmorMaterials.CHAIN.getProtectionAmount(slot);
+        @Override
+        public int getProtection(Type type) {
+            return ArmorMaterials.CHAIN.getProtection(type);
         }
 
         public int getEnchantability() {
@@ -97,18 +113,51 @@ public class LeshonSkullItem extends ArmorItem implements IAnimatable {
         }
     };
 
-    private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.skull.idle", true));
+    @Override
+    public void createRenderer(Consumer<Object> consumer) {
+        consumer.accept(new RenderProvider() {
+            private GeoArmorRenderer<?> renderer;
+            private GeoItemRenderer<?> itemRenderer;
+
+            @Override
+            public BuiltinModelItemRenderer getCustomRenderer() {
+                if(this.itemRenderer == null) {
+                    this.itemRenderer = new LeshonSkullItemRenderer();
+                }
+
+                return this.itemRenderer;
+            }
+
+            @Override
+            public BipedEntityModel<LivingEntity> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, BipedEntityModel<LivingEntity> original) {
+                if(this.renderer == null) {
+                    this.renderer = new LeshonSkullArmorRenderer();
+                }
+
+                this.renderer.prepForRender(livingEntity, itemStack, equipmentSlot, original);
+
+                return this.renderer;
+            }
+        });
+    }
+
+    @Override
+    public Supplier<Object> getRenderProvider() {
+        return renderProvider;
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+        controllerRegistrar.add(new AnimationController<>(this, "controller", this::play));
+    }
+
+    private PlayState play(AnimationState<LeshonSkullItem> state) {
+        state.getController().setAnimation(RawAnimation.begin().thenLoop("animation.skull.idle"));
         return PlayState.CONTINUE;
     }
 
     @Override
-    public void registerControllers(AnimationData animationData) {
-        animationData.addAnimationController(new AnimationController(this, "controller", 20, this::predicate));
-    }
-
-    @Override
-    public AnimationFactory getFactory() {
-        return factory;
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return cache;
     }
 }

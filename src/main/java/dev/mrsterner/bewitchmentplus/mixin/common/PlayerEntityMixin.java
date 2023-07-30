@@ -7,10 +7,8 @@ import dev.mrsterner.bewitchmentplus.common.interfaces.Magical;
 import dev.mrsterner.bewitchmentplus.common.registry.*;
 import dev.mrsterner.bewitchmentplus.common.transformation.LeshonLogic;
 import dev.mrsterner.bewitchmentplus.common.utils.BWPUtil;
-import dev.mrsterner.bewitchmentplus.common.world.BWPWorldState;
-import moriyashiine.bewitchment.client.network.packet.SpawnSmokeParticlesPacket;
-import moriyashiine.bewitchment.common.misc.BWUtil;
-import moriyashiine.bewitchment.common.network.packet.TransformationAbilityPacket;
+import moriyashiine.bewitchment.client.packet.SpawnSmokeParticlesPacket;
+import moriyashiine.bewitchment.common.packet.TransformationAbilityPacket;
 import moriyashiine.bewitchment.common.registry.BWComponents;
 import moriyashiine.bewitchment.common.registry.BWSoundEvents;
 import moriyashiine.bewitchment.common.registry.BWTransformations;
@@ -21,18 +19,15 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.nbt.NbtList;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Final;
@@ -82,7 +77,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Magical,
     @Inject(method = "tick", at = @At("TAIL"))
     private void leshonTransform(CallbackInfo ci){
 
-        if (!world.isClient) {
+        if (!getWorld().isClient) {
             PlayerEntity player = (PlayerEntity)(Object)this;
             if(player.getEquippedStack(EquipmentSlot.HEAD).getItem().equals(BWPObjects.LESHON_SKULL.asItem()) && !player.getEquippedStack(EquipmentSlot.HEAD).getOrCreateNbt().getBoolean("Broken")){
                 if(BWComponents.TRANSFORMATION_COMPONENT.get(player).getTransformation() == BWTransformations.HUMAN){
@@ -94,7 +89,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Magical,
                         TransformationAbilityPacket.useAbility(player, true);
                         PlayerLookup.tracking(this).forEach(trackingPlayer -> SpawnSmokeParticlesPacket.send(trackingPlayer, this));
                         SpawnSmokeParticlesPacket.send(player, this);
-                        world.playSound(null, getBlockPos(), BWSoundEvents.ENTITY_GENERIC_CURSE, getSoundCategory(), getSoundVolume(), getSoundPitch());
+                        getWorld().playSound(null, getBlockPos(), BWSoundEvents.ENTITY_GENERIC_CURSE, getSoundCategory(), getSoundVolume(), getSoundPitch());
                     });
                 }
             }else if(BWComponents.TRANSFORMATION_COMPONENT.get(player).getTransformation() == BWPTransformations.LESHON){
@@ -108,7 +103,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Magical,
                     LeshonLogic.handleAttributes(player);
                     PlayerLookup.tracking(this).forEach(trackingPlayer -> SpawnSmokeParticlesPacket.send(trackingPlayer, this));
                     SpawnSmokeParticlesPacket.send(player, this);
-                    world.playSound(null, getBlockPos(), BWSoundEvents.ENTITY_GENERIC_CURSE, getSoundCategory(), getSoundVolume(), getSoundPitch());
+                    getWorld().playSound(null, getBlockPos(), BWSoundEvents.ENTITY_GENERIC_CURSE, getSoundCategory(), getSoundVolume(), getSoundPitch());
                 });
             }
         }
@@ -118,10 +113,10 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Magical,
     }
     @Inject(method = "tick", at = @At("HEAD"))
     private void halfLife(CallbackInfo ci){
-        if(!world.isClient()) {
+        if(!getWorld().isClient()) {
             PlayerEntity player = (PlayerEntity) (Object) this;
             if (player.hasStatusEffect(BWPStatusEffects.HALF_LIFE) && player.getStatusEffect(BWPStatusEffects.HALF_LIFE).getDuration() < 10 && !BWPComponents.EFFIGY_COMPONENT.get(player).getHasEffigy()) {
-                player.damage(DamageSource.MAGIC, Float.MAX_VALUE);
+                player.damage(player.getWorld().getDamageSources().magic(), Float.MAX_VALUE);
             }
         }
     }
@@ -200,7 +195,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Magical,
             NbtCompound map = nbtList.getCompound(i);
             parsedMap.put(
                     NbtHelper.toBlockPos(map.getCompound("BlockPos")),
-                    NbtHelper.toBlockState(map.getCompound("BlockState"))
+                    NbtHelper.toBlockState(getWorld().createCommandRegistryWrapper(RegistryKeys.BLOCK), map.getCompound("BlockState"))
             );
         }
 

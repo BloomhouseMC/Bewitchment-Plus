@@ -9,7 +9,7 @@ import moriyashiine.bewitchment.common.Bewitchment;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.util.math.MatrixStack;
@@ -28,7 +28,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin(InGameHud.class)
-public abstract class InGameHudMixin extends DrawableHelper {
+public abstract class InGameHudMixin {
     @Unique
     private static final Identifier BWPLUS_BACKGROUND_TEXTURE = new Identifier(BewitchmentPlus.MODID, "textures/gui/inventory.png");
 
@@ -36,7 +36,7 @@ public abstract class InGameHudMixin extends DrawableHelper {
     private static final Identifier HALF_LIFE_HEARTS = new Identifier(BewitchmentPlus.MODID, "textures/gui/half_life_hearts.png");
 
     @Unique
-    private static final Identifier EMPTY_TEXTURE = new Identifier(Bewitchment.MODID, "textures/gui/empty.png");
+    private static final Identifier EMPTY_TEXTURE = new Identifier(Bewitchment.MOD_ID, "textures/gui/empty.png");
 
     @Unique
     private boolean boundSpecialBackground;
@@ -57,24 +57,22 @@ public abstract class InGameHudMixin extends DrawableHelper {
     @Shadow protected abstract PlayerEntity getCameraPlayer();
 
     @Inject(method = "renderStatusBars", at = @At(value = "INVOKE", shift = At.Shift.AFTER, ordinal = 3, target = "Lnet/minecraft/client/MinecraftClient;getProfiler()Lnet/minecraft/util/profiler/Profiler;"))
-    private void renderPre(MatrixStack matrices, CallbackInfo callbackInfo) {
+    private void renderPre(DrawContext context, CallbackInfo ci) {
         PlayerEntity player = getCameraPlayer();
         if (BewitchmentAPI.isVampire(player, true)) {
-            RenderSystem.setShaderTexture(0, HALF_LIFE_HEARTS);
             if (player.isInSneakingPose() && client.targetedEntity instanceof UnicornEntity livingEntity) {
-                drawHalfLife(matrices, livingEntity, scaledWidth / 2 + 13, scaledHeight / 2 + 9);
+                drawHalfLife(context, livingEntity, scaledWidth / 2 + 13, scaledHeight / 2 + 9);
             }
-            RenderSystem.setShaderTexture(0, GUI_ICONS_TEXTURE);
         }
     }
 
-    private void drawHalfLife(MatrixStack matrices, LivingEntity entity, int x, int y) {
+    private void drawHalfLife(DrawContext context, LivingEntity entity, int x, int y) {
         for(int i = 0; i < (int)entity.getHealth()/4; i++) {
-            drawTexture(matrices, (x - i * 8), y, 0,  0, 9, 9);
+            context.drawTexture(HALF_LIFE_HEARTS, (x - i * 8), y, 0,  0, 9, 9);
         }
     }
 
-    @ModifyVariable(method = "renderStatusEffectOverlay", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIII)V"))
+    @ModifyVariable(method = "renderStatusEffectOverlay", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTexture(Lnet/minecraft/util/Identifier;IIIIII)V"))
     private StatusEffectInstance drawCustomBackground(StatusEffectInstance effect) {
         if (effect.getEffectType() instanceof BWPStatusEffects.BWPStatusEffect) {
             assert this.client != null;
@@ -85,7 +83,7 @@ public abstract class InGameHudMixin extends DrawableHelper {
         return effect;
     }
 
-    @Inject(method = "renderStatusEffectOverlay", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIII)V", shift = At.Shift.AFTER))
+    @Inject(method = "renderStatusEffectOverlay", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTexture(Lnet/minecraft/util/Identifier;IIIIII)V", shift = At.Shift.AFTER))
     private void restoreDrawnBackground(CallbackInfo ci) {
         if (boundSpecialBackground) {
             RenderSystem.setShaderTexture(0, HandledScreen.BACKGROUND_TEXTURE);
@@ -94,11 +92,9 @@ public abstract class InGameHudMixin extends DrawableHelper {
     }
 
     @Inject(method = "drawHeart", at = @At("HEAD"), cancellable = true)
-    private void drawCustomHeart(MatrixStack matrices, InGameHud.HeartType type, int x, int y, int v, boolean blinking, boolean halfHeart, CallbackInfo ci) {
+    private void drawCustomHeart(DrawContext context, InGameHud.HeartType type, int x, int y, int v, boolean blinking, boolean halfHeart, CallbackInfo ci) {
         if (type == InGameHud.HeartType.NORMAL && MinecraftClient.getInstance().cameraEntity instanceof PlayerEntity player && player.hasStatusEffect(BWPStatusEffects.HALF_LIFE)) {
-            RenderSystem.setShaderTexture(0, HALF_LIFE_HEARTS);
-            drawTexture(matrices, x, y, halfHeart ? 9 : 0, v, 9, 9);
-            RenderSystem.setShaderTexture(0, GUI_ICONS_TEXTURE);
+            context.drawTexture(HALF_LIFE_HEARTS, x, y, halfHeart ? 9 : 0, v, 9, 9);
             ci.cancel();
         }
     }

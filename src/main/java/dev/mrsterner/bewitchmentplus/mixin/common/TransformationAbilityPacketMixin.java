@@ -1,8 +1,8 @@
 package dev.mrsterner.bewitchmentplus.mixin.common;
 
 import dev.mrsterner.bewitchmentplus.common.registry.BWPTransformations;
-import moriyashiine.bewitchment.client.network.packet.SpawnSmokeParticlesPacket;
-import moriyashiine.bewitchment.common.network.packet.TransformationAbilityPacket;
+import moriyashiine.bewitchment.client.packet.SpawnSmokeParticlesPacket;
+import moriyashiine.bewitchment.common.packet.TransformationAbilityPacket;
 import moriyashiine.bewitchment.common.registry.BWComponents;
 import moriyashiine.bewitchment.common.registry.BWScaleTypes;
 import moriyashiine.bewitchment.common.registry.BWSoundEvents;
@@ -38,7 +38,7 @@ public class TransformationAbilityPacketMixin {
     @Inject(method = "useAbility", at = @At(value = "HEAD"), cancellable = true)
     private static void useAbility(PlayerEntity player, boolean forced, CallbackInfo ci){
         if (BWComponents.TRANSFORMATION_COMPONENT.get(player).getTransformation() == BWPTransformations.LESHON && (forced)){
-            World world = player.world;
+            World world = player.getWorld();
             if(world instanceof ServerWorld serverWorld){
                 boolean isInAlternateForm = BWComponents.TRANSFORMATION_COMPONENT.get(player).isAlternateForm();
                 ScaleData width = BWScaleTypes.MODIFY_WIDTH_TYPE.getScaleData(player);

@@ -11,7 +11,7 @@ import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vector4f;
+import org.joml.Vector4f;
 
 import java.util.List;
 

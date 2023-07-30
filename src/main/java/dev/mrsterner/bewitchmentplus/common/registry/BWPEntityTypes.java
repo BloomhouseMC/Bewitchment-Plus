@@ -5,8 +5,9 @@ import dev.mrsterner.bewitchmentplus.common.entity.*;
 import dev.mrsterner.bewitchmentplus.common.item.itementity.MutandisItemEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.*;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.Heightmap;
 
 import java.util.LinkedHashMap;
@@ -31,22 +32,6 @@ public class BWPEntityTypes {
 			.defaultAttributes(BlackDogEntity::createAttributes)
 			.dimensions(EntityDimensions.changing(0.75f, 0.75f))
 			.spawnRestriction(SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BlackDogEntity::spawnRestriction)
-			.build());
-
-	public static final EntityType<NifflerEntity> NIFFLER = register("niffler", FabricEntityTypeBuilder
-			.<NifflerEntity>createMob()
-			.spawnGroup(SpawnGroup.CREATURE)
-			.entityFactory(NifflerEntity::new)
-			.defaultAttributes(NifflerEntity::createAttributes)
-			.dimensions(EntityDimensions.changing(0.5f, 0.5f))
-			.build());
-
-	public static final EntityType<PhoenixEntity> PHOENIX = register("phoenix",FabricEntityTypeBuilder
-			.<PhoenixEntity>createMob()
-			.spawnGroup(SpawnGroup.CREATURE)
-			.entityFactory(PhoenixEntity::new)
-			.defaultAttributes(PhoenixEntity::createAttributes)
-			.dimensions(EntityDimensions.changing(0.5f, 0.5f))
 			.build());
 
 	public static final EntityType<UnicornEntity> UNICORN = register("unicorn", FabricEntityTypeBuilder
@@ -97,12 +82,6 @@ public class BWPEntityTypes {
 			.dimensions(EntityDimensions.changing(0.75f, 3f))
 			.build());
 
-	public static final EntityType<RuneEntity> RUNE = register("rune", FabricEntityTypeBuilder
-			.<RuneEntity>create().spawnGroup(SpawnGroup.MISC)
-			.entityFactory(RuneEntity::new)
-			.dimensions(EntityDimensions.fixed(0F, 0F))
-			.build());
-
 	/*
 	public static final EntityType<DeathEntity> DEATH = register("death", FabricEntityTypeBuilder
 			.<DeathEntity>createLiving()
@@ -113,7 +92,7 @@ public class BWPEntityTypes {
 
 	 */
 
-	public static final EntityType<MutandisItemEntity> MUTANDIS_ENTITY_ENTITY_TYPE = Registry.register(Registry.ENTITY_TYPE, new Identifier(BewitchmentPlus.MODID, "mutanis_entity"),
+	public static final EntityType<MutandisItemEntity> MUTANDIS_ENTITY_ENTITY_TYPE = Registry.register(Registries.ENTITY_TYPE, new Identifier(BewitchmentPlus.MODID, "mutanis_entity"),
 	FabricEntityTypeBuilder.<MutandisItemEntity>create(SpawnGroup.MISC, MutandisItemEntity::new)
 	.dimensions(EntityDimensions.fixed(0.25F, 0.25F)).trackRangeBlocks(4).trackedUpdateRate(10).build());
 
@@ -125,6 +104,6 @@ public class BWPEntityTypes {
 	}
 
 	public static void init() {
-		ENTITY_TYPES.keySet().forEach(entityType -> Registry.register(Registry.ENTITY_TYPE, ENTITY_TYPES.get(entityType), entityType));
+		ENTITY_TYPES.keySet().forEach(entityType -> Registry.register(Registries.ENTITY_TYPE, ENTITY_TYPES.get(entityType), entityType));
 	}
 }

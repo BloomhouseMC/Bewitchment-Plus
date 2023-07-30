@@ -6,16 +6,17 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib.animatable.GeoBlockEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class MoonflowerBlockEntity extends BlockEntity implements IAnimatable {
-    private final AnimationFactory factory = new AnimationFactory(this);
+public class MoonflowerBlockEntity extends BlockEntity implements GeoBlockEntity {
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     public MoonflowerBlockEntity(BlockPos pos, BlockState state) {
         super(BWPBlockEntityTypes.MOONFLOWER_BLOCK_ENTITY, pos, state);
@@ -38,13 +39,6 @@ public class MoonflowerBlockEntity extends BlockEntity implements IAnimatable {
         }
     }
 
-
-    private <E extends BlockEntity & IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.moonflower."+getMoon(), true));
-        return PlayState.CONTINUE;
-    }
-
-
     @Override
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
@@ -56,12 +50,17 @@ public class MoonflowerBlockEntity extends BlockEntity implements IAnimatable {
     }
 
     @Override
-    public void registerControllers(AnimationData animationData) {
-        animationData.addAnimationController(new AnimationController<>(this, "controller", 0, this::predicate));
+    public void registerControllers(AnimatableManager.ControllerRegistrar controller) {
+        controller.add(new AnimationController<>(this, "c", 0, this::predicate));
+    }
+
+    private PlayState predicate(AnimationState<MoonflowerBlockEntity> state) {
+        state.getController().setAnimation(RawAnimation.begin().thenLoop("animation.moonflower."+getMoon()));
+        return PlayState.CONTINUE;
     }
 
     @Override
-    public AnimationFactory getFactory() {
-        return factory;
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return cache;
     }
 }

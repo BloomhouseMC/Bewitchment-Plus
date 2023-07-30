@@ -18,15 +18,15 @@ public abstract class LilithEntityMixin {
     @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lmoriyashiine/bewitchment/common/entity/living/LilithEntity;summonMinions(Lnet/minecraft/entity/mob/MobEntity;)V"))
     private void bwplus$injectLilimSpawn(CallbackInfo ci){
         LilithEntity lilithEntity = (LilithEntity) (Object)this;
-        boolean bl = lilithEntity.world.getEntitiesByClass(LilimEntity.class, new Box(lilithEntity.getBlockPos()).expand(32.0), (entity) -> true).stream().findAny().isEmpty();
+        boolean bl = lilithEntity.getWorld().getEntitiesByClass(LilimEntity.class, new Box(lilithEntity.getBlockPos()).expand(32.0), (entity) -> true).stream().findAny().isEmpty();
         if(bl){
             LilimEntity lilimEntity = BWPEntityTypes.LILIM.create(lilithEntity.getWorld());
             BWUtil.attemptTeleport(lilimEntity, lilithEntity.getBlockPos().up(), 3, true);
-            lilimEntity.initialize((ServerWorldAccess)lilithEntity.world, lilithEntity.world.getLocalDifficulty(lilithEntity.getBlockPos()), SpawnReason.EVENT, null, null);
+            lilimEntity.initialize((ServerWorldAccess)lilithEntity.getWorld(), lilithEntity.getWorld().getLocalDifficulty(lilithEntity.getBlockPos()), SpawnReason.EVENT, null, null);
             lilimEntity.setPitch(lilithEntity.getRandom().nextFloat() * 360.0F);
             lilimEntity.setTarget(lilithEntity.getTarget());
             lilimEntity.setPersistent();
-            lilithEntity.world.spawnEntity(lilimEntity);
+            lilithEntity.getWorld().spawnEntity(lilimEntity);
         }
     }
 }

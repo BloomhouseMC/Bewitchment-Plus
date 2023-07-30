@@ -27,13 +27,13 @@ public class EffigyComponent implements AutoSyncedComponent, ServerTickingCompon
     @Override
     public void serverTick() {
         if (effigyEntity != null) {
-            Entity effigyEntity = ((ServerWorld) player.world).getEntity(getEffigy());
+            Entity effigyEntity = ((ServerWorld) player.getWorld()).getEntity(getEffigy());
             if(effigyEntity instanceof EffigyEntity effigyEntity1){
                 if(!effigyEntity1.getStatusEffects().isEmpty()){
                     Map<StatusEffect, StatusEffectInstance> statusEffectsEffigy = effigyEntity1.getActiveStatusEffects();
                     statusEffectsEffigy.forEach((statusEffect, statusEffectInstance) -> player.addStatusEffect(statusEffectInstance));
                 }
-                ServerWorld serverWorld = (ServerWorld) effigyEntity.world;
+                ServerWorld serverWorld = (ServerWorld) effigyEntity.getWorld();
                 serverWorld.setChunkForced(effigyEntity.getChunkPos().x,effigyEntity.getChunkPos().z,true);
             }
         }

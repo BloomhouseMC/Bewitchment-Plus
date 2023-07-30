@@ -3,6 +3,7 @@ package dev.mrsterner.bewitchmentplus.mixin.client;
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import dev.mrsterner.bewitchmentplus.common.registry.BWPStatusEffects;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.AbstractInventoryScreen;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.util.math.MatrixStack;
@@ -30,7 +31,7 @@ public abstract class AbstractInventoryScreenMixin<T extends ScreenHandler> exte
         super(container, playerInventory, name);
     }
 
-    @ModifyArgs(method = "drawStatusEffectDescriptions", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/effect/StatusEffectUtil;durationToString(Lnet/minecraft/entity/effect/StatusEffectInstance;F)Ljava/lang/String;"))
+    @ModifyArgs(method = "drawStatusEffectDescriptions", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/effect/StatusEffectUtil;getDurationText(Lnet/minecraft/entity/effect/StatusEffectInstance;F)Lnet/minecraft/text/Text;"))
     private void stopDrawingDurationWhenSpecialEffect(Args args){
         StatusEffectInstance statusEffectInstance = args.get(0);
         if(statusEffectInstance.getEffectType() instanceof BWPStatusEffects.BWPStatusEffect && statusEffectInstance.getAmplifier() == 0){
@@ -49,8 +50,8 @@ public abstract class AbstractInventoryScreenMixin<T extends ScreenHandler> exte
         return effect;
     }
 
-    @Inject(method = "drawStatusEffectBackgrounds", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/ingame/AbstractInventoryScreen;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIII)V", shift = At.Shift.AFTER))
-    private void restoreDrawnBackground(MatrixStack matrices, int x, int height, Iterable<StatusEffectInstance> statusEffects, boolean bl, CallbackInfo ci) {
+    @Inject(method = "drawStatusEffectBackgrounds", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTexture(Lnet/minecraft/util/Identifier;IIIIII)V", shift = At.Shift.AFTER))
+    private void restoreDrawnBackground(DrawContext context, int x, int height, Iterable<StatusEffectInstance> statusEffects, boolean wide, CallbackInfo ci) {
         if (isBackgroundSwitched) {
             assert client != null;
             RenderSystem.setShaderTexture(0, BACKGROUND_TEXTURE);

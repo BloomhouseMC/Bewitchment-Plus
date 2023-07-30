@@ -29,20 +29,20 @@ public class C2SBloodParticlePacket {
 
     public static void handle(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler network, PacketByteBuf buf, PacketSender sender) {
         UUID uuid = buf.readUuid();
-        var entity = player.world.getEntityById(buf.readInt());
+        var entity = player.getWorld().getEntityById(buf.readInt());
 
         server.execute(() -> {
             if(entity != null){
                 if(entity instanceof CowEntity cowEntity){
-                    BWComponents.BLOOD_COMPONENT.maybeGet(player.world.getPlayerByUuid(uuid)).ifPresent(bloodComponent -> {
+                    BWComponents.BLOOD_COMPONENT.maybeGet(player.getWorld().getPlayerByUuid(uuid)).ifPresent(bloodComponent -> {
                         bloodComponent.fillBlood(1, false);
                     });
-                    player.world.getPlayerByUuid(uuid).clearStatusEffects();
+                    player.getWorld().getPlayerByUuid(uuid).clearStatusEffects();
 
                 }else if(entity instanceof WitherSkeletonEntity witherSkeletonEntity){
-                    (player.world.getPlayerByUuid(uuid)).addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 200), witherSkeletonEntity);
+                    (player.getWorld().getPlayerByUuid(uuid)).addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 200), witherSkeletonEntity);
                 }else{
-                    BWComponents.BLOOD_COMPONENT.maybeGet(player.world.getPlayerByUuid(uuid)).ifPresent(bloodComponent -> {
+                    BWComponents.BLOOD_COMPONENT.maybeGet(player.getWorld().getPlayerByUuid(uuid)).ifPresent(bloodComponent -> {
                         bloodComponent.fillBlood(1, false);
                     });
                 }

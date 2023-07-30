@@ -74,8 +74,8 @@ public class UnicornEntityModel<T extends UnicornEntity> extends AnimalModel<T> 
 
 	public void animateModel(T horseBaseEntity, float f, float g, float h) {
 		super.animateModel(horseBaseEntity, f, g, h);
-		float i = MathHelper.lerpAngle(horseBaseEntity.prevBodyYaw, horseBaseEntity.bodyYaw, h);
-		float j = MathHelper.lerpAngle(horseBaseEntity.prevHeadYaw, horseBaseEntity.headYaw, h);
+		float i = MathHelper.lerp(horseBaseEntity.prevBodyYaw, horseBaseEntity.bodyYaw, h);
+		float j = MathHelper.lerp(horseBaseEntity.prevHeadYaw, horseBaseEntity.headYaw, h);
 		float k = MathHelper.lerp(h, horseBaseEntity.prevPitch, horseBaseEntity.getPitch());
 		float l = j - i;
 		float m = k * 0.017453292F;

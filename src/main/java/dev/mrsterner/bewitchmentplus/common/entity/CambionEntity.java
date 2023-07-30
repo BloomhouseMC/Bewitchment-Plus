@@ -30,11 +30,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.context.LootContext;
+import net.minecraft.loot.context.LootContextParameterSet;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.registry.tag.StructureTags;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.tag.StructureTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
@@ -232,31 +233,9 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 	}
 
 	@Override
-	public void damageArmor(DamageSource damageSource, float damage) {
-		if (damage >= 0.0F) {
-			damage = damage / 4.0F;
-			if (damage < 1.0F) {
-				damage = 1.0F;
-			}
-			for (int i = 0; i < this.cambionInventory.size(); ++i) {
-				ItemStack itemstack = this.cambionInventory.getStack(i);
-				if ((!damageSource.isFire() || !itemstack.getItem().isFireproof())
-						&& itemstack.getItem() instanceof ArmorItem) {
-					int j = i;
-					itemstack.damage((int) damage, this, (p_214023_1_) -> {
-						p_214023_1_.sendEquipmentBreakStatus(EquipmentSlot.fromTypeIndex(EquipmentSlot.Type.ARMOR, j));
-					});
-				}
-			}
-		}
-	}
-
-
-
-	@Override
 	public void setBaby(boolean baby) {
 		this.getDataTracker().set(BABY, baby);
-		if (this.world != null && !this.world.isClient) {
+		if (this.getWorld() != null && !this.getWorld().isClient) {
 			EntityAttributeInstance entityAttributeInstance = this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
 			entityAttributeInstance.removeModifier(BABY_SPEED_BONUS);
 			if (baby) {
@@ -316,7 +295,7 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 	private ActionResult interactWithSpawnEgg(PlayerEntity player, Hand hand) {
 		ItemStack itemStack = player.getStackInHand(hand);
 		if (itemStack.getItem() instanceof SpawnEggItem spawnEggItem) {
-			if (this.world instanceof ServerWorld serverWorld) {
+			if (this.getWorld() instanceof ServerWorld serverWorld) {
 				spawnEggItem.spawnBaby(player, this, BWPEntityTypes.CAMBION, serverWorld, this.getPos(), itemStack);
 				return ActionResult.SUCCESS;
 			}
@@ -339,8 +318,8 @@ public class CambionEntity extends BWHostileEntity implements InventoryChangedLi
 
 	public List<ItemStack> getItemsFromLootTable(EquipmentSlot slot) {
 		if (EQUIPMENT_SLOT_ITEMS.containsKey(slot)) {
-			LootTable loot = this.world.getServer().getLootManager().getTable(EQUIPMENT_SLOT_ITEMS.get(slot));
-			LootContext.Builder lootcontext$builder = (new LootContext.Builder((ServerWorld) this.world)).parameter(LootContextParameters.THIS_ENTITY, this).random(this.getRandom());
+			LootTable loot = getWorld().getServer().getLootManager().getLootTable(EQUIPMENT_SLOT_ITEMS.get(slot));
+			LootContextParameterSet.Builder lootcontext$builder = (new LootContextParameterSet.Builder((ServerWorld) getWorld()).add(LootContextParameters.THIS_ENTITY, this));
 			return loot.generateLoot(lootcontext$builder.build(BWPLootTables.SLOT));
 		}
 		return null;

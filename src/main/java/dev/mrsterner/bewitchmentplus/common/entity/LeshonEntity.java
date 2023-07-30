@@ -1,10 +1,8 @@
 package dev.mrsterner.bewitchmentplus.common.entity;
 
-import dev.mrsterner.bewitchmentplus.common.BWPConfig;
 import dev.mrsterner.bewitchmentplus.common.entity.ai.LeshonMeleeAttackGoal;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -14,27 +12,19 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.tag.StructureTags;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.util.registry.RegistryEntry;
-import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.*;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 @SuppressWarnings("ALL")
-public class LeshonEntity extends HostileEntity implements IAnimatable {
+public class LeshonEntity extends HostileEntity implements GeoEntity {
     public static final TrackedData<Boolean> ATTACKING = DataTracker.registerData(LeshonEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-    private final AnimationFactory factory = new AnimationFactory(this);
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+
     public Vec3d motionCalc = new Vec3d(0,0,0);
     public boolean isAttacking = false;
 
@@ -76,68 +66,53 @@ public class LeshonEntity extends HostileEntity implements IAnimatable {
         this.dataTracker.set(ATTACKING, isAttacking);
     }
 
-    private <E extends IAnimatable> PlayState devMovement(AnimationEvent<E> animationEvent) {
-        AnimationBuilder builder = new AnimationBuilder();
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+        controllerRegistrar.add(new AnimationController(this, "DevMovement", 2, this::devMovement));
+    }
+
+    private PlayState devMovement(AnimationState state) {
         boolean isMovingHorizontal = Math.sqrt(Math.pow(motionCalc.x, 2) + Math.pow(motionCalc.z, 2)) > 0.005;
         if (this.isSleeping()) {
-            builder.addAnimation("animation.leshon.quad.sleep", true);
+            state.setAnimation(RawAnimation.begin().thenLoop("animation.leshon.quad.sleep"));
         }else if (this.getPose() == EntityPose.SWIMMING || this.touchingWater) {
-            builder.addAnimation("animation.leshin.standing.swim", true);
+            state.setAnimation(RawAnimation.begin().thenLoop("animation.leshin.standing.swim"));
         }else if (!this.isOnGround() && motionCalc.getY() < -0.6) {
             if (!this.isClimbing()) {
-                builder.addAnimation("animation.leshon.standing.fall", false);
+                state.setAnimation(RawAnimation.begin().thenLoop("animation.leshon.standing.fall"));
             }
         }else if(this.handSwinging){
-            builder.addAnimation("animation.leshon.standing.attack", false);
+            state.setAnimation(RawAnimation.begin().then("animation.leshon.standing.attack", Animation.LoopType.PLAY_ONCE));
         } else if (this.isSneaking()) {
             if (isMovingHorizontal) {
                 if(this.forwardSpeed < 0){
-                    builder.addAnimation("animation.leshon.standing.sneakDev_back", true);
+                    state.setAnimation(RawAnimation.begin().thenLoop("animation.leshon.standing.sneakDev_back"));
                 }else{
-                    builder.addAnimation("animation.leshon.standing.sneakDev", true);
+                    state.setAnimation(RawAnimation.begin().thenLoop("animation.leshon.standing.sneakDev"));
                 }
             } else {
-                builder.addAnimation("animation.leshon.standing.sneak_idle", true);
+                state.setAnimation(RawAnimation.begin().thenLoop("animation.leshon.standing.sneak_idle"));
             }
         }else {
             if (this.isSprinting()) {
-                builder.addAnimation("animation.leshon.quad.runningDev", true);
+                state.setAnimation(RawAnimation.begin().thenLoop("animation.leshon.quad.runningDev"));
                 if(this.handSwinging){
-                    builder.addAnimation("animation.leshon.quad.attack", false);
+                    state.setAnimation(RawAnimation.begin().then("animation.leshon.quad.attack", Animation.LoopType.PLAY_ONCE));
                 }
             }else if(this.forwardSpeed < 0){
-                builder.addAnimation("animation.leshon.standing.walk_back", true);
-            }else if (isMovingHorizontal || animationEvent.isMoving()) {
-                builder.addAnimation("animation.leshon.standing.walk", true);
+                state.setAnimation(RawAnimation.begin().thenLoop("animation.leshon.standing.walk_back"));
+            }else if (isMovingHorizontal || state.isMoving()) {
+                state.setAnimation(RawAnimation.begin().thenLoop("animation.leshon.standing.walk"));
             }
         }
-        if(animationEvent.getController().getCurrentAnimation() == null || builder.getRawAnimationList().size() <= 0){
-            builder.addAnimation( "animation.leshon.standing.idle", true);
+        if(state.getController().getCurrentAnimation() == null){
+            state.setAnimation(RawAnimation.begin().thenLoop("animation.leshon.standing.idle"));
         }
-        animationEvent.getController().setAnimation(builder);
         return PlayState.CONTINUE;
     }
 
-    private <E extends IAnimatable> PlayState devAttack(AnimationEvent<E> animationEvent) {
-        /*
-        if (this.getDataTracker().get(ATTACKING)) {
-            animationEvent.getController().setAnimation(new AnimationBuilder().addAnimation("animation.leshon.standing.attack", true));
-            return PlayState.CONTINUE;
-        }
-        return PlayState.STOP;
-
-         */
-        return PlayState.STOP;
-    }
-
     @Override
-    public void registerControllers(AnimationData animationData) {
-        animationData.addAnimationController(new AnimationController(this, "DevMovement", 2, this::devMovement));
-        animationData.addAnimationController(new AnimationController(this, "DevAttack", 2, this::devAttack));
-    }
-
-    @Override
-    public AnimationFactory getFactory() {
-        return factory;
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return cache;
     }
 }

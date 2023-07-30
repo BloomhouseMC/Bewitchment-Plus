@@ -5,9 +5,9 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Waterloggable;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemUsageContext;
+import net.minecraft.registry.Registries;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.registry.Registry;
 
 public class MutandisItem extends Item {
     public static final BooleanProperty WATERLOGGED = BooleanProperty.of("waterlogged");
@@ -19,7 +19,7 @@ public class MutandisItem extends Item {
     public ActionResult useOnBlock(ItemUsageContext context) {
         if(context.getWorld().getBlockState(context.getBlockPos()).isIn(BWPTags.MUTANDIS)){
             BlockState blockState = context.getWorld().getBlockState(context.getBlockPos());
-            blockState = Registry.BLOCK.getEntryList(BWPTags.MUTANDIS).flatMap((blocks) -> blocks.getRandom(context.getWorld().random)).map((blockEntry) -> (blockEntry.value()).getDefaultState()).orElse(blockState);
+            blockState = Registries.BLOCK.getEntryList(BWPTags.MUTANDIS).flatMap((blocks) -> blocks.getRandom(context.getWorld().random)).map((blockEntry) -> (blockEntry.value()).getDefaultState()).orElse(blockState);
             if(blockState.getBlock() instanceof Waterloggable){
                 context.getWorld().setBlockState(context.getBlockPos(),blockState.with(WATERLOGGED, false));
             }else{

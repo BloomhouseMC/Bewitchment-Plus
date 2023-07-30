@@ -11,8 +11,8 @@ import net.minecraft.entity.projectile.thrown.PotionEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.Packet;
 import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.server.world.ServerWorld;
@@ -111,29 +111,24 @@ public class MimicChestBlockEntity extends ChestBlockEntity implements TaglockHo
     @Override
     public void onOpen(PlayerEntity player) {
         super.onOpen(player);
-        if(player.world instanceof ServerWorld serverWorld){
+        if(player.getWorld() instanceof ServerWorld serverWorld){
             BWPWorldState worldState = BWPWorldState.get(serverWorld);
             for (int i = worldState.mimicChestsPair.size() - 1; i >= 0; i--) {
                 if(worldState.mimicChestsPair.get(i).getRight().equals(pos.asLong())){
                     if(!player.getUuid().equals(worldState.mimicChestsPair.get(i).getLeft())){
-                        if (!player.world.isClient && !splashPotionInventory.isEmpty()) {
+                        if (!player.getWorld().isClient && !splashPotionInventory.isEmpty()) {
                             ItemStack itemStack = splashPotionInventory.get(0);
                             PotionUtil.setPotion(itemStack, PotionUtil.getPotion(itemStack));
                             PotionEntity potionEntity = new PotionEntity(world, pos.getX(), pos.getY(), pos.getZ());
                             potionEntity.setItem(itemStack);
                             potionEntity.setVelocity(player, -player.getMovementDirection().asRotation(), 45, -20.0f, 0.5f, 1.0f);//TODO Change source to worldstate player owner
-                            player.world.spawnEntity(potionEntity);
+                            player.getWorld().spawnEntity(potionEntity);
                             splashPotionInventory.get(0).decrement(1);
                         }
                     }
                 }
             }
         }
-
-    }
-
-    protected void onInvOpenOrClose(World world, BlockPos pos, BlockState state, int oldViewerCount, int newViewerCount) {
-        super.onInvOpenOrClose(world, pos, state, oldViewerCount, newViewerCount);
 
     }
 
