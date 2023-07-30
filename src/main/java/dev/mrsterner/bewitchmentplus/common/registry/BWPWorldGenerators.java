@@ -5,33 +5,21 @@ import dev.mrsterner.bewitchmentplus.common.BWPConfig;
 import dev.mrsterner.bewitchmentplus.common.entity.BlackDogEntity;
 import dev.mrsterner.bewitchmentplus.common.entity.CambionEntity;
 import dev.mrsterner.bewitchmentplus.common.entity.LeshonEntity;
-import dev.mrsterner.bewitchmentplus.common.world.feature.LotusTreeFeature;
-import dev.mrsterner.bewitchmentplus.common.world.feature.YewTreeFeature;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnRestriction;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.intprovider.ClampedIntProvider;
-import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.ProbabilityConfig;
 import net.minecraft.world.gen.feature.*;
-import net.minecraft.world.gen.placementmodifier.*;
-import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 
 import java.util.function.Predicate;
 
-import static net.minecraft.world.gen.feature.VegetationPlacedFeatures.modifiers;
 
-
-public class BWPWorldGenerators extends ConfiguredFeatures{
+public class BWPWorldGenerators {
 
     public static final RegistryKey<ConfiguredFeature<?,?>> YEW = ConfiguredFeatures.of(BewitchmentPlus.MODID + ":yew");
     public static final RegistryKey<PlacedFeature> TREE_YEW = PlacedFeatures.of(BewitchmentPlus.MODID + ":tree_yew");

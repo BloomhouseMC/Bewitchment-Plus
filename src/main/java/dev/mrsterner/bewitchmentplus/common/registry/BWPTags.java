@@ -19,6 +19,4 @@ public class BWPTags {
 
     public static final TagKey<Block> MUTANDIS = TagKey.of(RegistryKeys.BLOCK, new Identifier(BewitchmentPlus.MODID, "mutandis"));
     public static final TagKey<Block> FLEECE = TagKey.of(RegistryKeys.BLOCK, new Identifier(BewitchmentPlus.MODID, "fleece"));
-
-
 }

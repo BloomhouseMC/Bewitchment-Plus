@@ -1,5 +1,7 @@
 package dev.mrsterner.bewitchmentplus.common.registry;
 
+import com.terraformersmc.terraform.sign.block.TerraformSignBlock;
+import com.terraformersmc.terraform.sign.block.TerraformWallSignBlock;
 import dev.mrsterner.bewitchmentplus.BewitchmentPlus;
 import dev.mrsterner.bewitchmentplus.common.block.*;
 import dev.mrsterner.bewitchmentplus.common.block.yew.*;
@@ -144,9 +146,9 @@ public class BWPObjects {
 	public static final Block YEW_CHEST = register("yew_chest", new YewChestBlock(copyOf(Blocks.CHEST), () -> BWPBlockEntityTypes.YEW_CHEST_BLOCK_ENTITY, false), true);
 	public static final Block TRAPPED_YEW_CHEST = register("trapped_yew_chest", new YewChestBlock(copyOf(Blocks.CHEST), () -> BWPBlockEntityTypes.YEW_CHEST_BLOCK_ENTITY, true), true);
 	public static final Identifier YEW_SIGN_TEXTURE = new Identifier(BewitchmentPlus.MODID, "entity/sign/yew");
-	//public static final YewSignBlock YEW_SIGN = register("yew_sign", new YewSignBlock(YEW_SIGN_TEXTURE, copyOf(Blocks.OAK_SIGN)), false);
-	//public static final Block YEW_WALL_SIGN = register("yew_wall_sign", new YewWallSignBlock(YEW_SIGN_TEXTURE, copyOf(Blocks.OAK_WALL_SIGN)), false);
-	//public static final Item YEW_SIGN_ITEM = register("yew_sign", new SignItem(gen().maxCount(16), YEW_SIGN, YEW_WALL_SIGN));
+	public static final TerraformSignBlock YEW_SIGN = register("yew_sign", new TerraformSignBlock(YEW_SIGN_TEXTURE, copyOf(Blocks.OAK_SIGN)), false);
+	public static final Block YEW_WALL_SIGN = register("yew_wall_sign", new TerraformWallSignBlock(YEW_SIGN_TEXTURE, copyOf(Blocks.OAK_WALL_SIGN)), false);
+	public static final Item YEW_SIGN_ITEM = register("yew_sign", new SignItem(gen().maxCount(16), YEW_SIGN, YEW_WALL_SIGN));
 
 	public static final Block WHITE_COFFIN = register("white_blackstone_coffin", new CoffinBlock(DyeColor.WHITE, copyOf(Blocks.BLACKSTONE).nonOpaque()), true);
 	public static final Block ORANGE_COFFIN = register("orange_blackstone_coffin", new CoffinBlock(DyeColor.ORANGE, copyOf(Blocks.BLACKSTONE).nonOpaque()), true);

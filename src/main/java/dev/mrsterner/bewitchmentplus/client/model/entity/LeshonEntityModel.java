@@ -12,17 +12,7 @@ public class LeshonEntityModel extends DefaultedEntityGeoModel<LeshonEntity> {
     }
 
     @Override
-    public Identifier getModelResource(LeshonEntity object) {
-        return new Identifier(BewitchmentPlus.MODID, "geo/leshon.geo.json");
-    }
-
-    @Override
     public Identifier getTextureResource(LeshonEntity object) {
         return new Identifier(BewitchmentPlus.MODID, "textures/entity/leshon/leshon.png");
-    }
-
-    @Override
-    public Identifier getAnimationResource(LeshonEntity animatable) {
-        return new Identifier(BewitchmentPlus.MODID, "animations/leshon.animation.json");
     }
 }

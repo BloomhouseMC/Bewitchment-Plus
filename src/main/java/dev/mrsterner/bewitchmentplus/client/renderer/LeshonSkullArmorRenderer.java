@@ -7,6 +7,6 @@ import software.bernie.geckolib.renderer.GeoArmorRenderer;
 
 public class LeshonSkullArmorRenderer extends GeoArmorRenderer<LeshonSkullItem> {
     public LeshonSkullArmorRenderer() {
-        super(new DefaultedItemGeoModel<>(BewitchmentPlus.id("leshon")));
+        super(new DefaultedItemGeoModel<>(BewitchmentPlus.id("skull")));
     }
 }

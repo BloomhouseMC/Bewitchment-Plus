@@ -102,8 +102,8 @@ public class BewitchmentPlusClient implements ClientModInitializer {
 		//EntityRendererRegistry.register(BWPEntityTypes.DRAGON, DragonEntityRenderer::new);
 		EntityRendererRegistry.register(BWPEntityTypes.LILIM, LilimEntityRenderer::new);
 		//EntityRendererRegistry.register(BWPEntityTypes.DEATH, DeathEntityRenderer::new);
-
-
+		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, BWPObjects.YEW_SIGN.getTexture()));
+		TerraformBoatClientHelper.registerModelLayers(BewitchmentPlus.id("yew_boat"), false);
 
 		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.YEW_CHEST, (stack, mode, matrices, vertexConsumers, light, overlay) -> MinecraftClient.getInstance().getBlockEntityRenderDispatcher().renderEntity(new YewChestBlockEntity(BWPBlockEntityTypes.YEW_CHEST_BLOCK_ENTITY, BlockPos.ORIGIN, BWPObjects.YEW_CHEST.getDefaultState(), YewChestBlockEntity.Type.YEW, false), matrices, vertexConsumers, light, overlay));
 		BuiltinItemRendererRegistry.INSTANCE.register(BWPObjects.TRAPPED_YEW_CHEST, (stack, mode, matrices, vertexConsumers, light, overlay) -> MinecraftClient.getInstance().getBlockEntityRenderDispatcher().renderEntity(new YewChestBlockEntity(BWPBlockEntityTypes.YEW_CHEST_BLOCK_ENTITY, BlockPos.ORIGIN, BWPObjects.YEW_CHEST.getDefaultState(), YewChestBlockEntity.Type.YEW, true), matrices, vertexConsumers, light, overlay));

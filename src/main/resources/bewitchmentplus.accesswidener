@@ -11,5 +11,3 @@ accessible      method  net/minecraft/client/render/RenderLayer$MultiPhase      
 accessible      field   net/minecraft/client/render/RenderLayer$MultiPhaseParameters  texture         Lnet/minecraft/client/render/RenderPhase$TextureBase;
 accessible      method  net/minecraft/client/render/RenderPhase$TextureBase           getId           ()Ljava/util/Optional;
 mutable field net/minecraft/entity/LivingEntity limbAnimator Lnet/minecraft/entity/LimbAnimator;
-accessible method net/minecraft/world/gen/trunk/TrunkPlacerType register (Ljava/lang/String;Lcom/mojang/serialization/Codec;)Lnet/minecraft/world/gen/trunk/TrunkPlacerType;
-accessible method net/minecraft/world/gen/foliage/FoliagePlacerType register (Ljava/lang/String;Lcom/mojang/serialization/Codec;)Lnet/minecraft/world/gen/foliage/FoliagePlacerType;
